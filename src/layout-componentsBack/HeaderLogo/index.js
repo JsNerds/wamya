@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { IconButton, Box } from '@material-ui/core';
 
-import projectLogo from '../../assets/images/react.svg';
+import WamyaLogo from '../../assets/images/WaymyaLogoWhite.png';
 
 const HeaderLogo = props => {
   return (
@@ -15,18 +15,14 @@ const HeaderLogo = props => {
           className="header-logo-wrapper"
           title="Carolina React Admin Dashboard with Material-UI Free">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
-            <IconButton
-              color="primary"
-              size="medium"
-              className="header-logo-wrapper-btn">
               <img
-                className="app-header-logo-img"
                 alt="Carolina React Admin Dashboard with Material-UI Free"
-                src={projectLogo}
+                src={WamyaLogo}
+                width="120"
+                height="50"
               />
-            </IconButton>
           </Link>
-          <Box className="header-logo-text">Wamya</Box>
+          <Box className="header-logo-text"> Welcome To Dashboard ! </Box>
         </Box>
       </div>
     </Fragment>

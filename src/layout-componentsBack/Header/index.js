@@ -66,23 +66,7 @@ const Header = props => {
           </Hidden>
           <Hidden mdDown>
             <Box className="d-flex align-items-center">
-              <Button
-                href="https://uifort.com/template/carolina-react-admin-dashboard-material-ui-free"
-                target="_blank"
-                size="small"
-                variant="contained"
-                color="default"
-                className="mr-3">
-                Download now
-              </Button>
-              <Button
-                href="https://uifort.com/template/carolina-react-admin-dashboard-material-ui-pro"
-                target="_blank"
-                size="small"
-                variant="contained"
-                color="primary">
-                View PRO Version
-              </Button>
+              {/*** #Ahmed's PS : U can Put Notifications Here ***/}
             </Box>
           </Hidden>
           <Box className="d-flex align-items-center">

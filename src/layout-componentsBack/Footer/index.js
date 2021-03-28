@@ -18,29 +18,12 @@ const Footer = props => {
         <div className="app-footer--inner">
           <div className="app-footer--first">
             <List dense className="d-flex align-items-center">
-              <ListItem
-                className="rounded-sm text-nowrap"
-                button
-                component="a"
-                href="https://uifort.com/template/carolina-react-admin-dashboard-material-ui-free"
-                target="_blank"
-                rel="noopener">
-                <ListItemText primary="Download now" />
-              </ListItem>
-              <ListItem
-                className="rounded-sm text-nowrap"
-                button
-                component="a"
-                href="https://uifort.com/template/carolina-react-admin-dashboard-material-ui-pro"
-                target="_blank"
-                rel="noopener">
-                <ListItemText primary="View PRO Version" />
-              </ListItem>
+
             </List>
           </div>
           <div className="app-footer--second">
             <span>Wamya Admin Dashboard </span> ©
-            2021 - crafted By <span className="text-danger px-1">Js Nerds</span> by{' '}
+            2021 - crafted By  <span className="text-danger px-1">Js Nerds</span>
             <a
               href="https://uifort.com"
               rel="noopener"
