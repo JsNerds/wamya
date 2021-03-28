@@ -31,17 +31,13 @@ class CustomNavbar extends Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className={`navbar-nav menu ml-auto ${nClass}`}>
                                 <li className="nav-item dropdown submenu mega_menu mega_menu_two">
-                                    <Link to="./" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <Link to="/" className="nav-link dropdown-toggle">
                                         Home
                                     </Link>
                                 </li>
                                 
                                 <li className="dropdown submenu nav-item">
-                                    <Link to="./" title="Pages" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Service</Link>
-                                    <ul role="menu" className=" dropdown-menu">
-                                        <li className="nav-item"><NavLink exact title="Service" className="nav-link" to='/Service'>Service</NavLink></li>
-                                        <li className="nav-item"><NavLink exact title="Service Details" className="nav-link" to='/ServiceDetails'>Service Details</NavLink></li>
-                                    </ul>
+                                    <Link to="/Service" className="dropdown-toggle nav-link" >Services</Link>                         
                                 </li>
                                 <li className="dropdown submenu nav-item">
                                     <Link to="./" title="Pages" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</Link>
@@ -75,7 +71,7 @@ class CustomNavbar extends Component {
                                 </li>
                                 <li className="nav-item"><NavLink title="Pricing" className="nav-link" to="/Contact">Contact</NavLink></li>
                             </ul>
-                            <a className={`btn_get btn_hover ${hbtnClass}`} href="#get-app">Get Started</a>
+                            <Link to="/SignUp" className={`btn_get btn_hover ${hbtnClass}`} href="#get-app">Sign Up / Sign in</Link>
                         </div>
                     </div>
                 </nav>

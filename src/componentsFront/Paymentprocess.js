@@ -15,7 +15,7 @@ const Paymentprocess = () => {
                                     <img className="img_shape" src={require('../img/home9/icon_shape.png')} alt=""/>
                                     <img className="icon_img" src={require('../img/home9/icon2.png')}  alt=""/>
                                 </div>
-                                <h2>Quick & Easy Process</h2>
+                                <h2></h2>
                                 <p>Cras mush pardon you knees up he lost his bottle it's all gone to pot faff about porkies arse, barney argy-bargy cracking goal loo cheers spend.!</p>
                                 <a href=".#" className="btn_hover agency_banner_btn pay_btn">Sign Up for Free</a>
                                 <a href=".#" className="btn_hover agency_banner_btn pay_btn pay_btn_two">Sign Up for Free</a>

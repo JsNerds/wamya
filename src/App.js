@@ -10,6 +10,7 @@ import HomeCRM from "./PagesFront/Home-CRM";
 import About from "./PagesFront/About";
 import Service from "./PagesFront/Service";
 import Process from "./PagesFront/Process";
+import SignUp from "./pages/front/SignUp"
 import Team from "./PagesFront/Team";
 import Portfolio2col from "./PagesFront/Portfolio-2col";
 import Portfolio3col from "./PagesFront/Portfolio-3col";
@@ -24,7 +25,6 @@ import Price from "./PagesFront/Price";
 import Faq from "./PagesFront/Faq";
 import ServiceDetails from "./PagesFront/ServiceDetails";
 import SignIn from "./PagesFront/SignIn";
-import SignUp from "./PagesFront/SignUp";
 import BlogGridPage from "./PagesFront/BlogGridPage";
 import NotFound from "./PagesFront/404";
 
@@ -291,7 +291,7 @@ library.add(
 
 const store = configureStore();
 
-const user = true ;
+const user = false;
 
 
 class App extends Component {
@@ -340,7 +340,7 @@ class App extends Component {
           <ScrollToTopRoute path="/BlogGridPage" component={BlogGridPage} />
 
 
-
+          <ScrollToTopRoute path="/SignUp" component={SignUp} />
           <ScrollToTopRoute path="/Contact" component={Contact} />
           <ScrollToTopRoute path="/Landing" component={Landing} />
           <ScrollToTopRoute path="/Price" component={Price} />

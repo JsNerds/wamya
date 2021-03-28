@@ -1,5 +1,5 @@
 const ServiceData = {
-    STitle: 'You SaasLand wherever your business agency',
+    STitle: 'Wamya Services are the best !',
     Service: [
         {
             id : 1,
@@ -42,13 +42,13 @@ const ServiceData = {
     agtext2: 'Why I say old chap that is spiffing bodge, blag pardon.',
     agtext3: 'Starkers dropped a clanger lurgy is cack excuse my French what.',
     pServiceTitle: 'Our Services',
-    pServiceDetails: 'Why I say old chap that is, spiffing jolly good a load of old tosh spend a penny tosser arse over.!',
+    pServiceDetails: 'these are the services our company covers',
     PaymentService: [
         {
             id: 1,
             image: 'icon4.png',
-            title: 'Safer',
-            description: 'Well at public scho cheeky bugger grub burke.'
+            title: 'Packages',
+            description: 'send packages wherever you want and it will arrive safe & sound to the location'
         },
         {
             id: 2,
@@ -60,13 +60,13 @@ const ServiceData = {
             id: 3,
             image: 'icon5.png',
             title: 'Convinient',
-            description: 'Well at public scho cheeky bugger grub burke.'
+            description: 'pick the time of availability'
         },
         {
             id: 4,
             image: 'icon8.png',
             title: 'Protected',
-            description: 'Well at public scho cheeky bugger grub burke.'
+            description: 'Digital signature protects your packages'
         },
         {
             id: 5,
