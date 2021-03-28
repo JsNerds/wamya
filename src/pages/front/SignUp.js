@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomNavbar from '../../componentsFront/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
-import SignUpForm from '../../componentsFront/SignUpForm';
+import SignUpForm from '../../components/front/SignUpForm';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 
