@@ -342,7 +342,7 @@ class App extends Component {
           <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
           <ScrollToTopRoute path="/BlogGridPage" component={BlogGridPage} />
 
-
+          <ScrollToTopRoute path="/Test" component={Packages}/>
           <ScrollToTopRoute path="/SignUp" component={SignUp} />
           <ScrollToTopRoute path="/SendPackage" component={Packages} />
           <ScrollToTopRoute path="/Contact" component={Contact} />
