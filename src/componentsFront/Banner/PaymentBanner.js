@@ -13,7 +13,7 @@ class PaymentBanner extends Component {
                             <h1 className="f_p f_700 f_size_50 w_color">Welcome Wamya ! </h1>
                             <p className="w_color f_p f_size_18">Do you need to send a package ?, Do you need to track the state of  your package ? you are in the right place ! </p>
                             <div className="action_btn d-flex align-items-center mt_60">
-                                <a href=".#" className="btn_hover agency_banner_btn">Send package</a>
+                                <Link to="/SendPackage" className="btn_hover agency_banner_btn">Send package</Link>
                                 <Link to="/Service" className="agency_banner_btn_two">Find Out More<i className="ti-arrow-right"></i></Link>
                             </div>
                         </div>
