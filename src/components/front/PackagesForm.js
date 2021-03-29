@@ -1,8 +1,33 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Packages from "../../pages/front/Packages";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
 export default class PackagesForm extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    
+  }
   render() {
+   function LocationMarker() {
+      const [position, setPosition] = useState(null)
+      const map = useMapEvents({
+        click() {
+          map.locate()
+        },
+        locationfound(e) {
+          setPosition(e.latlng)
+          map.flyTo(e.latlng, map.getZoom())
+        },
+      })
+    
+      return position === null ? null : (
+        <Marker position={position}>
+          <Popup>You are here</Popup>
+        </Marker>
+      )
+    }
     return (
       <section className="sign_in_area bg_color sec_pad">
         <div className="container">
@@ -39,66 +64,39 @@ export default class PackagesForm extends Component {
                     <div className="form-group text_box">
                       <label className="f_p text_c f_400">Dimension</label>
                       <div className="row">
-                        <div className="col-md-6">
-                          <label className="f_p text_c f_size_18">L : </label>
+                        <div className="col-md-3">
                           <input type="text" placeholder="Length" />
                         </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <input type="text" placeholder="Height" />
                         </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <input type="text" placeholder="Width" />
+                        <div className="col-md-3">
+                          <input type="text" placeholder="Height" />
+                        </div>
+                        <div className="col-md-3">
+                          <input type="text" placeholder="Quantity" />
                         </div>
                       </div>
-                    </div>
-                    <div className="form-group text_box">
-                      <label className="f_p text_c f_400">Email Address</label>
-                      <input type="text" placeholder="saasland@gmail.com" />
-                    </div>
-                    <div className="form-group text_box">
-                      <label className="f_p text_c f_400">Password</label>
-                      <input type="password" placeholder="******" />
-                    </div>
-                    <div className="extra mb_20">
-                      <div className="checkbox remember">
-                        <label>
-                          <input type="checkbox" /> I agree to terms and
-                          conditions of this website
-                        </label>
+                      <div className="row mt-4">
+                        <div className="col-md-12">
+                        <MapContainer
+                          center={[51.505, -0.09]}
+                          zoom={13}
+                          scrollWheelZoom={false}
+                        >
+                          <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+                          <LocationMarker />
+                        </MapContainer> 
+                        </div>
                       </div>
-
-                      <div className="forgotten-password">
-                        <a href="/#">Forgot Password?</a>
-                      </div>
-                    </div>
+                    </div> 
                     <div className="d-flex justify-content-between align-items-center">
                       <button type="submit" className="btn_three">
-                        Sign Up
+                        Send Package
                       </button>
-                      <div className="social_text d-flex ">
-                        <div className="lead-text">Or Sign up Using</div>
-                        <ul className="list-unstyled social_tag mb-0">
-                          <li>
-                            <a href="/#">
-                              <i className="ti-facebook"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="/#">
-                              <i className="ti-twitter-alt"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="/#">
-                              <i className="ti-google"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
                     </div>
                   </form>
                 </div>
