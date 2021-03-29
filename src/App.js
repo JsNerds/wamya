@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 /*------ PagesFront-----*/
 import  Home  from "./pages/front/Home";
+import SendPackages from "./pages/front/SendPackages";
+import MyPackages from './pages/front/MyPackages'
 import DigitalMarketing from "./PagesFront/Digital-marketing";
 import PaymentProcessing from "./PagesFront/Payment-processing";
 import HRManagement from "./PagesFront/HR-Management";
@@ -166,8 +168,6 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
-import Packages from "./pages/front/Packages";
-import CustomNavbar from "./componentsFront/CustomNavbar";
 library.add(
     far,
     faSquare,
@@ -337,14 +337,18 @@ class App extends Component {
           <ScrollToTopRoute path="/PortfolioSingle" component={PortfolioSingle}/>
 
 
+          {/**Package Management*/}
+          <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
+          <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
+          
           {/** Blog ***/}
           <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
           <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
           <ScrollToTopRoute path="/BlogGridPage" component={BlogGridPage} />
 
-          <ScrollToTopRoute path="/Test" component={Packages}/>
+          
           <ScrollToTopRoute path="/SignUp" component={SignUp} />
-          <ScrollToTopRoute path="/SendPackage" component={Packages} />
+          
           <ScrollToTopRoute path="/Contact" component={Contact} />
           <ScrollToTopRoute path="/Landing" component={Landing} />
           <ScrollToTopRoute path="/Price" component={Price} />

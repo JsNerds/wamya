@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import Packages from "../../pages/front/Packages";
+import Packages from "../../pages/front/SendPackages";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
 export default class PackagesForm extends Component {

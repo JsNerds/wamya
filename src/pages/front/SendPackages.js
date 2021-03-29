@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import CustomNavbar from '../../componentsFront/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
-import SignUpForm from '../../components/front/SignUpForm';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import PackagesForm from '../../components/front/PackagesForm'
-import {BrowserRouter as Router} from "react-router-dom";
 
-export default class Packages extends Component {
+
+export default class SendPackages extends Component {
     render() {
         return (
             <div>
