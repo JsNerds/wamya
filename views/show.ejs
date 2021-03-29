@@ -1,0 +1,40 @@
+<html>
+<body>
+<h2>  List Delivery man :  </h2>
+
+<a href="/delivery/adddelivery"> Add Delivery man </a>
+
+<table border="2">
+
+	<tr>
+		<td>ID</td>
+		<td>Full Name</td>
+		<td>Phone </td>
+		<td>Status </td>
+		<td>region </td>
+		<td>Action</td>
+	</tr>
+<% if(users.length > 0) {  %>
+<% for(var i=0 ; i< users.length ; i++) {    %>
+<tr>
+		<td><%= users[i]._id   %></td>
+		<td><%= users[i].FullName   %></td>
+		<td><%= users[i].Phone   %> </td>
+		<td><%= users[i].Status   %> </td>
+		<td><%= users[i].Region   %> </td>
+		<td>
+			<a href="/delivery/edit/delivery/<%= users[i]._id   %>">Edit</a>
+			<a href="/delivery/delete/<%= users[i]._id   %>">Remove</a>
+			<a href="/delivery/<%= users[i]._id   %>">Show</a>
+		</td>
+</tr>
+<%   }  %>
+<%   }else{  %>
+<h3> No delivery man found !!! </3>
+<%   }  %>
+</table>
+
+</body>
+
+
+</html>
