@@ -29,7 +29,12 @@ import ServiceDetails from "./PagesFront/ServiceDetails";
 import SignIn from "./PagesFront/SignIn";
 import BlogGridPage from "./PagesFront/BlogGridPage";
 import NotFound from "./PagesFront/404";
-
+import CustomerServiceDetails from "./pages/front/CustomerServiceDetails";
+import EntrepriseServiceDetails from "./pages/front/EntrepriseServiceDetails";
+import SignUpCustomer from "./pages/front/SignUpCustomer";
+import SignUpEntreprise from "./pages/front/SignUpEntreprise";
+import EntrepriseInterface from "./pages/front/EntrepriseInterface";
+import CustomerInterface from "./pages/front/CustomerInterface";
 
 
 
@@ -168,6 +173,7 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
+
 library.add(
     far,
     faSquare,
@@ -356,6 +362,16 @@ class App extends Component {
           <ScrollToTopRoute path="/ServiceDetails" component={ServiceDetails} />
           <ScrollToTopRoute path="/SignIn" component={SignIn} />
           <ScrollToTopRoute path="/SignUp" component={SignUp} />
+
+            {/*** Cutomser & Entreprise Module  ***/}
+            <ScrollToTopRoute path="/CustomerServiceDetails" component={CustomerServiceDetails} />
+            <ScrollToTopRoute path="/EntrepriseServiceDetails" component={EntrepriseServiceDetails} />
+            <ScrollToTopRoute path="/SignUpCustomer" component={SignUpCustomer} />
+            <ScrollToTopRoute path="/SignUpEntreprise" component={SignUpEntreprise} />
+            <ScrollToTopRoute path="/Payment" component={Payment} />
+            <ScrollToTopRoute path="/EntrepriseInterface" component={EntrepriseInterface} />
+            <ScrollToTopRoute path="/CustomerInterface" component={CustomerInterface} />
+
           <ScrollToTopRoute component={NotFound} />
         </Switch>
       </Router>
