@@ -37,7 +37,7 @@ class CustomNavbar extends Component {
                                 </li>
                                 
                                 <li className="dropdown submenu nav-item">
-                                    <Link to="/Service" className="dropdown-toggle nav-link" >Services</Link>                         
+                                    <Link to="/Service" className="dropdown-toggle nav-link" >Services</Link>
                                 </li>
                                 <li className="dropdown submenu nav-item">
                                     <Link to="./" title="Pages" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</Link>

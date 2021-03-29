@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 /*------ PagesFront-----*/
-import { Home } from "./PagesFront/Home";
+import  Home  from "./pages/front/Home";
 import DigitalMarketing from "./PagesFront/Digital-marketing";
 import PaymentProcessing from "./PagesFront/Payment-processing";
 import HRManagement from "./PagesFront/HR-Management";
@@ -167,6 +167,7 @@ import {
   faLink
 } from '@fortawesome/free-solid-svg-icons';
 import Packages from "./pages/front/Packages";
+import CustomNavbar from "./componentsFront/CustomNavbar";
 library.add(
     far,
     faSquare,
@@ -315,10 +316,11 @@ class App extends Component {
         </BrowserRouter>
       </Provider>
   ):
+      <>
 
-      <Router>
-        <Switch>
-          <ScrollToTopRoute exact={true} path={"/"} component={PaymentProcessing} />
+        <Router>
+          <Switch>
+          <ScrollToTopRoute exact={true} path={"/"} component={Home} />
           <ScrollToTopRoute path="/HR-Management" component={HRManagement} />
           <ScrollToTopRoute path="/Startup" component={Startup} />
           <ScrollToTopRoute path="/Home-CRM" component={HomeCRM} />
@@ -353,6 +355,7 @@ class App extends Component {
           <ScrollToTopRoute component={NotFound} />
         </Switch>
       </Router>
+      </>
 
   }
 
