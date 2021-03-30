@@ -162,7 +162,6 @@ const Routes = () => {
                     />
 
 >>>>>>> 7acb9d8a91c2b33c2fd5501085ebed0ab5d200f4
->>>>>>>
                   </motion.div>
                 </Switch>
               </LeftSidebar>
