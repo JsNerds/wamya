@@ -12,8 +12,11 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprintsBack';
 
 // Example PagesFront
 const LandingPage = lazy(() => import('./PagesBack/LandingPage'));
+<<<<<<< HEAD
 const Customers = lazy(() => import('./pages/back/Customers'));
 const Vehicules = lazy(() => import('./pages/back/Vehicules'));
+=======
+>>>>>>> 7acb9d8a91c2b33c2fd5501085ebed0ab5d200f4
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
 const Packages = lazy(() => import('./pages/back/Packages'));
 
@@ -79,8 +82,22 @@ const Routes = () => {
               path={[
                 '/AdminDashborad',
                 '/Customers',
-                '/Packages'
+<<<<<<< HEAD
+                '/Vehicules',
+                '/Packages',
+              ]}
+            >
+=======
+                '/Packages',
+
+                /** Cusomer & Entreprise Module **/
+
+                '/Customers',
+                '/Payments',
+                '/Entreprises',
+                '/UpdateCustomer'
               ]}>
+>>>>>>> 7acb9d8a91c2b33c2fd5501085ebed0ab5d200f4
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -88,6 +105,7 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
+<<<<<<<
                     transition={pageTransition}>
                     <Route
                       path="/AdminDashborad"
@@ -101,6 +119,50 @@ const Routes = () => {
                         path="/Packages"
                         component={Packages}
                     />
+=======
+<<<<<<< HEAD
+                    transition={pageTransition}
+                  >
+                    <Route path="/AdminDashborad" component={AdminDashborad} />
+                    <Route path="/Customers" component={Customers} />
+                    <Route path="/Vehicules" component={Vehicules} />
+                    <Route path="/Packages" component={Packages} />
+=======
+                    transition={pageTransition}>
+                    <Route
+                      path="/AdminDashborad"
+                      component={AdminDashborad}
+                    />
+                    <Route
+                        path="/Customers"
+                        component={Customers}
+                    />
+                    <Route
+                        path="/Packages"
+                        component={Packages}
+                    />
+
+
+                    {/** Cusomer & Entreprise Module**/}
+                    <Route
+                        path="/Customers"
+                        component={Customers}
+                    />
+                    <Route
+                        path="/Payments"
+                        component={Payments}
+                    />
+                    <Route
+                        path="/Entreprises"
+                        component={Entreprises}
+                    />
+                    <Route
+                        path="/UpdateCustomer"
+                        component={Entreprises}
+                    />
+
+>>>>>>> 7acb9d8a91c2b33c2fd5501085ebed0ab5d200f4
+>>>>>>>
                   </motion.div>
                 </Switch>
               </LeftSidebar>
