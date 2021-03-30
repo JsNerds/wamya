@@ -35,7 +35,8 @@ import SignUpCustomer from "./pages/front/SignUpCustomer";
 import SignUpEntreprise from "./pages/front/SignUpEntreprise";
 import EntrepriseInterface from "./pages/front/EntrepriseInterface";
 import CustomerInterface from "./pages/front/CustomerInterface";
-import Payment from './pages/front/Payment'
+import Payment from "./pages/front/Payment";
+
 
 
 

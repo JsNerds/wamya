@@ -8,6 +8,7 @@ import Sectitle from '../../componentsFront/Title/Sectitle'
 
 export default class MyPackages extends Component {
     render() {
+        let 
         return (
             <>
             <CustomNavbar slogo="sticky_logo" mClass="menu_four" nClass="w_menu ml-auto mr-auto"/>
