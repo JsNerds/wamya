@@ -14,7 +14,6 @@ export default class MyPackages extends Component {
         if (user === "Customer") {
             packageCont = (
                 <>
-                   
                     <PackageList />
                 </>
             );

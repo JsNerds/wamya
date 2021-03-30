@@ -1,7 +1,7 @@
 import React from 'react';
 import EntrepriseStats from "./EntrepriseStats";
 import EntrepriseDrivers from "./EntrepriseDrivers";
-import PackageSlider from "./PackageSlider";
+import PackageList from "./PackageList";
 
 const FaqSection =()=>{
     return(
@@ -39,7 +39,7 @@ const FaqSection =()=>{
                             </div>
 
                             <div className="tab-pane fade" id="Packages" role="tabpanel" aria-labelledby="price-tab">
-                                    <PackageSlider/>
+                                    <PackageList/>
                             </div>
                             <div className="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab">
 
