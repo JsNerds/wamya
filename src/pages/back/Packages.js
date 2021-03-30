@@ -9,7 +9,7 @@ export default function Packages() {
                 titleHeading="Packages"
                 titleDescription="Wonderful animated charts built with ApexCharts components."
             />
-            <ExampleWrapperSeamless sectionHeading="Customers Table">
+            <ExampleWrapperSeamless sectionHeading="Packages Table">
                 <CustomersTable/>
             </ExampleWrapperSeamless>
         </Fragment>

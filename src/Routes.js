@@ -71,7 +71,8 @@ const Routes = () => {
             <Route
               path={[
                 '/AdminDashborad',
-                '/Customers'
+                '/Customers',
+                '/Packages'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
