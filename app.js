@@ -13,6 +13,13 @@ var deliveryRouter = require('./routes/delivery');
 var vehiculeRouter = require('./routes/vehicule');
 var packageRouter = require('./routes/Package');
 
+//Customer & Entreprise Module's routers
+var customerRouter = require('./routes/customers');
+var entrepriseRouter = require('./routes/entreprise');
+var paymentRouter = require('./routes/payment');
+
+
+
 var app = express();
 const bodyParser = require('body-parser');
 
@@ -40,6 +47,13 @@ app.use('/users', usersRouter);
 app.use('/delivery', deliveryRouter);
 app.use('/vehicule', vehiculeRouter);
 app.use('/Package', packageRouter);
+
+
+//Customer & Entreprise Module's middlewares
+app.use('/customers', customerRouter);
+app.use('/entreprises', customerRouter);
+app.use('/payments', customerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
