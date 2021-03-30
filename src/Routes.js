@@ -92,6 +92,10 @@ const Routes = () => {
                     <Route path="/AdminDashborad" component={AdminDashborad} />
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
+                    transition={pageTransition}
+                    <Route path="/AdminDashborad" component={AdminDashborad} />
+                    <Route path="/Customers" component={Customers} />
+                    <Route path="/Packages" component={Packages} />
                     <Route path="/Vehicules" component={Vehicules} />
                     {/* Cusomer & Entreprise Module*/}
                     <Route path="/Customers" component={Customers} />

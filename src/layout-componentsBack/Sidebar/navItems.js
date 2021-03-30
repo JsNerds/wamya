@@ -70,7 +70,9 @@ export default [
     "icon": "ChatIcon",
     "content": [
       {
+
         "label": "Entreprises",
+
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Entreprises"
       }
@@ -135,7 +137,9 @@ export default [
     "icon": "ChatIcon",
     "content": [
       {
+
         "label": "Payments",
+
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Payments"
       }
