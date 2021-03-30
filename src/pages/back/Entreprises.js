@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 
 import {ExampleWrapperSeamless, PageTitle} from '../../layout-componentsBack';
-import CustomersTable from "../../components/back/CustomersTable";
-export default function Customers() {
+import EntreprisesTable from "../../components/back/EntreprisesTable";
+export default function Entreprises() {
     return (
         <Fragment>
             <PageTitle
-                titleHeading="Customers"
+                titleHeading="Entreprises"
                 titleDescription="Wonderful animated charts built with ApexCharts components."
             />
-            <ExampleWrapperSeamless sectionHeading="Customers Table">
-                <CustomersTable/>
+            <ExampleWrapperSeamless sectionHeading="Entreprises Table">
+                <EntreprisesTable/>
             </ExampleWrapperSeamless>
         </Fragment>
     );

@@ -72,7 +72,7 @@ export default [
       {
         "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Customers"
+        "to": "/Entreprises"
       }
     ]
   },
@@ -122,6 +122,11 @@ export default [
         "label": "Customers",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
+      },
+      {
+        "label": "Update Customer",
+        "description": "Wonderful animated charts built with ApexCharts components.",
+        "to": "/UpdateCustomer"
       }
     ]
   },
@@ -132,7 +137,7 @@ export default [
       {
         "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Customers"
+        "to": "/Payments"
       }
     ]
   }

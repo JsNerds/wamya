@@ -17,6 +17,12 @@ const Vehicules = lazy(() => import('./pages/back/Vehicules'));
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
 const Packages = lazy(() => import('./pages/back/Packages'));
 
+
+{/** Cusomer & Entreprise Module**/}
+const Customers = lazy(() => import('./pages/back/Customers'));
+const Payments = lazy(() => import('./pages/back/Payments'));
+const Entreprises = lazy(() => import('./pages/back/Entreprises'));
+
 const Routes = () => {
   const location = useLocation();
 
@@ -73,10 +79,8 @@ const Routes = () => {
               path={[
                 '/AdminDashborad',
                 '/Customers',
-                '/Vehicules',
-                '/Packages',
-              ]}
-            >
+                '/Packages'
+              ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -84,12 +88,19 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
-                    transition={pageTransition}
-                  >
-                    <Route path="/AdminDashborad" component={AdminDashborad} />
-                    <Route path="/Customers" component={Customers} />
-                    <Route path="/Vehicules" component={Vehicules} />
-                    <Route path="/Packages" component={Packages} />
+                    transition={pageTransition}>
+                    <Route
+                      path="/AdminDashborad"
+                      component={AdminDashborad}
+                    />
+                    <Route
+                        path="/Customers"
+                        component={Customers}
+                    />
+                    <Route
+                        path="/Packages"
+                        component={Packages}
+                    />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
