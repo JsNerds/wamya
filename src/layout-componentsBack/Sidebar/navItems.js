@@ -55,51 +55,51 @@ export default [
     ]
   }, 
    {
-    "label": "Deposits",
+    "label": "Deposits Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Data",
+        "label": "Example",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
     ]
   },  
   {
-    "label": "Entreprises",
+    "label": "Entreprises Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Data",
+        "label": "Entreprises",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Entreprises"
       }
     ]
   },
       {
-    "label": "Drivers",
+    "label": "Drivers Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Data",
+        "label": "Example",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
     ]
   },  
-      {
-    "label": "Vehicules",
+{
+    "label": "Vehicules Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Data",
+        "label": "Vehicules Table",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Vehicules"
       }
     ]
-  },  
+  }, 
    {
-    "label": "Packages",
+    "label": "Packages Management",
     "icon": "ChatIcon",
     "content": [
       {
@@ -115,7 +115,7 @@ export default [
     ]
   },
    {
-    "label": "Customers",
+    "label": "Customers Management",
     "icon": "ChatIcon",
     "content": [
       {
@@ -131,11 +131,11 @@ export default [
     ]
   },
   {
-    "label": "Payments",
+    "label": "Payments Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Data",
+        "label": "Payments",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Payments"
       }

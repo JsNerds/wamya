@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-
 import { ThemeProvider } from '@material-ui/styles';
-
 import MuiTheme from './theme';
 
 // Layout Blueprints
@@ -16,10 +14,6 @@ const Customers = lazy(() => import('./pages/back/Customers'));
 const Vehicules = lazy(() => import('./pages/back/Vehicules'));
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
 const Packages = lazy(() => import('./pages/back/Packages'));
-
-
-{/** Cusomer & Entreprise Module**/}
-const Customers = lazy(() => import('./pages/back/Customers'));
 const Payments = lazy(() => import('./pages/back/Payments'));
 const Entreprises = lazy(() => import('./pages/back/Entreprises'));
 
@@ -79,8 +73,13 @@ const Routes = () => {
               path={[
                 '/AdminDashborad',
                 '/Customers',
-                '/Packages'
-              ]}>
+                '/Vehicules',
+                '/Packages',
+                '/Payments',
+                '/Entreprises',
+                '/UpdateCustomer',
+              ]}
+            >
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -88,19 +87,17 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
-                    transition={pageTransition}>
-                    <Route
-                      path="/AdminDashborad"
-                      component={AdminDashborad}
-                    />
-                    <Route
-                        path="/Customers"
-                        component={Customers}
-                    />
-                    <Route
-                        path="/Packages"
-                        component={Packages}
-                    />
+                    transition={pageTransition}
+                  >
+                    <Route path="/AdminDashborad" component={AdminDashborad} />
+                    <Route path="/Customers" component={Customers} />
+                    <Route path="/Packages" component={Packages} />
+                    <Route path="/Vehicules" component={Vehicules} />
+                    {/* Cusomer & Entreprise Module*/}
+                    <Route path="/Customers" component={Customers} />
+                    <Route path="/Payments" component={Payments} />
+                    <Route path="/Entreprises" component={Entreprises} />
+                    <Route path="/UpdateCustomer" component={Entreprises} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>

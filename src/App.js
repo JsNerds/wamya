@@ -294,8 +294,7 @@ library.add(
 
 const store = configureStore();
 
-const user = true;
-
+const user = false;
 
 class App extends Component {
   componentDidMount() {
@@ -354,6 +353,10 @@ class App extends Component {
                   component={SendPackages}
                 />
                 <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
+                <ScrollToTopRoute
+                  path="/PackageDetail"
+                  component={PackageDetail}
+                />
 
                 {/** Blog ***/}
                 <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
