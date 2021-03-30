@@ -3,7 +3,6 @@ import CustomNavbar from '../../componentsFront/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
-import CustomerSignUpForm from "../../components/front/CustomerSignUpForm";
 import PaymentForm from "../../components/front/PaymentForm";
 
 const Payment = () => {

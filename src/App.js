@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import  Home  from "./pages/front/Home";
 import SendPackages from "./pages/front/SendPackages";
 import MyPackages from './pages/front/MyPackages'
-import DigitalMarketing from "./PagesFront/Digital-marketing";
-import PaymentProcessing from "./PagesFront/Payment-processing";
 import HRManagement from "./PagesFront/HR-Management";
 import Startup from "./PagesFront/Startup";
 import HomeCRM from "./PagesFront/Home-CRM";

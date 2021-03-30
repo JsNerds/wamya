@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import clsx from 'clsx';
 
-import { Paper, List, ListItem, ListItemText } from '@material-ui/core';
+import { Paper, List } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 
@@ -27,7 +27,6 @@ const Footer = props => {
             <a
               href="https://uifort.com"
               rel="noopener"
-              target="_blank"
               title="UiFort.com">
               UiFort.com
             </a>

@@ -6,10 +6,8 @@ import {
     Avatar,
     IconButton,
     Box,
-    Checkbox,
     Card,
-    CardContent,
-    Button
+    CardContent
 } from '@material-ui/core';
 
 import avatar1 from '../../assets/images/avatars/avatar1.jpg';

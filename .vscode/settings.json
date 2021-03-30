@@ -1,0 +1,5 @@
+{
+    "cssPeek.peekToExclude": [
+        "**/bower_components/**"
+    ]
+}
