@@ -173,6 +173,7 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
+import PackageDetail from "./components/front/PackageDetail";
 
 library.add(
     far,
@@ -346,6 +347,7 @@ class App extends Component {
           {/**Package Management*/}
           <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
           <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
+          <ScrollToTopRoute path="/PackageDetail" component={PackageDetail}/>
           
           {/** Blog ***/}
           <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
