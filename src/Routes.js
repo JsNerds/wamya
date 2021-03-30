@@ -14,6 +14,7 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprintsBack';
 const LandingPage = lazy(() => import('./PagesBack/LandingPage'));
 const Customers = lazy(() => import('./pages/back/Customers'));
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
+const Packages = lazy(() => import('./pages/back/Packages') );
 
 const Routes = () => {
   const location = useLocation();
@@ -89,6 +90,10 @@ const Routes = () => {
                     <Route
                         path="/Customers"
                         component={Customers}
+                    />
+                    <Route
+                        path="/Packages"
+                        component={Packages}
                     />
                   </motion.div>
                 </Switch>

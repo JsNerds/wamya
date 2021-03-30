@@ -300,7 +300,7 @@ library.add(
 
 const store = configureStore();
 
-const user = false;
+const user = true;
 
 
 class App extends Component {

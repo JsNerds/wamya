@@ -50,7 +50,7 @@ export default [
       {
         "label": "Admin Dashboard",
         "description": "This is a dashboard page example built using this template.",
-        "to": "/DashboardDefault"
+        "to": "/AdminDashborad"
       }
     ]
   }, 
@@ -92,9 +92,14 @@ export default [
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Dashboard",
         "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Customers"
+        "to": "/Packages"
+      },
+      {
+        "label": "Packages",
+        "description": "Wonderful animated charts built with ApexCharts components.",
+        "to": "/Packages"
       }
     ]
   },

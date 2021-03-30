@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import {ExampleWrapperSeamless, PageTitle} from '../../layout-componentsBack';
-import CustomersTable from "../../components/back/CustomersTable";
+import PackagesTable from "../../components/back/PackagesTable";
 export default function Packages() {
     return (
         <Fragment>
@@ -10,7 +10,7 @@ export default function Packages() {
                 titleDescription="Wonderful animated charts built with ApexCharts components."
             />
             <ExampleWrapperSeamless sectionHeading="Packages Table">
-                <CustomersTable/>
+                <PackagesTable/>
             </ExampleWrapperSeamless>
         </Fragment>
     );

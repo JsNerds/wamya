@@ -39,7 +39,7 @@ export default class PackageDetail extends Component {
                             </div>
                             <div className="info_item">
                                 <h6>Live Time:</h6>
-                                <p>2 Working Days</p>
+                                <p>Position</p>
                             </div>
                             <div className="info_item">
                                 <h6>Service Cost:</h6>
