@@ -92,7 +92,6 @@ const Routes = () => {
                     <Route path="/AdminDashborad" component={AdminDashborad} />
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
-                    transition={pageTransition}
                     <Route path="/AdminDashborad" component={AdminDashborad} />
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
