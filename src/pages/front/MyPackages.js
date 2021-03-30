@@ -9,7 +9,7 @@ import PackageList from "../../components/front/PackageList";
 
 export default class MyPackages extends Component {
     render() {
-        let user = "Customer";
+        let user = "Company";
         let packageCont = null;
         if (user === "Customer") {
             packageCont = (
@@ -24,7 +24,7 @@ export default class MyPackages extends Component {
                 </>
             );
         }
-        
+
         return (
             <>
                 <CustomNavbar
