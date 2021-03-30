@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var deliveryRouter = require('./routes/delivery');
 var vehiculeRouter = require('./routes/vehicule');
+var packageRouter = require('./routes/Package');
 
 var app = express();
 const bodyParser = require('body-parser');
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/delivery', deliveryRouter);
 app.use('/vehicule', vehiculeRouter);
+app.use('/Package', packageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

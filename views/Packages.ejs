@@ -1,0 +1,41 @@
+<html>
+<body>
+<h2>  List of Packages :  </h2>
+
+<a href="/Package/addstatic"> Add Package </a>
+
+<table border="2">
+
+	<tr>
+		<td>Id</td>
+		<td>Package Name</td>
+		<td>Phone </td>
+		<td>Status </td>
+		<td>region </td>
+		<td>Action</td>
+	</tr>
+<% if(package.length > 0) {  %>
+<% for(var i=0 ; i< package.length ; i++) {    %>
+<tr>
+		<td><%= package[i]._id   %></td>
+		<td><%= package[i].Name   %></td>
+		<td><%= package[i].dimension   %> </td>
+		<td><%= package[i].sourceAddress   %> </td>
+		<td><%= package[i].destinationAddress  %> </td>
+        <td><%= package[i].location %> </td>
+		<td>
+			<a href="/delivery/edit/delivery/<%= package[i]._id   %>">Edit</a>
+			<a href="/delivery/delete/<%= package[i]._id   %>">Remove</a>
+			<a href="/delivery/<%= package[i]._id   %>">Show</a>
+		</td>
+</tr>
+<%   }  %>
+<%   }else{  %>
+<h3> No Package found !!! </3>
+<%   }  %>
+</table>
+
+</body>
+
+
+</html>
