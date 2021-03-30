@@ -105,6 +105,7 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
+<<<<<<< Updated upstream
 <<<<<<<
                     transition={pageTransition}>
                     <Route
@@ -120,6 +121,8 @@ const Routes = () => {
                         component={Packages}
                     />
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
                     transition={pageTransition}
                   >
