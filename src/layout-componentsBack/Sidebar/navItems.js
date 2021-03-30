@@ -35,7 +35,7 @@ var iconsMap = {
   PersonIcon: PersonIcon,
   ReceiptIcon: ReceiptIcon,
   SettingsIcon: SettingsIcon,
-  ViewModuleIcon: ViewModuleIcon
+  ViewModuleIcon: ViewModuleIcon,
 };
 
 export default [
@@ -55,40 +55,51 @@ export default [
     ]
   }, 
    {
-    "label": "Deposits Management",
+    "label": "Deposits",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
     ]
   },  
   {
-    "label": "Entreprises Management",
+    "label": "Entreprises",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
     ]
   },
       {
-    "label": "Drivers Management",
+    "label": "Drivers",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
     ]
   },  
+      {
+    "label": "Vehicules",
+    "icon": "ChatIcon",
+    "content": [
+      {
+        "label": "Data",
+        "description": "Wonderful animated charts built with ApexCharts components.",
+        "to": "/Vehicules"
+      }
+    ]
+  },  
    {
-    "label": "Packages Management",
+    "label": "Packages",
     "icon": "ChatIcon",
     "content": [
       {
@@ -104,7 +115,7 @@ export default [
     ]
   },
    {
-    "label": "Customers Management",
+    "label": "Customers",
     "icon": "ChatIcon",
     "content": [
       {
@@ -115,11 +126,11 @@ export default [
     ]
   },
   {
-    "label": "Payments Management",
+    "label": "Payments",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Data",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
       }
@@ -133,6 +144,6 @@ export default [
           return value;
         }
       }
-    )
-  }
+    ),
+  },
 ];

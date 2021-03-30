@@ -13,8 +13,9 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprintsBack';
 // Example PagesFront
 const LandingPage = lazy(() => import('./PagesBack/LandingPage'));
 const Customers = lazy(() => import('./pages/back/Customers'));
+const Vehicules = lazy(() => import('./pages/back/Vehicules'));
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
-const Packages = lazy(() => import('./pages/back/Packages') );
+const Packages = lazy(() => import('./pages/back/Packages'));
 
 const Routes = () => {
   const location = useLocation();
@@ -22,22 +23,22 @@ const Routes = () => {
   const pageVariants = {
     initial: {
       opacity: 0,
-      scale: 0.99
+      scale: 0.99,
     },
     in: {
       opacity: 1,
-      scale: 1
+      scale: 1,
     },
     out: {
       opacity: 0,
-      scale: 1.01
-    }
+      scale: 1.01,
+    },
   };
 
   const pageTransition = {
     type: 'tween',
     ease: 'anticipate',
-    duration: 0.4
+    duration: 0.4,
   };
 
   return (
@@ -46,13 +47,11 @@ const Routes = () => {
         <Suspense
           fallback={
             <div className="d-flex align-items-center vh-100 justify-content-center text-center font-weight-bold font-size-lg py-3">
-              <div className="w-50 mx-auto">
-                Please wait while we load data
-              </div>
+              <div className="w-50 mx-auto">Please wait while we load data</div>
             </div>
-          }>
+          }
+        >
           <Switch>
-
             <Redirect exact from="/" to="/AdminDashborad" />
             <Route path={['/LandingPage']}>
               <PresentationLayout>
@@ -62,7 +61,8 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
-                    transition={pageTransition}>
+                    transition={pageTransition}
+                  >
                     <Route path="/LandingPage" component={LandingPage} />
                   </motion.div>
                 </Switch>
@@ -73,8 +73,10 @@ const Routes = () => {
               path={[
                 '/AdminDashborad',
                 '/Customers',
-                '/Packages'
-              ]}>
+                '/Vehicules',
+                '/Packages',
+              ]}
+            >
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -82,19 +84,12 @@ const Routes = () => {
                     animate="in"
                     exit="out"
                     variants={pageVariants}
-                    transition={pageTransition}>
-                    <Route
-                      path="/AdminDashborad"
-                      component={AdminDashborad}
-                    />
-                    <Route
-                        path="/Customers"
-                        component={Customers}
-                    />
-                    <Route
-                        path="/Packages"
-                        component={Packages}
-                    />
+                    transition={pageTransition}
+                  >
+                    <Route path="/AdminDashborad" component={AdminDashborad} />
+                    <Route path="/Customers" component={Customers} />
+                    <Route path="/Vehicules" component={Vehicules} />
+                    <Route path="/Packages" component={Packages} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
