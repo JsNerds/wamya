@@ -12,9 +12,14 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprintsBack';
 
 // Example PagesFront
 const LandingPage = lazy(() => import('./PagesBack/LandingPage'));
-const Customers = lazy(() => import('./pages/back/Customers'));
 const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
 const Packages = lazy(() => import('./pages/back/Packages') );
+
+
+{/** Cusomer & Entreprise Module**/}
+const Customers = lazy(() => import('./pages/back/Customers'));
+const Payments = lazy(() => import('./pages/back/Payments'));
+const Entreprises = lazy(() => import('./pages/back/Entreprises'));
 
 const Routes = () => {
   const location = useLocation();
@@ -73,7 +78,14 @@ const Routes = () => {
               path={[
                 '/AdminDashborad',
                 '/Customers',
-                '/Packages'
+                '/Packages',
+
+                /** Cusomer & Entreprise Module **/
+
+                '/Customers',
+                '/Payments',
+                '/Entreprises',
+                '/UpdateCustomer'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -95,6 +107,26 @@ const Routes = () => {
                         path="/Packages"
                         component={Packages}
                     />
+
+
+                    {/** Cusomer & Entreprise Module**/}
+                    <Route
+                        path="/Customers"
+                        component={Customers}
+                    />
+                    <Route
+                        path="/Payments"
+                        component={Payments}
+                    />
+                    <Route
+                        path="/Entreprises"
+                        component={Entreprises}
+                    />
+                    <Route
+                        path="/UpdateCustomer"
+                        component={Entreprises}
+                    />
+
                   </motion.div>
                 </Switch>
               </LeftSidebar>
