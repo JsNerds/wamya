@@ -43,6 +43,9 @@ class CustomNavbar extends Component {
                                     <Link to="./" title="Pages" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</Link>
                                     <ul role="menu" className=" dropdown-menu">
                                         <li className="nav-item"><NavLink exact title="About" className="nav-link" to='/MyPackages'>My Packages</NavLink></li>
+                                        <li className="nav-item"><NavLink exact title="About" className="nav-link" to='/CustomerInterface'>Customer Interface</NavLink></li>
+                                        <li className="nav-item"><NavLink exact title="About" className="nav-link" to='/EntrepriseInterface'>Entreprise Interface</NavLink></li>
+                                        <li className="nav-item"><NavLink exact title="About" className="nav-link" to='/Payment'>Payment</NavLink></li>
                                         <li className="nav-item"><NavLink exact title="Process" className="nav-link" to='/Process'>Process</NavLink></li>
                                         <li className="nav-item"><NavLink exact title="Team" className="nav-link" to='/Team'>Team</NavLink></li>
                                         <li className="nav-item"><NavLink exact title="Price" className="nav-link" to='/Price'>Price</NavLink></li>
