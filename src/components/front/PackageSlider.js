@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Slider from 'react-slick'
+import Slider from "react-slick";
+import Sectitle from '../../componentsFront/Title/Sectitle'
 
 export default class PackageSlider extends Component {
   render() {
@@ -45,154 +46,164 @@ export default class PackageSlider extends Component {
       ],
     };
     return (
-      <div className="container">
-      <Slider className="service_carousel" {...settings}>
-        <div className="service_item">
-          <div className="icon s_icon_one">
-            <i className="ti-check"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/undraw.png")}
-            alt=""
+      <section className="prototype_service_area_two">
+        <div className="container custom_container">
+          <Sectitle
+            Title="My Packages "
+            TitleP="WShow off show off pick your nose and blow off Elizabeth grub haggle dropped a clanger cracking.!"
+            tClass="t_color3"
+            sClass="sec_title text-center mb_70"
           />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_two">
-            <i className="ti-location-arrow"></i>
+          <div className="container">
+            <Slider className="service_carousel" {...settings}>
+              <div className="service_item">
+                <div className="icon s_icon_one">
+                  <i className="ti-check"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/undraw.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_two">
+                  <i className="ti-location-arrow"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/inbox.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_three">
+                  <i className="ti-search"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/file.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_four">
+                  <i className="ti-stats-up"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/report.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_one">
+                  <i className="ti-check"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/undraw.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_two">
+                  <i className="ti-location-arrow"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/inbox.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_three">
+                  <i className="ti-search"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/file.png")}
+                  alt=""
+                />
+              </div>
+              <div className="service_item">
+                <div className="icon s_icon_four">
+                  <i className="ti-stats-up"></i>
+                </div>
+                <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
+                  Mail Metrics
+                  <br /> Receive
+                </h4>
+                <p>
+                  Brolly off his nut A bit of how's your father chancer in my
+                  flat chinwag bog skive.
+                </p>
+                <img
+                  className="float-right"
+                  src={require("../../img/home2/report.png")}
+                  alt=""
+                />
+              </div>
+            </Slider>
           </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/inbox.png")}
-            alt=""
-          />
         </div>
-        <div className="service_item">
-          <div className="icon s_icon_three">
-            <i className="ti-search"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/file.png")}
-            alt=""
-          />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_four">
-            <i className="ti-stats-up"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/report.png")}
-            alt=""
-          />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_one">
-            <i className="ti-check"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/undraw.png")}
-            alt=""
-          />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_two">
-            <i className="ti-location-arrow"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/inbox.png")}
-            alt=""
-          />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_three">
-            <i className="ti-search"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/file.png")}
-            alt=""
-          />
-        </div>
-        <div className="service_item">
-          <div className="icon s_icon_four">
-            <i className="ti-stats-up"></i>
-          </div>
-          <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">
-            Mail Metrics
-            <br /> Receive
-          </h4>
-          <p>
-            Brolly off his nut A bit of how's your father chancer in my flat
-            chinwag bog skive.
-          </p>
-          <img
-            className="float-right"
-            src={require("../../img/home2/report.png")}
-            alt=""
-          />
-        </div>
-      </Slider>
-      </div>
+      </section>
     );
   }
 }
