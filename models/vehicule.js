@@ -5,10 +5,10 @@ var Vehicule = new Schema({
   registrationNumber: String,
   model: String,
   image: String,
-  weightCapacity: String,
+  weightCapacity: Number,
   trunkDimension: String,
-  deliveryMan: Number,
-  package: Number,
+  deliveryMan: String,
+  package: String,
 });
 
 module.exports = mongoose.model('vehicule', Vehicule);
