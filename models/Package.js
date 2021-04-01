@@ -1,12 +1,15 @@
 var mongoose = require('mongoose');
+var AddressSchema = require('./Address').AddressSchema
+var LocationSchema = require('./Location').LocationSchema
+
 var Schema = mongoose.Schema;
 
 var Package = new Schema({
   Name: String,
   dimension: [],
-  sourceAddress: [],
-  destinationAddress: [],
-  location: [],
+  sourceAddress: AddressSchema,
+  destinationAddress: AddressSchema,
+  location: LocationSchema,
   type: String,
   deliveryMan: Number,
   client: Number,

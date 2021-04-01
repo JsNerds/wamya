@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
     } else {
       res.render('Packages', { package: data });
     }
-  });
+  })
 });
 
 /* Render Add page from views. */
@@ -40,15 +40,15 @@ router.post('/add', function (req, res, next) {
   console.log(obj);
   const mynewPackage = {
     Name: obj.name,
-    Dimension: obj.dimension,
-    Status: obj.sourceAddress,
-    Region: obj.destinationAddress,
+    dimension: obj.dimension,
+    sourceAddress: obj.sourceAddress,
+    destinationAddress: obj.destinationAddress,
   };
-  delivery.create(mynewPackage, function (err) {
+  Package.create(mynewPackage, function (err) {
     if (err) {
-      res.render('/addPackage');
+      res.send(err)
     } else {
-      res.redirect('/Package');
+      res.send("added");
     }
   });
 });
@@ -68,11 +68,11 @@ router.post('/edit/:id', function (req, res, next) {
     }
   });
 });
-/* Delete contact*/
+/* Delete Package*/
 router.get('/delete/:id', function (req, res, next) {
-  delivery.findByIdAndRemove(req.params.id, function (err, docs) {
+  Package.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
-    res.redirect('/delivery');
+    res.redirect('/Package');
   });
 });
 router.get('/edit/delivery/:id', function (req, res, next) {
