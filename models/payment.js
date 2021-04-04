@@ -7,7 +7,7 @@ var Payment = new Schema({
   creditCard: Number,
   CardType: String,
   SecurityCode: Number,
-  EcpirationDate: Date,
+  ExpirationDate: Date,
   Country: String,
 });
 

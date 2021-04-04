@@ -1,87 +1,207 @@
 var express = require('express');
 var router = express.Router();
-var delivery = require('../models/delivery');
+var Entreprise = require('../models/entreprise');
 
-/* GET contact DB. */
-router.get('/', function (req, res, next) {
-  delivery.find(function (err, data) {
+
+/*********************************************   CRUD RESTFUL APIs For React   *********************************************/
+
+/** Get All Entreprises **/
+router.get('/', function(req, res, next) {
+  Entreprise.find(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  });
+});
+
+/** Add Entreprise **/
+router.post('/', function(req,res,next){
+  const entreprise = new Entreprise(req.body);
+  try{
+    entreprise.save();
+    res.send("Ajout");
+  }
+  catch (error){
+    res.send(error);
+  }
+});
+
+
+/** Update Entreprise **/
+
+router.put('/update/:id',function(req,res,next){
+  Entreprise.findByIdAndUpdate(req.params.id,{
+    "ResponsibleName" : "SAIDIIIII"
+  },function(err,data){
+    if(err) throw err;
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
+
+
+
+/** Delete All Entreprises **/
+router.delete('/remove', function(req,res,next){
+  Entreprise.deleteMany({})
+      .then(data => {
+        res.send({
+          message: `${data.deletedCount} Entreprises were deleted successfully!`
+        });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while removing all tutorials."
+        });
+      });
+});
+
+
+
+/** Delete Entreprise By id **/
+router.delete('/remove/:id', function(req,res,next){
+  Entreprise.findByIdAndRemove(req.params.id,req.body, function(err,data) {
+    if(err) throw err;
+    console.log('DELETED');
+    res.send("DELETED OK");
+  })
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/*********************************************   CRUD WITH VIEWS TEST   *********************************************/
+
+
+
+/** GET cutomers from  DB and fetch data to views  **/
+
+router.get('/ShowCustomers', function (req, res, next) {
+  Customer.find(function (err, data) {
     if (err) {
       console.log(err);
     } else {
-      res.render('show', { users: data });
+      res.render('showCustomer', { users: data });
     }
   });
 });
 
-router.get('/adddelivery', function (req, res, next) {
-  res.render('add');
+
+
+
+
+/** Redirection to addCustomer view **/
+router.get('/addCustomer', function (req, res, next) {
+  res.render('addCustomer');
 });
 
-/*Geeeeettttttt*/
+
+
+
+
+
+/** Get Cutsomer by Id and fetch data (Details) **/
 router.get('/:id', function (req, res, next) {
-  delivery.findById(req.params.id, function (err, data) {
+  Customer.findById(req.params.id, function (err, data) {
     if (err) {
       console.log(err);
     } else {
-      res.render('detail', { user: data });
+      res.render('detailsCustomer', { user: data });
     }
   });
 });
-/* POST */
-router.post('/addstat', function (req, res, next) {
-  var user = new delivery({ FullName: 'Sarra slimen', Phone: 230000 });
-  user.save();
-  res.send('Added');
-});
-/* POST 2*/
+
+
+
+
+
+/** Add from view Form  **/
 router.post('/add', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log(obj);
-  const mynewdelivery = {
-    FullName: obj.fullname,
-    Phone: obj.phone,
-    Status: obj.status,
-    Region: obj.region,
+  const newCustomer = {
+
+    Cin: obj.cin,
+    FirstName: obj.firstname,
+    LastName: obj.lastname,
+    UserName: obj.username,
+    Password: obj.password,
+    Email: obj.email,
+    PhoneNumber: obj.phonenumber,
+    Adress: {
+
+    },
+    payments: []
   };
-  delivery.create(mynewdelivery, function (err) {
+  Customer.create(newCustomer, function (err) {
     if (err) {
-      res.render('/adddelivery');
+      res.render('/addCustomer');
     } else {
-      res.redirect('/delivery');
+      res.redirect('/customers/showCustomers');
     }
   });
 });
-/*EDITTTTTTTTTTTTTTTTTT*/
-router.post('/edit/:id', function (req, res, next) {
-  const obj = JSON.parse(JSON.stringify(req.body));
-  console.log(obj);
-  const mynewdelivery = {
-    FullName: obj.FullName,
-    Phone: obj.Phone,
-  };
-  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
-    if (err) {
-      res.render('/delivery/edit/' + req.params.id);
-    } else {
-      res.redirect('/delivery');
-    }
-  });
-});
-/* Delete contact*/
-router.get('/delete/:id', function (req, res, next) {
-  delivery.findByIdAndRemove(req.params.id, function (err, docs) {
-    if (err) console.log(err);
-    res.redirect('/delivery');
-  });
-});
-router.get('/edit/delivery/:id', function (req, res, next) {
-  delivery.findById(req.params.id, function (err, data) {
+
+
+
+
+/**  Fetch Data to Update Form **/
+router.get('/edit/customer/:id', function (req, res, next) {
+  Customer.findById(req.params.id, function (err, data) {
     if (err) {
       console.log(err);
     } else {
-      res.render('editdelivery', { user: data });
+      res.render('editCustomer', { user: data });
     }
   });
 });
+
+
+
+
+/** Update from view Form  **/
+router.post('/edit/:id', function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log(obj);
+  const newCustomer = {
+    Cin: obj.cin,
+    FirstName: obj.firstname,
+    LastName: obj.lastname,
+    UserName: obj.username,
+    Password: obj.password,
+    Email: obj.email,
+    PhoneNumber: obj.phonenumber,
+    Adress: obj.adress
+  };
+  Customer.findByIdAndUpdate(req.params.id, newCustomer, function (err) {
+    if (err) {
+      res.render('/customer/edit/' + req.params.id);
+    } else {
+      res.redirect('/customers/showCustomers');
+    }
+  });
+});
+
+
+
+/** Delete customer Path and redirect to customers list **/
+router.get('/delete/:id', function (req, res, next) {
+  Customer.findByIdAndRemove(req.params.id, function (err, docs) {
+    if (err) console.log(err);
+    res.redirect('/customers/showCustomers');
+  });
+});
+
+
+
 
 module.exports = router;

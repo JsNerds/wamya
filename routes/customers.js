@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   Customer.find(function(err,data){
     if(err) throw err;
     res.json(data);
-  });
+  }).populate("payments");
 });
 
 /** Add Customer **/
@@ -36,6 +36,25 @@ router.put('/update/:id',function(req,res,next){
     res.send("UPDATED OK");
   });
 });
+
+
+/** Delete All Customers **/
+router.delete('/remove', function(req,res,next){
+  Customer.deleteMany({})
+      .then(data => {
+        res.send({
+          message: `${data.deletedCount} Customers were deleted successfully!`
+        });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while removing all tutorials."
+        });
+      });
+});
+
+
 
 
 /** Delete Customer By id **/
@@ -72,7 +91,7 @@ router.get('/ShowCustomers', function (req, res, next) {
     } else {
       res.render('showCustomer', { users: data });
     }
-  });
+  }).populate("payments");
 });
 
 

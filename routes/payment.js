@@ -28,14 +28,25 @@ router.post('/', function(req,res,next){
 
 
 /** Add payment with update Customer's Payments 2 **/
-router.patch('/addPayment/:id', function(req,res,next){
+
+router.post('/addPayment/:id', function(req,res,next){
   const payment = new Payment(req.body);
   try{
     Payment.create(payment).then( p =>{
-      Customer.findByIdAndUpdate(req.params.id,{
+      Customer.findByIdAndUpdate(
+          req.params.id,
+          {
             $push: { payments : p._id }
           },
-          {new: true, useFindAndModify: false}
+          {new: true, useFindAndModify: false},
+          function (err){
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(Customer.findById(req.params.id))
+            }
+
+          }
       )
     });
     res.send("Ajout Payment with Customer");
@@ -59,7 +70,23 @@ router.put('/update/:id',function(req,res,next){
 });
 
 
-/** Delete Customer By id **/
+/** Delete All Payments **/
+router.delete('/remove', function(req,res,next){
+  Payment.deleteMany({})
+      .then(data => {
+        res.send({
+          message: `${data.deletedCount} Payment were deleted successfully!`
+        });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while removing all tutorials."
+        });
+      });
+});
+
+/** Delete Payment By id **/
 router.delete('/remove/:id', function(req,res,next){
   Payment.findByIdAndRemove(req.params.id,req.body, function(err,data) {
     if(err) throw err;

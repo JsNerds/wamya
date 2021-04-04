@@ -17,7 +17,13 @@ var Entreprise = new Schema({
       type: Schema.Types.ObjectId,
       ref: "payment"
     }
-  ]
+  ],
+  packages: [
+  {
+    type: Schema.Types.ObjectId,
+    ref: "Package"
+  }
+]
 });
 
 module.exports = mongoose.model("entreprise", Entreprise);

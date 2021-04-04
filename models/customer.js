@@ -16,6 +16,12 @@ var Customer = new Schema({
       type: Schema.Types.ObjectId,
       ref: "payment"
     }
+  ],
+  packages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Package"
+    }
   ]
 
 });

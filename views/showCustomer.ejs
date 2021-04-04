@@ -15,7 +15,8 @@
 		<td>Password </td>
 		<td>Email </td>
 		<td>Phone number</td>
-		<td>Adressr</td>
+		<td>Address</td>
+		<td>Payment</td>
 	</tr>
 <% if(users.length > 0) {  %>
 <% for(var i=0 ; i< users.length ; i++) {    %>
@@ -29,6 +30,7 @@
 		<td><%= users[i].Email   %> </td>
 		<td><%= users[i].PhoneNumber   %> </td>
 		<td><%= users[i].Adress   %> </td>
+		<td><%= users[i].payments   %> </td>
 		<td>
 			<a href="/customers/edit/customer/<%= users[i]._id   %>">Edit</a>
 			<a href="/customers/delete/<%= users[i]._id   %>">Remove</a>
