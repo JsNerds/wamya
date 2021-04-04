@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var AdressSchema = require('./Address').AddressSchema;
 
 var Customer = new Schema({
   Cin: Number,
@@ -9,7 +10,13 @@ var Customer = new Schema({
   Password: String,
   Email: String,
   PhoneNumber: Number,
-  Adress: String
+  Adress: AdressSchema,
+  payments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "payment"
+    }
+  ]
 
 });
 

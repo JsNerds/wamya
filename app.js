@@ -51,8 +51,8 @@ app.use('/Package', packageRouter);
 
 //Customer & Entreprise Module's middlewares
 app.use('/customers', customerRouter);
-app.use('/entreprises', customerRouter);
-app.use('/payments', customerRouter);
+app.use('/entreprises', entrepriseRouter);
+app.use('/payments', paymentRouter);
 
 
 // catch 404 and forward to error handler
