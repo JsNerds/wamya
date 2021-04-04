@@ -34,6 +34,7 @@ router.post('/addstatic', function (req, res, next) {
   package.save();
   res.send('Added');
 });
+
 /* POST 2 Add a Package*/
 router.post('/add', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));

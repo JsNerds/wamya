@@ -1,11 +1,14 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Delivery = new Schema({
-  FullName: String,
-  Phone: Number,
-  Status: Number,
-  Region: String,
+var Payment = new Schema({
+  PaymentMethod: String,
+  NameOnCard: String,
+  creditCard: Number,
+  CardType: String,
+  SecurityCode: Number,
+  EcpirationDate: Date,
+  Country: String,
 });
 
-module.exports = mongoose.model("delivery_man", Delivery);
+module.exports = mongoose.model("payment", Payment);
