@@ -56,15 +56,17 @@ router.post('/add', function (req, res, next) {
 router.post('/edit/:id', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log(obj);
-  const mynewdelivery = {
-    FullName: obj.FullName,
-    Phone: obj.Phone,
+  const mynewPackage = {
+    Name: obj.name,
+    dimension: obj.dimension,
+    sourceAddress: obj.sourceAddress,
+    destinationAddress: obj.destinationAddress,
   };
-  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+  Package.findByIdAndUpdate(req.params.id, mynewPackage, function (err) {
     if (err) {
-      res.render('/delivery/edit/' + req.params.id);
+      res.send(err);
     } else {
-      res.redirect('/delivery');
+      res.send("updated");
     }
   });
 });
