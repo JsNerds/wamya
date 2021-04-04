@@ -1,50 +1,53 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 /*------ PagesFront-----*/
-import Home from './pages/front/Home';
-import SendPackages from './pages/front/SendPackages';
-import MyPackages from './pages/front/MyPackages';
-import HRManagement from './PagesFront/HR-Management';
-import Startup from './PagesFront/Startup';
-import HomeCRM from './PagesFront/Home-CRM';
-import About from './PagesFront/About';
-import Service from './PagesFront/Service';
-import Process from './PagesFront/Process';
-import SignUp from './pages/front/SignUp';
-import Team from './PagesFront/Team';
-import Portfolio2col from './PagesFront/Portfolio-2col';
-import Portfolio3col from './PagesFront/Portfolio-3col';
-import Portfoliofull4col from './PagesFront/Portfolio-fullwidth-4col';
-import PortfolioSingle from './PagesFront/PortfolioSingle';
-import Bloglist from './PagesFront/Bloglist';
-import BlogSingle from './PagesFront/BlogSingle';
-import Contact from './PagesFront/Contact';
-import ScrollToTopRoute from './ScrollToTopRoute';
-import Landing from './PagesFront/Landing';
-import Price from './PagesFront/Price';
-import Faq from './PagesFront/Faq';
-import ServiceDetails from './PagesFront/ServiceDetails';
-import SignIn from './PagesFront/SignIn';
-import BlogGridPage from './PagesFront/BlogGridPage';
-import NotFound from './PagesFront/404';
-import CustomerServiceDetails from './pages/front/CustomerServiceDetails';
-import EntrepriseServiceDetails from './pages/front/EntrepriseServiceDetails';
-import SignUpCustomer from './pages/front/SignUpCustomer';
-import SignUpEntreprise from './pages/front/SignUpEntreprise';
-import EntrepriseInterface from './pages/front/EntrepriseInterface';
-import CustomerInterface from './pages/front/CustomerInterface';
-import Payment from './pages/front/Payment';
+import Home from "./pages/front/Home";
+import SendPackages from "./pages/front/SendPackages";
+import MyPackages from "./pages/front/MyPackages";
+import HRManagement from "./PagesFront/HR-Management";
+import Startup from "./PagesFront/Startup";
+import HomeCRM from "./PagesFront/Home-CRM";
+import About from "./PagesFront/About";
+import Service from "./PagesFront/Service";
+import Process from "./PagesFront/Process";
+import SignUp from "./pages/front/SignUp";
+import Team from "./PagesFront/Team";
+import Portfolio2col from "./PagesFront/Portfolio-2col";
+import Portfolio3col from "./PagesFront/Portfolio-3col";
+import Portfoliofull4col from "./PagesFront/Portfolio-fullwidth-4col";
+import PortfolioSingle from "./PagesFront/PortfolioSingle";
+import Bloglist from "./PagesFront/Bloglist";
+import BlogSingle from "./PagesFront/BlogSingle";
+import Contact from "./PagesFront/Contact";
+import ScrollToTopRoute from "./ScrollToTopRoute";
+import Landing from "./PagesFront/Landing";
+import Price from "./PagesFront/Price";
+import Faq from "./PagesFront/Faq";
+import ServiceDetails from "./PagesFront/ServiceDetails";
+import SignIn from "./PagesFront/SignIn";
+import BlogGridPage from "./PagesFront/BlogGridPage";
+import NotFound from "./PagesFront/404";
+import CustomerServiceDetails from "./pages/front/CustomerServiceDetails";
+import EntrepriseServiceDetails from "./pages/front/EntrepriseServiceDetails";
+import SignUpCustomer from "./pages/front/SignUpCustomer";
+import SignUpEntreprise from "./pages/front/SignUpEntreprise";
+import EntrepriseInterface from "./pages/front/EntrepriseInterface";
+import CustomerInterface from "./pages/front/CustomerInterface";
+import Payment from "./pages/front/Payment";
+import Flex_join from "./pages/front/Flex_join";
+import Join_form from "./componentsFront/Join_form";
+import P_deliveryform from "./pages/front/P_deliveryform";
 
 /***Dashbord Imports ********/
-import { BrowserRouter } from 'react-router-dom';
-import configureStore from './config/configureStore';
-import { Provider } from 'react-redux';
-import Routes from './Routes';
-import ScrollToTop from './utils/ScrollToTop';
-import './assets/base.scss';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { BrowserRouter } from "react-router-dom";
+import configureStore from "./config/configureStore";
+import { Provider } from "react-redux";
+import Routes from "./Routes";
+import ScrollToTop from "./utils/ScrollToTop";
+import "./assets/base.scss";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   fab,
   faFacebook,
@@ -60,7 +63,7 @@ import {
   faSlack,
   faDribbble,
   faGithub,
-} from '@fortawesome/free-brands-svg-icons';
+} from "@fortawesome/free-brands-svg-icons";
 import {
   far,
   faSquare,
@@ -100,7 +103,7 @@ import {
   faFileAlt,
   faEye,
   faChartBar,
-} from '@fortawesome/free-regular-svg-icons';
+} from "@fortawesome/free-regular-svg-icons";
 import {
   fas,
   faAngleDoubleRight,
@@ -166,8 +169,8 @@ import {
   faStar,
   faSignOutAlt,
   faLink,
-} from '@fortawesome/free-solid-svg-icons';
-import PackageDetail from './components/front/PackageDetail';
+} from "@fortawesome/free-solid-svg-icons";
+import PackageDetail from "./components/front/PackageDetail";
 
 library.add(
   far,
@@ -294,7 +297,7 @@ library.add(
 
 const store = configureStore();
 
-const user = true;
+const user = false;
 
 class App extends Component {
   componentDidMount() {
@@ -317,7 +320,7 @@ class App extends Component {
           <>
             <Router>
               <Switch>
-                <ScrollToTopRoute exact={true} path={'/'} component={Home} />
+                <ScrollToTopRoute exact={true} path={"/"} component={Home} />
                 <ScrollToTopRoute
                   path="/HR-Management"
                   component={HRManagement}
@@ -328,7 +331,6 @@ class App extends Component {
                 <ScrollToTopRoute path="/Service" component={Service} />
                 <ScrollToTopRoute path="/Process" component={Process} />
                 <ScrollToTopRoute path="/Team" component={Team} />
-
                 {/** Portfolios ***/}
                 <ScrollToTopRoute
                   path="/Portfolio-2col"
@@ -346,7 +348,6 @@ class App extends Component {
                   path="/PortfolioSingle"
                   component={PortfolioSingle}
                 />
-
                 {/**Package Management*/}
                 <ScrollToTopRoute
                   path="/SendPackage"
@@ -357,7 +358,6 @@ class App extends Component {
                   path="/PackageDetail"
                   component={PackageDetail}
                 />
-
                 {/** Blog ***/}
                 <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
                 <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
@@ -365,9 +365,7 @@ class App extends Component {
                   path="/BlogGridPage"
                   component={BlogGridPage}
                 />
-
                 <ScrollToTopRoute path="/SignUp" component={SignUp} />
-
                 <ScrollToTopRoute path="/Contact" component={Contact} />
                 <ScrollToTopRoute path="/Landing" component={Landing} />
                 <ScrollToTopRoute path="/Price" component={Price} />
@@ -378,7 +376,14 @@ class App extends Component {
                 />
                 <ScrollToTopRoute path="/SignIn" component={SignIn} />
                 <ScrollToTopRoute path="/SignUp" component={SignUp} />
-
+                {/*** delivery_man  ***/}
+                <ScrollToTopRoute path="/Flex_join" component={Flex_join} />
+                <ScrollToTopRoute path="/Join_form" component={Join_form} />
+                p_deliveryform
+                <ScrollToTopRoute
+                  path="/P_deliveryform"
+                  component={P_deliveryform}
+                />
                 {/*** Cutomser & Entreprise Module  ***/}
                 <ScrollToTopRoute
                   path="/CustomerServiceDetails"
@@ -405,7 +410,6 @@ class App extends Component {
                   path="/CustomerInterface"
                   component={CustomerInterface}
                 />
-
                 <ScrollToTopRoute component={NotFound} />
               </Switch>
             </Router>
