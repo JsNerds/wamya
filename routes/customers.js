@@ -3,17 +3,64 @@ var router = express.Router();
 var Customer = require('../models/customer');
 
 
-/*********************************************   CRUD RESTFUL APIs For React   *********************************************/
+/*********************************************   CRUD RESTFUL APIs For React & PostMan  *********************************************/
 
-/** Get All cutsomers **/
+/** Get All cutsomers
+
 router.get('/', function(req, res, next) {
   Customer.find(function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments");
+  }).populate("payments packages");
+});
+ **/
+
+
+
+/** Search Customer By FirstName and LastName **/
+
+router.get('/', function(req, res, next) {
+  const firstName = req.query.firstName;
+  const lastName = req.query.lastName;
+  var condition =
+      firstName ?
+      { FirstName : { $regex: new RegExp(firstName), $options: "i" } }
+      : lastName ?
+          { LastName : { $regex: new RegExp(lastName), $options: "i" } }
+          : {};
+  Customer.find(condition,function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).populate("payments packages");
 });
 
-/** Add Customer **/
+
+/** Tri Customers by Username  **/
+
+router.get('/triByUserName', function(req, res, next) {
+  Customer.find(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).sort({UserName: -1}).populate("payments packages");
+});
+
+
+/** Get cutsomer By Id
+
+ router.get('/:id', function(req, res, next) {
+  Customer.findById(req.params.id,function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).populate("payments packages");
+});
+ **/
+
+
+
+
+
+/** Add Customer (Post Man)**/
+
 router.post('/', function(req,res,next){
   const customer = new Customer(req.body);
   try{
@@ -26,7 +73,82 @@ router.post('/', function(req,res,next){
 });
 
 
-/** Update Customer **/
+
+
+
+/** Add Customer (REACT) **/
+
+router.post('/addCustomer', function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const newCustomer = {
+    Cin: obj.cin,
+    FirstName: obj.firstname,
+    LastName: obj.lastname,
+    UserName: obj.username,
+    Password: obj.password,
+    Email: obj.email,
+    PhoneNumber: obj.phonenumber,
+    Adress: {
+      Street: obj.street,
+      City: obj.city,
+      State: obj.state,
+      ZipCode: obj.zipCode
+    },
+    payments: [],
+    packages: []
+  };
+  try{
+    newCustomer.save();
+    res.send("Ajout");
+  }
+  catch (error){
+    res.send(error);
+  }
+
+});
+
+
+
+
+
+
+
+/** Update Customer(Post Man) **/
+
+router.put('/update/:id',function(req,res,next){
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const newCustomer = {
+    Cin: obj.cin,
+    FirstName: obj.firstname,
+    LastName: obj.lastname,
+    UserName: obj.username,
+    Password: obj.password,
+    Email: obj.email,
+    PhoneNumber: obj.phonenumber,
+    Adress: {
+      Street: obj.street,
+      City: obj.city,
+      State: obj.state,
+      ZipCode: obj.zipCode
+    },
+    payments: [],
+    packages: []
+  };
+
+  Customer.findByIdAndUpdate(req.params.id,newCustomer,function(err,data){
+    if(err) throw err;
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
+
+
+
+
+
+
+/** Update Customer(React) **/
+
 router.put('/update/:id',function(req,res,next){
   Customer.findByIdAndUpdate(req.params.id,{
     "FirstName" : "SAIDIIIII"
@@ -38,7 +160,12 @@ router.put('/update/:id',function(req,res,next){
 });
 
 
+
+
+
+
 /** Delete All Customers **/
+
 router.delete('/remove', function(req,res,next){
   Customer.deleteMany({})
       .then(data => {
@@ -57,7 +184,11 @@ router.delete('/remove', function(req,res,next){
 
 
 
+
+
+
 /** Delete Customer By id **/
+
 router.delete('/remove/:id', function(req,res,next){
   Customer.findByIdAndRemove(req.params.id,req.body, function(err,data) {
     if(err) throw err;
@@ -66,9 +197,6 @@ router.delete('/remove/:id', function(req,res,next){
   })
 
 });
-
-
-
 
 
 
@@ -109,7 +237,7 @@ router.get('/addCustomer', function (req, res, next) {
 
 
 /** Get Cutsomer by Id and fetch data (Details) **/
-router.get('/:id', function (req, res, next) {
+router.get('/Details/:id', function (req, res, next) {
   Customer.findById(req.params.id, function (err, data) {
     if (err) {
       console.log(err);
@@ -127,8 +255,8 @@ router.get('/:id', function (req, res, next) {
 router.post('/add', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log(obj);
-  const newCustomer = {
 
+  const newCustomer = {
     Cin: obj.cin,
     FirstName: obj.firstname,
     LastName: obj.lastname,
@@ -137,10 +265,15 @@ router.post('/add', function (req, res, next) {
     Email: obj.email,
     PhoneNumber: obj.phonenumber,
     Adress: {
-
+      Street: obj.street,
+      City: obj.city,
+      State: obj.state,
+      ZipCode: obj.zipCode
     },
-    payments: []
+    payments: [],
+    packages: []
   };
+
   Customer.create(newCustomer, function (err) {
     if (err) {
       res.render('/addCustomer');
@@ -170,7 +303,6 @@ router.get('/edit/customer/:id', function (req, res, next) {
 /** Update from view Form  **/
 router.post('/edit/:id', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
-  console.log(obj);
   const newCustomer = {
     Cin: obj.cin,
     FirstName: obj.firstname,
@@ -179,7 +311,14 @@ router.post('/edit/:id', function (req, res, next) {
     Password: obj.password,
     Email: obj.email,
     PhoneNumber: obj.phonenumber,
-    Adress: obj.adress
+    Adress: {
+      Street: obj.street,
+      City: obj.city,
+      State: obj.state,
+      ZipCode: obj.zipCode
+    },
+    payments: [],
+    packages: []
   };
   Customer.findByIdAndUpdate(req.params.id, newCustomer, function (err) {
     if (err) {

@@ -5,13 +5,55 @@ var Entreprise = require('../models/entreprise');
 
 /*********************************************   CRUD RESTFUL APIs For React   *********************************************/
 
-/** Get All Entreprises **/
+/** Get All Entreprises
+
 router.get('/', function(req, res, next) {
   Entreprise.find(function(err,data){
     if(err) throw err;
     res.json(data);
   });
 });
+ **/
+
+
+/** Search Entreprise By CommercialName and Denomination **/
+
+router.get('/', function(req, res, next) {
+  const commercialName = req.query.commercialName;
+  const denomination = req.query.denomination;
+  var condition =
+      commercialName ?
+          { CommercialName : { $regex: new RegExp(commercialName), $options: "i" } }
+          : denomination ?
+          { Denomination : { $regex: new RegExp(denomination), $options: "i" } }
+          : {};
+  Entreprise.find(condition,function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).populate("payments packages");
+});
+
+
+/** Tri Customers by CreationYear  **/
+
+router.get('/triByCreationYear', function(req, res, next) {
+  Entreprise.find(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).sort({CreationYear: 1}).populate("payments packages");
+});
+
+
+
+/** Get Entrepruse By Id **/
+
+router.get('/:id', function(req, res, next) {
+  Entreprise.findById(req.params.id,function(err,data){
+    if(err) throw err;
+    res.json(data);
+  }).populate("payments packages");
+});
+
 
 /** Add Entreprise **/
 router.post('/', function(req,res,next){
@@ -66,139 +108,6 @@ router.delete('/remove/:id', function(req,res,next){
     res.send("DELETED OK");
   })
 
-});
-
-
-
-
-
-
-
-
-
-
-
-
-/*********************************************   CRUD WITH VIEWS TEST   *********************************************/
-
-
-
-/** GET cutomers from  DB and fetch data to views  **/
-
-router.get('/ShowCustomers', function (req, res, next) {
-  Customer.find(function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('showCustomer', { users: data });
-    }
-  });
-});
-
-
-
-
-
-/** Redirection to addCustomer view **/
-router.get('/addCustomer', function (req, res, next) {
-  res.render('addCustomer');
-});
-
-
-
-
-
-
-/** Get Cutsomer by Id and fetch data (Details) **/
-router.get('/:id', function (req, res, next) {
-  Customer.findById(req.params.id, function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('detailsCustomer', { user: data });
-    }
-  });
-});
-
-
-
-
-
-/** Add from view Form  **/
-router.post('/add', function (req, res, next) {
-  const obj = JSON.parse(JSON.stringify(req.body));
-  console.log(obj);
-  const newCustomer = {
-
-    Cin: obj.cin,
-    FirstName: obj.firstname,
-    LastName: obj.lastname,
-    UserName: obj.username,
-    Password: obj.password,
-    Email: obj.email,
-    PhoneNumber: obj.phonenumber,
-    Adress: {
-
-    },
-    payments: []
-  };
-  Customer.create(newCustomer, function (err) {
-    if (err) {
-      res.render('/addCustomer');
-    } else {
-      res.redirect('/customers/showCustomers');
-    }
-  });
-});
-
-
-
-
-/**  Fetch Data to Update Form **/
-router.get('/edit/customer/:id', function (req, res, next) {
-  Customer.findById(req.params.id, function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('editCustomer', { user: data });
-    }
-  });
-});
-
-
-
-
-/** Update from view Form  **/
-router.post('/edit/:id', function (req, res, next) {
-  const obj = JSON.parse(JSON.stringify(req.body));
-  console.log(obj);
-  const newCustomer = {
-    Cin: obj.cin,
-    FirstName: obj.firstname,
-    LastName: obj.lastname,
-    UserName: obj.username,
-    Password: obj.password,
-    Email: obj.email,
-    PhoneNumber: obj.phonenumber,
-    Adress: obj.adress
-  };
-  Customer.findByIdAndUpdate(req.params.id, newCustomer, function (err) {
-    if (err) {
-      res.render('/customer/edit/' + req.params.id);
-    } else {
-      res.redirect('/customers/showCustomers');
-    }
-  });
-});
-
-
-
-/** Delete customer Path and redirect to customers list **/
-router.get('/delete/:id', function (req, res, next) {
-  Customer.findByIdAndRemove(req.params.id, function (err, docs) {
-    if (err) console.log(err);
-    res.redirect('/customers/showCustomers');
-  });
 });
 
 
