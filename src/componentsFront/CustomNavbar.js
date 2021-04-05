@@ -11,8 +11,8 @@ class CustomNavbar extends Component {
           <nav className={`navbar navbar-expand-lg menu_one ${mClass}`}>
             <div className={`container ${cClass}`}>
               <Link className={`navbar-brand ${slogo}`} to="/">
-                <img src={require("../img/logo2.png")} alt="" />
-                <img src={require("../img/logo.png")} alt="logo" />
+                <img src={require("../img/logoWhite.png")} alt="" />
+                <img src={require("../img/logoBlue.png")} alt="logo" />
               </Link>
               <button
                 className="navbar-toggler collapsed"

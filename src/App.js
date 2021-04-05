@@ -296,7 +296,6 @@ library.add(
 );
 
 const store = configureStore();
-
 const user = false;
 
 class App extends Component {
@@ -384,7 +383,7 @@ class App extends Component {
                   path="/P_deliveryform"
                   component={P_deliveryform}
                 />
-                {/*** Cutomser & Entreprise Module  ***/}
+                {/***Cutomser & Entreprise Module***/}
                 <ScrollToTopRoute
                   path="/CustomerServiceDetails"
                   component={CustomerServiceDetails}
