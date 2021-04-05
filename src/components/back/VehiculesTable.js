@@ -1,20 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
 
-import { Avatar, IconButton, Box, Card, CardContent } from '@material-ui/core';
+import { Avatar, IconButton, Box, Card, CardContent } from "@material-ui/core";
 
-import car2 from '../../assets/images/avatars/car2.jpg';
-import car1 from '../../assets/images/avatars/car1.jpg';
+import car2 from "../../assets/images/avatars/car2.jpg";
+import car1 from "../../assets/images/avatars/car1.jpg";
 
 export default function CustomersTable() {
+  const addVehicule = () => {
+    history.push("/addVehicule");
+  };
+  const history = useHistory();
   return (
     <Fragment>
       <Card className="card-box mb-4">
         <div className="card-header">
           <div className="card-header--title">
-            <small>Tables</small>
-            <b>Customers</b>
+            <b>Vehicule Table</b>
           </div>
           <Box className="card-header--actions">
             <IconButton
@@ -22,9 +26,10 @@ export default function CustomersTable() {
               color="primary"
               className="text-primary"
               title="View details"
+              onClick={addVehicule}
             >
               <FontAwesomeIcon
-                icon={['far', 'keyboard']}
+                icon={["fas", "plus-circle"]}
                 className="font-size-lg"
               />
             </IconButton>
@@ -35,8 +40,8 @@ export default function CustomersTable() {
             <table className="table table-striped table-hover text-nowrap mb-0">
               <thead className="thead-light">
                 <tr>
-                  <th style={{ width: '20%' }}>Model</th>
-                  <th style={{ width: '20%' }}>Registration Number</th>
+                  <th style={{ width: "20%" }}>Model</th>
+                  <th style={{ width: "20%" }}>Registration Number</th>
                   <th className="text-center">Status</th>
                   <th className="text-center">Actions</th>
                 </tr>
@@ -70,7 +75,7 @@ export default function CustomersTable() {
                   <td className="text-center">
                     <Box>
                       <IconButton color="primary" size="small">
-                        <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
+                        <FontAwesomeIcon icon={["fas", "ellipsis-h"]} />
                       </IconButton>
                     </Box>
                   </td>
@@ -103,7 +108,7 @@ export default function CustomersTable() {
                   <td className="text-center">
                     <Box>
                       <IconButton color="primary" size="small">
-                        <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
+                        <FontAwesomeIcon icon={["fas", "ellipsis-h"]} />
                       </IconButton>
                     </Box>
                   </td>
@@ -136,7 +141,7 @@ export default function CustomersTable() {
                   <td className="text-center">
                     <Box>
                       <IconButton color="primary" size="small">
-                        <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
+                        <FontAwesomeIcon icon={["fas", "ellipsis-h"]} />
                       </IconButton>
                     </Box>
                   </td>
