@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Payment = require('../models/payment');
-var Customer = require('../models/customer')
+var Customer = require('../models/customer');
 
 
 /*********************************************   CRUD RESTFUL APIs For React   *********************************************/

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   Customer.find(function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments");
+  }).populate("payments packages");
 });
 
 /** Add Customer **/

@@ -1,58 +1,80 @@
 var express = require('express');
 var router = express.Router();
 var Package = require('../models/Package');
+var Customer = require('../models/customer');
+var Entreprise = require('../models/entreprise');
 
-/* GET Packages from DB. */
-router.get('/', function (req, res, next) {
-  Package.find(function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('Packages', { package: data });
-    }
+                                                /* ********** RESTFUL API ********** */
+
+
+/** get all packages or get by name*/
+router.get('/', function(req, res, next) {
+  const Name = req.query.Name;
+  var condition = Name ? { Name : { $regex: new RegExp(Name), $options: "i" } } : {};
+  Package.find(condition,function(err,data){
+    if(err) throw err;
+    res.json(data);
   })
 });
 
-/* Render Add page from views. */
-router.get('/addPackage', function (req, res, next) {
-  res.render('addPackage');
+/* add package with Company id */
+router.post('/addPackageCompany/:id', function(req,res,next){
+  const package = new Package(req.body);
+  try{
+    Package.create(package).then( p =>{
+      Entreprise.findByIdAndUpdate(
+          req.params.id,
+          {
+            $push: { payments : p._id }
+          },
+          {new: true, useFindAndModify: false},
+          function (err){
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(Customer.findById(req.params.id))
+            }
+
+          }
+      )
+    });
+    res.send("Ajout Package with Company");
+  }
+  catch (error){
+    res.send(error);
+  }
 });
 
-/*Get Package By Id*/
-router.get('/:id', function (req, res, next) {
-  Package.findById(req.params.id, function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('detail', { user: data });
-    }
-  });
-});
-/* POST Add a Package */
-router.post('/addstatic', function (req, res, next) {
-  var package = new Package({ Name: "Khalil", Dimension: [20.3,10.3,30.3], sourceAddress: [20.3,10.3,30.3], destinationAddress: [[20.3,10.3,30.3]],location: [[20.3,10.3,30.3]]});
-  package.save();
-  res.send('Added');
+
+/* add package with customer id */
+
+router.post('/addPackageCustomer/:id', function(req,res,next){
+  const package = new Package(req.body);
+  try{
+    Package.create(package).then( p =>{
+      Customer.findByIdAndUpdate(
+          req.params.id,
+          {
+            $push: { packages : p._id }
+          },
+          {new: true, useFindAndModify: false},
+          function (err){
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(Customer.findById(req.params.id))
+            }
+
+          }
+      )
+    });
+    res.send("Ajout Package with Customer");
+  }
+  catch (error){
+    res.send(error);
+  }
 });
 
-/* POST 2 Add a Package*/
-router.post('/add', function (req, res, next) {
-  const obj = JSON.parse(JSON.stringify(req.body));
-  console.log(obj);
-  const mynewPackage = {
-    Name: obj.name,
-    dimension: obj.dimension,
-    sourceAddress: obj.sourceAddress,
-    destinationAddress: obj.destinationAddress,
-  };
-  Package.create(mynewPackage, function (err) {
-    if (err) {
-      res.send(err)
-    } else {
-      res.send("added");
-    }
-  });
-});
 /*EDITTTTTTTTTTTTTTTTTT*/
 router.post('/edit/:id', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -71,20 +93,13 @@ router.post('/edit/:id', function (req, res, next) {
     }
   });
 });
+
+
 /* Delete Package*/
 router.get('/delete/:id', function (req, res, next) {
   Package.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
     res.redirect('/Package');
-  });
-});
-router.get('/edit/delivery/:id', function (req, res, next) {
-  delivery.findById(req.params.id, function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('editdelivery', { user: data });
-    }
   });
 });
 

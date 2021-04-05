@@ -11,8 +11,6 @@ var Package = new Schema({
   destinationAddress: AddressSchema,
   location: LocationSchema,
   type: String,
-  deliveryMan: Number,
-  client: Number,
 });
 
 module.exports = mongoose.model('Package', Package);
