@@ -37,6 +37,7 @@ import Payment from "./pages/front/Payment";
 import Flex_join from "./pages/front/Flex_join";
 import Join_form from "./componentsFront/Join_form";
 import P_deliveryform from "./pages/front/P_deliveryform";
+import Delivery_man_interface from "./pages/front/Delivery_man_interface";
 
 /***Dashbord Imports ********/
 import { BrowserRouter } from "react-router-dom";
@@ -378,7 +379,11 @@ class App extends Component {
                 {/*** delivery_man  ***/}
                 <ScrollToTopRoute path="/Flex_join" component={Flex_join} />
                 <ScrollToTopRoute path="/Join_form" component={Join_form} />
-                p_deliveryform
+                Delivery_man_interface
+                <ScrollToTopRoute
+                  path="/Delivery_man_interface"
+                  component={Delivery_man_interface}
+                />
                 <ScrollToTopRoute
                   path="/P_deliveryform"
                   component={P_deliveryform}
