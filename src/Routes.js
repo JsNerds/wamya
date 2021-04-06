@@ -1,21 +1,23 @@
-import React, { lazy, Suspense } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ThemeProvider } from '@material-ui/styles';
-import MuiTheme from './theme';
+import React, { lazy, Suspense } from "react";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { ThemeProvider } from "@material-ui/styles";
+import MuiTheme from "./theme";
 
 // Layout Blueprints
 
-import { LeftSidebar, PresentationLayout } from './layout-blueprintsBack';
+import { LeftSidebar, PresentationLayout } from "./layout-blueprintsBack";
 
 // Example PagesFront
-const LandingPage = lazy(() => import('./PagesBack/LandingPage'));
-const Customers = lazy(() => import('./pages/back/Customers'));
-const Vehicules = lazy(() => import('./pages/back/Vehicules'));
-const AdminDashborad = lazy(() => import('./pages/back/AdminDashboard'));
-const Packages = lazy(() => import('./pages/back/Packages'));
-const Payments = lazy(() => import('./pages/back/Payments'));
-const Entreprises = lazy(() => import('./pages/back/Entreprises'));
+const LandingPage = lazy(() => import("./PagesBack/LandingPage"));
+const Customers = lazy(() => import("./pages/back/Customers"));
+const Vehicules = lazy(() => import("./pages/back/Vehicules"));
+const addVehicule = lazy(() => import("./pages/back/addVehicule"));
+const Deposits = lazy(() => import("./pages/back/Deposits"));
+const AdminDashborad = lazy(() => import("./pages/back/AdminDashboard"));
+const Packages = lazy(() => import("./pages/back/Packages"));
+const Payments = lazy(() => import("./pages/back/Payments"));
+const Entreprises = lazy(() => import("./pages/back/Entreprises"));
 
 const Routes = () => {
   const location = useLocation();
@@ -36,8 +38,8 @@ const Routes = () => {
   };
 
   const pageTransition = {
-    type: 'tween',
-    ease: 'anticipate',
+    type: "tween",
+    ease: "anticipate",
     duration: 0.4,
   };
 
@@ -53,7 +55,7 @@ const Routes = () => {
         >
           <Switch>
             <Redirect exact from="/" to="/AdminDashborad" />
-            <Route path={['/LandingPage']}>
+            <Route path={["/LandingPage"]}>
               <PresentationLayout>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -71,13 +73,15 @@ const Routes = () => {
 
             <Route
               path={[
-                '/AdminDashborad',
-                '/Customers',
-                '/Vehicules',
-                '/Packages',
-                '/Payments',
-                '/Entreprises',
-                '/UpdateCustomer',
+                "/AdminDashborad",
+                "/Customers",
+                "/Vehicules",
+                "/addVehicule",
+                "/Deposits",
+                "/Packages",
+                "/Payments",
+                "/Entreprises",
+                "/UpdateCustomer",
               ]}
             >
               <LeftSidebar>
@@ -96,6 +100,8 @@ const Routes = () => {
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
                     <Route path="/Vehicules" component={Vehicules} />
+                    <Route path="/addVehicule" component={addVehicule} />
+                    <Route path="/Deposits" component={Deposits} />
                     {/* Cusomer & Entreprise Module*/}
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Payments" component={Payments} />

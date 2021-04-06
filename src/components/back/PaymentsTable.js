@@ -3,12 +3,8 @@ import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-    Avatar,
-    IconButton,
-    Box,
     Checkbox,
     Card,
-    CardContent,
     Button
 } from '@material-ui/core';
 

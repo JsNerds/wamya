@@ -172,6 +172,7 @@ import {
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import PackageDetail from "./components/front/PackageDetail";
+import Pricing from "./pages/front/Pricing";
 
 library.add(
   far,
@@ -413,6 +414,10 @@ class App extends Component {
                 <ScrollToTopRoute
                   path="/CustomerInterface"
                   component={CustomerInterface}
+                />
+                <ScrollToTopRoute
+                  path="/Pricing"
+                  component={Pricing}
                 />
                 <ScrollToTopRoute component={NotFound} />
               </Switch>

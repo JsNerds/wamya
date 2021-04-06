@@ -2,9 +2,17 @@ import React, { Fragment } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Checkbox, Card, Button } from "@material-ui/core";
+import {
+  Avatar,
+  IconButton,
+  Box,
+  Checkbox,
+  Card,
+  CardContent,
+  Button,
+} from "@material-ui/core";
 
-export default function CustomerOperationsPayments() {
+export default function PaymentsTable() {
   return (
     <Fragment>
       <Card className="card-box mb-4">

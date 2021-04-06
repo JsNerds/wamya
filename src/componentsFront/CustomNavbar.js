@@ -102,7 +102,7 @@ class CustomNavbar extends Component {
                           className="nav-link"
                           to="/EntrepriseInterface"
                         >
-                          Entreprise Interface
+                          Company Interface
                         </NavLink>
                       </li>
                       <li className="nav-item">
@@ -113,6 +113,16 @@ class CustomNavbar extends Component {
                           to="/Payment"
                         >
                           Payment
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink
+                          exact
+                          title="About"
+                          className="nav-link"
+                          to="/Pricing"
+                        >
+                          Pricing
                         </NavLink>
                       </li>
                       <li className="nav-item">
