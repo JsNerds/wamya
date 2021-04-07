@@ -80,7 +80,7 @@ class CustomNavbar extends Component {
                           exact
                           title="About"
                           className="nav-link"
-                          to="/CustomerI nterface"
+                          to="/CustomerInterface"
                         >
                           Customer Interface
                         </NavLink>
