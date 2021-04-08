@@ -12,6 +12,11 @@ var Entreprise = new Schema({
   RegisterStatus: String,
   RegionalOffice: String,
   Denomination: String,
+  TaxSituation: String,
+  Email: String,
+  Password: String,
+  PhoneNumber: Number,
+  SubscriptionExpirationDate: Date,
   payments: [
     {
       type: Schema.Types.ObjectId,
