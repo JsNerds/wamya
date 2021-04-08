@@ -59,9 +59,29 @@ const CustomerSignUpForm =()=>{
                                     </div>
 
                                     <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Adress</label>
-                                        <input type="text" />
+                                        <label className="f_p text_c f_400">Address</label>
+                                        <hr/>
+
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">Street </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">City </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">State </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">ZipCode</label>
+                                            <input type="number" className="form-control" aria-label="Dollar amount (with dot and two decimal places)"/>
+                                        </div>
+
+                                        <hr/>
                                     </div>
+
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">State / Province</label>
                                         <input type="text" />

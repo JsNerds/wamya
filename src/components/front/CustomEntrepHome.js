@@ -26,10 +26,11 @@ class CustomerEntrepriseHome extends Component {
                                         <img className="icon_img" src={require('../../img/home9/icon2.png')} alt=""/>
 
                                     </div>
-                                    <h2>For Entreprises</h2>
+                                    <h2>For Companies</h2>
                                     <p>with this feature you can track the state or the real time location of your package at anytime you want</p>
-                                    <Link to="/SignUpEntreprise" className="btn_hover agency_banner_btn pay_btn">Join the service</Link>
-                                    <Link to="/EntrepriseServiceDetails" className="btn_hover agency_banner_btn pay_btn pay_btn_two">Service Details</Link>
+                                    <Link to="/EntrepriseServiceDetails" className="btn_hover agency_banner_btn pay_btn" >Service Details</Link>
+                                    <Link to="/SignUpEntreprise" className="btn_hover agency_banner_btn pay_btn pay_btn_two" >Join the service</Link>
+
                                 </div>
                             </Reveal>
                         </div>
@@ -52,8 +53,8 @@ class CustomerEntrepriseHome extends Component {
                                     </div>
                                     <h2>For Customers</h2>
                                     <p>you have the option to pay online or on site when the package arrives to your door step</p>
-                                    <Link to="/SignUpCustomer" className="btn_hover agency_banner_btn pay_btn">Join the service</Link>
-                                    <Link to="CustomerServiceDetails" className="btn_hover agency_banner_btn pay_btn pay_btn_two">Service Details</Link>
+                                    <Link to="CustomerServiceDetails" className="btn_hover agency_banner_btn pay_btn">Service Details</Link>
+                                    <Link to="/SignUpCustomer"className="btn_hover agency_banner_btn pay_btn pay_btn_two" >Join the service</Link>
                                 </div>
                             </Reveal>
                         </div>

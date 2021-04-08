@@ -25950,7 +25950,7 @@ a .h_head:hover {
 
 .event_price_item .p_head .rate,
 .event_price_item .p_head .tag {
-  color: #fba820;
+  color: #505bea;
 }
 
 .event_price_item .p_body {
@@ -25990,7 +25990,7 @@ a .h_head:hover {
 }
 
 .event_price_item.active .p_head .rate {
-  color: #fd475d;
+  color: #1c0091;
 }
 
 .event_price_item.active .p_body li {

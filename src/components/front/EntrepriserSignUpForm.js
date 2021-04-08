@@ -49,10 +49,32 @@ const EntrepriseSignUpForm =()=>{
                                         <label className="f_p text_c f_400">Activity</label>
                                         <input type="text" />
                                     </div>
+
+
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Headquarters Address</label>
-                                        <input type="text" />
+                                        <hr/>
+
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">Street </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">City </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">State </label>
+                                            <input type="text" />
+                                        </div>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">ZipCode</label>
+                                            <input type="number" className="form-control" aria-label="Dollar amount (with dot and two decimal places)"/>
+                                        </div>
+
+                                        <hr/>
                                     </div>
+
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Register Status</label>
                                         <input type="text" />
@@ -60,9 +82,22 @@ const EntrepriseSignUpForm =()=>{
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Regional Office</label>
                                         <input type="text" />
-                                    </div>        <div className="form-group text_box">
+                                    </div>
+                                    <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Tax Situation</label>
                                         <input type="text" />
+                                    </div>
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400">Email</label>
+                                        <input type="text" />
+                                    </div>
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400">Password</label>
+                                        <input type="text" />
+                                    </div>
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> Phone Number</label>
+                                        <input type="number" className="form-control" aria-label="Dollar amount (with dot and two decimal places)"/>
                                     </div>
 
                                     <div className="extra mb_20">

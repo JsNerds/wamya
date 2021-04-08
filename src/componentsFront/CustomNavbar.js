@@ -90,9 +90,19 @@ class CustomNavbar extends Component {
                           exact
                           title="About"
                           className="nav-link"
+                          to="/Delivery_man_interface"
+                        >
+                          Delivery man interface
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink
+                          exact
+                          title="About"
+                          className="nav-link"
                           to="/EntrepriseInterface"
                         >
-                          Entreprise Interface
+                          Company Interface
                         </NavLink>
                       </li>
                       <li className="nav-item">
@@ -103,6 +113,16 @@ class CustomNavbar extends Component {
                           to="/Payment"
                         >
                           Payment
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink
+                          exact
+                          title="About"
+                          className="nav-link"
+                          to="/Pricing"
+                        >
+                          Pricing
                         </NavLink>
                       </li>
                       <li className="nav-item">
