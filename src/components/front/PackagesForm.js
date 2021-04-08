@@ -1,32 +1,31 @@
 import React, { Component, useState } from "react";
 import Packages from "../../pages/front/SendPackages";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvent,
+} from "react-leaflet";
 
 export default class PackagesForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      markers: [[0, 0]],
+    };
   }
-  componentDidMount() {
-    
-  }
+
+  componentDidMount() {}
+
   render() {
-   function LocationMarker() {
-      const [position, setPosition] = useState(null)
-      const map = useMapEvents({
-        click() {
-          map.locate()
-        },
-        locationfound(e) {
-          setPosition(e.latlng)
-          map.flyTo(e.latlng, map.getZoom())
-        },
-      })
-    
-      return position === null ? null : (
-        <Marker position={position}>
-          <Popup>You are here</Popup>
-        </Marker>
-      )
+    const MyMarkers= () => {
+      const map = useMapEvent("click", (loc) => {
+        const { markers } = this.state;
+        markers.push(loc.latlng);
+        this.setState({ markers });
+      });
+      return null;
     }
     return (
       <section className="sign_in_area bg_color sec_pad">
@@ -79,20 +78,27 @@ export default class PackagesForm extends Component {
                       </div>
                       <div className="row mt-4">
                         <div className="col-md-12">
-                        <MapContainer
-                          center={[51.505, -0.09]}
-                          zoom={13}
-                          scrollWheelZoom={false}
-                        >
-                          <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          />
-                          <LocationMarker />
-                        </MapContainer> 
+                          <MapContainer
+                            center={[51.505, -0.09]}
+                            zoom={13}
+                            scrollWheelZoom={false}
+                          >
+                            <TileLayer
+                              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <MyMarkers />
+                            {this.state.markers.map((position, idx) => (
+                              <Marker key={`marker-${idx}`} position={position}>
+                                <Popup>
+                                  <span>Popup</span>
+                                </Popup>
+                              </Marker>
+                            ))}
+                          </MapContainer>
                         </div>
                       </div>
-                    </div> 
+                    </div>
                     <div className="d-flex justify-content-between align-items-center">
                       <button type="submit" className="btn_three">
                         Send Package

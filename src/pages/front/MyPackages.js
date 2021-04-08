@@ -5,10 +5,17 @@ import Breadcrumb from "../../componentsFront/Breadcrumb";
 import FooterTwo from "../../componentsFront/Footer/FooterTwo";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import PackageList from "../../components/front/PackageList";
-
+import { useServerApi } from "../../hooks/useServerApi"; 
 
 export default class MyPackages extends Component {
-    render() {
+     testApi = () => {
+        console.log(process.env.SERVER_API_URL+"hi")
+        const [PackageApi] = useServerApi("package/");        
+        console.log(PackageApi);
+        return null;
+        }
+
+    render() {  
         let user = "Customer";
         let packageCont = null;
         if (user === "Customer") {
@@ -27,6 +34,7 @@ export default class MyPackages extends Component {
 
         return (
             <>
+                <this.testApi/>
                 <CustomNavbar
                     slogo="sticky_logo"
                     mClass="menu_four"

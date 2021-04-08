@@ -296,7 +296,7 @@ library.add(
 );
 
 const store = configureStore();
-const user = true;
+const user = false;
 
 class App extends Component {
   componentDidMount() {
