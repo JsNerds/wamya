@@ -66,12 +66,12 @@ export default [
     ]
   },  
   {
-    "label": "Entreprises Management",
+    "label": "Companies Management",
     "icon": "ChatIcon",
     "content": [
       {
 
-        "label": "Entreprises",
+        "label": "Companies",
 
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Entreprises"
@@ -124,11 +124,6 @@ export default [
         "label": "Customers",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Customers"
-      },
-      {
-        "label": "Update Customer",
-        "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/UpdateCustomer"
       }
     ]
   },

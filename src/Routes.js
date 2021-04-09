@@ -8,6 +8,7 @@ import MuiTheme from "./theme";
 
 import { LeftSidebar, PresentationLayout } from "./layout-blueprintsBack";
 
+
 // Example PagesFront
 const LandingPage = lazy(() => import("./PagesBack/LandingPage"));
 const Customers = lazy(() => import("./pages/back/Customers"));
@@ -18,6 +19,7 @@ const AdminDashborad = lazy(() => import("./pages/back/AdminDashboard"));
 const Packages = lazy(() => import("./pages/back/Packages"));
 const Payments = lazy(() => import("./pages/back/Payments"));
 const Entreprises = lazy(() => import("./pages/back/Entreprises"));
+const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"))
 
 const Routes = () => {
   const location = useLocation();
@@ -81,7 +83,7 @@ const Routes = () => {
                 "/Packages",
                 "/Payments",
                 "/Entreprises",
-                "/UpdateCustomer",
+                "/UpdateCustomer/:id",
               ]}
             >
               <LeftSidebar>
@@ -94,10 +96,8 @@ const Routes = () => {
                     transition={pageTransition}
                   >
                     <Route path="/AdminDashborad" component={AdminDashborad} />
-                    <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
                     <Route path="/AdminDashborad" component={AdminDashborad} />
-                    <Route path="/Customers" component={Customers} />
                     <Route path="/Packages" component={Packages} />
                     <Route path="/Vehicules" component={Vehicules} />
                     <Route path="/addVehicule" component={addVehicule} />
@@ -106,7 +106,7 @@ const Routes = () => {
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Payments" component={Payments} />
                     <Route path="/Entreprises" component={Entreprises} />
-                    <Route path="/UpdateCustomer" component={Entreprises} />
+                    <Route path="/UpdateCustomer/:id" component={UpdateCustoomer} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>

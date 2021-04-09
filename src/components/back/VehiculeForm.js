@@ -67,7 +67,7 @@ const LivePreviewExample = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} lg={6}>
           <Card className="p-4 mb-4">
-            <div className="font-size-lg font-weight-bold">Adornments</div>
+            <div className="font-size-lg font-weight-bold">Add vehicle</div>
             <Divider className="my-4" />
             <div>
               <TextField
