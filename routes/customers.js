@@ -45,7 +45,7 @@ router.get('/triByUserName', function(req, res, next) {
 });
 
 
-/** Get cutsomer By Id
+/** Get cutsomer By Id**/
 
  router.get('/:id', function(req, res, next) {
   Customer.findById(req.params.id,function(err,data){
@@ -53,7 +53,7 @@ router.get('/triByUserName', function(req, res, next) {
     res.json(data);
   }).populate("payments packages");
 });
- **/
+
 
 
 
@@ -118,23 +118,18 @@ router.post('/addCustomer', function (req, res, next) {
 router.put('/update/:id',function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
   const newCustomer = {
-    Cin: obj.cin,
     FirstName: obj.firstname,
     LastName: obj.lastname,
     UserName: obj.username,
-    Password: obj.password,
     Email: obj.email,
-    PhoneNumber: obj.phonenumber,
+    PhoneNumber: obj.phoneNumber,
     Adress: {
       Street: obj.street,
       City: obj.city,
       State: obj.state,
       ZipCode: obj.zipCode
-    },
-    payments: [],
-    packages: []
+    }
   };
-
   Customer.findByIdAndUpdate(req.params.id,newCustomer,function(err,data){
     if(err) throw err;
     console.log('UPDATED');
@@ -147,7 +142,7 @@ router.put('/update/:id',function(req,res,next){
 
 
 
-/** Update Customer(React) **/
+
 
 router.put('/update/:id',function(req,res,next){
   Customer.findByIdAndUpdate(req.params.id,{
@@ -189,7 +184,7 @@ router.delete('/remove', function(req,res,next){
 
 /** Delete Customer By id **/
 
-router.delete('/remove/:id', function(req,res,next){
+router.delete('/removeById/:id', function(req,res,next){
   Customer.findByIdAndRemove(req.params.id,req.body, function(err,data) {
     if(err) throw err;
     console.log('DELETED');
