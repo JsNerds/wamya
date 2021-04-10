@@ -80,6 +80,7 @@ router.post('/', function(req,res,next){
 
 router.post('/addCustomer', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
+  console.log("Obj", obj)
   const newCustomer = {
     Cin: obj.cin,
     FirstName: obj.firstname,
@@ -87,7 +88,7 @@ router.post('/addCustomer', function (req, res, next) {
     UserName: obj.username,
     Password: obj.password,
     Email: obj.email,
-    PhoneNumber: obj.phonenumber,
+    PhoneNumber: obj.phoneNumber,
     Adress: {
       Street: obj.street,
       City: obj.city,
@@ -97,13 +98,11 @@ router.post('/addCustomer', function (req, res, next) {
     payments: [],
     packages: []
   };
-  try{
-    newCustomer.save();
-    res.send("Ajout");
-  }
-  catch (error){
-    res.send(error);
-  }
+  Customer.create(newCustomer, function (err) {
+    if(err) throw err;
+    console.log('AJOUT');
+    res.send("AJOUT OK");
+  });
 
 });
 
@@ -113,7 +112,7 @@ router.post('/addCustomer', function (req, res, next) {
 
 
 
-/** Update Customer(Post Man) **/
+/** Update Customer(REACT) **/
 
 router.put('/update/:id',function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
