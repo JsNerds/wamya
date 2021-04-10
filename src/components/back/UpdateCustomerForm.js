@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
+import * as Yup from "yup";
 
 import clsx from 'clsx';
 
@@ -8,9 +9,12 @@ import {
     Card,
     FormControl,
     FormHelperText,
-    Divider
-    , InputLabel
-    , InputBase, FormGroup, InputAdornment, TextField, Button
+    Divider,
+    InputLabel,
+    FormGroup,
+    InputAdornment,
+    TextField,
+    Button
 
 } from '@material-ui/core';
 
@@ -39,7 +43,7 @@ const UpdateCustomerForm = (props) => {
             street: "",
             city: "",
             zipCode: 0
-        },
+        },validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
             const [,err] = await queryServerApi("customers/update/" +props.id, values,"PUT",false);
@@ -109,6 +113,11 @@ const UpdateCustomerForm = (props) => {
                         <Divider className="my-4" />
 
                         <form onSubmit={formik.handleSubmit}>
+
+                            <FormGroup>
+                                {error.visible && <span>{error.message}</span>}
+                            </FormGroup>
+
                             <FormGroup>
                                 <InputLabel>Informations</InputLabel>
 
@@ -132,7 +141,8 @@ const UpdateCustomerForm = (props) => {
                                 </FormControl>
 
 
-                                <FormControl className="w-100 m-2">
+                                <FormControl className="w-100 m-2"
+                                             error={formik.errors.username && formik.touched.username} component="fieldset">
                                     <InputLabel htmlFor="input-with-icon-adornment">
                                        Username
                                     </InputLabel>
@@ -146,13 +156,18 @@ const UpdateCustomerForm = (props) => {
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
                                     />
+                                    {formik.errors.username && formik.touched.username && (
+                                        <FormHelperText>{formik.errors.username}</FormHelperText>
+                                    )}
                                 </FormControl>
+
                             </FormGroup>
 
 
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
+                                variant="outlined"
+                                 error={formik.errors.firstname && formik.touched.firstname} component="fieldset">
                                 <Grid container spacing={1} alignItems="flex-end">
                                     <Grid item>
                                         <AccountCircle />
@@ -167,12 +182,18 @@ const UpdateCustomerForm = (props) => {
                                         />
                                     </Grid>
                                 </Grid>
+                                {formik.errors.firstname && formik.touched.firstname && (
+                                    <FormHelperText>{formik.errors.firstname}</FormHelperText>
+                                )}
+
                             </FormControl>
 
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
-                                <Grid container spacing={1} alignItems="flex-end">
+                                variant="outlined"
+                                error={formik.errors.lastname && formik.touched.lastname} component="fieldset">
+
+                            <Grid container spacing={1} alignItems="flex-end">
                                     <Grid item>
                                         <AccountCircle />
                                     </Grid>
@@ -186,6 +207,9 @@ const UpdateCustomerForm = (props) => {
                                         />
                                     </Grid>
                                 </Grid>
+                                {formik.errors.lastname && formik.touched.lastname && (
+                                    <FormHelperText>{formik.errors.lastname}</FormHelperText>
+                                )}
                             </FormControl>
 
 
@@ -193,8 +217,10 @@ const UpdateCustomerForm = (props) => {
                             <FormGroup>
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
-                                <TextField
+                                variant="outlined"
+                                error={formik.errors.email && formik.touched.email} component="fieldset">
+
+                            <TextField
                                     fullWidth
                                     className="m-2"
                                     id="email"
@@ -204,6 +230,9 @@ const UpdateCustomerForm = (props) => {
                                     onChange={formik.handleChange}
                                     multiline
                                 />
+                                {formik.errors.email && formik.touched.email && (
+                                    <FormHelperText>{formik.errors.email}</FormHelperText>
+                                )}
                             </FormControl>
 
 
@@ -212,7 +241,11 @@ const UpdateCustomerForm = (props) => {
                                         classes.margin,
                                         classes.withoutLabel,
                                         classes.textField
-                                    )}>
+                                    )}
+                                    error={formik.errors.phoneNumber && formik.touched.phoneNumber} component="fieldset">
+                                    <InputLabel htmlFor="input-with-icon-adornment">
+                                        Phone Number
+                                    </InputLabel>
                                     <Input
                                         id="phoneNumber"
                                         value={formik.values.phoneNumber}
@@ -223,9 +256,9 @@ const UpdateCustomerForm = (props) => {
                                             'aria-label': 'phoneNumber'
                                         }}
                                     />
-                                    <FormHelperText id="standard-weight-helper-text">
-                                        Phone Number
-                                    </FormHelperText>
+                                    {formik.errors.phoneNumber && formik.touched.phoneNumber && (
+                                        <FormHelperText>{formik.errors.phoneNumber}</FormHelperText>
+                                    )}
                                 </FormControl>
                             </FormGroup>
 
@@ -235,8 +268,10 @@ const UpdateCustomerForm = (props) => {
 
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
-                                <OutlinedInput
+                                variant="outlined"
+                                error={formik.errors.street && formik.touched.street} component="fieldset">
+
+                            <OutlinedInput
                                     id="street"
                                     value={formik.values.street}
                                     aria-describedby="outlined-weight-helper-text"
@@ -250,12 +285,17 @@ const UpdateCustomerForm = (props) => {
                                 <FormHelperText id="outlined-weight-helper-text">
                                     Street
                                 </FormHelperText>
+                                {formik.errors.street && formik.touched.street && (
+                                    <FormHelperText>{formik.errors.street}</FormHelperText>
+                                )}
                             </FormControl>
 
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
-                                <OutlinedInput
+                                variant="outlined"
+                                error={formik.errors.city && formik.touched.city} component="fieldset">
+
+                            <OutlinedInput
                                     id="city"
                                     value={formik.values.city}
                                     aria-describedby="outlined-weight-helper-text"
@@ -269,12 +309,17 @@ const UpdateCustomerForm = (props) => {
                                 <FormHelperText id="outlined-weight-helper-text">
                                     City
                                 </FormHelperText>
+                                {formik.errors.city && formik.touched.city && (
+                                    <FormHelperText>{formik.errors.city}</FormHelperText>
+                                )}
                             </FormControl>
 
                             <FormControl
                                 className={clsx(classes.margin, classes.textField)}
-                                variant="outlined">
-                                <OutlinedInput
+                                variant="outlined"
+                                error={formik.errors.zipCode && formik.touched.zipCode} component="fieldset">
+
+                            <OutlinedInput
                                     id="zipCode"
                                     value={formik.values.zipCode}
                                     aria-describedby="outlined-weight-helper-text"
@@ -287,6 +332,9 @@ const UpdateCustomerForm = (props) => {
                                 <FormHelperText id="outlined-weight-helper-text">
                                     Zip Code
                                 </FormHelperText>
+                                {formik.errors.zipCode && formik.touched.zipCode && (
+                                    <FormHelperText>{formik.errors.zipCode}</FormHelperText>
+                                )}
                             </FormControl>
                             <p></p>
                             <Button className="m-2" variant="contained" color="primary" type="submit">
@@ -322,5 +370,26 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const YupSchema = Yup.object ({
+    firstname: Yup.string()
+        .required("First Name is Required"),
+    username: Yup.string()
+        .required("Username is Required"),
+    lastname: Yup.string()
+        .required("Last Name is Required"),
+    email: Yup.string()
+        .email("No valid Email ")
+        .required("email is Required"),
+    phoneNumber: Yup.number("Phone Number should be a number")
+        .positive("Phone Number should be Positive")
+        .required("phone number is Required"),
+    street: Yup.string()
+        .required("street is required"),
+    city: Yup.string()
+        .required("city is required"),
+    zipCode: Yup.number("Zip Code should be a number")
+        .positive("Zip Code should be Positive")
+        .required("Zip Code is Required")
+});
 
 export default UpdateCustomerForm;
