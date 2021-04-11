@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import PackageSlider from "../../components/front/PackageSlider";
+import React, { Component, useState, useEffect } from "react";
 import CustomNavbar from "../../componentsFront/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
 import FooterTwo from "../../componentsFront/Footer/FooterTwo";
@@ -7,34 +6,30 @@ import FooterData from "../../componentsFront/Footer/FooterData";
 import PackageList from "../../components/front/PackageList";
 import { useServerApi } from "../../hooks/useServerApi"; 
 
-export default class MyPackages extends Component {
-     testApi = () => {
-        console.log(process.env.SERVER_API_URL+"hi")
-        const [PackageApi] = useServerApi("package/");        
-        console.log(PackageApi);
-        return null;
-        }
-
-    render() {  
+export default function MyPackages(props) {
+        const [PackageApi] = useServerApi("package/"); 
+        const [packages,setPackages] = useState([]);
+        useEffect(() => {
+            setPackages(PackageApi);
+            console.log(packages);
+          });     
         let user = "Customer";
         let packageCont = null;
         if (user === "Customer") {
             packageCont = (
                 <>
-                    <PackageList />
+                    <PackageList packagesList={packages} />
                 </>
             );
         } else if (user === "Company") {
             packageCont = (
                 <>
-                    <PackageList />
+                    <PackageList packagesList={packages} />
                 </>
             );
         }
-
         return (
             <>
-                <this.testApi/>
                 <CustomNavbar
                     slogo="sticky_logo"
                     mClass="menu_four"
@@ -51,4 +46,3 @@ export default class MyPackages extends Component {
             </>
         );
     }
-}

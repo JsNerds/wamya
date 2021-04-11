@@ -105,12 +105,7 @@ export default [
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Dashboard",
-        "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Packages"
-      },
-      {
-        "label": "Packages",
+        "label": "Package management",
         "description": "Wonderful animated charts built with ApexCharts components.",
         "to": "/Packages"
       }

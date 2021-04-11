@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {Link} from 'react-router-dom'
 
 import { Grid, Card, CardContent } from '@material-ui/core';
-export default class PackageItem extends Component {
-    render(){
+export default function PackageItem  (props) {
+    
         return (
     <Fragment>
       <Grid container spacing={4} justify={'center'}>
@@ -17,9 +17,9 @@ export default class PackageItem extends Component {
                   <small className="text-black-50 d-block mb-1 text-uppercase">
                     Date :
                   </small>
-                  <span className="font-size-xxl mt-1">Package Name</span>
+                  <span className="font-size-xxl mt-1">{props.pack.Name}</span>
                   <small className="text-black-50 d-block mb-1 text-uppercase">
-                    Source :
+                    Source : {props.pack.sourceAddress.City}
                   </small>
                   <small className="text-black-50 d-block mb-1 text-uppercase">
                     Destination :
@@ -27,7 +27,7 @@ export default class PackageItem extends Component {
                 </div>
                 <div className="ml-auto">
                   <div className="bg-love-kiss text-center text-white font-size-xl d-50 rounded-circle">
-                    <img src={require ("../../img/teams/" + this.props.PackageImage)}/>
+                    <img src={require ("../../img/teams/" + props.PackageImage)}/>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,6 @@ export default class PackageItem extends Component {
       </Grid>
     </Fragment>
   );
-    }
 }
 
 

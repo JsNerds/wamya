@@ -96,7 +96,6 @@ const Routes = () => {
                     transition={pageTransition}
                   >
                     <Route path="/AdminDashborad" component={AdminDashborad} />
-                    <Route path="/Packages" component={Packages} />
                     <Route path="/AdminDashborad" component={AdminDashborad} />
                     <Route path="/Packages" component={Packages} />
                     <Route path="/Vehicules" component={Vehicules} />
