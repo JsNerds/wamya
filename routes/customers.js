@@ -100,7 +100,6 @@ router.post('/addCustomer', function (req, res, next) {
   };
   Customer.create(newCustomer, function (err) {
     if(err) throw err;
-    console.log('AJOUT');
     res.send("AJOUT OK");
   });
 

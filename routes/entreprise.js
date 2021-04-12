@@ -68,17 +68,88 @@ router.post('/', function(req,res,next){
 });
 
 
-/** Update Entreprise **/
 
-router.put('/update/:id',function(req,res,next){
-  Entreprise.findByIdAndUpdate(req.params.id,{
-    "ResponsibleName" : "SAIDIIIII"
-  },function(err,data){
+/** Add Entreprise(REACT) **/
+router.post('/addCompany', function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log("Obj", obj)
+  const newCompany = {
+    ResponsibleName: obj.ResponsibleName,
+    CreationYear: obj.CreationYear,
+    CommercialName: obj.CommercialName,
+    Activity: obj.Activity,
+    HeadquartersAddress: {
+      Street: obj.Street,
+      City: obj.City,
+      State: obj.State,
+      ZipCode: obj.ZipCode
+    },
+    RegisterStatus: obj.RegisterStatus,
+    RegionalOffice: obj.RegionalOffice,
+    Denomination: obj.Denomination,
+    TaxSituation: obj.TaxSituation,
+    Email: obj.Email,
+    Password: obj.Password,
+    PhoneNumber: obj.PhoneNumber,
+    SubscriptionExpirationDate: new Date(),
+    payments: [],
+    packages: []
+  };
+
+  Entreprise.create(newCompany, function (err,company) {
+    if(err) throw err;
+    console.log('AJOUT');
+    console.log(company._id);
+    res.send(company._id);
+  });
+
+});
+
+
+
+/** Update Entreprise Subscription (REACT) **/
+router.put('/UpdateSubscription/:id',function(req,res,next){
+
+  Entreprise.findByIdAndUpdate(req.params.id,req.body,function(err,data){
     if(err) throw err;
     console.log('UPDATED');
     res.send("UPDATED OK");
   });
 });
+
+
+
+/** Update Entreprise(REACT) **/
+
+router.put('/update/:id',function(req,res,next){
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log("Company : ",obj)
+  const newCompany = {
+    ResponsibleCin: obj.ResponsibleCin,
+    ResponsibleName: obj.ResponsibleName,
+    CreationYear: obj.CreationYear,
+    CommercialName: obj.CommercialName,
+    Activity: obj.Activity,
+    HeadquartersAddress: {
+      Street: obj.Street,
+      City: obj.City,
+      State: obj.State,
+      ZipCode: obj.ZipCode
+    },
+    RegisterStatus: obj.RegisterStatus,
+    RegionalOffice: obj.RegionalOffice,
+    Denomination: obj.Denomination,
+    TaxSituation: obj.TaxSituation,
+    Email: obj.Email,
+    PhoneNumber: obj.PhoneNumber,
+  };
+  Entreprise.findByIdAndUpdate(req.params.id,newCompany,function(err,data){
+    if(err) throw err;
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
+
 
 
 
