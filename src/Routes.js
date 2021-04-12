@@ -19,7 +19,8 @@ const AdminDashborad = lazy(() => import("./pages/back/AdminDashboard"));
 const Packages = lazy(() => import("./pages/back/Packages"));
 const Payments = lazy(() => import("./pages/back/Payments"));
 const Entreprises = lazy(() => import("./pages/back/Entreprises"));
-const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"))
+const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"));
+const UpdateCompany = lazy(()=> import("./pages/back/UpdateCompany"));
 
 const Routes = () => {
   const location = useLocation();
@@ -84,6 +85,7 @@ const Routes = () => {
                 "/Payments",
                 "/Entreprises",
                 "/UpdateCustomer/:id",
+                "/UpdateCompany/:id",
               ]}
             >
               <LeftSidebar>
@@ -106,6 +108,7 @@ const Routes = () => {
                     <Route path="/Payments" component={Payments} />
                     <Route path="/Entreprises" component={Entreprises} />
                     <Route path="/UpdateCustomer/:id" component={UpdateCustoomer} />
+                    <Route path="/UpdateCompany/:id" component={UpdateCompany} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>

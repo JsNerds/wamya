@@ -56,7 +56,7 @@ export default function PackagesForm(props) {
       values.destinationAddress= destination;
       console.log(values)
       setShowLoader(false);
-      const [,err] = await queryServerApi("package/addPackageCustomer/606d64dfaaf7ec5c14190a10",values,"POST",false);
+      const [,err] = await queryServerApi("package/addPackageCustomer/60717a108cd4e80964d0a06c",values,"POST",false);
       if (err) { 
         setShowLoader(false); 
         setError({ 

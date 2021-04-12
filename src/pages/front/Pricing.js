@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CustomNavbar from '../../componentsFront/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import PricingComponent from "../../components/front/PricingComponent";
+import {useParams} from "react-router";
 
 const Pricing = () => {
+    const {id} = useParams();
     return(
         <div className="body_wrapper">
             <CustomNavbar slogo="sticky_logo" mClass="menu_four" nClass="w_menu ml-auto mr-auto"/>
             <Breadcrumb breadcrumbClass="breadcrumb_area" imgName="breadcrumb/banner_bg.png" Ptitle="Pricing" Pdescription=""/>
-            <PricingComponent/>
+            <PricingComponent id={id} />
             <FooterTwo FooterData={FooterData}/>
         </div>
     )

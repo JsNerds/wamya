@@ -10,8 +10,25 @@ import {
     Button,
     Tooltip
 } from '@material-ui/core';
+import {queryServerApi} from "../../utils/queryServerApi";
+import {useHistory} from "react-router";
 
-export default function EntreprisesTable() {
+export default function EntreprisesTable(props) {
+    const history = useHistory();
+
+
+    const UpdateCompany= (company) =>{
+        history.replace("/UpdateCompany/"+ company._id)
+    }
+
+
+    const deleteCompany = async (id) => {
+        const [err] = await queryServerApi("entreprises/remove/" + id, {}, "DELETE");
+        if (err) {
+            console.log(err);
+        } history.push("/Entreprises");
+    };
+
     return (
         <Fragment>
             <Card className="card-box mb-4">
@@ -30,166 +47,92 @@ export default function EntreprisesTable() {
                         <table className="table table-borderless table-hover text-nowrap mb-0">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th className="text-left">Name</th>
-                                <th className="text-center">Status</th>
-                                <th className="text-center">Progress</th>
+                                <th>Denomination</th>
+                                <th className="text-left">Responsible</th>
+                                <th className="text-center">Subscription</th>
+                                <th className="text-center">Email</th>
+                                <th className="text-center">Headquarters Address</th>
+                                <th className="text-center">Phone Number</th>
                                 <th className="text-center">Actions</th>
+                                <th className="text-center"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Shanelle Wynn
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        UI Engineer, Apple Inc.
-                      </span>
-                                    </div>
-                                </td>
-                                <td className="text-center">
-                                    <div className="badge badge-warning px-4">Pending</div>
-                                </td>
-                                <td>
-                                    <LinearProgress value={55} color="primary" />
-                                </td>
-                                <td className="text-center">
-                                    <Tooltip arrow title="View Details">
-                                        <IconButton
+                            {props.companies?.map((company,index) => (
+                                <tr key={index}>
+                                    <td>
+                                        {company.Denomination}
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <a
+                                                href="#/"
+                                                onClick={e => e.preventDefault()}
+                                                className="font-weight-bold text-black"
+                                                title="...">
+                                                {company.ResponsibleName}
+                                            </a>
+                                            <span className="text-black-50 d-block">
+                                           CIN : {company.ResponsibleCin}
+                                        </span>
+                                        </div>
+                                    </td>
+
+                                    {Date.parse(company.SubscriptionExpirationDate) > Date.now() ? (
+                                        <td className="text-center">
+                                            <div className="badge badge-success px-4">Subscribed</div>
+                                        </td>
+                                    ):
+                                        <td className="text-center">
+                                            <div className="badge badge-danger px-4">Expired</div>
+                                        </td>
+                                    }
+
+                                    <td>
+                                        {company.Email}
+                                    </td>
+
+                                    <td>
+                                        {company.HeadquartersAddress.City} , {company.HeadquartersAddress.Street}
+                                    </td>
+
+                                    <td>
+                                        {company.PhoneNumber}
+                                    </td>
+                                    <td className="text-center">
+                                        <Button
                                             size="small"
-                                            variant="outlined"
-                                            color="primary">
-                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Shanelle Wynn
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        UI Engineer, Apple Inc.
-                      </span>
-                                    </div>
-                                </td>
-                                <td className="text-center">
-                                    <div className="badge badge-warning px-4">Pending</div>
-                                </td>
-                                <td>
-                                    <LinearProgress value={55} color="primary" />
-                                </td>
-                                <td className="text-center">
-                                    <Tooltip arrow title="View Details">
-                                        <IconButton
-                                            size="small"
-                                            variant="outlined"
-                                            color="primary">
-                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Regan Norris
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        Senior Project Manager
-                      </span>
-                                    </div>
-                                </td>
-                                <td className="text-center">
-                                    <div className="badge badge-danger px-4">Failed</div>
-                                </td>
-                                <td>
-                                    <LinearProgress value={67} color="primary" />
-                                </td>
-                                <td className="text-center">
-                                    <Tooltip arrow title="View Details">
-                                        <IconButton
-                                            size="small"
-                                            variant="outlined"
-                                            color="primary">
-                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>33</td>
-                                <td>
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Beck Simpson
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        Frontend Developer
-                      </span>
-                                    </div>
-                                </td>
-                                <td className="text-center">
-                                    <div className="px-4 badge badge-success">Completed</div>
-                                </td>
-                                <td>
-                                    <LinearProgress value={39} color="primary" />
-                                </td>
-                                <td className="text-center">
-                                    <Tooltip arrow title="View Details">
-                                        <IconButton
-                                            size="small"
-                                            variant="outlined"
-                                            color="primary">
-                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </td>
-                            </tr>
+                                            variant="contained"
+                                            className="mr-3"
+                                            color="primary" onClick={() => UpdateCompany(company) }>
+                                            Update
+                                        </Button>
+                                        <Button size="small" variant="contained" color="secondary" onClick={()=> deleteCompany(company._id)}>
+                                            Delete
+                                        </Button>
+                                    </td>
+
+                                    <td className="text-center">
+                                        <Tooltip arrow title="View Details">
+                                            <IconButton
+                                                size="small"
+                                                variant="outlined"
+                                                color="primary">
+                                                <FontAwesomeIcon icon={['fas', 'arrow-right']} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </td>
+
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
                 </CardContent>
                 <div className="card-footer d-flex justify-content-between">
                     <Button color="primary" size="small">
-                        Delete
+                        Delete All
                     </Button>
-                    <div>
-                        <Button
-                            size="small"
-                            variant="contained"
-                            className="mr-3"
-                            color="primary">
-                            View all
-                        </Button>
-                        <Button size="small" variant="contained" color="secondary">
-                            Add new entry
-                        </Button>
-                    </div>
                 </div>
             </Card>
         </Fragment>

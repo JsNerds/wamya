@@ -25,6 +25,7 @@ import {useHistory} from "react-router";
 import {queryServerApi} from "../../utils/queryServerApi";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import FilledInput from "@material-ui/core/FilledInput";
+import MuiAlert from "@material-ui/lab/Alert";
 
 
 const UpdateCustomerForm = (props) => {
@@ -43,7 +44,8 @@ const UpdateCustomerForm = (props) => {
             street: "",
             city: "",
             zipCode: 0
-        },validationSchema:YupSchema,
+        },
+        validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
             const [,err] = await queryServerApi("customers/update/" +props.id, values,"PUT",false);
@@ -114,8 +116,19 @@ const UpdateCustomerForm = (props) => {
 
                         <form onSubmit={formik.handleSubmit}>
 
+
                             <FormGroup>
                                 {error.visible && <span>{error.message}</span>}
+
+                                {!formik.isValid &&
+                                <MuiAlert className="mb-4" severity="error">
+                                    <div className="d-flex align-items-center align-content-center">
+                                         <span>
+                                         <strong className="d-block">Danger!</strong> Check out the form again
+                                         </span>
+                                    </div>
+                                </MuiAlert>}
+
                             </FormGroup>
 
                             <FormGroup>

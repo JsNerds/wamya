@@ -416,7 +416,7 @@ class App extends Component {
                   component={CustomerInterface}
                 />
                 <ScrollToTopRoute
-                  path="/Pricing"
+                  path="/Pricing/:id"
                   component={Pricing}
                 />
                 <ScrollToTopRoute component={NotFound} />
