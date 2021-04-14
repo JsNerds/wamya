@@ -16,6 +16,8 @@ import "./assets/main.css";
 import "./assets/responsive.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "popper.js";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const loader = document.querySelector("#preloader");
 
@@ -28,7 +30,9 @@ setTimeout(
   () =>
     // the show/hide functions are passed as props
     ReactDOM.render(
-      <App hideLoader={hideLoader} showLoader={showLoader} />,
+      <Provider store={store}>
+        <App hideLoader={hideLoader} showLoader={showLoader} />
+      </Provider>,
       document.getElementById("root")
     ),
   1000

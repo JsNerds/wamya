@@ -5,8 +5,8 @@ const firstComponent = () => {
   return (
     <div>
       <div className="form-group text_box">
-        <label className="f_p text_c f_400">Username</label>
-        <input id="1" type="text" placeholder="Name" />
+        <label className="">Username</label>
+        <input id="5" type="text" placeholder="Name" />
       </div>
 
       <div className="form-group text_box">

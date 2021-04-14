@@ -415,10 +415,7 @@ class App extends Component {
                   path="/CustomerInterface"
                   component={CustomerInterface}
                 />
-                <ScrollToTopRoute
-                  path="/Pricing/:id"
-                  component={Pricing}
-                />
+                <ScrollToTopRoute path="/Pricing/:id" component={Pricing} />
                 <ScrollToTopRoute component={NotFound} />
               </Switch>
             </Router>

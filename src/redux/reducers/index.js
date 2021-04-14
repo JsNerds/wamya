@@ -1,11 +1,8 @@
-import ThemeOptions from "./ThemeOptions";
 import { combineReducers } from "redux";
 import { reducer as reducerForm } from "redux-form";
+
 const rootReducer = combineReducers({
   form: reducerForm,
 });
 
-export default {
-  ThemeOptions,
-  rootReducer,
-};
+export default rootReducer;
