@@ -26,7 +26,7 @@ export default function CustomersTable(props) {
         const [err] = await queryServerApi("customers/removeById/" + id, {}, "DELETE");
         if (err) {
             console.log(err);
-        } history.push("/Customers");
+        } history.go(0);
     };
 
     useEffect(()=>{

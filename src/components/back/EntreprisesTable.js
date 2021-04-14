@@ -26,7 +26,7 @@ export default function EntreprisesTable(props) {
         const [err] = await queryServerApi("entreprises/remove/" + id, {}, "DELETE");
         if (err) {
             console.log(err);
-        } history.push("/Entreprises");
+        } history.go(0);
     };
 
     return (
