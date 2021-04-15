@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Payment = require('../models/payment');
 var Customer = require('../models/customer')
-var Entreprise = require('../models/entreprise')
+var Entreprise = require('../models/entreprise');
+const stripe = require("stripe")("sk_test_51IfWBLCVTWqP5309JTjdorJKTRm2p4oXBBe746cv5gR9lVnMyAy4373gs2mcIm0ceEu35XuVoJbLOVg98asz0sgV00mQZFDbV4");
+
 
 
 /*********************************************   CRUD RESTFUL APIs For React   *********************************************/
@@ -116,9 +118,20 @@ router.post('/addPaymentCust/:id', function(req,res,next){
 /** Add payment with update Entreprise's Payments 2 **/
 
 router.post('/addPaymentEntrep/:id', function(req,res,next){
-  const payment = new Payment(req.body);
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log("Obj", obj)
+  const newPayment = {
+    PaymentMethod: obj.PaymentMethod,
+    NameOnCard: obj.NameOnCard,
+    creditCard: obj.creditCard,
+    CardType: obj.CardType,
+    SecurityCode: obj.SecurityCode,
+    ExpirationDate: obj.ExpirationDate,
+    Country: obj.Country,
+  };
+
   try{
-    Payment.create(payment).then( p =>{
+    Payment.create(newPayment).then( p =>{
       Entreprise.findByIdAndUpdate(
           req.params.id,
           {
@@ -143,10 +156,28 @@ router.post('/addPaymentEntrep/:id', function(req,res,next){
 });
 
 
+/** AddPayment Stripe **/
+router.post("/stripePayment", async (req, res) => {
+  // Create a PaymentIntent with the order amount and currency
+  let {amount , id } = req.body;
+  const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency:"USD",
+        description:"WAMYA FLEX",
+        payment_method:id,
+        confirm:true
+  });
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+    id:paymentIntent.id,
+    success:true
+  });
+});
 
 
 
-/** Update Customer **/
+
+/** Update Payment **/
 router.put('/update/:id',function(req,res,next){
   Payment.findByIdAndUpdate(req.params.id,{
     "NameOnCard" : "Saidi"
