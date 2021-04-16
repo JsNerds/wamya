@@ -8,7 +8,7 @@ const PricingComponent = (props) => {
     const id=props.id;
     const history =useHistory();
 
-    const updateSubscription = async (incrementDay,incrementMonth, IncrementYear) => {
+    const updateSubscription = async (incrementDay,incrementMonth, IncrementYear,amount) => {
         var d = new Date();
         var year = d.getFullYear();
         var month = d.getMonth();
@@ -18,7 +18,7 @@ const PricingComponent = (props) => {
         if(err){
                 console.log(err);
         }
-        else history.push("/Payment")
+        else history.push("/Payment/"+amount)
     }
 
 
@@ -56,7 +56,7 @@ const PricingComponent = (props) => {
                             </ul>
                             <div className="text-center">
                                 <a  className="btn_hover agency_banner_btn pay_btn pay_btn_two"
-                                         onClick={()=>updateSubscription(10,1,0)}
+                                         onClick={()=>updateSubscription(10,1,0,700*100)}
                                 >
                                     Join
                                 </a>
@@ -94,7 +94,7 @@ const PricingComponent = (props) => {
                             </ul>
                             <div className="text-center">
                                 <a  className="btn_hover agency_banner_btn pay_btn pay_btn_two"
-                                    onClick={()=>updateSubscription(0,2,1)}
+                                    onClick={()=>updateSubscription(0,2,1,999*100)}
                                 >
                                     Join
                                 </a>
@@ -129,7 +129,7 @@ const PricingComponent = (props) => {
                             </ul>
                             <div className="text-center">
                                 <a  className="btn_hover agency_banner_btn pay_btn pay_btn_two"
-                                    onClick={()=>updateSubscription(15,3,2)}
+                                    onClick={()=>updateSubscription(15,3,2,1300*100)}
                                 >
                                     Join
                                 </a>

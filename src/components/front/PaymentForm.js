@@ -1,8 +1,95 @@
-import React from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import Reveal from "react-reveal/Reveal";
+import {CardElement, useStripe, useElements, CardNumberElement} from '@stripe/react-stripe-js';
+import MuiAlert from "@material-ui/lab/Alert";
+import {FormHelperText} from "@material-ui/core";
+import axios from "axios";
+import {useFormik} from "formik";
+import {queryServerApi} from "../../utils/queryServerApi";
+import * as Yup from "yup";
+import {useHistory, useParams} from "react-router";
 
 
-const CustomerSignUpForm =()=>{
+
+const PaymentForm =(props)=>{
+
+    const {amount} = useParams();
+    const stripe= useStripe();
+    const elements = useElements();
+    const [error, setError] = useState(null);
+    const [success,setSuccess] = useState(false);
+    //const [clientSecret, setClientSecret] = useState('');
+    const history = useHistory();
+
+
+    const formik = useFormik({
+        initialValues:{
+            PaymentMethod: "",
+            NameOnCard: " ",
+            creditCard: "",
+            CardType: "",
+            SecurityCode: "",
+            ExpirationDate: "",
+            Country: "",
+            Email:"",
+            PhoneNumber:''
+        },validationSchema:YupSchema,
+        onSubmit: async (values) =>{
+
+            if (!stripe || !elements) {
+                return;
+            }
+
+            const cardElement = elements.getElement(CardElement);
+            console.log(cardElement);
+
+            const {error, paymentMethod} = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    email: formik.values.Email,
+                    phone: formik.values.PhoneNumber,
+                    name: formik.values.NameOnCard
+                }
+            });
+
+            if (error) {
+                console.log('[error]', error);
+                setError(error);
+            } else {
+                const {id} = paymentMethod
+                const response = await axios.post("http://localhost:3000/payments/stripePayment",{
+                    amount,
+                    id
+                });
+                if(response.data.success){
+                    const [res,err] = await queryServerApi("payments/addPaymentEntrep/6076b61b4d12be3ffc0c9b7d",
+                        {
+                            PaymentMethod: paymentMethod.type,
+                            NameOnCard: formik.values.NameOnCard,
+                            creditCard: "",
+                            CardType: paymentMethod.card.brand,
+                            ExpirationDate: new Date(paymentMethod.card.exp_year + "/" + paymentMethod.card.exp_month),
+                            Country: paymentMethod.card.country,
+                            Email:formik.values.Email,
+                            PhoneNumber:formik.values.PhoneNumber
+                        }
+                        ,"POST",false);
+                    console.log(res);
+                    if(err){
+                        setError({
+                            visible: true,
+                            message: JSON.stringify(err.errors, null, 2),
+                        });
+                    }
+                    else setSuccess(true);
+                }
+                console.log("id = ",id);
+                console.log('[PaymentMethod] = ', paymentMethod);
+            }
+        }
+    });
+
     return(
         <section className="sign_in_area bg_color sec_pad">
             <div className="container">
@@ -18,91 +105,109 @@ const CustomerSignUpForm =()=>{
                         <div className="col-lg-7">
                             <div className="login_info">
                                 <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Checkout</h2>
-                                <form action="#" className="login-form sign-in-form">
 
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Username</label>
-                                        <input type="text" placeholder="Name"/>
-                                    </div>
+                                {!success ? (
+                                    <form className="login-form sign-in-form" onSubmit={formik.handleSubmit}>
 
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Email Address</label>
-                                        <input type="text" name="email" id="email" placeholder="saasland@gmail.com"/>
-                                    </div>
+                                        {error &&
+                                        <>
+                                            <MuiAlert className="mb-4" severity="error">
+                                                <div className="d-flex align-items-center align-content-center">
+                                         <span>
+                                         <strong className="d-block">Danger!</strong> {error.message}
+                                         </span>
+                                                </div>
 
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Card Type</label>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="flexCheckDefault"/>
-                                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                                    Visa
-                                                </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="flexCheckDefault"/>
-                                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                                    Master Card
-                                                </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="flexCheckDefault"/>
-                                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                                    Edinar
-                                                </label>
-                                        </div>
+                                            </MuiAlert>
+                                            <br/>
+                                            <br/>
+                                        </>
+                                        }
+
+                                        {!formik.isValid &&
+                                        <MuiAlert className="mb-4" severity="error">
+                                            <div className="d-flex align-items-center align-content-center">
+                                         <span>
+                                         <strong className="d-block">Danger!</strong> Check out the form again
+                                         </span>
+                                            </div>
+                                        </MuiAlert>}
 
 
-                                    </div>
-
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Name On Card</label>
-                                        <input type="text" placeholder="Name"/>
-                                    </div>
-
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Credit Card Number </label>
-                                        <input type="number" className="form-control" aria-label="Dollar amount (with dot and two decimal places)"/>
-                                    </div>
-
-
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Security Code</label>
-                                        <input type="password" placeholder="******"/>
-                                    </div>
-
-
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Expiration Date</label>
-                                        <input type="date" className="form-control" aria-label="Dollar amount (with dot and two decimal places)"/>
-                                    </div>
-
-
-                                    <div className="extra mb_20">
-                                        <div className="checkbox remember">
-                                            <label>
-                                                <input type="checkbox"/> I agree to terms and conditions of this website
-                                            </label>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">Name </label>
+                                            <input id="NameOnCard"
+                                                   type="text" placeholder="Name"
+                                                   value={formik.values.NameOnCard}
+                                                   onChange={formik.handleChange}
+                                            />
+                                            {formik.errors.NameOnCard && formik.touched.NameOnCard && (
+                                                <FormHelperText error={formik.errors.NameOnCard}>{formik.errors.NameOnCard}</FormHelperText>
+                                            )}
                                         </div>
 
-                                        <div className="forgotten-password">
-                                            <a href="/#">Forgot Password?</a>
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400">Email Address</label>
+                                            <input
+                                                   type="text"  id="Email" placeholder="saasland@gmail.com"
+                                                   value={formik.values.Email}
+                                                   onChange={formik.handleChange}
+                                            />
+                                            {formik.errors.Email && formik.touched.Email && (
+                                                <FormHelperText error={formik.errors.Email}>{formik.errors.Email}</FormHelperText>
+                                            )}
+
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <button type="submit" className="btn_three">Sign Up</button>
-                                        <div className="social_text d-flex ">
-                                            <div className="lead-text">Or Sign up Using</div>
-                                            <ul className="list-unstyled social_tag mb-0">
-                                                <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                <li><a href="/#"><i className="ti-google"></i></a></li>
-                                            </ul>
+
+                                        <div className="form-group text_box">
+                                            <label className="f_p text_c f_400"> Phone Number</label>
+                                            <input
+                                                id="PhoneNumber"
+                                                type="number"
+                                                className="form-control"
+                                                aria-label="Dollar amount (with dot and two decimal places)"
+                                                value={formik.values.PhoneNumber}
+                                                onChange={formik.handleChange}
+                                            />
+
+                                            {formik.errors.PhoneNumber && formik.touched.PhoneNumber && (
+                                                <FormHelperText error={formik.errors.PhoneNumber}>{formik.errors.PhoneNumber}</FormHelperText>
+                                            )}
                                         </div>
-                                    </div>
-                                </form>
+
+                                        <label>Credit Card </label>
+                                        <hr/><br/>
+                                        <CardElement options={cardOptions}/>
+
+
+                                        <p></p>
+                                        <br/>
+                                        <br/>
+
+                                        <div className="d-flex justify-content-between align-items-center">
+
+                                            <button type="submit" className="btn_three" > Pay Now</button>
+                                            <div className="social_text d-flex ">
+                                                <div className="lead-text">Or Sign up Using</div>
+                                                <ul className="list-unstyled social_tag mb-0">
+                                                    <li><a href="/#"><i className="ti-facebook"></i></a></li>
+                                                    <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
+                                                    <li><a href="/#"><i className="ti-google"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                ) :
+                                    <MuiAlert className="mb-4" severity="success">
+                                        <div className="d-flex align-items-center align-content-center">
+                                             <span>
+                                                <strong className="d-block">Success!</strong> Your payment was successful!
+                                             </span>
+                                        </div>
+                                    </MuiAlert>
+
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -111,4 +216,30 @@ const CustomerSignUpForm =()=>{
         </section>
     )
 }
-export default CustomerSignUpForm;
+
+const cardOptions = {
+    style: {
+        base: {
+            fontSize: '16px',
+            color: '#424770',
+            '::placeholder': {
+                color: '#5490cd',
+            },
+        },
+        invalid: {
+            color: '#9e2146',
+        },
+    },
+};
+
+const YupSchema = Yup.object ({
+    NameOnCard: Yup.string()
+        .required("Name is required"),
+    Email: Yup.string()
+        .email("No valid Email ")
+        .required("email is Required"),
+    PhoneNumber: Yup.number("Phone Number should be a number")
+        .positive("Phone Number should be Positive")
+        .required("phone number is Required"),
+});
+export default PaymentForm;
