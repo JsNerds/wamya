@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var delivery = require("../models/delivery");
+var delivery = require("../models/delivery_man");
 
 /* GET contact DB. */
 router.get("/", function (req, res, next) {
@@ -54,7 +54,7 @@ router.post("/add", function (req, res, next) {
     if (err) {
       res.render("/adddelivery");
     } else {
-      res.redirect("/delivery");
+      res.redirect("/deliveryman");
     }
   });
 });
@@ -70,7 +70,7 @@ router.post("/edit/:id", function (req, res, next) {
     if (err) {
       res.render("/delivery/edit/" + req.params.id);
     } else {
-      res.redirect("/delivery");
+      res.redirect("/deliveryman");
     }
   });
 });
@@ -78,7 +78,7 @@ router.post("/edit/:id", function (req, res, next) {
 router.get("/delete/:id", function (req, res, next) {
   delivery.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
-    res.redirect("/delivery");
+    res.redirect("/deliveryman");
   });
 });
 router.get("/edit/delivery/:id", function (req, res, next) {

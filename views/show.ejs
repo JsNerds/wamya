@@ -2,7 +2,7 @@
 <body>
 <h2>  List Delivery man :  </h2>
 
-<a href="/delivery/adddelivery"> Add Delivery man </a>
+<a href="/deliveryman/adddelivery"> Add Delivery man </a>
 
 <table border="2">
 
@@ -35,9 +35,9 @@
 		<td><%= users[i].Status   %> </td>
 		<td><%= users[i].Region   %> </td>
 		<td>
-			<a href="/delivery/edit/delivery/<%= users[i]._id   %>">Edit</a>
-			<a href="/delivery/delete/<%= users[i]._id   %>">Remove</a>
-			<a href="/delivery/<%= users[i]._id   %>">Show</a>
+			<a href="/deliveryman/edit/delivery/<%= users[i]._id   %>">Edit</a>
+			<a href="/deliveryman/delete/<%= users[i]._id   %>">Remove</a>
+			<a href="/deliveryman/<%= users[i]._id   %>">Show</a>
 		</td>
 </tr>
 <%   }  %>

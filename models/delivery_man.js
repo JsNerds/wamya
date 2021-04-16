@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Delivery = new Schema({
+var delivery_man = new Schema({
   Username: String,
   Email: String,
   Password: String,
@@ -14,4 +14,4 @@ var Delivery = new Schema({
   Date_birth: Date,
 });
 
-module.exports = mongoose.model("delivery_man", Delivery);
+module.exports = mongoose.model("delivery_man", delivery_man);
