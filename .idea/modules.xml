@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/wamya.iml" filepath="$PROJECT_DIR$/.idea/wamya.iml" />
+      <module fileurl="file://E:/4eme/NodeJs/wamya-expressJs/.idea/wamya-expressJs.iml" filepath="E:/4eme/NodeJs/wamya-expressJs/.idea/wamya-expressJs.iml" />
+    </modules>
+  </component>
+</project>

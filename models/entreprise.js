@@ -16,6 +16,7 @@ var Entreprise = new Schema({
   Email: String,
   Password: String,
   PhoneNumber: Number,
+  Subscribed:Boolean,
   SubscriptionExpirationDate: Date,
   payments: [
     {
