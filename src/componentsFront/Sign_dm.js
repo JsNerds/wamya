@@ -63,7 +63,7 @@ export default function Sign_dm(props) {
                         visible: true,
                         message: JSON.stringify(err.errors, null, 2),
                       });
-                    } else history.push("/SendPackage");
+                    }
                   }}
                 />
               </div>

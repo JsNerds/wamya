@@ -11,11 +11,11 @@ export const colourOptions = [
   { value: "silver", label: "Silver", color: "#666666" },
 ];
 
-export const flavourOptions = [
-  { value: "vanilla", label: "Vanilla", rating: "safe" },
-  { value: "chocolate", label: "Chocolate", rating: "good" },
-  { value: "strawberry", label: "Strawberry", rating: "wild" },
-  { value: "salted-caramel", label: "Salted Caramel", rating: "crazy" },
+export const regionOptions = [
+  { value: "Manouba", label: "Manouba", rating: "safe" },
+  { value: "Ariana", label: "Ariana", rating: "good" },
+  { value: "Ghazela", label: "Ghazela", rating: "wild" },
+  { value: "Bardo", label: "Bardo", rating: "crazy" },
 ];
 
 export const stateOptions = [
@@ -112,7 +112,7 @@ export const groupedOptions = [
     options: colourOptions,
   },
   {
-    label: "Flavours",
-    options: flavourOptions,
+    label: "Regions",
+    options: regionOptions,
   },
 ];

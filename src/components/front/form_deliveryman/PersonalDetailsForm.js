@@ -4,6 +4,11 @@ import { Field, reduxForm } from "redux-form";
 import validate from "../../../validation/validation";
 import FormInput from "../FormInput";
 import { Multiselect, DropdownList } from "react-widgets";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 import { upper, aadhaar, pan, salary } from "../../../validation/normalize";
 import {
   Button,
@@ -17,7 +22,7 @@ import {
 import Select from "react-select";
 import Regions from "../Region_option";
 import { change as changeFieldValue } from "redux-form";
-import { colourOptions } from "../data";
+import { regionOptions } from "../data";
 const customFileInput = (field) => {
   delete field.input.value; // <-- just delete the value property
   return <input type="file" id="file" {...field.input} />;
@@ -60,10 +65,10 @@ const RenderSelectInput = ({ input, reg, name, id }) => (
   <Select
     {...input}
     onBlur={() => input.onBlur()}
-    defaultValue={[colourOptions[2], colourOptions[3]]}
+    defaultValue={[regionOptions[2], regionOptions[3]]}
     isMulti
-    name="colors"
-    options={colourOptions}
+    name="region"
+    options={regionOptions}
     className="basic-multi-select"
     classNamePrefix="select"
   />
@@ -77,7 +82,7 @@ const PersonalDetailsForm = (props) => {
         <Card className="card-border">
           <CardBody>
             <Field
-              name="address"
+              name="Address"
               type="textarea"
               component={FormInput}
               label="Address *"
@@ -86,7 +91,7 @@ const PersonalDetailsForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Field
-                  name="full name"
+                  name="fullName"
                   type="text"
                   component={FormInput}
                   label="full name"
@@ -106,14 +111,7 @@ const PersonalDetailsForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Label>Ragion</Label>
-                <Field
-                  name="region"
-                  component={RenderSelectInput}
-                  reg={[
-                    { value: "one", label: "One" },
-                    { value: "two", label: "Two" },
-                  ]}
-                />
+                <Field name="region" component={RenderSelectInput} />
               </Col>
 
               <Col xs="12" lg="6">
@@ -130,22 +128,22 @@ const PersonalDetailsForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Field
-                  name="pan"
+                  name="Licence"
                   type="text"
                   component={FormInput}
-                  label="PAN No *"
-                  inputPlaceHolder="Enter PAN number"
+                  label="licence No *"
+                  inputPlaceHolder="Enter licence number"
                   normalize={(upper, pan)}
                 />
               </Col>
 
               <Col xs="12" lg="6">
                 <Field
-                  name="aadhaar"
+                  name="cin"
                   type="text"
                   component={FormInput}
-                  label="Aadhaar No *"
-                  inputPlaceHolder="Enter Aadhaar number"
+                  label="cinNo *"
+                  inputPlaceHolder="Enter cin number"
                   normalize={aadhaar}
                 />
               </Col>
@@ -158,40 +156,29 @@ const PersonalDetailsForm = (props) => {
                   </Col>
                   <Col xs="6" lg="12">
                     <FormGroup check className="radio">
-                      <Input
-                        className="form-check-input"
-                        component={FormInput}
-                        type="radio"
-                        id="radio1"
-                        name="radios"
-                        value="option1"
-                      />
-                      <Label
-                        check
-                        className="form-check-label"
-                        htmlFor="radio1"
-                      >
-                        Single
-                      </Label>
+                      <div>
+                        <label>
+                          <Field
+                            name="gender"
+                            component="input"
+                            type="radio"
+                            value="male"
+                          />{" "}
+                          Male
+                        </label>
+                        <label>
+                          <Field
+                            name="gender"
+                            component="input"
+                            type="radio"
+                            value="female"
+                          />
+                          Female
+                        </label>
+                      </div>
                     </FormGroup>
 
-                    <FormGroup check className="radio">
-                      <Input
-                        className="form-check-input"
-                        component={FormInput}
-                        type="radio"
-                        id="radio2"
-                        name="radios"
-                        value="option2"
-                      />
-                      <Label
-                        check
-                        className="form-check-label"
-                        htmlFor="radio2"
-                      >
-                        Married
-                      </Label>
-                    </FormGroup>
+                    <FormGroup check className="radio"></FormGroup>
                   </Col>
                 </FormGroup>
               </Col>
@@ -202,7 +189,7 @@ const PersonalDetailsForm = (props) => {
                   </Col>
                   <Col xs="12" md="9">
                     <Field
-                      name="file"
+                      name="licence"
                       type="file"
                       component={customFileInput}
                     />

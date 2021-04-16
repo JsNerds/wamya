@@ -46,7 +46,7 @@ const NomineeDetailsForm = (props) => {
             <FormGroup row className="my-0">
               <Col xs="12" lg="6">
                 <Field
-                  name="dob"
+                  name="date"
                   type="date"
                   component={FormInput}
                   label="Date of Birth"
@@ -97,39 +97,6 @@ const NomineeDetailsForm = (props) => {
                   rows="3"
                   placeholder="Content..."
                 />
-              </Col>
-            </FormGroup>
-
-            <FormGroup row>
-              <Col xs="12" lg="6">
-                <Label>Martial Status</Label>
-              </Col>
-              <Col xs="6" lg="12">
-                <FormGroup check className="radio">
-                  <Field
-                    label=".     single"
-                    className="form-check-input"
-                    component={FormInput}
-                    type="radio"
-                    id="radio1"
-                    name="radios"
-                    value="option1"
-                  />
-                </FormGroup>
-
-                <FormGroup check className="radio">
-                  <Field
-                    className="form-check-input"
-                    component={FormInput}
-                    type="radio"
-                    id="radio2"
-                    name="radios"
-                    value="option2"
-                  />
-                  <Label check className="form-check-label" htmlFor="radio2">
-                    Married
-                  </Label>
-                </FormGroup>
               </Col>
             </FormGroup>
           </CardBody>

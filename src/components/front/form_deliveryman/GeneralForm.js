@@ -24,7 +24,7 @@ const GeneralForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Field
-                  name="password"
+                  name="pass"
                   type="password"
                   component={FormInput}
                   label="Password"
@@ -46,7 +46,7 @@ const GeneralForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Field
-                  name="dob"
+                  name="date"
                   type="date"
                   component={FormInput}
                   label="Date of Birth"
