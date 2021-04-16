@@ -406,7 +406,7 @@ class App extends Component {
                   path="/SignUpEntreprise"
                   component={SignUpEntreprise}
                 />
-                <ScrollToTopRoute path="/Payment/:amount" component={Payment} />
+                <ScrollToTopRoute path="/Payment" component={Payment} />
                 <ScrollToTopRoute
                   path="/EntrepriseInterface"
                   component={EntrepriseInterface}

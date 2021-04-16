@@ -1,7 +1,6 @@
 import React from "react";
 import {queryServerApi} from "../../utils/queryServerApi";
 import {useHistory} from "react-router";
-import {Button} from "@material-ui/core";
 
 
 const PricingComponent = (props) => {
@@ -14,11 +13,11 @@ const PricingComponent = (props) => {
         var month = d.getMonth();
         var day = d.getDate();
         var newSubscriptionExpirationDate = new Date(year + IncrementYear, month + incrementMonth, day + incrementDay);
-        const [,err] = await queryServerApi("entreprises/UpdateSubscription/" +id, {SubscriptionExpirationDate:newSubscriptionExpirationDate},"PUT",false);
+        const [,err] = await queryServerApi("entreprises/UpdateSubscription/" +id, {SubscriptionExpirationDate:newSubscriptionExpirationDate,Subscribed:false},"PUT",false);
         if(err){
                 console.log(err);
         }
-        else history.push("/Payment/"+amount)
+        else history.push("/Payment?amount="+amount+"&id="+id+"&userType=Company")
     }
 
 
