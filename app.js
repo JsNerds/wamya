@@ -10,14 +10,22 @@ var cors = require("cors");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var deliveryRouter = require("./routes/deliveryman");
+
+
+// Delivery man Module's router
+var deliveryManRouter = require("./routes/deliveryman");
+
+//Package and Delivery Module's router
 var vehiculeRouter = require("./routes/vehicule");
 var packageRouter = require("./routes/Package");
+var deliveryRouter = require("./routes/delivery");
 
 //Customer & Entreprise Module's routers
 var customerRouter = require("./routes/customers");
 var entrepriseRouter = require("./routes/entreprise");
 var paymentRouter = require("./routes/payment");
+
+
 
 var app = express();
 const bodyParser = require("body-parser");
@@ -45,9 +53,12 @@ app.use(bodyParser.json());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/deliveryman", deliveryRouter);
+app.use("/deliveryman", deliveryManRouter);
+
+//Package & delivery Module's middlewares
 app.use("/vehicule", vehiculeRouter);
 app.use("/Package", packageRouter);
+app.use("/delivery",deliveryRouter);
 
 //Customer & Entreprise Module's middlewares
 app.use("/customers", customerRouter);

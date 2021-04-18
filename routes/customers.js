@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
   Customer.find(condition,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments packages");
+  }).populate("payments deliveries");
 });
 
 

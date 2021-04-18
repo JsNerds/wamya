@@ -7,9 +7,6 @@ var Schema = mongoose.Schema;
 var Package = new Schema({
   Name: String,
   dimension: [],
-  sourceAddress: AddressSchema,
-  destinationAddress: AddressSchema,
-  location: LocationSchema,
   type: String,
   state: String
 });
