@@ -7,13 +7,18 @@ import axios from "axios";
 import {useFormik} from "formik";
 import {queryServerApi} from "../../utils/queryServerApi";
 import * as Yup from "yup";
-import {useHistory, useParams} from "react-router";
+import {useHistory, useLocation, useParams} from "react-router";
 
-
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const PaymentForm =(props)=>{
 
-    const {amount} = useParams();
+    const query = useQuery();
+    const amount= query.get("amount");
+    const idUser= query.get("id");
+    const userType = query.get("userType");
     const stripe= useStripe();
     const elements = useElements();
     const [error, setError] = useState(null);
@@ -63,26 +68,38 @@ const PaymentForm =(props)=>{
                     id
                 });
                 if(response.data.success){
-                    const [res,err] = await queryServerApi("payments/addPaymentEntrep/6076b61b4d12be3ffc0c9b7d",
-                        {
-                            PaymentMethod: paymentMethod.type,
-                            NameOnCard: formik.values.NameOnCard,
-                            creditCard: "",
-                            CardType: paymentMethod.card.brand,
-                            ExpirationDate: new Date(paymentMethod.card.exp_year + "/" + paymentMethod.card.exp_month),
-                            Country: paymentMethod.card.country,
-                            Email:formik.values.Email,
-                            PhoneNumber:formik.values.PhoneNumber
+                    const newVal={
+                        PaymentMethod: paymentMethod.type,
+                        NameOnCard: formik.values.NameOnCard,
+                        creditCard: "",
+                        CardType: paymentMethod.card.brand,
+                        ExpirationDate: new Date(paymentMethod.card.exp_year + "/" + paymentMethod.card.exp_month+ "/" + 1),
+                        Country: paymentMethod.card.country,
+                        Email:formik.values.Email,
+                        PhoneNumber:formik.values.PhoneNumber
+                    };
+                    if(userType==="Company"){
+                        const [res,err] = await queryServerApi("payments/addPaymentEntrep/"+idUser, newVal,"POST",false);
+                        console.log(res);
+                        if(err){
+                            setError({
+                                visible: true,
+                                message: JSON.stringify(err.errors, null, 2),
+                            });
                         }
-                        ,"POST",false);
-                    console.log(res);
-                    if(err){
-                        setError({
-                            visible: true,
-                            message: JSON.stringify(err.errors, null, 2),
-                        });
+                        else setSuccess(true);
+                    } else if (userType==="Customer"){
+                        const [res,err] = await queryServerApi("payments/addPaymentCust/"+idUser, newVal,"POST",false);
+                        console.log(res);
+                        if(err){
+                            setError({
+                                visible: true,
+                                message: JSON.stringify(err.errors, null, 2),
+                            });
+                        }
+                        else setSuccess(true);
                     }
-                    else setSuccess(true);
+
                 }
                 console.log("id = ",id);
                 console.log('[PaymentMethod] = ', paymentMethod);
