@@ -7,7 +7,7 @@ import {
     IconButton,
     Box,
     Card,
-    CardContent
+    CardContent, Button, Tooltip
 } from '@material-ui/core';
 
 import avatar2 from '../../assets/images/avatars/avatar2.jpg';
@@ -20,6 +20,11 @@ export default function CustomersTable(props) {
     const UpdateCustomer= (customer) =>{
         history.replace("/UpdateCustomer/"+ customer._id)
     }
+    const Details= (id) =>{
+        history.replace("/CustomerDetails/"+ id)
+    }
+
+
 
 
     const deleteCustomer = async (id) => {
@@ -65,6 +70,7 @@ export default function CustomersTable(props) {
                                 <th className="text-center">Address</th>
                                 <th className="text-center">Phone Number</th>
                                 <th className="text-center">Actions</th>
+                                <th className="text-center"></th>
                             </tr>
                             </thead>
 
@@ -108,13 +114,30 @@ export default function CustomersTable(props) {
                                         </div>
                                     </td>
                                     <td className="text-center">
-                                        <button className="h-auto py-0 px-3 badge badge-warning" onClick={()=>UpdateCustomer(customer)}>
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            className="mr-3"
+                                            color="primary" onClick={() => UpdateCustomer(customer) }>
                                             Update
-                                        </button>
-                                        <br/>
-                                        <button className="h-auto py-0 px-3 badge badge-danger" onClick={()=> deleteCustomer(customer._id)}>
+                                        </Button>
+                                        <Button size="small" variant="contained" color="secondary" onClick={()=> deleteCustomer(customer._id)}>
                                             Delete
-                                        </button>
+                                        </Button>
+                                    </td>
+
+                                    <td className="text-center">
+                                        <Tooltip arrow title="View Details">
+                                            <IconButton
+                                                size="small"
+                                                variant="outlined"
+                                                color="primary"
+                                                onClick={()=>Details(customer._id)}
+                                            >
+                                                <FontAwesomeIcon icon={['fas', 'arrow-right']} />
+
+                                            </IconButton>
+                                        </Tooltip>
                                     </td>
                                 </tr>
 

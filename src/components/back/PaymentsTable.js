@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -7,9 +7,47 @@ import {
     Card,
     Button
 } from '@material-ui/core';
+import {useHistory} from "react-router";
+import {queryServerApi} from "../../utils/queryServerApi";
 
 
-export default function PaymentsTable() {
+export default function PaymentsTable(props) {
+
+    const history = useHistory();
+
+    function total() {
+        return props.payments?.reduce(function (total, item){
+            total += item.Amount / 100;
+            console.log("total", total);
+            return total
+        },0)
+    }
+
+    const CardTypeImage = (cardType) => {
+        switch(cardType) {
+            case 'mastercard':
+                return <img src={require("../../assets/images/mastercard.png")} width="60" height="30" alt="Mastercard"/>
+            case 'visa':
+                return <img src={require("../../assets/images/visa-512.png")} width="60" height="30" alt="Mastercard"/>
+            case 'discover':
+                return <img src={require("../../assets/images/discover-credit-debit-card-bank-transaction-32285.png")} width="80" height="50" alt="Mastercard"/>
+            default:
+                return <img src="../../assets/images/mastercard.png"/>
+        }
+    }
+
+
+    const UpdatePayment= (Payment) =>{
+        history.replace("/UpdatePayment/"+ Payment._id)
+    }
+
+
+    const deletePayment = async (id) => {
+        const [err] = await queryServerApi("payments/remove/" + id, {}, "DELETE");
+        if (err) {
+            console.log(err);
+        } history.go(0);
+    };
     return (
         <Fragment>
             <Card className="card-box mb-4">
@@ -22,165 +60,107 @@ export default function PaymentsTable() {
                 </div>
                 <div className="card-body px-0 pt-2 pb-3">
                     <table className="table table-hover table-borderless table-alternate text-nowrap mb-0">
+                        {}
                         <thead>
                         <tr>
-                            <th>Software</th>
-                            <th className="text-center">Income</th>
-                            <th className="text-center">Expenses</th>
-                            <th className="text-center">Status</th>
+                            <th className="text-center">Customer</th>
+                            <th className="text-center">Email</th>
+                            <th className="text-center">Address</th>
+                            <th className="text-center">Credit Card</th>
+                            <th className="text-center">Card Type</th>
+                            <th className="text-center">Expiration Date</th>
+                            <th className="text-center">Amount</th>
+                            <th className="text-right">Actions</th>
                             <th className="text-right">Totals</th>
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+
+                        {props.payments?.map((payment,index) => (
+                        <tr key={index}>
                             <td>
                                 <div className="d-flex">
                                     <Checkbox className="align-self-center mr-3" />
                                     <div>
                                         <a
                                             href="#/"
-                                            onClick={e => e.preventDefault()}
                                             className="font-weight-bold text-black"
                                             title="...">
-                                            Isaiah Ruiz
+                                            {payment.NameOnCard}
                                         </a>
-                                        <span className="text-black-50 d-block">
-                        Senior Web Developer
-                      </span>
                                     </div>
                                 </div>
+
                             </td>
                             <td className="text-center">
-                                <span className="font-weight-bold text-danger">-$254</span>
+                                <span className="font-weight-bold">{payment.Email}</span>
                             </td>
                             <td className="text-center">
-                                <span className="text-danger font-weight-bold">-2,374</span>
+                                <span className="font-weight-bold">{payment.Address.City}</span>
                             </td>
+
                             <td className="text-center">
-                                <span className="badge badge-danger">Overdue</span>
+                                <span className="font-weight-bold"> **** **** **** {payment.creditCard}</span>
                             </td>
+
+                            <td className="text-center">
+                                <span >{CardTypeImage(payment.CardType)}</span>
+                            </td>
+
+                            {Date.parse(payment.ExpirationDate) > Date.now() ? (
+                                    <td className="text-center">
+                                        <div className="badge badge-success px-4">unexpired</div>
+                                    </td>
+                                ):
+                                <td className="text-center">
+                                    <div className="badge badge-danger px-4">Expired</div>
+                                </td>
+                            }
+
+
                             <td className="text-right">
                                 <div className="d-flex align-items-center justify-content-end">
                                     <div className="font-weight-bold font-size-lg pr-2">
-                                        2363
+                                        {' '}
+                                        {payment.Amount / 100}TND
                                     </div>
-                                    <FontAwesomeIcon
-                                        icon={['fas', 'arrow-down']}
-                                        className="font-size-sm opacity-5"
-                                    />
                                 </div>
                             </td>
-                        </tr>
+
+                            <td className="text-center">
+                                <Button size="small" variant="contained" color="secondary" onClick={()=> deletePayment(payment._id)}>
+                                    Delete
+                                </Button>
+                            </td>
+
+                        </tr>))}
+
+
+
                         <tr>
                             <td>
-                                <div className="d-flex">
-                                    <Checkbox className="align-self-center mr-3" />
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Inez Conley
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        Project Manager
-                      </span>
-                                    </div>
-                                </div>
+
                             </td>
                             <td className="text-center">
-                                <span className="font-weight-bold">$18,386</span>
                             </td>
                             <td className="text-center">
-                                <span className="text-danger font-weight-bold">-6,310</span>
                             </td>
                             <td className="text-center">
-                                <span className="badge badge-warning">Pending</span>
-                            </td>
-                            <td className="text-right">
-                                <div className="d-flex align-items-center justify-content-end">
-                                    <div className="font-weight-bold font-size-lg pr-2">
-                                        584
-                                    </div>
-                                    <FontAwesomeIcon
-                                        icon={['fas', 'arrow-down']}
-                                        className="font-size-sm opacity-5"
-                                    />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="d-flex">
-                                    <Checkbox className="align-self-center mr-3" />
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Adyan Sosa
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        User Experience Designer
-                      </span>
-                                    </div>
-                                </div>
                             </td>
                             <td className="text-center">
-                                <span className="font-weight-bold">$6,356</span>
                             </td>
                             <td className="text-center">
-                                <span className="text-warning">-374</span>
                             </td>
                             <td className="text-center">
-                                <span className="badge badge-first">Waiting</span>
-                            </td>
-                            <td className="text-right">
-                                <div className="d-flex align-items-center justify-content-end">
-                                    <div className="font-weight-bold font-size-lg pr-2">
-                                        483
-                                    </div>
-                                    <FontAwesomeIcon
-                                        icon={['fas', 'arrow-up']}
-                                        className="font-size-sm opacity-5"
-                                    />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="d-flex">
-                                    <Checkbox className="align-self-center mr-3" />
-                                    <div>
-                                        <a
-                                            href="#/"
-                                            onClick={e => e.preventDefault()}
-                                            className="font-weight-bold text-black"
-                                            title="...">
-                                            Beck Simpson
-                                        </a>
-                                        <span className="text-black-50 d-block">
-                        Senior Consultant
-                      </span>
-                                    </div>
-                                </div>
                             </td>
                             <td className="text-center">
-                                <span className="font-weight-bold">$16,281</span>
-                            </td>
-                            <td className="text-center">
-                                <span className="text-success">+684</span>
-                            </td>
-                            <td className="text-center">
-                                <span className="badge badge-success">Done</span>
                             </td>
                             <td className="text-right">
                                 <div className="d-flex align-items-center justify-content-end">
                                     <div className="font-weight-bold font-size-lg pr-2">
                                         {' '}
-                                        $12,23M
+                                        {total()} TND
                                     </div>
                                     <FontAwesomeIcon
                                         icon={['fas', 'arrow-up']}

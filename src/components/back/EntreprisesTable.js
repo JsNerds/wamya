@@ -20,6 +20,9 @@ export default function EntreprisesTable(props) {
     const UpdateCompany= (company) =>{
         history.replace("/UpdateCompany/"+ company._id)
     }
+    const Details= (id) =>{
+        history.replace("/CompanyDetails/"+ id)
+    }
 
 
     const deleteCompany = async (id) => {
@@ -117,7 +120,8 @@ export default function EntreprisesTable(props) {
                                             <IconButton
                                                 size="small"
                                                 variant="outlined"
-                                                color="primary">
+                                                color="primary"
+                                                onClick={()=>Details(company._id)}>
                                                 <FontAwesomeIcon icon={['fas', 'arrow-right']} />
                                             </IconButton>
                                         </Tooltip>

@@ -24,19 +24,22 @@ const PaymentForm =(props)=>{
     const [error, setError] = useState(null);
     const [success,setSuccess] = useState(false);
     //const [clientSecret, setClientSecret] = useState('');
-    const history = useHistory();
+    //const history = useHistory();
 
 
     const formik = useFormik({
         initialValues:{
             PaymentMethod: "",
             NameOnCard: " ",
+            Email:"",
+            Street: "",
+            City: "",
+            ZipCode: "",
             creditCard: "",
             CardType: "",
             SecurityCode: "",
             ExpirationDate: "",
             Country: "",
-            Email:"",
             PhoneNumber:''
         },validationSchema:YupSchema,
         onSubmit: async (values) =>{
@@ -54,7 +57,10 @@ const PaymentForm =(props)=>{
                 billing_details: {
                     email: formik.values.Email,
                     phone: formik.values.PhoneNumber,
-                    name: formik.values.NameOnCard
+                    name: formik.values.NameOnCard,
+                    address:{
+                        city:formik.values.City
+                    }
                 }
             });
 
@@ -71,12 +77,16 @@ const PaymentForm =(props)=>{
                     const newVal={
                         PaymentMethod: paymentMethod.type,
                         NameOnCard: formik.values.NameOnCard,
-                        creditCard: "",
+                        Email:formik.values.Email,
+                        Street: formik.values.Street,
+                        City: formik.values.City,
+                        ZipCode: formik.values.ZipCode,
+                        creditCard: paymentMethod.card.last4,
                         CardType: paymentMethod.card.brand,
                         ExpirationDate: new Date(paymentMethod.card.exp_year + "/" + paymentMethod.card.exp_month+ "/" + 1),
                         Country: paymentMethod.card.country,
-                        Email:formik.values.Email,
-                        PhoneNumber:formik.values.PhoneNumber
+                        PhoneNumber:formik.values.PhoneNumber,
+                        Amount:amount
                     };
                     if(userType==="Company"){
                         const [res,err] = await queryServerApi("payments/addPaymentEntrep/"+idUser, newVal,"POST",false);
@@ -150,6 +160,7 @@ const PaymentForm =(props)=>{
                                             </div>
                                         </MuiAlert>}
 
+                                        <label className="f_p text_c f_400">Billing Details</label><hr/>
 
                                         <div className="form-group text_box">
                                             <label className="f_p text_c f_400">Name </label>
@@ -192,7 +203,54 @@ const PaymentForm =(props)=>{
                                             )}
                                         </div>
 
-                                        <label>Credit Card </label>
+
+                                        <div className="form-group text_box">
+                                            <label> Address</label>
+                                            <hr/>
+
+                                            <div className="form-group text_box">
+                                                <label className="f_p text_c f_400">Street </label>
+                                                <input id="Street"
+                                                       type="text"
+                                                       value={formik.values.Street}
+                                                       onChange={formik.handleChange}
+                                                />
+                                                {formik.errors.Street && formik.touched.Street && (
+                                                    <FormHelperText error={formik.errors.Street}>{formik.errors.Street}</FormHelperText>
+                                                )}
+                                            </div>
+
+
+                                            <div className="form-group text_box">
+                                                <label className="f_p text_c f_400">City </label>
+                                                <input id="City"
+                                                       type="text"
+                                                       value={formik.values.City}
+                                                       onChange={formik.handleChange}
+                                                />
+                                                {formik.errors.City && formik.touched.City && (
+                                                    <FormHelperText error={formik.errors.City}>{formik.errors.City}</FormHelperText>
+                                                )}
+                                            </div>
+
+                                            <div className="form-group text_box">
+                                                <label className="f_p text_c f_400">ZipCode</label>
+                                                <input id="ZipCode"
+                                                       type="number"
+                                                       className="form-control"
+                                                       aria-label="Dollar amount (with dot and two decimal places)"
+                                                       value={formik.values.ZipCode}
+                                                       onChange={formik.handleChange}
+                                                />
+                                                {formik.errors.ZipCode && formik.touched.ZipCode && (
+                                                    <FormHelperText error={formik.errors.ZipCode}>{formik.errors.ZipCode}</FormHelperText>
+                                                )}
+                                            </div>
+
+                                            <hr/>
+                                        </div>
+
+                                        <label className="f_p text_c f_400">Credit Card</label>
                                         <hr/><br/>
                                         <CardElement options={cardOptions}/>
 
@@ -258,5 +316,12 @@ const YupSchema = Yup.object ({
     PhoneNumber: Yup.number("Phone Number should be a number")
         .positive("Phone Number should be Positive")
         .required("phone number is Required"),
+    Street: Yup.string()
+        .required("street is required"),
+    City: Yup.string()
+        .required("city is required"),
+    ZipCode: Yup.number("Zip Code should be a number")
+        .positive("Zip Code should be Positive")
+        .required("Zip Code is Required"),
 });
 export default PaymentForm;
