@@ -74,6 +74,7 @@ router.post('/addCompany', function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log("Obj", obj)
   const newCompany = {
+    ResponsibleCin: obj.ResponsibleCin,
     ResponsibleName: obj.ResponsibleName,
     CreationYear: obj.CreationYear,
     CommercialName: obj.CommercialName,
@@ -91,6 +92,7 @@ router.post('/addCompany', function (req, res, next) {
     Email: obj.Email,
     Password: obj.Password,
     PhoneNumber: obj.PhoneNumber,
+    Subscribed:false,
     SubscriptionExpirationDate: new Date(),
     payments: [],
     packages: []

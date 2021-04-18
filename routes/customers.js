@@ -98,9 +98,9 @@ router.post('/addCustomer', function (req, res, next) {
     payments: [],
     packages: []
   };
-  Customer.create(newCustomer, function (err) {
+  Customer.create(newCustomer, function (err,customer) {
     if(err) throw err;
-    res.send("AJOUT OK");
+    res.send(customer._id);
   });
 
 });

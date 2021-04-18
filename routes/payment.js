@@ -87,9 +87,20 @@ router.post('/', function(req,res,next){
 /** Add payment with update Customer's Payments 2 **/
 
 router.post('/addPaymentCust/:id', function(req,res,next){
-  const payment = new Payment(req.body);
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log("Obj", obj)
+  const newPayment = {
+    PaymentMethod: obj.PaymentMethod,
+    NameOnCard: obj.NameOnCard,
+    creditCard: obj.creditCard,
+    CardType: obj.CardType,
+    SecurityCode: obj.SecurityCode,
+    ExpirationDate: obj.ExpirationDate,
+    Country: obj.Country,
+  };
+
   try{
-    Payment.create(payment).then( p =>{
+    Payment.create(newPayment).then( p =>{
       Customer.findByIdAndUpdate(
           req.params.id,
           {
@@ -135,7 +146,8 @@ router.post('/addPaymentEntrep/:id', function(req,res,next){
       Entreprise.findByIdAndUpdate(
           req.params.id,
           {
-            $push: { payments : p._id }
+            $push: { payments : p._id },
+            Subscribed:true
           },
           {new: true, useFindAndModify: false},
           function (err){
