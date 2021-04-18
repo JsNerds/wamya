@@ -2,6 +2,24 @@ var express = require("express");
 var router = express.Router();
 var delivery = require("../models/delivery_man");
 
+var multer = require("multer");
+var path = require("path");
+router.use(express.static(__dirname + "./public/"));
+// router.use(express.static(__dirname+"./public/"));
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require("node-localstorage").LocalStorage;
+  localStorage = new LocalStorage("./scratch");
+}
+var Storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+var upload = multer({
+  storage: Storage,
+}).single("img");
+
 /* GET contact DB. */
 router.get("/", function (req, res, next) {
   delivery.find(function (err, data) {
@@ -34,7 +52,7 @@ router.post("/", function (req, res, next) {
   res.send("Added");
 });
 /* POST 2*/
-router.post("/add", function (req, res, next) {
+router.post("/add", upload, function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
 
   const mynewdelivery = {
@@ -48,7 +66,9 @@ router.post("/add", function (req, res, next) {
     Phone: obj.phone,
     Status: obj.status,
     Region: obj.region,
+    img: req.file.filename,
   };
+  console.log(req);
   console.log(mynewdelivery);
   delivery.create(mynewdelivery, function (err) {
     if (err) {

@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="/deliveryman/add" method="post">
+<form action="/deliveryman/add" method="post" enctype='multipart/form-data'>
 <table>
 	<tr>
 		<td>username</td>
@@ -56,13 +56,20 @@
 	<tr>
 		<td>Region</td>
 		<td>:</td>
-		<td> <input type="text" name="region" value="" ></td>
+		<td> <input type="text" name="rregion" value="" ></td>
 	</tr>
 	<tr>
 		<td>licence</td>
 		<td>:</td>
 		<td> <input type="text" name="lic" value="" ></td>
 	</tr>
+	<tr>
+		<td>photo</td>
+		<td>:</td>
+		<td> <input type="file" id="fileinput" name ="img" multiple="multiple"  /></td>
+	</tr>
+
+
 	<tr>
 		<td>
 			<input type="submit" name="btn" value="Add">
