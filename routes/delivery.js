@@ -36,7 +36,7 @@ router.post('/startDelivery', function(req,res){
                 {new: true, useFindAndModify: false},
                 function (err){
                   if (err) {
-                    es.send(err);
+                    es.send(err); 
                   } else {
                     res.send("Delivery started")
                   }
@@ -57,7 +57,6 @@ router.post('/startDelivery', function(req,res){
                   } else {
                     res.send("Delivery started")
                   }
-      
                 }
             )
             }
@@ -71,7 +70,7 @@ router.post('/startDelivery', function(req,res){
 });
 
 router.put("/updateDelivery", function(req,res) {
-  delivery.findByIdAndUpdate(req.body._id, req.body, function (err) {
+  delivery.findByIdAndUpdate(req.body.id, req.body, function (err) {
     if (err) {
       res.send(err);
     } else {
@@ -81,6 +80,7 @@ router.put("/updateDelivery", function(req,res) {
 });
 
 router.delete("/deleteDelivery/:id", function(req,res){
+  
   delivery.findByIdAndRemove(req.params.id, function(err, del){
       if(err){
         res.send(err);

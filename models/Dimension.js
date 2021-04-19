@@ -9,5 +9,5 @@ var DimensionSchema = new Schema({
 })
 
 
-const Dimension = mongoose.model('Location', DimensionSchema);
+const Dimension = mongoose.model('Dimension', DimensionSchema);
 module.exports = { DimensionSchema , Dimension }
