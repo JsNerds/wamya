@@ -11,9 +11,10 @@ import SendPackages from "../../pages/front/SendPackages";
 import PackagesForm from "./PackagesForm";
 
 
-const CustomerInterfaceBody =()=>{
+const CustomerInterfaceBody =(props)=>{
 
     return(
+
         <section className="faq_area bg_color sec_pad">
             <div className="container">
                 <div className="row">
@@ -57,7 +58,7 @@ const CustomerInterfaceBody =()=>{
 
                         <div className="tab-content faq_content" id="myTabContent">
                             <div className="tab-pane fade show active" id="Analytics" role="tabpanel" aria-labelledby="purchas-tab">
-                                    <CustomerStats/>
+                                    <CustomerStats customer={props.customer}/>
                             </div>
 
 

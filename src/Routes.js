@@ -21,6 +21,8 @@ const Payments = lazy(() => import("./pages/back/Payments"));
 const Entreprises = lazy(() => import("./pages/back/Entreprises"));
 const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"));
 const UpdateCompany = lazy(()=> import("./pages/back/UpdateCompany"));
+const Customer = lazy(()=> import("./pages/back/Customer"));
+const Company = lazy(()=> import("./pages/back/Company"));
 
 const Routes = () => {
   const location = useLocation();
@@ -86,6 +88,8 @@ const Routes = () => {
                 "/Entreprises",
                 "/UpdateCustomer/:id",
                 "/UpdateCompany/:id",
+                "/CustomerDetails/:id",
+                "/CompanyDetails/:id",
               ]}
             >
               <LeftSidebar>
@@ -109,6 +113,8 @@ const Routes = () => {
                     <Route path="/Entreprises" component={Entreprises} />
                     <Route path="/UpdateCustomer/:id" component={UpdateCustoomer} />
                     <Route path="/UpdateCompany/:id" component={UpdateCompany} />
+                    <Route path="/CustomerDetails/:id" component={Customer} />
+                    <Route path="/CompanyDetails/:id" component={Company} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
