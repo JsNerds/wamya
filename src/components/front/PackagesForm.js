@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Packages from "../../pages/front/SendPackages";
 import { useHistory } from "react-router-dom";
@@ -18,12 +18,24 @@ export default function PackagesForm(props) {
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
-  const [source, setSource] = useState({Street: "",City: "",State: "",ZipCode: 0,Location: {Longitude: 0,Latitude: 0}});
-  const [destination, setDestination] = useState({Street: "",City: "",State: "",ZipCode: 0,Location: {Longitude: 0,Latitude: 0}});
+  const [source, setSource] = useState({
+    Street: "",
+    City: "",
+    State: "",
+    ZipCode: 0,
+    Location: { Longitude: 0, Latitude: 0 },
+  });
+  const [destination, setDestination] = useState({
+    Street: "",
+    City: "",
+    State: "",
+    ZipCode: 0,
+    Location: { Longitude: 0, Latitude: 0 },
+  });
   const formik = useFormik({
     initialValues: {
       Name: "",
-      dimension: [0,0,0],
+      dimension: [0, 0, 0],
       sourceAddress: {
         Street: "",
         City: "",
@@ -53,18 +65,23 @@ export default function PackagesForm(props) {
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
-      values.destinationAddress= destination;
-      console.log(values)
+      values.destinationAddress = destination;
+      console.log(values);
       setShowLoader(false);
-      const [,err] = await queryServerApi("package/addPackageCustomer/60717a108cd4e80964d0a06c",values,"POST",false);
-      if (err) { 
-        setShowLoader(false); 
-        setError({ 
-        visible: true, 
-        message: JSON.stringify(err.errors, null, 2), 
-        }); 
-        } else history.push("/SendPackage"); 
-    }
+      const [, err] = await queryServerApi(
+        "package/addPackageCustomer/60717a108cd4e80964d0a06c",
+        values,
+        "POST",
+        false
+      );
+      if (err) {
+        setShowLoader(false);
+        setError({
+          visible: true,
+          message: JSON.stringify(err.errors, null, 2),
+        });
+      } else history.push("/SendPackage");
+    },
   });
   const MyMarkers = () => {
     const map = useMapEvent("click", (loc) => {
@@ -75,36 +92,32 @@ export default function PackagesForm(props) {
           )
           .then((doc) => {
             let newmarkers = markers;
-           newmarkers.push(loc.latlng);
+            newmarkers.push(loc.latlng);
             setMarkers([...newmarkers]);
-            console.log(markers.length)
-            if (markers.length == 1)
-            {
-              let newSource= { ...source}
-            newSource.State = doc.data.address.state;
-            newSource.City = doc.data.address.county
-            newSource.Location = {
-              Longitude: doc.data.lon,
-              Latitude: doc.data.lat
-            };
-            newSource.ZipCode = parseInt(doc.data.address.postcode);
-            setSource({...newSource})
-            console.log(newSource);
-            }
-            else if (markers.length == 2)
-            {
-              let newDestination= { ...source}
+            console.log(markers.length);
+            if (markers.length == 1) {
+              let newSource = { ...source };
+              newSource.State = doc.data.address.state;
+              newSource.City = doc.data.address.county;
+              newSource.Location = {
+                Longitude: doc.data.lon,
+                Latitude: doc.data.lat,
+              };
+              newSource.ZipCode = parseInt(doc.data.address.postcode);
+              setSource({ ...newSource });
+              console.log(newSource);
+            } else if (markers.length == 2) {
+              let newDestination = { ...source };
               newDestination.State = doc.data.address.state;
-              newDestination.City = doc.data.address.county
+              newDestination.City = doc.data.address.county;
               newDestination.Location = {
-              Longitude: doc.data.lon,
-              Latitude: doc.data.lat
-            };
-            newDestination.ZipCode = parseInt(doc.data.address.postcode);
-            setDestination({...newDestination});
-            console.log(newDestination);
+                Longitude: doc.data.lon,
+                Latitude: doc.data.lat,
+              };
+              newDestination.ZipCode = parseInt(doc.data.address.postcode);
+              setDestination({ ...newDestination });
+              console.log(newDestination);
             }
-            
           });
       } else {
         setMarkers([]);
@@ -150,25 +163,28 @@ export default function PackagesForm(props) {
                     <label className="f_p text_c f_400">Dimension</label>
                     <div className="row">
                       <div className="col-md-3">
-                        <input 
-                        type="text"
-                        name="dimension[0]"
-                        onChange={formik.handleChange}
-                        placeholder="Length" />
+                        <input
+                          type="text"
+                          name="dimension[0]"
+                          onChange={formik.handleChange}
+                          placeholder="Length"
+                        />
                       </div>
                       <div className="col-md-3">
                         <input
-                         type="text" 
-                         name="dimension[1]"
-                         onChange={formik.handleChange}
-                         placeholder="Height" />
+                          type="text"
+                          name="dimension[1]"
+                          onChange={formik.handleChange}
+                          placeholder="Height"
+                        />
                       </div>
                       <div className="col-md-3">
-                        <input 
-                        type="text"
-                        name="dimension[2]"
-                        onChange={formik.handleChange}
-                         placeholder="Height" />
+                        <input
+                          type="text"
+                          name="dimension[2]"
+                          onChange={formik.handleChange}
+                          placeholder="Height"
+                        />
                       </div>
                       <div className="col-md-3">
                         <input type="text" placeholder="Quantity" />
@@ -186,17 +202,13 @@ export default function PackagesForm(props) {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                           />
                           <MyMarkers />
-                          {markers.map((position, idx) => 
-                              (
-                                <Marker
-                                  key={`marker-${idx}`}
-                                  position={position}
-                                >
-                                  <Popup>
-                                    <span>Popup</span>
-                                  </Popup>
-                                </Marker>
-                              ))}
+                          {markers.map((position, idx) => (
+                            <Marker key={`marker-${idx}`} position={position}>
+                              <Popup>
+                                <span>Popup</span>
+                              </Popup>
+                            </Marker>
+                          ))}
                         </MapContainer>
                       </div>
                     </div>

@@ -2,14 +2,48 @@ import React, { Component, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Form from "../components/front/form_deliveryman/Form";
-
+import Test from "../components/front/form_deliveryman/Test";
 import Join_form from "./Join_form";
 import { queryServerApi } from "../utils/queryServerApi";
+import axios from "axios";
 
 export default function Sign_dm(props) {
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const history = useHistory();
+  let valeurs;
+  const custom_file_upload_url = `http://localhost:3000/deliveryman/add`;
+
+  const handleSubmitFile = (values) => {
+    console.log(valeurs);
+    let formData = new FormData();
+    formData.append("img", valeurs.img);
+    formData.append("username", valeurs.username);
+    formData.append("mail", valeurs.mail);
+    formData.append("date", valeurs.date);
+    formData.append("pass", valeurs.pass);
+    formData.append("gender", valeurs.gender);
+    var reg = JSON.stringify(valeurs.region);
+
+    formData.append("region", reg);
+    console.log(reg);
+
+    // the image field name should be similar to your api endpoint field name
+    // in my case here the field name is customFile
+
+    axios
+      .post(custom_file_upload_url, formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(reg);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <section className="sign_in_area bg_color sec_pad">
       <div className="container">
@@ -49,21 +83,8 @@ export default function Sign_dm(props) {
                 <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Sign Up</h2>
                 <Form
                   onSubmit={async (values) => {
-                    console.log(values);
-                    setShowLoader(false);
-                    const [, err] = await queryServerApi(
-                      "delivery/add",
-                      values,
-                      "POST",
-                      false
-                    );
-                    if (err) {
-                      setShowLoader(false);
-                      setError({
-                        visible: true,
-                        message: JSON.stringify(err.errors, null, 2),
-                      });
-                    }
+                    valeurs = values;
+                    handleSubmitFile(values);
                   }}
                 />
               </div>

@@ -1,66 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Field, reduxForm } from "redux-form";
+import Fileget from "./Fileget";
 import validate from "../../../validation/validation";
 import FormInput from "../FormInput";
 import { Multiselect, DropdownList } from "react-widgets";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import { upper, aadhaar, pan, salary } from "../../../validation/normalize";
-import {
-  Button,
-  Card,
-  CardBody,
-  Col,
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import { Button, Card, CardBody, Col, FormGroup, Label } from "reactstrap";
 import Select from "react-select";
-import Regions from "../Region_option";
-import { change as changeFieldValue } from "redux-form";
 import { regionOptions } from "../data";
+import Test from "./Test";
+
 const customFileInput = (field) => {
-  delete field.input.value; // <-- just delete the value property
+  delete field.input.value;
   return <input type="file" id="file" {...field.input} />;
 };
-var reg = [
-  { value: "one", label: "One" },
-  { value: "two", label: "Two" },
-];
 
-const renderMultiselect = ({ input, data, valueField, textField }) => (
-  <Multiselect
-    {...input}
-    onChange={(value) => input.onChange(value)}
-    onBlur={() => input.onBlur()}
-    options={data}
-    displayValue="label"
-  />
-);
+const adaptFileEventToValue = (delegate) => (e) => delegate(e.target.files[0]);
 
-var regions = [
-  "Bardo",
-  "petite ariana",
-  "mourouj",
-  "rades",
-  "tunis centre ville",
-  "ariana",
-  "ennaser",
-];
+const FileInput = ({
+  input: { value: omitValue, onChange, onBlur, ...inputProps },
+  meta: omitMeta,
+  ...props
+}) => {
+  return (
+    <input
+      onChange={adaptFileEventToValue(onChange)}
+      onBlur={adaptFileEventToValue(onBlur)}
+      type="file"
+      {...props.input}
+      {...props}
+    />
+  );
+};
 
-const renderDropdownList = ({ input, data, valueField, textField }) => (
-  <DropdownList
-    {...input}
-    data={data}
-    valueField={valueField}
-    textField={textField}
-    onChange={input.onChange}
-  />
-);
 const RenderSelectInput = ({ input, reg, name, id }) => (
   <Select
     {...input}
@@ -91,7 +64,7 @@ const PersonalDetailsForm = (props) => {
             <FormGroup row>
               <Col xs="12" lg="6">
                 <Field
-                  name="fullName"
+                  name="fullname"
                   type="text"
                   component={FormInput}
                   label="full name"
@@ -188,11 +161,7 @@ const PersonalDetailsForm = (props) => {
                     <Label htmlFor="file-input">Upload Visitor Image</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Field
-                      name="licence"
-                      type="file"
-                      component={customFileInput}
-                    />
+                    <Field name="img" component={FileInput} type="file" />
                   </Col>
                 </FormGroup>
               </Col>
