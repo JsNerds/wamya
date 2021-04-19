@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Card } from "@material-ui/core";
+import { Grid, Avatar, Card, CardContent, Divider } from '@material-ui/core';
+
+
 
 import avatar1 from "../../assets/images/avatars/avatar1.jpg";
 import avatar2 from "../../assets/images/avatars/avatar2.jpg";
@@ -54,6 +56,73 @@ export default function CustomerFavoriteDrivers() {
   ];
   return (
     <Fragment>
+
+      <h4>Drivers Of the Month</h4> <hr/>
+      <Grid item xs={12} md={6}>
+        <Card className="card-box mb-4">
+          <CardContent className="p-3">
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex">
+                <div className="d-flex align-items-center">
+                  <Avatar alt="..." src={avatar2} className="mr-2" />
+                  <div>
+                    <a
+                        href="#/"
+                        onClick={e => e.preventDefault()}
+                        className="font-weight-bold text-black"
+                        title="...">
+                      Inez Conley
+                    </a>
+                    <span className="text-black-50 d-block">
+                        Project Manager
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <div className="d-flex align-items-center">
+                <div className="font-weight-bold text-danger font-size-lg pr-2">
+                  584
+                </div>
+                <FontAwesomeIcon
+                    icon={['fas', 'arrow-down']}
+                    className="font-size-sm text-danger opacity-5"
+                />
+              </div>
+            </div>
+            <Divider className="my-3" />
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex">
+                <div className="d-flex align-items-center">
+                  <Avatar alt="..." src={avatar4} className="mr-2" />
+                  <div>
+                    <a
+                        href="#/"
+                        onClick={e => e.preventDefault()}
+                        className="font-weight-bold text-black"
+                        title="...">
+                      Beck Simpson
+                    </a>
+                    <span className="text-black-50 d-block">
+                        Senior Consultant
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <div className="d-flex align-items-center">
+                <div className="font-weight-bold text-first font-size-lg pr-2">
+                  {' '}
+                  $12,23M
+                </div>
+                <FontAwesomeIcon
+                    icon={['fas', 'arrow-up']}
+                    className="font-size-sm text-first opacity-5"
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+
       <Card className="card-box mb-4 p-3 text-center">
         <div className="my-3">
           <h6 className="font-weight-bold font-size-lg mb-1 text-black">
