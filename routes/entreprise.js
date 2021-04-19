@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
   Entreprise.find(condition,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments packages");
+  }).populate("payments deliveries");
 });
 
 

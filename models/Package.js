@@ -1,14 +1,12 @@
 var mongoose = require('mongoose');
-var AddressSchema = require('./Address').AddressSchema
-var LocationSchema = require('./Location').LocationSchema
-
+var DimensionSchema = require('./Dimension').DimensionSchema
 var Schema = mongoose.Schema;
 
 var Package = new Schema({
-  Name: String,
-  dimension: [],
+  note: String,
+  dimension: DimensionSchema,
   type: String,
-  state: String
+  weight: Number
 });
 
 module.exports = mongoose.model('Package', Package);

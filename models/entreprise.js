@@ -24,10 +24,10 @@ var Entreprise = new Schema({
       ref: "payment"
     }
   ],
-  packages: [
+  deliveries: [
   {
     type: Schema.Types.ObjectId,
-    ref: "Package"
+    ref: "delivery"
   }
 ]
 });
