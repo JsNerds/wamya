@@ -14,6 +14,7 @@ import PackagesForm from "./PackagesForm";
 const CustomerInterfaceBody =(props)=>{
 
     return(
+
         <section className="faq_area bg_color sec_pad">
             <div className="container">
                 <div className="row">
