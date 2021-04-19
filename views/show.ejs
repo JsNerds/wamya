@@ -18,6 +18,8 @@
 		<td>Phone </td>
 		<td>Status </td>
 		<td>region </td>
+		<td>image </td>
+
 		<td>Action</td>
 	</tr>
 <% if(users.length > 0) {  %>
@@ -34,6 +36,10 @@
 		<td><%= users[i].Phone   %> </td>
 		<td><%= users[i].Status   %> </td>
 		<td><%= users[i].Region   %> </td>
+		
+		<td><img src="/public/uploads/<%=users[i].img%>" width="200px"></td>
+
+		
 		<td>
 			<a href="/deliveryman/edit/delivery/<%= users[i]._id   %>">Edit</a>
 			<a href="/deliveryman/delete/<%= users[i]._id   %>">Remove</a>

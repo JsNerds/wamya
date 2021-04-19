@@ -54,7 +54,7 @@ router.post("/", function (req, res, next) {
 /* POST 2*/
 router.post("/add", upload, function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
-
+  const kar = JSON.parse(obj.region);
   const mynewdelivery = {
     FullName: obj.fullname,
     Username: obj.username,
@@ -65,10 +65,10 @@ router.post("/add", upload, function (req, res, next) {
     Licence: obj.lic,
     Phone: obj.phone,
     Status: obj.status,
-    Region: obj.region,
+    Region: kar,
     img: req.file.filename,
   };
-  console.log(req);
+  console.log(kar);
   console.log(mynewdelivery);
   delivery.create(mynewdelivery, function (err) {
     if (err) {
