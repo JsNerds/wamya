@@ -92,11 +92,20 @@ router.post('/addPaymentCust/:id', function(req,res,next){
   const newPayment = {
     PaymentMethod: obj.PaymentMethod,
     NameOnCard: obj.NameOnCard,
+    Email:obj.Email,
+    Address: {
+      Street: obj.Street,
+      City: obj.City,
+      State: obj.State,
+      ZipCode: obj.ZipCode
+    },
     creditCard: obj.creditCard,
     CardType: obj.CardType,
     SecurityCode: obj.SecurityCode,
     ExpirationDate: obj.ExpirationDate,
     Country: obj.Country,
+    Amount:obj.Amount,
+    CreationDate: new Date()
   };
 
   try{
@@ -134,11 +143,20 @@ router.post('/addPaymentEntrep/:id', function(req,res,next){
   const newPayment = {
     PaymentMethod: obj.PaymentMethod,
     NameOnCard: obj.NameOnCard,
+    Email:obj.Email,
+    Address: {
+      Street: obj.Street,
+      City: obj.City,
+      State: obj.State,
+      ZipCode: obj.ZipCode
+    },
     creditCard: obj.creditCard,
     CardType: obj.CardType,
     SecurityCode: obj.SecurityCode,
     ExpirationDate: obj.ExpirationDate,
     Country: obj.Country,
+    Amount:obj.Amount,
+    CreationDate: new Date()
   };
 
   try{
