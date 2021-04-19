@@ -12,10 +12,10 @@ var delivery = new Schema({
       type: Schema.Types.ObjectId,
       refPath: 'DriverModel'
   },
-  package: {
+  package: [{
       type: Schema.Types.ObjectId,
       ref: 'Package'
-  },
+  }],
   vehicle: {
       type: Schema.Types.ObjectId,
       ref: 'vehicule'
