@@ -1,6 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../models/customer');
+var User = require('../models/User');
+
+
+var multer = require("multer");
+var path = require("path");
+router.use(express.static(__dirname + "./public/"));
+// router.use(express.static(__dirname+"./public/"));
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require("node-localstorage").LocalStorage;
+  localStorage = new LocalStorage("./scratch");
+}
+var Storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+var upload = multer({
+  storage: Storage,
+}).single("img");
 
 
 /*********************************************   CRUD RESTFUL APIs For React & PostMan  *********************************************/
@@ -45,7 +65,7 @@ router.get('/triByUserName', function(req, res, next) {
 });
 
 
-/** Get cutsomer By Id**/
+/** Get cutsomer By Id **/
 
  router.get('/:id', function(req, res, next) {
   Customer.findById(req.params.id,function(err,data){
@@ -56,6 +76,7 @@ router.get('/triByUserName', function(req, res, next) {
     model: 'Package'
   } });
 });
+
 
 
 
@@ -81,9 +102,9 @@ router.post('/', function(req,res,next){
 
 /** Add Customer (REACT) **/
 
-router.post('/addCustomer', function (req, res, next) {
+router.post('/addCustomer',upload, function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
-  console.log("Obj", obj)
+  console.log("Obj", obj);
   const newCustomer = {
     Cin: obj.cin,
     FirstName: obj.firstname,
@@ -98,12 +119,20 @@ router.post('/addCustomer', function (req, res, next) {
       State: obj.state,
       ZipCode: obj.zipCode
     },
+    img: req.file.filename,
     payments: [],
     packages: []
   };
-  Customer.create(newCustomer, function (err,customer) {
-    if(err) throw err;
-    res.send(customer._id);
+  Customer.create(newCustomer).then( c => {
+    User.create({
+      Id: c._id,
+      Username: newCustomer.UserName,
+      Password: newCustomer.Password,
+      Role:"Customer"
+    }, function (err,user) {
+      if(err) throw err;
+      res.send(c._id);
+    })
   });
 
 });
@@ -116,7 +145,7 @@ router.post('/addCustomer', function (req, res, next) {
 
 /** Update Customer(REACT) **/
 
-router.put('/update/:id',function(req,res,next){
+router.put('/update/:id',upload,function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
   const newCustomer = {
     FirstName: obj.firstname,
@@ -129,7 +158,8 @@ router.put('/update/:id',function(req,res,next){
       City: obj.city,
       State: obj.state,
       ZipCode: obj.zipCode
-    }
+    },
+    img: req.file.filename
   };
   Customer.findByIdAndUpdate(req.params.id,newCustomer,function(err,data){
     if(err) throw err;

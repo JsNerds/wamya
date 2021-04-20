@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Entreprise = require('../models/entreprise');
+var User = require('../models/User');
 
 
 /*********************************************   CRUD RESTFUL APIs For React   *********************************************/
@@ -98,11 +99,16 @@ router.post('/addCompany', function (req, res, next) {
     packages: []
   };
 
-  Entreprise.create(newCompany, function (err,company) {
-    if(err) throw err;
-    console.log('AJOUT');
-    console.log(company._id);
-    res.send(company._id);
+  Entreprise.create(newCompany).then( e => {
+    User.create({
+      Id: e._id,
+      Username: newCompany.ResponsibleName,
+      Password: newCompany.Password,
+      Role:"Role"
+    }, function (err,user) {
+      if(err) throw err;
+      res.send(e._id);
+    })
   });
 
 });
