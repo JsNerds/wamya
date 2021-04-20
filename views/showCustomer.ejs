@@ -17,6 +17,7 @@
 		<td>Phone number</td>
 		<td>Address</td>
 		<td>Payment</td>
+		<td>Image</td>
 	</tr>
 <% if(users.length > 0) {  %>
 <% for(var i=0 ; i< users.length ; i++) {    %>
@@ -31,7 +32,9 @@
 		<td><%= users[i].PhoneNumber   %> </td>
 		<td><%= users[i].Adress   %> </td>
 		<td><%= users[i].payments   %> </td>
-		<td>
+	<td><img src="/public/uploads/<%=users[i].img%>" width="200px"></td>
+
+	<td>
 			<a href="/customers/edit/customer/<%= users[i]._id   %>">Edit</a>
 			<a href="/customers/delete/<%= users[i]._id   %>">Remove</a>
 			<a href="/customers/Details/<%= users[i]._id   %>">Show</a>

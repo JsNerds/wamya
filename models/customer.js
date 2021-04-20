@@ -11,6 +11,7 @@ var Customer = new Schema({
   Email: String,
   PhoneNumber: Number,
   Adress: AdressSchema,
+  img: String,
   payments: [
     {
       type: Schema.Types.ObjectId,

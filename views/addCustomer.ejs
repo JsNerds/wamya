@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="/customers/add" method="post">
+<form action="/customers/addCustomer" method="post" enctype='multipart/form-data'>
 <table>
 
 	<tr>
@@ -76,6 +76,12 @@
 		<td>ZipCode</td>
 		<td>:</td>
 		<td> <input type="number" name="zipCode" value="" ></td>
+	</tr>
+
+	<tr>
+		<td>photo</td>
+		<td>:</td>
+		<td> <input type="file" id="fileinput" name ="img" multiple="multiple"  /></td>
 	</tr>
 
 
