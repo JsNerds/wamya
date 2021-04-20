@@ -2,8 +2,11 @@ import React from 'react';
 import EntrepriseStats from "./EntrepriseStats";
 import EntrepriseDrivers from "./EntrepriseDrivers";
 import PackageList from "./PackageList";
+import CompanyOperationsPayments from "./CompanyOperationsPayments";
 
-const FaqSection =()=>{
+const FaqSection = (props) => {
+
+
     return(
         <section className="faq_area bg_color sec_pad">
             <div className="container">
@@ -24,13 +27,17 @@ const FaqSection =()=>{
                                     <a className="nav-link" id="price-tab" data-toggle="tab" href="#Packages" role="tab" aria-controls="price" aria-selected="false">My Packages</a>
                                 </li>
 
+                                <li className="nav-item">
+                                    <a className="nav-link" id="price-tab" data-toggle="tab" href="#Payments" role="tab" aria-controls="price" aria-selected="false">My Operations and Payments</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
                     <div className="col-lg-8">
                         <div className="tab-content faq_content" id="myTabContent">
                             <div className="tab-pane fade show active" id="Analytics" role="tabpanel" aria-labelledby="purchas-tab">
-                                    <EntrepriseStats/>
+                                    <EntrepriseStats company={props.company}/>
                             </div>
 
 
@@ -41,8 +48,8 @@ const FaqSection =()=>{
                             <div className="tab-pane fade" id="Packages" role="tabpanel" aria-labelledby="price-tab">
                                     <PackageList/>
                             </div>
-                            <div className="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab">
-
+                            <div className="tab-pane fade" id="Payments" role="tabpanel" aria-labelledby="price-tab">
+                                <CompanyOperationsPayments payments={props.company.payments}/>
                             </div>
                         </div>
                     </div>

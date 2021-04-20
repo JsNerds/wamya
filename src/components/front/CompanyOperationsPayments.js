@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Checkbox, Card, Button } from "@material-ui/core";
-export default function CustomerOperationsPayments(props) {
+export default function CompanyOperationsPayments(props) {
 
   function total() {
     return props.payments?.reduce(function (total, item){

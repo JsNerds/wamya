@@ -37,11 +37,6 @@ export default function PaymentsTable(props) {
     }
 
 
-    const UpdatePayment= (Payment) =>{
-        history.replace("/UpdatePayment/"+ Payment._id)
-    }
-
-
     const deletePayment = async (id) => {
         const [err] = await queryServerApi("payments/remove/" + id, {}, "DELETE");
         if (err) {

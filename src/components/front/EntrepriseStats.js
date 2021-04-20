@@ -2,46 +2,30 @@ import React, { Fragment } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Grid, Card, CardContent, Button, Divider } from '@material-ui/core';
+import {Grid, Card, CardContent, Button, Divider, LinearProgress, List,ListItem} from '@material-ui/core';
 
 import Chart from 'react-apexcharts';
-export default function EntrepriseStats() {
-    const chart30Options = {
-        chart: {
-            toolbar: {
-                show: false
-            },
-            sparkline: {
-                enabled: true
+export default function EntrepriseStats(props) {
+
+
+    function total(payments) {
+        return payments.reduce(function (total, item){
+            console.log("amount",payments[0])
+            total +=  item?.Amount/100;
+
+            return total
+        },0)
+    }
+
+    function finishedDeliv(deliveries) {
+        return deliveries.reduce(function (nb, item){
+            if(item.state === 0){
+                nb+=1;
             }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        colors: ['#3c44b1'],
-        stroke: {
-            color: '#4191ff',
-            curve: 'smooth',
-            width: 4
-        },
-        xaxis: {
-            crosshairs: {
-                width: 1
-            }
-        },
-        yaxis: {
-            min: 0
-        },
-        legend: {
-            show: false
-        }
-    };
-    const chart30Data = [
-        {
-            name: 'Customers',
-            data: [47, 38, 56, 24, 45, 54, 38, 47, 38, 56, 24, 56, 24, 65]
-        }
-    ];
+
+            return nb
+        },0)
+    }
 
     const chart31Options = {
         chart: {
@@ -75,7 +59,7 @@ export default function EntrepriseStats() {
     };
     const chart31Data = [
         {
-            name: 'Sales',
+            name: 'Deliveries',
             data: [47, 38, 56, 24, 45, 54, 38, 47, 38, 56, 24, 56, 24, 65]
         }
     ];
@@ -174,76 +158,73 @@ export default function EntrepriseStats() {
                     </Card>
                 </Grid>
             </Grid>
+
+
             <Grid container spacing={4}>
+
                 <Grid item xs={12} lg={6}>
                     <Card className="card-box mb-4">
-                        <CardContent className="p-0">
-                            <Grid container spacing={4} className="mt-4">
-                                <Grid item xs={12} sm={4}>
-                                    <div className="text-center">
-                                        <div>
-                                            <FontAwesomeIcon
-                                                icon={['far', 'user']}
-                                                className="font-size-xxl text-success"
-                                            />
-                                        </div>
-                                        <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">2,345</b>
-                                            <span className="text-black-50 d-block">users</span>
-                                        </div>
-                                    </div>
-                                </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <div className="text-center">
-                                        <div>
-                                            <FontAwesomeIcon
-                                                icon={['far', 'keyboard']}
-                                                className="font-size-xxl text-danger"
-                                            />
-                                        </div>
-                                        <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">3,568</b>
-                                            <span className="text-black-50 d-block">clicks</span>
-                                        </div>
-                                    </div>
-                                </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <div className="text-center">
-                                        <div>
-                                            <FontAwesomeIcon
-                                                icon={['far', 'chart-bar']}
-                                                className="font-size-xxl text-info"
-                                            />
-                                        </div>
-                                        <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">$9,693</b>
-                                            <span className="text-black-50 d-block">revenue</span>
-                                        </div>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <div className="divider mt-4" />
-                            <div className="text-center py-4">
-                                <Button size="small" color="primary">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={['far', 'eye']} />
-                  </span>
-                                    <span className="btn-wrapper--label">Generate reports</span>
-                                </Button>
+                        <div className="card-header">
+                            <div className="card-header--title">
+                                <b>Detailed informations</b>
+                                <div className="d-block text-capitalize mt-1 font-size-sm">
+
+                                </div>
                             </div>
-                        </CardContent>
-                        <div className="card-footer bg-light text-center">
-                            <div className="pt-4 pr-4 pl-4">
-                                <Chart
-                                    options={chart30Options}
-                                    series={chart30Data}
-                                    type="line"
-                                    height={100}
+                        </div>
+                        <List>
+                            <ListItem className="py-2 d-block">
+                                <div className="align-box-row mb-1">
+                                    <div>
+                                        <div className="font-weight-bold">Finished deliveries</div>
+                                    </div>
+                                    <div className="ml-auto">
+                                        <div className="font-size-xl font-weight-bold text-success">
+                                            {finishedDeliv(props.company.deliveries)}
+                                        </div>
+                                    </div>
+                                </div>
+                                <LinearProgress
+                                    className="progress-animated-alt"
+                                    color="primary"
+                                    value={34}
                                 />
-                            </div>
+                                <div className="align-box-row progress-bar--label mt-1 text-muted">
+                                    <small className="text-dark">0</small>
+                                    <div className="ml-auto">{(finishedDeliv(props.company.deliveries) * props.company.deliveries.length) / 100} %</div>
+                                </div>
+                            </ListItem>
+                            <ListItem className="py-2 d-block">
+                                <div className="align-box-row mb-1">
+                                    <div>
+                                        <div className="font-weight-bold">Total Payments </div>
+                                    </div>
+                                    <div className="ml-auto">
+                                        <div className="font-size-xl font-weight-bold text-danger">
+                                            <small> - </small>
+                                            {total(props.company.payments)} TND
+                                        </div>
+                                    </div>
+                                </div>
+                                <LinearProgress
+                                    variant="determinate"
+                                    color="secondary"
+                                    value={total(props.company.payments)}
+                                />
+                            </ListItem>
+                        </List>
+                        <div className="card-footer bg-light p-4 text-center">
+                            <Button color="primary" variant="contained">
+                <span className="btn-wrapper--icon">
+                  <FontAwesomeIcon icon={['far', 'question-circle']} />
+                </span>
+                                <span className="btn-wrapper--label">View details</span>
+                            </Button>
                         </div>
                     </Card>
                 </Grid>
+
+
                 <Grid item xs={12} lg={6}>
                     <Card className="card-box mb-4">
                         <div className="card-body pb-1">
@@ -252,13 +233,13 @@ export default function EntrepriseStats() {
                                     <div className="text-center">
                                         <div>
                                             <FontAwesomeIcon
-                                                icon={['far', 'user']}
+                                                icon={['fas', 'money-check']}
                                                 className="font-size-xxl text-success"
                                             />
                                         </div>
                                         <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">2,345</b>
-                                            <span className="text-black-50 d-block">users</span>
+                                            <b className="font-size-lg">{props.company.payments.length} </b>
+                                            <span className="text-black-50 d-block">Payments</span>
                                         </div>
                                     </div>
                                 </Grid>
@@ -266,13 +247,13 @@ export default function EntrepriseStats() {
                                     <div className="text-center">
                                         <div>
                                             <FontAwesomeIcon
-                                                icon={['far', 'keyboard']}
+                                                icon={['fas', 'share']}
                                                 className="font-size-xxl text-danger"
                                             />
                                         </div>
                                         <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">3,568</b>
-                                            <span className="text-black-50 d-block">clicks</span>
+                                            <b className="font-size-lg">{props.company.deliveries.length}</b>
+                                            <span className="text-black-50 d-block">Deliveries</span>
                                         </div>
                                     </div>
                                 </Grid>
@@ -280,13 +261,13 @@ export default function EntrepriseStats() {
                                     <div className="text-center">
                                         <div>
                                             <FontAwesomeIcon
-                                                icon={['far', 'chart-bar']}
+                                                icon={['fas', 'box']}
                                                 className="font-size-xxl text-info"
                                             />
                                         </div>
                                         <div className="mt-3 line-height-sm">
-                                            <b className="font-size-lg">$9,693</b>
-                                            <span className="text-black-50 d-block">revenue</span>
+                                            <b className="font-size-lg">{props.company.deliveries.length}</b>
+                                            <span className="text-black-50 d-block">Packages</span>
                                         </div>
                                     </div>
                                 </Grid>
