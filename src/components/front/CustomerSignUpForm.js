@@ -26,7 +26,7 @@ const CustomerSignUpForm =()=>{
         },validationSchema: YupSchema,
         onSubmit: async (values) => {
             console.log("Values",values);
-            const [, err] = await queryServerApi("customers/addCustomer", values, "POST", false);
+            const [, err] = await queryServerApi("customers/addCustomer", values, "POST", true);
             console.log(err);
             if (err) {
                 console.log('error',err)
@@ -207,10 +207,11 @@ const CustomerSignUpForm =()=>{
                                         <label className="f_p text_c f_400"> <strong>Upload your Profile picture : </strong></label><br/>
 
                                         <input
+                                             id="fileinput"
                                              type="file"
-                                             name="image"
+                                             name="img"
                                              onChange={(event) => {
-                                            formik.setFieldValue("image", event.target.files[0]);
+                                            formik.setFieldValue("img", event.target.files[0]);
                                              }}/>
                                         {formik.errors.image && formik.touched.image && (
                                             <FormHelperText error={formik.errors.image}>{formik.errors.image}</FormHelperText>

@@ -173,6 +173,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PackageDetail from "./components/front/PackageDetail";
 import Pricing from "./pages/front/Pricing";
+import SignInWamya from "./pages/front/SignInWamya";
 
 library.add(
   far,
@@ -298,6 +299,10 @@ library.add(
 );
 
 const store = configureStore();
+
+const username = localStorage.getItem('username');
+const id = localStorage.getItem('id');
+const role = localStorage.getItem('role');
 const user = false;
 
 class App extends Component {
@@ -308,18 +313,17 @@ class App extends Component {
   render() {
     return (
       <>
-        {user ? (
+        <Router basename="/">
+        {username !=null && role === "Admin" ? (
+            <switch>
           <Provider store={store}>
-            <BrowserRouter basename="/">
               <CssBaseline />
               <ScrollToTop>
                 <Routes />
               </ScrollToTop>
-            </BrowserRouter>
           </Provider>
+            </switch>
         ) : (
-          <>
-            <Router>
               <Switch>
                 <ScrollToTopRoute exact={true} path={"/"} component={Home} />
                 <ScrollToTopRoute
@@ -366,17 +370,12 @@ class App extends Component {
                   path="/BlogGridPage"
                   component={BlogGridPage}
                 />
-                <ScrollToTopRoute path="/SignUp" component={SignUp} />
                 <ScrollToTopRoute path="/Contact" component={Contact} />
                 <ScrollToTopRoute path="/Landing" component={Landing} />
                 <ScrollToTopRoute path="/Price" component={Price} />
                 <ScrollToTopRoute path="/Faq" component={Faq} />
-                <ScrollToTopRoute
-                  path="/ServiceDetails"
-                  component={ServiceDetails}
-                />
-                <ScrollToTopRoute path="/SignIn" component={SignIn} />
-                <ScrollToTopRoute path="/SignUp" component={SignUp} />
+                <ScrollToTopRoute path="/ServiceDetails" component={ServiceDetails}/>
+                <ScrollToTopRoute path="/SignInWamya" component={SignInWamya} />
                 {/*** delivery_man  ***/}
                 <ScrollToTopRoute path="/Flex_join" component={Flex_join} />
                 <ScrollToTopRoute path="/Join_form" component={Join_form} />
@@ -418,9 +417,9 @@ class App extends Component {
                 <ScrollToTopRoute path="/Pricing/:id" component={Pricing} />
                 <ScrollToTopRoute component={NotFound} />
               </Switch>
-            </Router>
-          </>
+
         )}
+        </Router>
       </>
     );
   }

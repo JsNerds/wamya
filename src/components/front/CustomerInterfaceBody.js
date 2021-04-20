@@ -1,5 +1,4 @@
-import React, {Fragment} from 'react';
-import EntrepriseDrivers from "./EntrepriseDrivers";
+import React from 'react';
 import PackageSlider from "./PackageSlider";
 import CustomerStats from "./CustomerStats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
@@ -7,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button, Tooltip } from '@material-ui/core';
 import CustomerOperationsPayments from "./CustomerOperationsPayments";
-import SendPackages from "../../pages/front/SendPackages";
 import PackagesForm from "./PackagesForm";
 
 

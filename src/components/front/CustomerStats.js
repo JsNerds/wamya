@@ -73,10 +73,17 @@ export default function CustomerStats(props) {
                                         <div className="font-weight-bold">Total Payments </div>
                                     </div>
                                     <div className="ml-auto">
-                                        <div className="font-size-xl font-weight-bold text-danger">
+                                        {  total(props.customer.payments) === 0 ? (
+                                            <div className="font-size-xl font-weight-bold text-success">
+                                                {total(props.customer.payments)} TND
+                                            </div>
+                                            ):
+                                            <div className="font-size-xl font-weight-bold text-danger">
                                             <small> - </small>
-                                            {total(props.customer.payments)} TND
-                                        </div>
+                                        {total(props.customer.payments)} TND
+                                            </div>
+                                            }
+
                                     </div>
                                 </div>
                                 <LinearProgress
@@ -184,7 +191,7 @@ export default function CustomerStats(props) {
                                             Totals
                                         </small>
                                         <b className="font-size-lg text-warning">
-                                            <small className="text-black-50 pr-1">$</small>
+                                            <small className="text-black-50 pr-1"></small>
                                             2,594
                                         </b>
                                     </div>

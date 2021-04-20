@@ -306,7 +306,7 @@ export default function CompanyDetails(props) {
                             </CardContent>
                             <div className="card-header border-0 d-block">
                 <span className="text-uppercase pt-4 pb-2 text-black d-block text-center font-weight-bold font-size-lg">
-                  Last Payments
+                  Latest Payments
                 </span>
                             </div>
 
