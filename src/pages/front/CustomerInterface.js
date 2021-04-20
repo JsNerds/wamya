@@ -12,7 +12,7 @@ const CustomerInterface = () => {
     const id = localStorage.getItem('id');
     const role = localStorage.getItem('role');
     useEffect(()=>{
-        console.log("ID USER",id);
+        console.log("CUSTOMER",customer);
     })
 
     const [customer, err, reload] = useServerApi("customers/"+id);
