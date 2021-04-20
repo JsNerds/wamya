@@ -41,7 +41,7 @@ router.get('/triByUserName', function(req, res, next) {
   Customer.find(function(err,data){
     if(err) throw err;
     res.json(data);
-  }).sort({UserName: -1}).populate("payments packages");
+  }).sort({UserName: -1}).populate("payments deliveries");
 });
 
 
@@ -51,7 +51,7 @@ router.get('/triByUserName', function(req, res, next) {
   Customer.findById(req.params.id,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments packages");
+  }).populate("payments deliveries");
 });
 
 
