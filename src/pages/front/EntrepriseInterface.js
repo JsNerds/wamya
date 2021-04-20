@@ -8,7 +8,7 @@ import { useServerApi } from "../../hooks/useServerApi";
 
 const EntrepriseInterface = () => {
   const [company, err, reload] = useServerApi(
-    "entreprises/607d9dc2c6ea0111c8a49e6a"
+    "entreprises/607ed54b49517f043091b18d"
   );
   const toRender = company;
   return (

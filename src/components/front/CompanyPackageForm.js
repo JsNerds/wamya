@@ -12,7 +12,7 @@ import {
 } from "react-leaflet";
 import { marker } from "leaflet";
 
-export default function PackagesForm(props) {
+export default function CompanyPackageForm(props) {
   const history = useHistory();
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });

@@ -3,6 +3,8 @@ import EntrepriseStats from "./EntrepriseStats";
 import EntrepriseDrivers from "./EntrepriseDrivers";
 import PackageList from "./PackageList";
 import CompanyOperationsPayments from "./CompanyOperationsPayments";
+import CompanyPackageForm from "./CompanyPackageForm";
+
 
 const FaqSection = (props) => {
   return (
@@ -131,7 +133,7 @@ const FaqSection = (props) => {
                 <h3>Delivery</h3>
                 <p>you haven't added any packages yet, click add a package</p>
                 <button className="btn_three">Add a package</button>
-                {/** <CompanyPackageForm /> */}
+                 <CompanyPackageForm/>
               </div>
             </div>
           </div>

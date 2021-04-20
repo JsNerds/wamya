@@ -202,6 +202,21 @@ const CustomerSignUpForm =()=>{
                                         )}
                                     </div>
 
+
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> <strong>Upload your Profile picture : </strong></label><br/>
+
+                                        <input
+                                             type="file"
+                                             name="image"
+                                             onChange={(event) => {
+                                            formik.setFieldValue("image", event.target.files[0]);
+                                             }}/>
+                                        {formik.errors.image && formik.touched.image && (
+                                            <FormHelperText error={formik.errors.image}>{formik.errors.image}</FormHelperText>
+                                        )}
+                                    </div>
+
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Address</label>
                                         <hr/>
