@@ -24,6 +24,9 @@ var customerRouter = require("./routes/customers");
 var entrepriseRouter = require("./routes/entreprise");
 var paymentRouter = require("./routes/payment");
 
+//Users Router
+var userRouter = require("./routes/users");
+
 var app = express();
 const bodyParser = require("body-parser");
 
@@ -62,6 +65,10 @@ app.use("/delivery", deliveryRouter);
 app.use("/customers", customerRouter);
 app.use("/entreprises", entrepriseRouter);
 app.use("/payments", paymentRouter);
+
+//User middlewares
+app.use("/users", usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

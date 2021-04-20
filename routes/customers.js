@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../models/customer');
+var User = require('../models/User');
 
 
 var multer = require("multer");
@@ -119,9 +120,16 @@ router.post('/addCustomer',upload, function (req, res, next) {
     payments: [],
     packages: []
   };
-  Customer.create(newCustomer, function (err,customer) {
-    if(err) throw err;
-    res.send(customer._id);
+  Customer.create(newCustomer).then( c => {
+    User.create({
+      Id: c._id,
+      Username: newCustomer.UserName,
+      Password: newCustomer.Password,
+      Role:"Customer"
+    }, function (err,user) {
+      if(err) throw err;
+      res.send(c._id);
+    })
   });
 
 });
