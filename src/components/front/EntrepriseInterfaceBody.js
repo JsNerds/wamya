@@ -5,7 +5,6 @@ import PackageList from "./PackageList";
 import CompanyOperationsPayments from "./CompanyOperationsPayments";
 import CompanyPackageForm from "./CompanyPackageForm";
 
-
 const FaqSection = (props) => {
   return (
     <section className="faq_area bg_color sec_pad">
@@ -129,11 +128,9 @@ const FaqSection = (props) => {
                 id="PackageDetail"
                 role="tabpanel"
                 aria-labelledby="price-tab"
+                style={{ backgroundColor: "#F7F7F7" }}
               >
-                <h3>Delivery</h3>
-                <p>you haven't added any packages yet, click add a package</p>
-                <button className="btn_three">Add a package</button>
-                 <CompanyPackageForm/>
+                <CompanyPackageForm />
               </div>
             </div>
           </div>
