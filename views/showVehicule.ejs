@@ -9,11 +9,8 @@
         <td>ID</td>
         <td>Registration Number</td>
         <td>Model</td>
-        <td>Image</td>
         <td>Weight Capacity</td>
-        <td>Trunck Dimension</td>
-        <td>Delivery Man ID</td>
-        <td>Package ID</td>
+        <td>Trunk Volume</td>
       </tr>
       <% if(vehicules.length > 0) { %> <% for(var i=0 ; i< vehicules.length ;
       i++) { %>
@@ -21,19 +18,17 @@
         <td><%= vehicules[i]._id %></td>
         <td><%= vehicules[i].registrationNumber %></td>
         <td><%= vehicules[i].model %></td>
-        <td><%= vehicules[i].image %></td>
         <td><%= vehicules[i].weightCapacity %></td>
-        <td><%= vehicules[i].trunkDimension %></td>
-        <td><%= vehicules[i].deliveryMan %></td>
-        <td><%= vehicules[i].package %></td>
+        <td><%= vehicules[i].trunkVolume %></td>
+
         <td>
-          <a href="/vehicule/edit/vehicule/<%= vehicules[i]._id   %>">Edit</a>
+          <a href="/vehicule/edit/vehicule/<%= vehicules[i]._id%>">Edit</a>
           <a href="/vehicule/delete/<%= vehicules[i]._id%>">Remove</a>
           <!-- <a href="/vehicule/<%= vehicules[i]._id%>">Show</a>-->
         </td>
       </tr>
       <% } %> <% }else{ %>
-      <h3>You haven't added vehicules yet!</h3>
+      <h3>Vehicles table empty!</h3>
       <% } %>
     </table>
   </body>

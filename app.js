@@ -11,8 +11,6 @@ var cors = require("cors");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
-// testing gitlab remote push
-
 // Delivery man Module's router
 var deliveryManRouter = require("./routes/deliveryman");
 

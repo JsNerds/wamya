@@ -1,14 +1,11 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var Vehicule = new Schema({
   registrationNumber: String,
   model: String,
-  image: String,
   weightCapacity: Number,
-  trunkDimension: String,
-  deliveryMan: String,
-  package: String,
+  trunkVolume: Number,
 });
 
-module.exports = mongoose.model('vehicule', Vehicule);
+module.exports = mongoose.model("vehicule", Vehicule);
