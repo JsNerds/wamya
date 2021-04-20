@@ -40,7 +40,7 @@ router.get('/triByCreationYear', function(req, res, next) {
   Entreprise.find(function(err,data){
     if(err) throw err;
     res.json(data);
-  }).sort({CreationYear: 1}).populate("payments packages");
+  }).sort({CreationYear: 1}).populate("payments deliveries");
 });
 
 
@@ -51,7 +51,7 @@ router.get('/:id', function(req, res, next) {
   Entreprise.findById(req.params.id,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments packages");
+  }).populate("payments deliveries");
 });
 
 
