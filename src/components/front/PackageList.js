@@ -6,8 +6,7 @@ const PackageList = (props) => {
     <section className="">
       <div className="container mt-5">
         {props.packagesList?.map((p,index) => {
-          
-          return (
+          return(
           <div key={index} className="row">
           <div className="col-lg-12 col-sm-8">
             <PackageItem

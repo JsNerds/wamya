@@ -4,6 +4,8 @@ import Packages from "../../pages/front/SendPackages";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
 import { useFormik } from "formik";
+import Select from "react-select";
+
 import {
   MapContainer,
   TileLayer,
@@ -17,6 +19,7 @@ export default function PackagesForm(props) {
   const history = useHistory();
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
+  const [step, setStep] = useState(1);
   const [markers, setMarkers] = useState([]);
   const [source, setSource] = useState({
     Street: "",
@@ -34,8 +37,21 @@ export default function PackagesForm(props) {
   });
   const formik = useFormik({
     initialValues: {
-      Name: "",
-      dimension: [0, 0, 0],
+      customer: "607f469b86187226c038d247",
+      package: [{
+        note: "",
+        dimension: {
+          Length: 0,
+          Height: 0,
+          Width: 0,
+        },
+        type: "",
+        weight: 0,
+      }],
+      date_Launch: new Date().getDate(),
+      distance: 0,
+      duration: 0,
+      state: 0,
       sourceAddress: {
         Street: "",
         City: "",
@@ -46,7 +62,7 @@ export default function PackagesForm(props) {
           Latitude: 0,
         },
       },
-      destinationAddress: {
+      destinationAddress: [{
         Street: "",
         City: "",
         State: "",
@@ -55,21 +71,21 @@ export default function PackagesForm(props) {
           Longitude: 0,
           Latitude: 0,
         },
-      },
+      }],
       location: {
         Longitude: 0,
         Latitude: 0,
       },
-      type: "",
-      state: "",
+      CustomerModel: "customer",
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
-      values.destinationAddress = destination;
+      values.destinationAddress.shift();
+      values.destinationAddress.push(destination);
       console.log(values);
       setShowLoader(false);
       const [, err] = await queryServerApi(
-        "package/addPackageCustomer/60717a108cd4e80964d0a06c",
+        "delivery/startDelivery",
         values,
         "POST",
         false
@@ -83,6 +99,11 @@ export default function PackagesForm(props) {
       } else history.push("/SendPackage");
     },
   });
+  const options = [
+    { value: "Dangerous", label: "Dangerous" },
+    { value: "Safe", label: "Safe" },
+    { value: "Brittle", label: "Brittle" },
+  ];
   const MyMarkers = () => {
     const map = useMapEvent("click", (loc) => {
       if (markers.length < 2) {
@@ -154,65 +175,83 @@ export default function PackagesForm(props) {
             </div>
             <div className="col-lg-7">
               <div className="login_info">
-                <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Package</h2>
                 <form onSubmit={formik.handleSubmit}>
-                  <div className="form-group text_box">
-                    {error.visible && <p>{error.message}</p>}
-                  </div>
-                  <div className="form-group text_box">
-                    <label className="f_p text_c f_400">Dimension</label>
-                    <div className="row">
-                      <div className="col-md-3">
-                        <input
-                          type="text"
-                          name="dimension[0]"
-                          onChange={formik.handleChange}
-                          placeholder="Length"
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <input
-                          type="text"
-                          name="dimension[1]"
-                          onChange={formik.handleChange}
-                          placeholder="Height"
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <input
-                          type="text"
-                          name="dimension[2]"
-                          onChange={formik.handleChange}
-                          placeholder="Height"
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <input type="text" placeholder="Quantity" />
-                      </div>
-                    </div>
-                    <div className="row mt-4">
-                      <div className="col-md-12">
-                        <MapContainer
-                          center={[50, 12]}
-                          zoom={13}
-                          scrollWheelZoom={false}
-                        >
-                          <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          />
-                          <MyMarkers />
-                          {markers.map((position, idx) => (
-                            <Marker key={`marker-${idx}`} position={position}>
-                              <Popup>
-                                <span>Popup</span>
-                              </Popup>
-                            </Marker>
-                          ))}
-                        </MapContainer>
-                      </div>
-                    </div>
-                  </div>
+                  <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Package</h2>
+            <div className="form-group text_box">
+              {error.visible && <p>{error.message}</p>}
+            </div>
+            <div className="form-group text_box">
+              <label className="f_p text_c f_400">Dimension</label>
+              <div className="row">
+                <div className="col-lg-12">
+                  <Select label="Choose type" 
+                   options={options} 
+                   onChange={value => {formik.setFieldValue('package.0.type',value.value)}}/>
+                </div>
+              </div>
+              <div className="row mt-4">
+                <div className="col-md-3">
+                  <input
+                    type="text"
+                    name="package.0.dimension.Length"
+                    onChange={formik.handleChange}
+                    placeholder="Length"
+                  />
+                </div>
+                <div className="col-md-3">
+                  <input
+                    type="text"
+                    name="package.0.dimension.Height"
+                    onChange={formik.handleChange}
+                    placeholder="Height"
+                  />
+                </div>
+                <div className="col-md-3">
+                  <input
+                    type="text"
+                    name="package.0.dimension.Width"
+                    onChange={formik.handleChange}
+                    placeholder="Width"
+                  />
+                </div>
+                <div className="col-md-3">
+                  <input
+                    type="text"
+                    placeholder="Weight"
+                    name="package.0.weight"
+                    onChange={formik.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row mt-4">
+                <div className="col-lg-12">
+                  <input
+                    type="text"
+                    placeholder="Note"
+                    name="package.0.note"
+                    onChange={formik.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row mt-4">
+              <div className="col-md-12">
+              <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <MyMarkers />
+                {markers.map((position, idx) => (
+                  <Marker key={`marker-${idx}`} position={position}>
+                    <Popup>
+                      <span>Popup</span>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+            </div>
+          </div>
+            </div>
                   <div className="d-flex justify-content-between align-items-center">
                     <button type="submit" className="btn_three">
                       Send Package

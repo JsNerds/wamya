@@ -1,9 +1,10 @@
 import React, { Component,useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import {useServerApi} from '../../hooks/useServerApi';
 
 
-export default class PackageDetail extends Component {
-    render() {
+export default function PackageDetail(){
+  const [customer, err, reload] = useServerApi("customers/607ec744a6e02026dcc6cea4");
         function LocationMarker() {
             const [position, setPosition] = useState(null)
             const map = useMapEvents({
@@ -76,4 +77,3 @@ export default class PackageDetail extends Component {
             </div>
         )
     }
-}

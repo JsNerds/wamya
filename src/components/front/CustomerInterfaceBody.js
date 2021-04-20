@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import EntrepriseDrivers from "./EntrepriseDrivers";
-import PackageSlider from "./PackageSlider";
+import MyPackages from "../../pages/front/MyPackages";
 import CustomerStats from "./CustomerStats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +14,6 @@ import PackagesForm from "./PackagesForm";
 const CustomerInterfaceBody =(props)=>{
 
     return(
-
         <section className="faq_area bg_color sec_pad">
             <div className="container">
                 <div className="row">
@@ -67,7 +66,7 @@ const CustomerInterfaceBody =(props)=>{
                             </div>
 
                             <div className="tab-pane fade" id="Packages" role="tabpanel" aria-labelledby="price-tab">
-                                    <PackageSlider/>
+                                    <MyPackages customer={props.customer} />
                             </div>
                             <div className="tab-pane fade" id="Payments" role="tabpanel" aria-labelledby="price-tab">
                                     <CustomerOperationsPayments/>

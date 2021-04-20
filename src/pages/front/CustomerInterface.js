@@ -15,7 +15,7 @@ import PaymentsTable from "../../components/back/PaymentsTable";
 import {ExampleWrapperSeamless} from "../../layout-componentsBack";
 
 const CustomerInterface = () => {
-    const [customer, err, reload] = useServerApi("customers/607c07b27c609932d8b12dfc");
+    const [customer, err, reload] = useServerApi("customers/607f469b86187226c038d247");
     const toRender = customer;
     return(
         <div className="body_wrapper">
