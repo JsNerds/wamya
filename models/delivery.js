@@ -25,7 +25,7 @@ var delivery = new Schema({
   duration: Number,
   state: Number,
   sourceAddress: AddressSchema,
-  destinationAddress: AddressSchema,
+  destinationAddress: [AddressSchema],
   location: LocationSchema,
   CustomerModel: {
     type: String,

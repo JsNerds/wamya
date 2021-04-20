@@ -20,7 +20,18 @@ router.get('/', function(req, res, next) {
 
 /* start delivery */
 router.post('/startDelivery', function(req,res){
-    const package = new Package(req.body.package);
+    const package = new Package({
+      note: req.body.package[0].note,
+      dimension: 
+      {
+        Length: Number(req.body.package[0].dimension.Length),
+        Height: Number(req.body.package[0].dimension.Height),
+        Width: Number(req.body.package[0].dimension.Width)
+      },
+      type: req.body.package[0].type,
+      weight: Number(req.body.package[0].weight)
+    });
+    console.log(package)
     try{
         Package.create(package).then( p => {
           var newDeliery = req.body;
@@ -91,5 +102,4 @@ router.delete("/deleteDelivery/:id", function(req,res){
       }
   });
 });
-
 module.exports = router;

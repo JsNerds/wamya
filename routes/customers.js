@@ -51,7 +51,10 @@ router.get('/triByUserName', function(req, res, next) {
   Customer.findById(req.params.id,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("payments deliveries");
+  }).populate({ path: "payments deliveries" ,populate: {
+    path: 'package',
+    model: 'Package'
+  } });
 });
 
 
