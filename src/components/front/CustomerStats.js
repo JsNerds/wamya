@@ -12,12 +12,23 @@ import {
 } from '@material-ui/core';
 
 export default function CustomerStats(props) {
+
     function total(payments) {
         return payments.reduce(function (total, item){
             console.log("amount",payments[0])
             total +=  item?.Amount/100;
 
             return total
+        },0)
+    }
+
+    function finishedDeliv(deliveries) {
+        return deliveries.reduce(function (nb, item){
+            if(item.state === 0){
+                nb+=1;
+            }
+
+            return nb
         },0)
     }
 
@@ -28,9 +39,9 @@ export default function CustomerStats(props) {
                     <Card className="card-box mb-4">
                         <div className="card-header">
                             <div className="card-header--title">
-                                <b>Monthly targets</b>
+                                <b>Detailed informations</b>
                                 <div className="d-block text-capitalize mt-1 font-size-sm">
-                                    Card with progress bars list items.
+
                                 </div>
                             </div>
                         </div>
@@ -38,67 +49,48 @@ export default function CustomerStats(props) {
                             <ListItem className="py-2 d-block">
                                 <div className="align-box-row mb-1">
                                     <div>
-                                        <div className="font-weight-bold">Orders</div>
+                                        <div className="font-weight-bold">Finished deliveries</div>
                                     </div>
                                     <div className="ml-auto">
                                         <div className="font-size-xl font-weight-bold text-success">
-                                            348
+                                            {finishedDeliv(props.customer.deliveries)}
                                         </div>
                                     </div>
                                 </div>
                                 <LinearProgress
                                     className="progress-animated-alt"
-                                    color="secondary"
+                                    color="primary"
                                     value={34}
                                 />
                                 <div className="align-box-row progress-bar--label mt-1 text-muted">
                                     <small className="text-dark">0</small>
-                                    <div className="ml-auto">100%</div>
+                                    <div className="ml-auto">{(finishedDeliv(props.customer.deliveries) * props.customer.deliveries.length) / 100} %</div>
                                 </div>
                             </ListItem>
                             <ListItem className="py-2 d-block">
                                 <div className="align-box-row mb-1">
                                     <div>
-                                        <div className="font-weight-bold">Sales</div>
+                                        <div className="font-weight-bold">Total Payments </div>
                                     </div>
                                     <div className="ml-auto">
-                                        <div className="font-size-xl font-weight-bold text-danger">
-                                            <small>$</small>
-                                            2.3M
-                                        </div>
+                                        {  total(props.customer.payments) === 0 ? (
+                                            <div className="font-size-xl font-weight-bold text-success">
+                                                {total(props.customer.payments)} TND
+                                            </div>
+                                            ):
+                                            <div className="font-size-xl font-weight-bold text-danger">
+                                            <small> - </small>
+                                        {total(props.customer.payments)} TND
+                                            </div>
+                                            }
+
                                     </div>
                                 </div>
                                 <LinearProgress
                                     variant="determinate"
-                                    color="primary"
-                                    value={39}
+                                    color="secondary"
+                                    value={total(props.customer.payments)}
                                 />
-                                <div className="align-box-row progress-bar--label mt-1 text-muted">
-                                    <small className="text-dark">0</small>
-                                    <div className="ml-auto">100%</div>
-                                </div>
-                            </ListItem>
-                            <ListItem className="py-2 d-block">
-                                <div className="align-box-row mb-1">
-                                    <div>
-                                        <div className="font-weight-bold">Users</div>
-                                    </div>
-                                    <div className="ml-auto">
-                                        <div className="font-size-xl font-weight-bold text-info">
-                                            <small>#</small>
-                                            87
-                                        </div>
-                                    </div>
-                                </div>
-                                <LinearProgress
-                                    className="progress-animated-alt"
-                                    color="primary"
-                                    value={51}
-                                />
-                                <div className="align-box-row progress-bar--label mt-1 text-muted">
-                                    <small className="text-dark">0</small>
-                                    <div className="ml-auto">100%</div>
-                                </div>
                             </ListItem>
                         </List>
                         <div className="card-footer bg-light p-4 text-center">
@@ -111,6 +103,9 @@ export default function CustomerStats(props) {
                         </div>
                     </Card>
                 </Grid>
+
+
+
                 <Grid item xs={12} lg={6}>
                     <Card className="card-box mb-4">
                         <div className="card-header">
@@ -169,16 +164,15 @@ export default function CustomerStats(props) {
                                         <LinearProgress
                                             color="primary"
                                             variant="determinate"
-                                            value={29}
+                                            value={props.customer.deliveries.length}
                                         />
                                     </div>
                                     <div className="line-height-sm text-center ml-4">
                                         <small className="text-black-50 d-block text-uppercase">
-                                            Totals
+                                            Number of Deliveries
                                         </small>
                                         <b className="font-size-lg text-danger">
-                                            <small className="text-black-50 pr-1">$</small>
-                                            8,493
+                                            {props.customer.deliveries.length}
                                         </b>
                                     </div>
                                 </div>
@@ -197,7 +191,7 @@ export default function CustomerStats(props) {
                                             Totals
                                         </small>
                                         <b className="font-size-lg text-warning">
-                                            <small className="text-black-50 pr-1">$</small>
+                                            <small className="text-black-50 pr-1"></small>
                                             2,594
                                         </b>
                                     </div>

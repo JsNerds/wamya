@@ -2,9 +2,6 @@ import React, { Fragment } from 'react';
 
 import {Grid, Card, CardContent, Button, List, ListItem, LinearProgress} from '@material-ui/core';
 
-import stock1 from '../../assets/images/stock-photos/stock-1.jpg';
-import stock2 from '../../assets/images/stock-photos/stock-2.jpg';
-import stock3 from '../../assets/images/stock-photos/stock-3.jpg';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function CustomersDetails(props) {
@@ -24,13 +21,13 @@ export default function CustomersDetails(props) {
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={6} md={4}>
                     <Card className="mb-4">
-                        <img alt="..." className="card-img-top" src={stock1} />
+                        <img alt="..." className="card-img-top" src={process.env.REACT_APP_API_URL_UPLOADS + "/" + props.customer.img} />
                         <CardContent className="p-3">
                             <h5 className="card-title font-weight-bold font-size-lg">
                                 {props.customer.FirstName} {props.customer.LastName}
                             </h5>
                             <p className="card-text">
-                                <strong>Username : </strong> {props.customer.Username}
+                                <strong>Username : </strong> {props.customer.UserName}
                             </p>
                             <p className="card-text">
                                 <strong>Email : </strong> {props.customer.Email}

@@ -1,11 +1,39 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Grid, Card, CardContent, Button, Divider } from '@material-ui/core';
 
 import Chart from 'react-apexcharts';
+import {useHistory} from "react-router-dom";
 export default function LivePreviewExample() {
+
+  const history = useHistory();
+  const username = localStorage.getItem('username');
+  const id = localStorage.getItem('id');
+  const role = localStorage.getItem('role');
+
+  const [connected,setConnected] = useState(false);
+
+  useEffect(()=> {
+    if (username === null)
+    {
+      setConnected(false);
+    }
+    else {
+      setConnected(true);
+    }
+
+  })
+
+
+  const Logout = () => {
+    localStorage.clear();
+    history.go(0);
+    history.push("/");
+  }
+
+
   const chart30Options = {
     chart: {
       toolbar: {
@@ -82,9 +110,21 @@ export default function LivePreviewExample() {
 
   return (
     <Fragment>
+
+      <button
+          onClick={Logout}
+      >
+        LOGOUT
+      </button>
+       <br/>
+       <br/>
+       <br/>
+
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6} md={4}>
           <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+
+
             <CardContent className="p-3">
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">

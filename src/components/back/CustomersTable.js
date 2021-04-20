@@ -81,7 +81,7 @@ export default function CustomersTable(props) {
                                 <tr key={index}>
                                     <td>
                                         <div className="d-flex align-items-center">
-                                            <Avatar alt="..." src={avatar2} className="mr-2" />
+                                            <Avatar alt="..." src={process.env.REACT_APP_API_URL_UPLOADS + "/" + customer.img} className="mr-2" />
                                             <div>
                                                 <a
                                                     href="#/"

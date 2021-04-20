@@ -1,10 +1,34 @@
-import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, {Component, useEffect, useState} from "react";
+import {Link, NavLink, useHistory} from "react-router-dom";
 import Sticky from "react-stickynode";
 
-class CustomNavbar extends Component {
-  render() {
-    var { mClass, nClass, cClass, slogo, hbtnClass } = this.props;
+export default  function CustomNavbar (props) {
+
+    const history = useHistory();
+    var { mClass, nClass, cClass, slogo, hbtnClass } = props;
+    const username = localStorage.getItem('username');
+    const id = localStorage.getItem('id');
+    const role = localStorage.getItem('role');
+
+    const [connected,setConnected] = useState(false);
+
+    useEffect(()=> {
+      if (username === null)
+      {
+          setConnected(false);
+      }
+      else {
+        setConnected(true);
+      }
+
+    })
+
+    const Logout = () => {
+      localStorage.clear();
+      history.go(0);
+    }
+
+
     return (
       <Sticky top={0} innerZ={9999} activeClass="navbar_fixed">
         <header className="header_area">
@@ -168,9 +192,9 @@ class CustomNavbar extends Component {
                       <li className="nav-item">
                         <NavLink
                           exact
-                          title="SignIn"
+                          title="SignInWamya"
                           className="nav-link"
-                          to="/SignIn"
+                          to="/SignInWamya"
                         >
                           Sign In
                         </NavLink>
@@ -283,13 +307,23 @@ class CustomNavbar extends Component {
                     </NavLink>
                   </li>
                 </ul>
-                <Link
-                  to="/SignUp"
-                  className={`btn_get btn_hover ${hbtnClass}`}
-                  href="#get-app"
-                >
-                  Sign Up / Sign in
-                </Link>
+                {
+                  connected ? (
+                      <button
+                         onClick={Logout}
+                          className={`btn_get btn_hover ${hbtnClass}`}
+                      >
+                        LOGOUT
+                      </button>
+                  ) :
+                      <Link
+                          to="/SignInWamya"
+                          className={`btn_get btn_hover ${hbtnClass}`}
+                      >
+                        Sign Up / Sign in
+                      </Link>
+                }
+
               </div>
             </div>
           </nav>
@@ -297,6 +331,4 @@ class CustomNavbar extends Component {
       </Sticky>
     );
   }
-}
 
-export default CustomNavbar;

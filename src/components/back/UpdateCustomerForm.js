@@ -48,7 +48,7 @@ const UpdateCustomerForm = (props) => {
         validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
-            const [,err] = await queryServerApi("customers/update/" +props.id, values,"PUT",false);
+            const [,err] = await queryServerApi("customers/update/" +props.id, values,"PUT",true);
             if(err){
                 setError({
                     visible: true,
@@ -274,6 +274,22 @@ const UpdateCustomerForm = (props) => {
                                     )}
                                 </FormControl>
                             </FormGroup>
+
+
+                            <div className="form-group text_box">
+                                <label className="f_p text_c f_400"> <strong>Upload your Profile picture : </strong></label><br/>
+
+                                <Input
+                                    id="fileinput"
+                                    type="file"
+                                    name="img"
+                                    onChange={(event) => {
+                                        formik.setFieldValue("img", event.target.files[0]);
+                                    }}/>
+                                {formik.errors.image && formik.touched.image && (
+                                    <FormHelperText error={formik.errors.image}>{formik.errors.image}</FormHelperText>
+                                )}
+                            </div>
 
 
                             <p></p>

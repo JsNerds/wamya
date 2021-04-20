@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button, Tooltip } from '@material-ui/core';
 import CustomerOperationsPayments from "./CustomerOperationsPayments";
-import SendPackages from "../../pages/front/SendPackages";
 import PackagesForm from "./PackagesForm";
 
 
@@ -69,7 +68,7 @@ const CustomerInterfaceBody =(props)=>{
                                     <MyPackages customer={props.customer} />
                             </div>
                             <div className="tab-pane fade" id="Payments" role="tabpanel" aria-labelledby="price-tab">
-                                    <CustomerOperationsPayments/>
+                                    <CustomerOperationsPayments payments={props.customer.payments}/>
                             </div>
 
                             <div className="tab-pane fade" id="SendPackage" role="tabpanel" aria-labelledby="price-tab">
