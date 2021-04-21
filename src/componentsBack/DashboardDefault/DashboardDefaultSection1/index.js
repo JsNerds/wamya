@@ -110,12 +110,6 @@ export default function LivePreviewExample() {
 
   return (
     <Fragment>
-
-      <button
-          onClick={Logout}
-      >
-        LOGOUT
-      </button>
        <br/>
        <br/>
        <br/>

@@ -5,11 +5,13 @@ import FooterTwo from "../../componentsFront/Footer/FooterTwo";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import EntrepriseInterfaceBody from "../../components/front/EntrepriseInterfaceBody";
 import { useServerApi } from "../../hooks/useServerApi";
+import SignInFormWamya from "../../components/front/SignInFormWamya";
 
 const EntrepriseInterface = () => {
-  const [company, err, reload] = useServerApi(
-    "entreprises/607f11f3fe9d0c3f88dd38e4"
-  );
+
+    const id = localStorage.getItem('id');
+    const role = localStorage.getItem('role');
+  const [company, err, reload] = useServerApi("entreprises/"+id);
   const toRender = company;
   return (
     <div className="body_wrapper">
@@ -31,7 +33,7 @@ const EntrepriseInterface = () => {
           <EntrepriseInterfaceBody company={toRender} />
         </>
       ) : (
-        <p>LOGIN</p>
+          <SignInFormWamya/>
       )}
       <FooterTwo fClass="pt_150" FooterData={FooterData} />
     </div>
