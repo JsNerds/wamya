@@ -360,7 +360,7 @@ class App extends Component {
                 />
                 <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
                 <ScrollToTopRoute
-                  path="/PackageDetail"
+                  path="/PackageDetail/:id"
                   component={PackageDetail}
                 />
                 {/** Blog ***/}

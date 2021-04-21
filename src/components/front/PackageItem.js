@@ -1,11 +1,29 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment,useState } from "react";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+import {queryServerApi} from '../../utils/queryServerApi'
 
 import { Grid, Card, CardContent } from "@material-ui/core";
+
 export default function PackageItem(props) {
   console.log(props.pack);
+  const [packDel, setPackDel] = useState(0);
+  let history = useHistory();
+  const CancelPackage = async (id) => {
+    console.log(id);
+    const [, err] = await queryServerApi(
+      `delivery/deleteDelivery/${id}`,
+      null,
+      "DELETE",
+      false
+    );
+    if (err) {
+      //setShowLoader(false);
+    } else history.push("/CustomerInterface");
+    setPackDel(packDel+1);
+  };
   return (
     <Fragment>
       <Grid container spacing={4} justify={"center"}>
@@ -50,8 +68,10 @@ export default function PackageItem(props) {
                   aria-selected="true"
                 >
                   <span className="text-success px-1">More Details</span>
+
                 </Link>
               </div>
+              <div><span className="text-danger px-1" onClick={() => {CancelPackage(props.pack._id)}}>Cancel Package</span></div>
             </CardContent>
           </Card>
         </Grid>

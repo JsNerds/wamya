@@ -1,79 +1,128 @@
-import React, { Component,useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import {useServerApi} from '../../hooks/useServerApi';
+import React, { Component, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+  useMap,
+} from "react-leaflet";
+import { useServerApi } from "../../hooks/useServerApi";
+import {queryServerApi} from '../../utils/queryServerApi';
+export default function PackageDetail() {
+  let { id } = useParams();
+  console.log(id);
+  const [delivery] = useServerApi("delivery/"+id);
+  const [markers, setMarkers] = useState([]);
+  const [deliv, setDeliv] = useState();
 
+  useEffect(() => {
+    setDeliv(delivery)
+    console.log(delivery)
+  });
 
-export default function PackageDetail(){
-  const [customer, err, reload] = useServerApi("customers/607ec744a6e02026dcc6cea4");
-        function LocationMarker() {
-            const [position, setPosition] = useState(null)
-            const map = useMapEvents({
-              click() {
-                map.locate()
-              },
-              locationfound(e) {
-                setPosition(e.latlng)
-                map.flyTo(e.latlng, map.getZoom())
-              },
-            })
-          
-            return position === null ? null : (
-              <Marker position={position}>
-                <Popup>You are here</Popup>
-              </Marker>
-            )
-          }
-        return (
-            <div>
-                <section className="service_details_area sec_pad">
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-5 pr_70">
-                        <div className="job_info">
-                            <div className="info_head">
-                                <i className="ti-receipt"></i>
-                                <h6 className="f_p f_600 f_size_18 t_color3">Package Name</h6>
-                            </div>
-                            <div className="info_item">
-                                <h6>Driver in Charge</h6>
-                                <p>Driver's Name</p>
-                            </div>
-                            <div className="info_item">
-                                <h6>Live Time:</h6>
-                                <p>Position</p>
-                            </div>
-                            <div className="info_item">
-                                <h6>Service Cost:</h6>
-                                <p>$250.00</p>
-                            </div>
-                            <div className="info_item">
-                                <h6>Quality:</h6>
-                                <p>High</p>
-                            </div>
-                            <div className="info_item">
-                                <h6>Experience</h6>
-                                <p>3 Years</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-7">
-                        <div className="details_content">
-                        <MapContainer
-                          center={[51.505, -0.09]}
-                          zoom={13}
-                          scrollWheelZoom={false}
-                        >
-                          <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          />
-                          <LocationMarker />
-                        </MapContainer>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-            </div>
-        )
+  const MyMarkers = () => {
+    const map = useMap();
+    if(deliv){
+      map.panTo([deliv?.sourceAddress.Location.Latitude,deliv?.sourceAddress.Location.Longitude])
+      return (
+        <>
+      <Marker position={[deliv?.sourceAddress.Location.Latitude,deliv?.sourceAddress.Location.Longitude]}>
+      <Popup>
+        <span>Popup</span>
+      </Popup>
+    </Marker>
+    <Marker position={[deliv?.destinationAddress[0].Location.Latitude, deliv?.destinationAddress[0].Location.Longitude]}>
+      <Popup>
+        <span>Popup</span>
+      </Popup>
+    </Marker>
+    </>)
     }
+    else
+    {
+      return null
+    }
+    
+  };
+  /*function LocationMarker() {
+    const [position, setPosition] = useState(null);
+    const map = useMapEvents({
+      click() {
+        map.locate();
+      },
+      locationfound(e) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
+      },
+    });
+
+    return position === null ? null : (
+      <Marker position={position}>
+        <Popup>You are here</Popup>
+      </Marker>
+    );
+  }*/
+  return (
+    <div>
+      <section className="service_details_area sec_pad">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-5 pr_70">
+              <div className="job_info">
+                <div className="info_head">
+                  <i className="ti-receipt"></i>
+                  <h6 className="f_p f_600 f_size_18 t_color3">
+                    Voici votre Paquet
+                  </h6>
+                </div>
+                <div className="info_item">
+                  <h6></h6>
+                  <p>Driver's Name</p>
+                </div>
+                <div className="info_item">
+                  <h6>
+                    Live Time:
+                  </h6>
+                  <p>{new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "2-digit",
+                    }).format(deliv?.date_launch)}</p>
+                </div>
+                <div className="info_item">
+                  <h6>Service Cost:</h6>
+                  <p>$250.00</p>
+                </div>
+                <div className="info_item">
+                  <h6>Source Adress</h6>
+                  <p>{deliv?.sourceAddress.City}</p>
+                </div>
+                <div className="info_item">
+                  <h6>Destination Address</h6>
+                  <p>{deliv?.destinationAddress[0].City}</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-7">
+              <div className="details_content">
+                <MapContainer
+                  center={[0,0]}
+                  zoom={13}
+                  scrollWheelZoom={true}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <MyMarkers/>
+                </MapContainer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
