@@ -47,7 +47,7 @@ router.post('/startDelivery', function(req,res){
                 {new: true, useFindAndModify: false},
                 function (err){
                   if (err) {
-                    es.send(err); 
+                    res.send(err); 
                   } else {
                     res.send("Delivery started")
                   }
@@ -102,4 +102,18 @@ router.delete("/deleteDelivery/:id", function(req,res){
       }
   });
 });
+
+router.get("/:id",function(req,res){
+  delivery.findById(req.params.id,function(err,doc){
+    if(err)
+    {
+      res.send(err);
+    }
+    else{
+      res.send(doc);
+    }
+  })
+});
+
+
 module.exports = router;

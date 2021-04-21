@@ -104,7 +104,7 @@ router.post('/addCompany', function (req, res, next) {
       Id: e._id,
       Username: newCompany.ResponsibleName,
       Password: newCompany.Password,
-      Role:"Role"
+      Role:"Company"
     }, function (err,user) {
       if(err) throw err;
       res.send(e._id);

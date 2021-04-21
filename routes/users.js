@@ -31,4 +31,21 @@ router.post('/', function(req,res,next){
     }
 });
 
+
+/** Delete All Users **/
+router.delete('/remove', function(req,res,next){
+    User.deleteMany({})
+        .then(data => {
+            res.send({
+                message: `${data.deletedCount} Users were deleted successfully!`
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while removing all tutorials."
+            });
+        });
+});
+
 module.exports = router;
