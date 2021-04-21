@@ -10,8 +10,12 @@ import {useHistory} from "react-router-dom";
 
 
 const SignInFromWamya =()=>{
-    const [error,setError] = useState({visible: false,message: ""});
+    const [error,setError] = useState({visible: false,message: "",subscription:false,id:""});
     const history = useHistory();
+
+    const UpgradeSubscription = () => {
+        history.push("/Pricing/"+error.id);
+    }
 
 
 
@@ -30,15 +34,39 @@ const SignInFromWamya =()=>{
                 });
             }
             else if (user[0].Password === formik.values.password ){
-                localStorage.setItem('username', user[0].Username);
-                localStorage.setItem('role', user[0].Role);
-                localStorage.setItem('id', user[0].Id);
+
                 if(user[0].Role === "Admin")
                 {
+                    localStorage.setItem('username', user[0].Username);
+                    localStorage.setItem('role', user[0].Role);
+                    localStorage.setItem('id', user[0].Id);
                     history.push("/AdminDashborad");
                     history.go(0);
                 }
+                else if (user[0].Role === "Company")
+                {
+                    const [company, err] = await queryServerApi("entreprises/"+user[0].Id, null, "GET", false);
+                    if(company.Subscribed){
+                        localStorage.setItem('username', user[0].Username);
+                        localStorage.setItem('role', user[0].Role);
+                        localStorage.setItem('id', user[0].Id);
+                        history.push("/");
+                        }
+                    else
+                    {
+                        setError({
+                            visible: true,
+                            message: JSON.stringify("You are not Subscribed Please Update your subscription"),
+                            subscription: true,
+                            id:user[0].Id
+                        });
+
+                    }
+                }
                 else {
+                    localStorage.setItem('username', user[0].Username);
+                    localStorage.setItem('role', user[0].Role);
+                    localStorage.setItem('id', user[0].Id);
                     history.push("/");
 
                 }
@@ -86,6 +114,9 @@ const SignInFromWamya =()=>{
                                          </span>
                                         </div>
                                     </MuiAlert>}
+                                    {error.subscription && (
+                                        <button  onClick={UpgradeSubscription} className="btn_three">Subscribe or Upgrade your subcsription</button>
+                                    )}
 
 
                                     <div className="form-group text_box">

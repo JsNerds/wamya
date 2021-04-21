@@ -81,7 +81,7 @@ export default function EntreprisesTable(props) {
                                         </div>
                                     </td>
 
-                                    {Date.parse(company.SubscriptionExpirationDate) > Date.now() ? (
+                                    {Date.parse(company.SubscriptionExpirationDate) > Date.now() && company.Subscribed? (
                                         <td className="text-center">
                                             <div className="badge badge-success px-4">Subscribed</div>
                                         </td>

@@ -14,8 +14,10 @@ import {
 } from '@material-ui/core';
 
 import avatar5 from '../../assets/images/avatars/avatar5.jpg';
+import {useHistory} from "react-router-dom";
 export default function HeaderUserbox() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -24,6 +26,13 @@ export default function HeaderUserbox() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const Logout = () => {
+    localStorage.clear();
+    history.go(0);
+    history.push("/");
+  }
+
 
   return (
     <Fragment>
@@ -75,6 +84,7 @@ export default function HeaderUserbox() {
             <ListItem button>My Account</ListItem>
             <ListItem button>Profile settings</ListItem>
             <ListItem button>Active tasks</ListItem>
+            <ListItem button onClick={Logout}>LOGOUT</ListItem>
             <Divider className="w-100" />
             <ListItem className="d-block rounded-bottom px-3 pt-3 pb-0 text-center">
               <Tooltip arrow title="Twitter">

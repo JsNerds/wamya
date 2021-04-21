@@ -15,6 +15,9 @@ import {
 import { marker } from "leaflet";
 
 export default function PackagesForm(props) {
+
+  const id = localStorage.getItem('id');
+  const role = localStorage.getItem('role');
   const history = useHistory();
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
@@ -36,7 +39,7 @@ export default function PackagesForm(props) {
   });
   const formik = useFormik({
     initialValues: {
-      customer: "607f469b86187226c038d247",
+      customer: id,
       package: [{
         note: "",
         dimension: {
@@ -95,7 +98,7 @@ export default function PackagesForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/SendPackage");
+      } else history.push("/Payment?amount="+2222+"&id="+id+"&userType=Customer");
     },
   });
   const options = [
@@ -114,7 +117,7 @@ export default function PackagesForm(props) {
             let newmarkers = markers;
             newmarkers.push(loc.latlng);
             setMarkers([...newmarkers]);
-            console.log(markers.length);
+            console.log(loc.latlng);
             if (markers.length == 1) {
               let newSource = { ...source };
               newSource.State = doc.data.address.state;
@@ -250,6 +253,7 @@ export default function PackagesForm(props) {
               </MapContainer>
             </div>
           </div>
+          
             </div>
                   <div className="d-flex justify-content-between align-items-center">
                     <button type="submit" className="btn_three">
