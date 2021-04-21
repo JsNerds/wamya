@@ -4,13 +4,20 @@ import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
 import { IconButton, Box, Card, CardContent } from "@material-ui/core";
 
-export default function CustomersTable() {
+export default function CustomersTable(props) {
+  const history = useHistory();
   const addVehicule = () => {
     history.push("/addVehicule");
   };
-  const history = useHistory();
+
   const deleteVehicule = async (id) => {
-    const [, err] = await queryServerApi("/vehicule/delete/", "DELETE", false);
+    console.log(id);
+    const [, err] = await queryServerApi(
+      `vehicule/delete/${id}`,
+      null,
+      "DELETE",
+      false
+    );
     if (err) {
       //setShowLoader(false);
     } else history.push("/Vehicules");
@@ -44,64 +51,64 @@ export default function CustomersTable() {
                 <tr>
                   <th style={{ width: "20%" }}>Model</th>
                   <th style={{ width: "20%" }}>Registration Number</th>
-                  <th style={{ width: "15%" }}>Weight Capacity</th>
-                  <th style={{ width: "15%" }}>Trunk Volume</th>
+                  <th style={{ width: "20%" }}>Weight Capacity</th>
+                  <th style={{ width: "20%" }}>Trunk Volume</th>
                   <th style={{ width: "10%" }}>edit/Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <div>
-                        <a
-                          href="#/"
-                          onClick={(e) => e.preventDefault()}
-                          className="font-weight-bold text-black"
-                          title="..."
+                {props.vehicules?.map((vehicule, index) => {
+                  return (
+                    <tr>
+                      <td>
+                        <p className="font-weight-bold">{vehicule.model}</p>
+                      </td>
+                      <td>
+                        <p className="font-weight-bold">
+                          {vehicule.registrationNumber}
+                        </p>
+                      </td>
+                      <td>
+                        <p className="font-weight-bold">
+                          {vehicule.trunkVolume} m²
+                        </p>
+                      </td>
+                      <td>
+                        <p className="font-weight-bold">
+                          {vehicule.weightCapacity} Kg
+                        </p>
+                      </td>
+                      <td>
+                        <IconButton
+                          size="small"
+                          color="primary"
+                          className="text-primary"
+                          title="View details"
+                          onClick={addVehicule}
                         >
-                          Ford
-                        </a>
-                        <span className="text-black-50 d-block">fiesta</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className="font-weight-bold">186 TN 8749</p>
-                  </td>
-                  <td>
-                    <p className="font-weight-bold">500Kg</p>
-                  </td>
-                  <td>
-                    <p className="font-weight-bold">500Kg</p>
-                  </td>
-                  <td>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      className="text-primary"
-                      title="View details"
-                      onClick={addVehicule}
-                    >
-                      <FontAwesomeIcon
-                        icon={["fa", "edit"]}
-                        className="font-size-lg"
-                      />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      className="text-primary"
-                      title="View details"
-                      onClick={deleteVehicule}
-                    >
-                      <FontAwesomeIcon
-                        icon={["fas", "minus-circle"]}
-                        className="font-size-lg"
-                      />
-                    </IconButton>
-                  </td>
-                </tr>
+                          <FontAwesomeIcon
+                            icon={["fa", "edit"]}
+                            className="font-size-lg"
+                          />
+                        </IconButton>
+                        <IconButton
+                          size="small"
+                          color="primary"
+                          className="text-primary"
+                          title="View details"
+                          onClick={() => {
+                            deleteVehicule(vehicule._id);
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={["fas", "minus-circle"]}
+                            className="font-size-lg"
+                          />
+                        </IconButton>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

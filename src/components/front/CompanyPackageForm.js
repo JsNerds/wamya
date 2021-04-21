@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
 import { useFormik } from "formik";
+import Select from "react-select";
 import {
   MapContainer,
   TileLayer,
@@ -33,6 +34,11 @@ export default function CompanyPackageForm(props) {
       Location: { Longitude: 0, Latitude: 0 },
     },
   ]);
+  const options = [
+    { value: "Dangerous", label: "Dangerous" },
+    { value: "Safe", label: "Safe" },
+    { value: "Brittle", label: "Brittle" },
+  ];
   const formik = useFormik({
     initialValues: {
       Name: "",
@@ -47,16 +53,18 @@ export default function CompanyPackageForm(props) {
           Latitude: 0,
         },
       },
-      destinationAddress: {
-        Street: "",
-        City: "",
-        State: "",
-        ZipCode: 0,
-        Location: {
-          Longitude: 0,
-          Latitude: 0,
+      destinationAddress: [
+        {
+          Street: "",
+          City: "",
+          State: "",
+          ZipCode: 0,
+          Location: {
+            Longitude: 0,
+            Latitude: 0,
+          },
         },
-      },
+      ],
       location: {
         Longitude: 0,
         Latitude: 0,
@@ -70,7 +78,7 @@ export default function CompanyPackageForm(props) {
       console.log(values);
       setShowLoader(false);
       const [, err] = await queryServerApi(
-        "package/addPackageCustomer/60717a108cd4e80964d0a06c",
+        "package/startDelivery/607f647df4f2f5422cb7f781",
         values,
         "POST",
         false
@@ -81,50 +89,54 @@ export default function CompanyPackageForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/SendPackage");
+      } else history.push("/EntrepriseInterface");
     },
   });
   const MyMarkers = () => {
     const map = useMapEvent("click", (loc) => {
-      if (markers.length < 2) {
-        axios
-          .get(
-            `https://eu1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&lat=${loc.latlng.lat}&lon=${loc.latlng.lng}&format=json`
-          )
-          .then((doc) => {
-            let newmarkers = markers;
-            newmarkers.push(loc.latlng);
-            setMarkers([...newmarkers]);
-            console.log(markers.length);
-            if (markers.length == 1) {
-              let newSource = { ...source };
-              newSource.State = doc.data.address.state;
-              newSource.City = doc.data.address.county;
-              newSource.Location = {
-                Longitude: doc.data.lon,
-                Latitude: doc.data.lat,
-              };
-              newSource.ZipCode = parseInt(doc.data.address.postcode);
-              setSource({ ...newSource });
-              console.log(newSource);
-            } else {
-              let newDestination = { ...source };
-              newDestination.State = doc.data.address.state;
-              newDestination.City = doc.data.address.county;
-              newDestination.Location = {
-                Longitude: doc.data.lon,
-                Latitude: doc.data.lat,
-              };
-              newDestination.ZipCode = parseInt(doc.data.address.postcode);
-              setDestination({ ...newDestination });
-              console.log(newDestination);
-            }
-          });
-      } else {
-        setMarkers([]);
-      }
+      axios
+        .get(
+          `https://eu1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&lat=${loc.latlng.lat}&lon=${loc.latlng.lng}&format=json`
+        )
+        .then((doc) => {
+          let newmarkers = markers;
+          newmarkers.push(loc.latlng);
+          setMarkers([...newmarkers]);
+          console.log(markers.length);
+          if (markers.length === 1) {
+            let newSource = { ...source };
+            newSource.State = doc.data.address.state;
+            newSource.City = doc.data.address.county;
+            newSource.Location = {
+              Longitude: doc.data.lon,
+              Latitude: doc.data.lat,
+            };
+            newSource.ZipCode = parseInt(doc.data.address.postcode);
+            setSource({ ...newSource });
+            console.log(newSource);
+          } else {
+            let destinationList = { ...destination };
+            let newDestination = { ...destination[0] };
+            newDestination.State = doc.data.address.state;
+            newDestination.City = doc.data.address.county;
+            newDestination.Location = {
+              Longitude: doc.data.lon,
+              Latitude: doc.data.lat,
+            };
+            newDestination.ZipCode = parseInt(doc.data.address.postcode);
+
+            //destinationList.push(newDestination);
+            destinationList[markers.length] = newDestination;
+            setDestination({ ...destinationList });
+            console.log(destinationList);
+          }
+        });
     });
     return null;
+  };
+  const calculateRoute = () => {
+    console.log(source.Location);
+    console.log(destination[1].Location);
   };
 
   return (
@@ -142,8 +154,8 @@ export default function CompanyPackageForm(props) {
           </div>
           <div className="form-group text_box">
             <label className="f_p text_c f_400">Dimensions :</label>
-            <div className="row">
-              <div className="col-md-3">
+            <div className="row mr-2">
+              <div className="col-md-4">
                 <input
                   type="text"
                   name="dimension[0]"
@@ -151,7 +163,7 @@ export default function CompanyPackageForm(props) {
                   placeholder="Length"
                 />
               </div>
-              <div className="col-md-3">
+              <div className="col-md-4">
                 <input
                   type="text"
                   name="dimension[1]"
@@ -159,7 +171,7 @@ export default function CompanyPackageForm(props) {
                   placeholder="Height"
                 />
               </div>
-              <div className="col-md-3">
+              <div className="col-md-4">
                 <input
                   type="text"
                   name="dimension[2]"
@@ -169,14 +181,17 @@ export default function CompanyPackageForm(props) {
               </div>
             </div>
 
-            <div className=" mt-3 ml-1 mr-3 row">
-              <label className="f_p text_c f_400">package description :</label>
-              <input
-                type="text"
-                name="type"
-                onChange={formik.handleChange}
-                placeholder="Package description"
-              />
+            <div className=" mt-3 mr-1 row">
+              <div className="col-lg-12">
+                <label className="f_p text_c f_400">Package type:</label>
+                <Select
+                  label="Choose type"
+                  options={options}
+                  onChange={(value) => {
+                    formik.setFieldValue("package.0.type", value.value);
+                  }}
+                />
+              </div>
             </div>
             <div className=" mt-3 ml-1 mr-3 row">
               <label className="f_p text_c f_400">Note to driver :</label>
@@ -189,7 +204,7 @@ export default function CompanyPackageForm(props) {
             </div>
 
             <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
-              Select source address then the destinations :
+              Select source address first then the destinations :
             </h3>
             <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={true}>
               <TileLayer
@@ -209,6 +224,13 @@ export default function CompanyPackageForm(props) {
           <div className="d-flex justify-content-between align-items-center">
             <button type="submit" className="btn_three">
               Send Package
+            </button>
+            <button
+              type="button"
+              onClick={() => calculateRoute}
+              className="btn_three"
+            >
+              Calculate Route
             </button>
           </div>
         </form>
