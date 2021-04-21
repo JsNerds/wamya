@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
     if (err) {
       console.log(err);
     } else {
-      res.render("showVehicule", { vehicules: data });
+      res.json(data);
     }
   });
 });
@@ -64,7 +64,7 @@ router.post("/edit/:id", function (req, res, next) {
   });
 });
 /* Delete contact*/
-router.get("/delete/:id", function (req, res, next) {
+router.delete("/delete/:id", function (req, res, next) {
   vehicule.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
     res.redirect("/vehicule");
