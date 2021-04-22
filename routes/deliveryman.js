@@ -1,9 +1,11 @@
 var express = require("express");
 var router = express.Router();
 var delivery = require("../models/delivery_man");
+var signature = require("../models/signature");
 
 var multer = require("multer");
 var path = require("path");
+const Signature = require("../models/signature");
 router.use(express.static(__dirname + "./public/"));
 // router.use(express.static(__dirname+"./public/"));
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -30,7 +32,12 @@ router.get("/", function (req, res, next) {
     }
   });
 });
-
+router.get("/getsig", function (req, res, next) {
+  signature.find(function (err, data) {
+    if (err) throw err;
+    res.json(data);
+  });
+});
 router.get("/adddelivery", function (req, res, next) {
   res.render("add");
 });
@@ -51,6 +58,7 @@ router.post("/", function (req, res, next) {
   user.save();
   res.send("Added");
 });
+
 /* POST 2*/
 router.post("/add", upload, function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -71,6 +79,22 @@ router.post("/add", upload, function (req, res, next) {
   console.log(kar);
   console.log(mynewdelivery);
   delivery.create(mynewdelivery, function (err) {
+    if (err) {
+      res.render("/adddelivery");
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+/* POST signture*/
+router.post("/addsign", function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const mynewconst = {
+    img: obj.img,
+  };
+  console.log(obj);
+  console.log(mynewconst);
+  signature.create(mynewconst, function (err) {
     if (err) {
       res.render("/adddelivery");
     } else {
