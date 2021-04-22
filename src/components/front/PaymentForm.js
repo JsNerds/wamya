@@ -276,7 +276,7 @@ const PaymentForm =(props)=>{
                                     <MuiAlert className="mb-4" severity="success">
                                         <div className="d-flex align-items-center align-content-center">
                                              <span>
-                                                <strong className="d-block">Success!</strong> Your payment was successful!
+                                                <strong className="d-block">Success!</strong> Your payment was successful! , <br/> Please check out your Email and active your account to login!
                                              </span>
                                         </div>
                                     </MuiAlert>

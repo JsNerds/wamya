@@ -3,12 +3,18 @@ import {useHistory} from "react-router";
 import {useFormik} from "formik";
 import {queryServerApi} from "../../utils/queryServerApi";
 import * as Yup from "yup";
-import {FormGroup, FormHelperText} from '@material-ui/core';
+import {FormHelperText} from '@material-ui/core';
 import MuiAlert from "@material-ui/lab/Alert";
 
 const CustomerSignUpForm =()=>{
     const history = useHistory();
-    const [error,setError] = useState({visible: false,message: ""});
+    const [success,setSuccess] = useState(false);
+    const [error,setError] = useState({
+        visible: false,
+        message: "",
+        CinErr: false,
+        UserNameErr:false
+    });
 
     const formik = useFormik({
         initialValues:{
@@ -26,9 +32,24 @@ const CustomerSignUpForm =()=>{
         },validationSchema: YupSchema,
         onSubmit: async (values) => {
             console.log("Values",values);
-            const [, err] = await queryServerApi("customers/addCustomer", values, "POST", true);
+            const [res, err] = await queryServerApi("customers/addCustomer", values, "POST", true);
             console.log(err);
-            if (err) {
+            console.log('res = ', res)
+            if(res === "UserNameExist" ){
+                setError({
+                    visible: true,
+                    message: JSON.stringify("Username already exist", null, 2),
+                    UserNameErr: true
+                });
+            }
+            else if (res === "CinExist"){
+                setError({
+                    visible: true,
+                    message: JSON.stringify("Cin  already exist", null, 2),
+                    CinErr: true
+                });
+            }
+           else if (err) {
                 console.log('error',err)
                 setError({
                     visible: true,
@@ -36,7 +57,8 @@ const CustomerSignUpForm =()=>{
                 });
             } else {
                 console.log("add");
-                history.push("/");
+                //history.push("/");
+                setSuccess(true);
             }
         },
     });
@@ -81,9 +103,17 @@ const CustomerSignUpForm =()=>{
                                 <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Sign Up</h2>
 
 
+                                {!success ? (
+
                                 <form onSubmit={formik.handleSubmit}>
                                     <div>
-                                        {error.visible && <span>{error.message}</span>}
+                                        {error.visible && <MuiAlert className="mb-4" severity="error">
+                                            <div className="d-flex align-items-center align-content-center">
+                                         <span>
+                                         <strong className="d-block">Danger!</strong> {error.message}
+                                         </span>
+                                            </div>
+                                        </MuiAlert>}
 
                                         {!formik.isValid &&
                                         <MuiAlert className="mb-4" severity="error">
@@ -109,6 +139,10 @@ const CustomerSignUpForm =()=>{
                                             <FormHelperText error={formik.errors.cin}>{formik.errors.cin}</FormHelperText>
                                         )}
 
+                                        {error.visible && error.CinErr && (
+                                            <FormHelperText error={error.CinErr}>{error.message}</FormHelperText>
+                                        )}
+
                                     </div>
 
                                     <div className="form-group text_box">
@@ -122,6 +156,9 @@ const CustomerSignUpForm =()=>{
                                         />
                                         {formik.errors.username && formik.touched.username && (
                                             <FormHelperText error={formik.errors.username}>{formik.errors.username}</FormHelperText>
+                                        )}
+                                        {error.visible && error.UserNameErr && (
+                                            <FormHelperText error={error.UserNameErr}>{error.message}</FormHelperText>
                                         )}
 
                                     </div>
@@ -295,6 +332,16 @@ const CustomerSignUpForm =()=>{
 
 
                                 </form>
+                                    ) :
+                                    <MuiAlert className="mb-4" severity="success">
+                                        <div className="d-flex align-items-center align-content-center">
+                                             <span>
+                                                <strong className="d-block">Done!</strong> Please check out your Email and active your account to login!
+                                             </span>
+                                        </div>
+                                    </MuiAlert>
+
+                                }
 
                             </div>
                         </div>

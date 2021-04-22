@@ -30,7 +30,7 @@ const SignInFromWamya =()=>{
             if(user.length===0){
                 setError({
                     visible: true,
-                    message: JSON.stringify("Username or Email doesn't exist"),
+                    message: JSON.stringify(`Username or Email doesn't exist \\n if you registred recently please activate your account`),
                 });
             }
             else if (user[0].Password === formik.values.password ){

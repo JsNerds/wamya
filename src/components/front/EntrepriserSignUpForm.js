@@ -10,8 +10,11 @@ import {FormHelperText} from "@material-ui/core";
 
 const EntrepriseSignUpForm =()=>{
     const history = useHistory();
-    const [error,setError] = useState({visible: false,message: ""});
-
+    const [error,setError] = useState({
+        visible: false,
+        message: "",
+        DenominationErr: false,
+    });
     const formik = useFormik({
         initialValues:{
             ResponsibleCin: "",
@@ -35,7 +38,14 @@ const EntrepriseSignUpForm =()=>{
             console.log(values);
             const [res,err] = await queryServerApi("entreprises/addCompany", values,"POST",false);
             console.log(res);
-            if(err){
+            if(res === "DenominationExist"){
+                setError({
+                    visible: true,
+                    message: JSON.stringify("this company is already registred", null, 2),
+                    DenominationErr: true
+                });
+            }
+            else if(err){
                 setError({
                     visible: true,
                     message: JSON.stringify(err.errors, null, 2),
@@ -94,7 +104,13 @@ const EntrepriseSignUpForm =()=>{
                                 <form  className="login-form sign-in-form" onSubmit={formik.handleSubmit}>
 
                                     <div>
-                                        {error.visible && <span>{error.message}</span>}
+                                        {error.visible && <MuiAlert className="mb-4" severity="error">
+                                            <div className="d-flex align-items-center align-content-center">
+                                         <span>
+                                         <strong className="d-block">Danger!</strong> {error.message}
+                                         </span>
+                                            </div>
+                                        </MuiAlert>}
 
                                         {!formik.isValid &&
                                         <MuiAlert className="mb-4" severity="error">
@@ -162,6 +178,11 @@ const EntrepriseSignUpForm =()=>{
                                         {formik.errors.Denomination && formik.touched.Denomination && (
                                             <FormHelperText error={formik.errors.Denomination}>{formik.errors.Denomination}</FormHelperText>
                                         )}
+
+                                        {error.visible && error.DenominationErr && (
+                                            <FormHelperText error={error.DenominationErr}>{error.message}</FormHelperText>
+                                        )}
+
                                     </div>
 
                                     <div className="form-group text_box">
