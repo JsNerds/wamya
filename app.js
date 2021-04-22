@@ -28,7 +28,9 @@ var paymentRouter = require("./routes/payment");
 var userRouter = require("./routes/users");
 
 var app = express();
+require("dotenv").config();
 const bodyParser = require("body-parser");
+
 
 // mongo config
 mongoose

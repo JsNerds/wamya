@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Customer = require('../models/customer');
 var User = require('../models/User');
+var {sendCustomerConfirmationEmail } = require('../mailer');
 
 
 var multer = require("multer");
@@ -99,10 +100,9 @@ router.post('/', function(req,res,next){
 
 
 
-
 /** Add Customer (REACT) **/
 
-router.post('/addCustomer',upload, function (req, res, next) {
+router.post('/addCustomer',upload, async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log("Obj", obj);
   const newCustomer = {
@@ -123,24 +123,44 @@ router.post('/addCustomer',upload, function (req, res, next) {
     payments: [],
     packages: []
   };
-  Customer.create(newCustomer).then( c => {
-    User.create({
-      Id: c._id,
-      Username: newCustomer.UserName,
-      Password: newCustomer.Password,
-      Role:"Customer"
-    }, function (err,user) {
-      if(err) throw err;
-      res.send(c._id);
-    })
+  const UserNameExist = await Customer.find({UserName: newCustomer.UserName});
+  const CINExist =  await Customer.find({Cin: newCustomer.Cin});
+  if(UserNameExist.length != 0)
+  {
+    console.log("UserNameExist");
+    res.send("UserNameExist");
+  }
+  else if (CINExist.length != 0 ){
+    console.log("CIN Exist");
+    res.send("CinExist");
+  }
+  else {
+  Customer.create(newCustomer,function (err,customer) {
+    if(err) throw err;
+    sendCustomerConfirmationEmail(newCustomer.Email,newCustomer.UserName,customer._id);
+    res.send(customer._id);
   });
+  }
 
 });
 
 
-
-
-
+/** Activate Customer **/
+router.get('/ActivateCustomer/:id',async function (req, res, next) {
+  Customer.findById(req.params.id).then( c => {
+      User.create({
+        Id: c._id,
+        Username: c.UserName,
+        Password: c.Password,
+        Role:"Customer"
+      }, function (err,user) {
+        if(err) throw err;
+        res.redirect("http://localhost:3022/ActivatedAccount");
+        res.end();
+      });
+      }
+  );
+});
 
 
 /** Update Customer(REACT) **/
