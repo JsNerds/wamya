@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var delivery = require("../models/delivery_man");
 var signature = require("../models/signature");
+var User = require("../models/User");
 
 var multer = require("multer");
 var path = require("path");
@@ -78,13 +79,21 @@ router.post("/add", upload, function (req, res, next) {
   };
   console.log(kar);
   console.log(mynewdelivery);
-  delivery.create(mynewdelivery, function (err) {
-    if (err) {
-      res.render("/adddelivery");
-    } else {
-      res.redirect("/deliveryman");
-    }
+  delivery.create(mynewdelivery).then( d => {
+    User.create({
+      Id: d._id,
+      Username: mynewdelivery.Username,
+      Password: mynewdelivery.Password,
+      Role:"DeliveryManP"
+    }, function (err) {
+      if (err) {
+        res.render("/adddelivery");
+      } else {
+        res.redirect("/deliveryman");
+      }
+    })
   });
+
 });
 /* POST signture*/
 router.post("/addsign", function (req, res, next) {
