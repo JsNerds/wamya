@@ -1,0 +1,9 @@
+.signatureCanvas {
+  border: 1px solid black;
+  width: 400px;
+  height: 400px;
+  background-color: rgba(57, 160, 173, 0.3);
+}
+.os {
+  filter: hue-rotate(90deg);
+}

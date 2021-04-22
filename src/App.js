@@ -38,6 +38,7 @@ import Flex_join from "./pages/front/Flex_join";
 import Join_form from "./componentsFront/Join_form";
 import P_deliveryform from "./pages/front/P_deliveryform";
 import Delivery_man_interface from "./pages/front/Delivery_man_interface";
+import Drop_by from "./components/front/Dm_comp/Digital_sign";
 
 /***Dashbord Imports ********/
 import { BrowserRouter } from "react-router-dom";
@@ -299,9 +300,9 @@ library.add(
 );
 
 const store = configureStore();
-const username = localStorage.getItem('username');
-const id = localStorage.getItem('id');
-const role = localStorage.getItem('role');
+const username = localStorage.getItem("username");
+const id = localStorage.getItem("id");
+const role = localStorage.getItem("role");
 
 const user = false;
 
@@ -314,15 +315,16 @@ class App extends Component {
     return (
       <>
         <Router basename="/">
-        {username !=null && role === "Admin" ? (
+          {username != null && role === "Admin" ? (
             <switch>
-          <Provider store={store}>
-              <CssBaseline />
-              <ScrollToTop>
-                <Routes />
-              </ScrollToTop>
-          </Provider>
+              <Provider store={store}>
+                <CssBaseline />
+                <ScrollToTop>
+                  <Routes />
+                </ScrollToTop>
+              </Provider>
             </switch>
+<<<<<<< Updated upstream
         ) : (
               <Switch>
                 <ScrollToTopRoute exact={true} path={"/"} component={Home} />
@@ -419,6 +421,101 @@ class App extends Component {
               </Switch>
 
         )}
+=======
+          ) : (
+            <Switch>
+              <ScrollToTopRoute exact={true} path={"/"} component={Home} />
+              <ScrollToTopRoute
+                path="/HR-Management"
+                component={HRManagement}
+              />
+              <ScrollToTopRoute path="/Startup" component={Startup} />
+              <ScrollToTopRoute path="/Home-CRM" component={HomeCRM} />
+              <ScrollToTopRoute path="/About" component={About} />
+              <ScrollToTopRoute path="/Service" component={Service} />
+              <ScrollToTopRoute path="/Process" component={Process} />
+              <ScrollToTopRoute path="/Team" component={Team} />
+              {/** Portfolios ***/}
+              <ScrollToTopRoute
+                path="/Portfolio-2col"
+                component={Portfolio2col}
+              />
+              <ScrollToTopRoute
+                path="/Portfolio-3col"
+                component={Portfolio3col}
+              />
+              <ScrollToTopRoute
+                path="/Portfolio-fullwidth-4col"
+                component={Portfoliofull4col}
+              />
+              <ScrollToTopRoute
+                path="/PortfolioSingle"
+                component={PortfolioSingle}
+              />
+              {/**Package Management*/}
+              <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
+              <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
+              <ScrollToTopRoute
+                path="/PackageDetail"
+                component={PackageDetail}
+              />
+              {/** Blog ***/}
+              <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
+              <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
+              <ScrollToTopRoute path="/BlogGridPage" component={BlogGridPage} />
+              <ScrollToTopRoute path="/Contact" component={Contact} />
+              <ScrollToTopRoute path="/Landing" component={Landing} />
+              <ScrollToTopRoute path="/Price" component={Price} />
+              <ScrollToTopRoute path="/Faq" component={Faq} />
+              <ScrollToTopRoute
+                path="/ServiceDetails"
+                component={ServiceDetails}
+              />
+              <ScrollToTopRoute path="/SignInWamya" component={SignInWamya} />
+              {/*** delivery_man  ***/}
+              <ScrollToTopRoute path="/Flex_join" component={Flex_join} />
+              <ScrollToTopRoute path="/Drop_by" component={Drop_by} />
+              <ScrollToTopRoute path="/Join_form" component={Join_form} />
+              Delivery_man_interface
+              <ScrollToTopRoute
+                path="/Delivery_man_interface"
+                component={Delivery_man_interface}
+              />
+              <ScrollToTopRoute
+                path="/P_deliveryform"
+                component={P_deliveryform}
+              />
+              {/***Cutomser & Entreprise Module***/}
+              <ScrollToTopRoute
+                path="/CustomerServiceDetails"
+                component={CustomerServiceDetails}
+              />
+              <ScrollToTopRoute
+                path="/EntrepriseServiceDetails"
+                component={EntrepriseServiceDetails}
+              />
+              <ScrollToTopRoute
+                path="/SignUpCustomer"
+                component={SignUpCustomer}
+              />
+              <ScrollToTopRoute
+                path="/SignUpEntreprise"
+                component={SignUpEntreprise}
+              />
+              <ScrollToTopRoute path="/Payment" component={Payment} />
+              <ScrollToTopRoute
+                path="/EntrepriseInterface"
+                component={EntrepriseInterface}
+              />
+              <ScrollToTopRoute
+                path="/CustomerInterface"
+                component={CustomerInterface}
+              />
+              <ScrollToTopRoute path="/Pricing/:id" component={Pricing} />
+              <ScrollToTopRoute component={NotFound} />
+            </Switch>
+          )}
+>>>>>>> Stashed changes
         </Router>
       </>
     );

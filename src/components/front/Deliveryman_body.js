@@ -9,6 +9,7 @@ import { Button, Tooltip } from "@material-ui/core";
 import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import SendPackages from "../../pages/front/SendPackages";
 import PackagesForm from "./PackagesForm";
+import Degiral_sign from "./Dm_comp/Digital_sign";
 
 const Deliveryman_Body = () => {
   return (
@@ -48,6 +49,20 @@ const Deliveryman_Body = () => {
                     Delivery man of the month{" "}
                   </a>
                 </li>
+
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    id="returns-tab"
+                    data-toggle="tab"
+                    href="#Drop"
+                    role="tab"
+                    aria-controls="returns"
+                    aria-selected="false"
+                  >
+                    Drop by authentification{" "}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -76,6 +91,15 @@ const Deliveryman_Body = () => {
                 aria-labelledby="returns-tab"
               >
                 <CustomerFavoriteDrivers />
+              </div>
+
+              <div
+                className="tab-pane fade"
+                id="Drop"
+                role="tabpanel"
+                aria-labelledby="returns-tab"
+              >
+                <Degiral_sign />
               </div>
             </div>
           </div>
