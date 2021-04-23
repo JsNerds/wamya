@@ -10,7 +10,7 @@ import {
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
 import {queryServerApi} from '../../utils/queryServerApi';
-export default function PackageDetail() {
+export default function PackageDetailItem() {
   let { id } = useParams();
   console.log(id);
   const [delivery] = useServerApi("delivery/"+id);
@@ -102,6 +102,10 @@ export default function PackageDetail() {
                 <div className="info_item">
                   <h6>Destination Address</h6>
                   <p>{deliv?.destinationAddress[0].City}</p>
+                </div>
+                <div className="info_item">
+                  <h6>Package Type</h6>
+                  <p>{deliv?.package[0].type}</p>
                 </div>
               </div>
             </div>
