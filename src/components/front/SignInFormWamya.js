@@ -26,14 +26,21 @@ const SignInFromWamya =()=>{
         },validationSchema: YupSchema,
         onSubmit: async (values) => {
             console.log("Values",values);
-            const [user, err] = await queryServerApi("users?username="+formik.values.username, null, "GET", false);
-            if(user.length===0){
+            const [user, err] = await queryServerApi("users?username="+formik.values.username+"&password="+formik.values.password, null, "GET", false);
+            if(user === "UserNotFound"){
                 setError({
                     visible: true,
                     message:`Username or Email doesn't exist  if you registred recently please activate your account`,
                 });
             }
-            else if (user[0].Password === formik.values.password ){
+            else if (user === "WrongPassword"){
+                setError({
+                    visible: true,
+                    message: "Incorrect Password",
+                });
+
+            }
+            else {
 
                 if(user[0].Role === "Admin")
                 {
@@ -51,7 +58,7 @@ const SignInFromWamya =()=>{
                         localStorage.setItem('role', user[0].Role);
                         localStorage.setItem('id', user[0].Id);
                         history.push("/");
-                        }
+                    }
                     else
                     {
                         setError({
@@ -70,13 +77,6 @@ const SignInFromWamya =()=>{
                     history.push("/");
 
                 }
-
-            }
-            else {
-                setError({
-                    visible: true,
-                    message: "Incorrect Password",
-                });
             }
 
 
