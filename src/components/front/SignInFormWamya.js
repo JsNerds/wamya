@@ -30,7 +30,7 @@ const SignInFromWamya =()=>{
             if(user.length===0){
                 setError({
                     visible: true,
-                    message: JSON.stringify(`Username or Email doesn't exist \\n if you registred recently please activate your account`),
+                    message:`Username or Email doesn't exist  if you registred recently please activate your account`,
                 });
             }
             else if (user[0].Password === formik.values.password ){
@@ -56,7 +56,7 @@ const SignInFromWamya =()=>{
                     {
                         setError({
                             visible: true,
-                            message: JSON.stringify("You are not Subscribed Please Update your subscription"),
+                            message: "You are not Subscribed Please Update your subscription",
                             subscription: true,
                             id:user[0].Id
                         });
@@ -75,7 +75,7 @@ const SignInFromWamya =()=>{
             else {
                 setError({
                     visible: true,
-                    message: JSON.stringify("Incorrect Password"),
+                    message: "Incorrect Password",
                 });
             }
 
@@ -142,7 +142,7 @@ const SignInFromWamya =()=>{
                                         </div>
                                        
                                         <div className="forgotten-password">
-                                            <a href="/#">Forgot Password?</a>
+                                            <a href="/ResetPassword">Forgot Password?</a>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center">

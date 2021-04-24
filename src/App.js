@@ -175,6 +175,8 @@ import PackageDetail from "./components/front/PackageDetail";
 import Pricing from "./pages/front/Pricing";
 import SignInWamya from "./pages/front/SignInWamya";
 import ActivatedAccount from "./pages/front/ActivatedAccount";
+import ResetPassword from "./pages/front/ResetPassword";
+import ResetNewPassword from "./pages/front/ResetNewPassword";
 
 library.add(
   far,
@@ -413,6 +415,14 @@ class App extends Component {
               <ScrollToTopRoute
                 path="/ActivatedAccount"
                 component={ActivatedAccount}
+              />
+              <ScrollToTopRoute
+                path="/ResetPassword"
+                component={ResetPassword}
+              />
+              <ScrollToTopRoute
+                path="/ResetNewPassword/:id"
+                component={ResetNewPassword}
               />
               <ScrollToTopRoute path="/Pricing/:id" component={Pricing} />
               <ScrollToTopRoute component={NotFound} />
