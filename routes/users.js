@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var User = require("../models/User")
+var User = require("../models/User");
+var Customer = require("../models/customer");
+var Entreprise = require("../models/entreprise");
 var ResetCode = require("../models/ResetCode");
-var {SendResetPasswordEmail} = require("../mailer")
+var {SendResetPasswordEmail} = require("../mailer");
+
 
 
 /** Search Customer By FirstName and LastName **/
@@ -47,7 +50,7 @@ router.post('/resetPassword', async function(req,res,next){
             res.send("EmailAlreadySent");
         }
         else {
-            const code = user[0]._id.toString().substr(0,4);
+            const code = user[0]._id.toString().substr(20,24);
             const newResetCode = new ResetCode({Id: user[0].Id,Code:code});
             await newResetCode.save();
             SendResetPasswordEmail(user[0].Email,user[0].Username,user[0].Id,code);
@@ -63,7 +66,7 @@ router.post('/resetPassword', async function(req,res,next){
 
 
 
-/** Reset User Password **/
+/** Reset User Password Confirmation **/
 router.post('/resetPassword/confirmation', async function(req,res,next){
     const {Code, id, password} = req.body;
     console.log(Code,id,password);
@@ -83,29 +86,38 @@ router.post('/resetPassword/confirmation', async function(req,res,next){
                 await ResetCode.deleteOne({Code: Code});
                 if(user[0].Role ==="Customer"){
                 const newUser = new User({
-                    Id: user[0]._id,
-                    Username: user[0].UserName,
+                    Id: id,
+                    Username: user[0].Username,
                     Password: password,
                     Email: user[0].Email,
                     Role: "Customer"
                 });
                 await User.deleteOne({Id: id});
                 await User.create(newUser);
+                    Customer.findByIdAndUpdate(id, {Password:password},function(err,data){
+                        if(err) throw err;
+                        console.log('UPDATED');
+                        return res.send("PasswordUpdated");
+                    });
                 }
                 else
                 {
                     const newUser = new User({
-                        Id: user[0]._id,
-                        Username: user[0].UserName,
+                        Id: id,
+                        Username: user[0].Username,
                         Password: password,
                         Email: user[0].Email,
                         Role: "Company"
                     });
                     await User.deleteOne({Id: id});
                     await User.create(newUser);
+                    Entreprise.findByIdAndUpdate(id,{Password:password},function(err,data){
+                        if(err) throw err;
+                        console.log('UPDATED');
+                        return res.send("PasswordUpdated");
+                    });
                 }
 
-                return res.send("PasswordUpdated");
             }
         }
     }
