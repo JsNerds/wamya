@@ -3,6 +3,7 @@ var router = express.Router();
 var Customer = require('../models/customer');
 var User = require('../models/User');
 var {sendCustomerConfirmationEmail } = require('../mailer');
+var bcrypt = require("bcrypt");
 
 
 var multer = require("multer");
@@ -105,12 +106,13 @@ router.post('/', function(req,res,next){
 router.post('/addCustomer',upload, async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log("Obj", obj);
+  const hashedPassword = await bcrypt.hash(obj.password,10);
   const newCustomer = {
     Cin: obj.cin,
     FirstName: obj.firstname,
     LastName: obj.lastname,
     UserName: obj.username,
-    Password: obj.password,
+    Password: hashedPassword,
     Email: obj.email,
     PhoneNumber: obj.phoneNumber,
     Adress: {

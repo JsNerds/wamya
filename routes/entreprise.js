@@ -3,6 +3,7 @@ var router = express.Router();
 var Entreprise = require('../models/entreprise');
 var User = require('../models/User');
 var {sendCompanyConfirmationEmail } = require('../mailer');
+var bcrypt = require("bcrypt");
 
 
 
@@ -75,7 +76,8 @@ router.post('/', function(req,res,next){
 /** Add Entreprise(REACT) **/
 router.post('/addCompany', async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
-  console.log("Obj", obj)
+  console.log("Obj", obj);
+  const hashedPassword = await bcrypt.hash(obj.Password,10);
   const newCompany = {
     ResponsibleCin: obj.ResponsibleCin,
     ResponsibleName: obj.ResponsibleName,
@@ -93,7 +95,7 @@ router.post('/addCompany', async function (req, res, next) {
     Denomination: obj.Denomination,
     TaxSituation: obj.TaxSituation,
     Email: obj.Email,
-    Password: obj.Password,
+    Password: hashedPassword,
     PhoneNumber: obj.PhoneNumber,
     Subscribed:false,
     SubscriptionExpirationDate: new Date(),

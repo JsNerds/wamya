@@ -5,6 +5,7 @@ var Customer = require("../models/customer");
 var Entreprise = require("../models/entreprise");
 var ResetCode = require("../models/ResetCode");
 var {SendResetPasswordEmail} = require("../mailer");
+var bcrypt = require("bcrypt");
 
 
 
@@ -12,21 +13,38 @@ var {SendResetPasswordEmail} = require("../mailer");
 
 router.get('/', function(req, res, next) {
     const username = req.query.username;
+    const password = req.query.password;
     var condition =
         username ?
             { Username : { $regex: new RegExp(username), $options: "i" } }
             : {};
-    User.find(condition,function(err,data){
+    User.find(condition,async function(err,data){
         if(err) throw err;
+        if(data.length === 0)
+        {
+            return res.send("UserNotFound");
+        }
+        else if (await bcrypt.compare(password,data[0].Password) === false){
+            console.log("WrongPassword")
+            return res.send("WrongPassword");
+        }
+        else {
         res.json(data);
+        }
     });
 });
 
 
 /** Add User (Post Man)**/
 
-router.post('/', function(req,res,next){
-    const user = new User(req.body);
+router.post('/', async function(req,res,next){
+    const password = req.body.Password;
+    const hashedPassword = await bcrypt.hash(password,10);
+    const user = new User(   {
+        Username:req.body.Username,
+        Password:hashedPassword,
+        Role:req.body.Role
+    });
     try{
         user.save();
         res.send("Ajout");
@@ -70,6 +88,8 @@ router.post('/resetPassword', async function(req,res,next){
 router.post('/resetPassword/confirmation', async function(req,res,next){
     const {Code, id, password} = req.body;
     console.log(Code,id,password);
+    const hashedPassword = await bcrypt.hash(password,10);
+
     try {
         const resetCode = await ResetCode.find({Code: Code});
         if (resetCode.length === 0) {
@@ -88,13 +108,13 @@ router.post('/resetPassword/confirmation', async function(req,res,next){
                 const newUser = new User({
                     Id: id,
                     Username: user[0].Username,
-                    Password: password,
+                    Password: hashedPassword,
                     Email: user[0].Email,
                     Role: "Customer"
                 });
                 await User.deleteOne({Id: id});
                 await User.create(newUser);
-                    Customer.findByIdAndUpdate(id, {Password:password},function(err,data){
+                    Customer.findByIdAndUpdate(id, {Password:hashedPassword},function(err,data){
                         if(err) throw err;
                         console.log('UPDATED');
                         return res.send("PasswordUpdated");
@@ -105,13 +125,13 @@ router.post('/resetPassword/confirmation', async function(req,res,next){
                     const newUser = new User({
                         Id: id,
                         Username: user[0].Username,
-                        Password: password,
+                        Password: hashedPassword,
                         Email: user[0].Email,
                         Role: "Company"
                     });
                     await User.deleteOne({Id: id});
                     await User.create(newUser);
-                    Entreprise.findByIdAndUpdate(id,{Password:password},function(err,data){
+                    Entreprise.findByIdAndUpdate(id,{Password:hashedPassword},function(err,data){
                         if(err) throw err;
                         console.log('UPDATED');
                         return res.send("PasswordUpdated");
