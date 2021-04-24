@@ -127,6 +127,7 @@ router.get('/ActivateCompany/:id',async function (req, res, next) {
           Id: e._id,
           Username: e.ResponsibleName,
           Password: e.Password,
+          Email: e.Email,
           Role:"Company"
         }, function (err,user) {
           if(err) throw err;

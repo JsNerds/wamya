@@ -5,6 +5,7 @@ var User = new Schema({
     Id: String,
     Username:String,
     Password:String,
+    Email:String,
     Role:String
 });
 

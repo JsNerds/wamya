@@ -152,6 +152,7 @@ router.get('/ActivateCustomer/:id',async function (req, res, next) {
         Id: c._id,
         Username: c.UserName,
         Password: c.Password,
+        Email: c.Email,
         Role:"Customer"
       }, function (err,user) {
         if(err) throw err;
