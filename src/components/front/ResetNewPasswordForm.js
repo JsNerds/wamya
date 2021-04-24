@@ -1,15 +1,11 @@
 import React, {Component, useState} from 'react';
 import {useFormik} from "formik";
 import {queryServerApi} from "../../utils/queryServerApi";
-import {useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import MuiAlert from "@material-ui/lab/Alert";
 import {FormHelperText} from "@material-ui/core";
-import {useLocation, useParams} from "react-router";
+import {useParams} from "react-router";
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 function ResetPasswordForm () {
     const [error,setError] = useState({visible: false,message: ""});
@@ -25,14 +21,7 @@ function ResetPasswordForm () {
         onSubmit: async (values) => {
             console.log("VAL",values);
             const [res, err] = await queryServerApi("users/resetPassword/confirmation", values, "POST", false);
-
-            if(res === "TryAgain"){
-                setError({
-                    visible: true,
-                    message: "something wrong Try Again",
-                });
-            }
-            else if (res === "WrongCode"){
+            if (res === "WrongCode"){
                 setError({
                     visible: true,
                     message: "Wrong Code",
@@ -79,31 +68,30 @@ function ResetPasswordForm () {
 
                             {!success ? (
                             <form onSubmit={formik.handleSubmit} >
-                                <div className="row">
 
-                                    {error.visible && <MuiAlert className="mb-4" severity="error">
-                                        <div className="d-flex align-items-center align-content-center">
+
+                                {error.visible && <MuiAlert className="mb-4" severity="error">
+                                    <div className="d-flex align-items-center align-content-center">
                                          <span>
                                          <strong className="d-block">Danger!</strong> {error.message}
                                          </span>
-                                        </div>
-                                        <br/>
-                                        <br/>
-                                    </MuiAlert>}
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                </MuiAlert>}
 
-                                    {!formik.isValid &&
-                                    <MuiAlert className="mb-4" severity="error">
-                                        <div className="d-flex align-items-center align-content-center">
+                                {!formik.isValid &&
+                                <MuiAlert className="mb-4" severity="error">
+                                    <div className="d-flex align-items-center align-content-center">
                                          <span>
                                          <strong className="d-block">Danger!</strong> Check out the form again
                                          </span>
-                                        </div>
-                                        <br/>
-                                        <br/>
-                                    </MuiAlert>}
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                </MuiAlert>}
 
-
-
+                                <div className="row">
                                     <div className="col-lg-6">
                                         <div className="form-group text_box">
                                             <input type="text"  id="Code" placeholder="Your Code"

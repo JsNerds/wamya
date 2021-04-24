@@ -63,14 +63,15 @@ function ResetPasswordForm () {
 
                             {!success ? (
                             <form onSubmit={formik.handleSubmit} >
-                                <div className="row">
-                                    {error.visible && <MuiAlert className="mb-4" severity="error">
-                                        <div className="d-flex align-items-center align-content-center">
+                                {error.visible && <MuiAlert className="mb-4" severity="error">
+                                    <div className="d-flex align-items-center align-content-center">
                                          <span>
                                          <strong className="d-block">Danger!</strong> {error.message}
                                          </span>
-                                        </div>
-                                    </MuiAlert>}
+                                    </div>
+                                </MuiAlert>}
+                                <div className="row">
+
                                     <div className="col-lg-6">
                                         <div className="form-group text_box">
                                             <input type="text"  id="Email" placeholder="Your Email"
