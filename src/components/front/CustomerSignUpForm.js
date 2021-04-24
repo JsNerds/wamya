@@ -13,7 +13,8 @@ const CustomerSignUpForm =()=>{
         visible: false,
         message: "",
         CinErr: false,
-        UserNameErr:false
+        UserNameErr:false,
+        EmailExist:false
     });
 
     const formik = useFormik({
@@ -38,15 +39,23 @@ const CustomerSignUpForm =()=>{
             if(res === "UserNameExist" ){
                 setError({
                     visible: true,
-                    message: JSON.stringify("Username already exist", null, 2),
+                    message: "Username already exist",
                     UserNameErr: true
                 });
             }
             else if (res === "CinExist"){
                 setError({
                     visible: true,
-                    message: JSON.stringify("Cin  already exist", null, 2),
+                    message: "Cin  already exist",
                     CinErr: true
+                });
+            }
+            else if (res === "EmailExist"){
+                setError({
+                    visible: true,
+                    message: "This email address is already registered. If it belongs to you, \n" +
+                        "log in above or visit our account recovery page to get access to this account.",
+                    EmailExist: true
                 });
             }
            else if (err) {
@@ -198,33 +207,13 @@ const CustomerSignUpForm =()=>{
                                         {formik.errors.email && formik.touched.email && (
                                             <FormHelperText error={formik.errors.email}>{formik.errors.email}</FormHelperText>
                                         )}
+
+                                        {error.visible && error.EmailExist && (
+                                            <FormHelperText error={error.EmailExist}>{error.message}</FormHelperText>
+                                        )}
+
                                     </div>
 
-
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Password</label>
-                                        <input type="password" placeholder="******"
-                                               id="password"
-                                               value={formik.values.password}
-                                               onChange={formik.handleChange}
-                                        />
-                                        {formik.errors.password && formik.touched.password && (
-                                            <FormHelperText error={formik.errors.password}>{formik.errors.password}</FormHelperText>
-                                        )}
-                                    </div>
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400">Confirm Password</label>
-                                        <input
-                                            type="password"
-                                            placeholder="******"
-                                            id="passwordConfirmation"
-                                            value={formik.values.passwordConfirmation}
-                                            onChange={formik.handleChange}
-                                        />
-                                        {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && (
-                                            <FormHelperText error={formik.errors.passwordConfirmation}>{formik.errors.passwordConfirmation}</FormHelperText>
-                                        )}
-                                    </div>
 
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Phone Number</label>
@@ -297,6 +286,33 @@ const CustomerSignUpForm =()=>{
                                         <hr/>
                                     </div>
 
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400">Password</label>
+                                        <input type="password" placeholder="******"
+                                               id="password"
+                                               value={formik.values.password}
+                                               onChange={formik.handleChange}
+                                        />
+                                        {formik.errors.password && formik.touched.password && (
+                                            <FormHelperText error={formik.errors.password}>{formik.errors.password}</FormHelperText>
+                                        )}
+                                    </div>
+
+
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400">Confirm Password</label>
+                                        <input
+                                            type="password"
+                                            placeholder="******"
+                                            id="passwordConfirmation"
+                                            value={formik.values.passwordConfirmation}
+                                            onChange={formik.handleChange}
+                                        />
+                                        {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && (
+                                            <FormHelperText error={formik.errors.passwordConfirmation}>{formik.errors.passwordConfirmation}</FormHelperText>
+                                        )}
+                                    </div>
+
                                     <div className="extra mb_20">
                                         <div className="checkbox remember">
                                             <label>
@@ -304,9 +320,6 @@ const CustomerSignUpForm =()=>{
                                             </label>
                                         </div>
 
-                                        <div className="forgotten-password">
-                                            <a href="/#">Forgot Password?</a>
-                                        </div>
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center">

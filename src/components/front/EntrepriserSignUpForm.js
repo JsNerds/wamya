@@ -13,7 +13,10 @@ const EntrepriseSignUpForm =()=>{
     const [error,setError] = useState({
         visible: false,
         message: "",
+        CinErr: false,
         DenominationErr: false,
+        UserNameErr:false,
+        EmailExist:false
     });
     const formik = useFormik({
         initialValues:{
@@ -41,8 +44,30 @@ const EntrepriseSignUpForm =()=>{
             if(res === "DenominationExist"){
                 setError({
                     visible: true,
-                    message: JSON.stringify("this company is already registred", null, 2),
+                    message: "this company is already registred",
                     DenominationErr: true
+                });
+            }
+           else if(res === "UserNameExist" ){
+                setError({
+                    visible: true,
+                    message: "Respnsible Name already exist",
+                    UserNameErr: true
+                });
+            }
+            else if (res === "CinExist"){
+                setError({
+                    visible: true,
+                    message: "Responsible Cin  already exist",
+                    CinErr: true
+                });
+            }
+            else if (res === "EmailExist"){
+                setError({
+                    visible: true,
+                    message: "This email address is already registered. If it belongs to you, \n" +
+                        "log in above or visit our account recovery page to get access to this account.",
+                    EmailExist: true
                 });
             }
             else if(err){
@@ -136,6 +161,9 @@ const EntrepriseSignUpForm =()=>{
                                         {formik.errors.ResponsibleCin && formik.touched.ResponsibleCin && (
                                             <FormHelperText error={formik.errors.ResponsibleCin}>{formik.errors.ResponsibleCin}</FormHelperText>
                                         )}
+                                        {error.visible && error.CinErr && (
+                                            <FormHelperText error={error.CinErr}>{error.message}</FormHelperText>
+                                        )}
 
                                     </div>
 
@@ -150,6 +178,10 @@ const EntrepriseSignUpForm =()=>{
                                         />
                                         {formik.errors.ResponsibleName && formik.touched.ResponsibleName && (
                                             <FormHelperText error={formik.errors.ResponsibleName}>{formik.errors.ResponsibleName}</FormHelperText>
+                                        )}
+
+                                        {error.visible && error.UserNameErr && (
+                                            <FormHelperText error={error.UserNameErr}>{error.message}</FormHelperText>
                                         )}
                                     </div>
 
@@ -306,6 +338,25 @@ const EntrepriseSignUpForm =()=>{
                                         {formik.errors.Email && formik.touched.Email && (
                                             <FormHelperText error={formik.errors.Email}>{formik.errors.Email}</FormHelperText>
                                         )}
+
+                                        {error.visible && error.EmailExist && (
+                                            <FormHelperText error={error.EmailExist}>{error.message}</FormHelperText>
+                                        )}
+                                    </div>
+
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> Phone Number</label>
+                                        <input
+                                            id="PhoneNumber"
+                                            type="number"
+                                            className="form-control"
+                                            aria-label="Dollar amount (with dot and two decimal places)"
+                                            value={formik.values.PhoneNumber}
+                                            onChange={formik.handleChange}
+                                        />
+                                        {formik.errors.PhoneNumber && formik.touched.PhoneNumber && (
+                                            <FormHelperText error={formik.errors.PhoneNumber}>{formik.errors.PhoneNumber}</FormHelperText>
+                                        )}
                                     </div>
 
                                     <div className="form-group text_box">
@@ -335,30 +386,12 @@ const EntrepriseSignUpForm =()=>{
                                         )}
                                     </div>
 
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400"> Phone Number</label>
-                                        <input
-                                            id="PhoneNumber"
-                                            type="number"
-                                            className="form-control"
-                                            aria-label="Dollar amount (with dot and two decimal places)"
-                                            value={formik.values.PhoneNumber}
-                                            onChange={formik.handleChange}
-                                        />
-                                        {formik.errors.PhoneNumber && formik.touched.PhoneNumber && (
-                                            <FormHelperText error={formik.errors.PhoneNumber}>{formik.errors.PhoneNumber}</FormHelperText>
-                                        )}
-                                    </div>
 
                                     <div className="extra mb_20">
                                         <div className="checkbox remember">
                                             <label>
                                                 <input type="checkbox"/> I agree to terms and conditions of this website
                                             </label>
-                                        </div>
-
-                                        <div className="forgotten-password">
-                                            <a href="/#">Forgot Password?</a>
                                         </div>
                                     </div>
 
@@ -408,16 +441,10 @@ const YupSchema = Yup.object ({
         .required("Responsibl eName is required"),
     CommercialName: Yup.string()
         .required("Commercial Name is required"),
-    Activity: Yup.string()
-        .required("Activity is required"),
-    RegisterStatus:Yup.string()
-        .required("Register Status is required"),
     RegionalOffice: Yup.string()
         .required("Regional Office is required"),
     Denomination: Yup.string()
         .required("Denomination is required"),
-    TaxSituation: Yup.string()
-        .required("TaxSituation is required"),
     Email: Yup.string()
         .email("No valid Email ")
         .required("email is Required"),
