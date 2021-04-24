@@ -102,10 +102,27 @@ router.post('/addCompany', async function (req, res, next) {
   };
 
   const Denomination = await Entreprise.find({Denomination: newCompany.Denomination});
+  const CINExist =  await Entreprise.find({ResponsibleCin: newCompany.ResponsibleCin});
+  const EmailExist =  await Entreprise.find({Email: newCompany.Email});
+  const UserameUserExist = await User.find({Username:newCompany.ResponsibleName});
+  const EmaiUserExist = await User.find({Email:newCompany.Email});
   if(Denomination.length != 0)
   {
     console.log("Denomination");
     res.send("DenominationExist");
+  }
+  if(UserameUserExist.length != 0)
+  {
+    console.log("UserNameExist");
+    res.send("UserNameExist");
+  }
+  else if ((EmailExist.length != 0) || (EmaiUserExist.length != 0) ){
+    console.log("Email Exist");
+    res.send("EmailExist");
+  }
+  else if (CINExist.length != 0 ){
+    console.log("CIN Exist");
+    res.send("CinExist");
   }
   else{
   Entreprise.create(newCompany,function (err,company) {

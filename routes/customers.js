@@ -125,7 +125,11 @@ router.post('/addCustomer',upload, async function (req, res, next) {
   };
   const UserNameExist = await Customer.find({UserName: newCustomer.UserName});
   const CINExist =  await Customer.find({Cin: newCustomer.Cin});
-  if(UserNameExist.length != 0)
+  const EmailExist =  await Customer.find({Email: newCustomer.Email});
+  const UserameUserExist = await User.find({Username:newCustomer.UserName});
+  const EmaiUserExist = await User.find({Email:newCustomer.Email});
+
+  if((UserNameExist.length != 0) || (UserameUserExist.length != 0) )
   {
     console.log("UserNameExist");
     res.send("UserNameExist");
@@ -133,6 +137,10 @@ router.post('/addCustomer',upload, async function (req, res, next) {
   else if (CINExist.length != 0 ){
     console.log("CIN Exist");
     res.send("CinExist");
+  }
+  else if ((EmailExist.length != 0) || (EmaiUserExist.length != 0) ){
+    console.log("Email Exist");
+    res.send("EmailExist");
   }
   else {
   Customer.create(newCustomer,function (err,customer) {
