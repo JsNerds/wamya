@@ -9,13 +9,19 @@ import SignInFormWamya from "../../components/front/SignInFormWamya";
 
 
 const CustomerInterface = () => {
-    const id = localStorage.getItem('id');
-    const role = localStorage.getItem('role');
-    useEffect(()=>{
-        console.log("CUSTOMER",customer);
-    })
+    const renderId = () => {
+        let id = 0
+        if(localStorage.getItem('id') != null)
+        {
+            id= localStorage.getItem('id');
+        }
+        else {
+            id="60949f6ba158b41be4b96bf0";
+        }
+        return id;
+    }
 
-    const [customer, err, reload] = useServerApi("customers/"+id);
+    const [customer, err, reload] = useServerApi("customers/"+renderId());
     const toRender = customer;
     return(
         <div className="body_wrapper">

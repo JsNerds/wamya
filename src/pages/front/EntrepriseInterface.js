@@ -9,9 +9,21 @@ import SignInFormWamya from "../../components/front/SignInFormWamya";
 
 const EntrepriseInterface = () => {
 
-    const id = localStorage.getItem('id');
-    const role = localStorage.getItem('role');
-  const [company, err, reload] = useServerApi("entreprises/"+id);
+
+    const renderId = () => {
+        let id = 0
+        if(localStorage.getItem('id') != null)
+        {
+            id= localStorage.getItem('id');
+        }
+        else {
+            id="60949f6ba158b41be4b96bf0";
+        }
+        return id;
+    }
+
+
+    const [company, err, reload] = useServerApi("entreprises/"+renderId());
   const toRender = company;
   return (
     <div className="body_wrapper">
