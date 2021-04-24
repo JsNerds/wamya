@@ -56,8 +56,9 @@ export default function PackageItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="mt-3">
-                <Link
+              <div className="row">
+              <div className="col-md-4">
+              <Link
                   to={`/PackageDetail/${props.pack._id}`}
                   className="nav-link active"
                   id="purchas-tab"
@@ -69,9 +70,24 @@ export default function PackageItem(props) {
                 >
                   <span className="text-success px-1">More Details</span>
 
-                </Link>
+                </Link>    
               </div>
-              <div><span className="text-danger px-1" onClick={() => {CancelPackage(props.pack._id)}}>Cancel Package</span></div>
+              <div className="col-md-4">
+              <Link
+                  to={`/PackageUpdate/${props.pack.package[0]._id}`}
+                  className="nav-link active"
+                  id="purchas-tab"
+                  data-toggle="tab"
+                  href="#PackageDetail"
+                  role="tab"
+                  aria-controls="purchas"
+                  aria-selected="true"
+               ><span className="text-warning px-1">Update Package</span></Link>
+              </div>
+              <div className="col-md-4">
+              <Link><span className="text-danger px-1 mb-5" style={{cursor: "pointer"}} onClick={() => {CancelPackage(props.pack._id)}}>Cancel Package</span></Link>
+              </div>
+              </div>
             </CardContent>
           </Card>
         </Grid>
