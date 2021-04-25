@@ -101,13 +101,13 @@ export default [
     ]
   }, 
    {
-    "label": "Packages Management",
+    "label": "Deliveries Management",
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Package management",
+        "label": "Deliveries management",
         "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Packages"
+        "to": "/Deliveries"
       }
     ]
   },

@@ -14,14 +14,14 @@ export default function PackageItem(props) {
   const CancelPackage = async (id) => {
     console.log(id);
     const [, err] = await queryServerApi(
-      `delivery/deleteDelivery/${id}`,
+      `delivery/cancelDelivery/${id}`,
       null,
-      "DELETE",
+      "PUT",
       false
     );
     if (err) {
       //setShowLoader(false);
-    } else history.push("/CustomerInterface");
+    } else history.go(0);
     setPackDel(packDel+1);
   };
   return (

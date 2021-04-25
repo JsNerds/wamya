@@ -6,17 +6,20 @@ const PackageList = (props) => {
     <section className="">
       <div className="container mt-5">
         {props.packagesList?.map((p,index) => {
-          return(
-          <div key={index} className="row">
-          <div className="col-lg-12 col-sm-8">
-            <PackageItem
-              PackageImage="team_01.jpg"
-              memberN="Phillip Anthropy"
-              memberd="web designer"
-              pack={p}
-            />
-          </div>
-        </div>)
+          if(p.state != -1)
+          {
+            return(
+              <div key={index} className="row">
+              <div className="col-lg-12 col-sm-8">
+                <PackageItem
+                  PackageImage="team_01.jpg"
+                  memberN="Phillip Anthropy"
+                  memberd="web designer"
+                  pack={p}
+                />
+              </div>
+            </div>)
+          }
        })}
         
       </div>

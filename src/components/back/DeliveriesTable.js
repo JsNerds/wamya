@@ -3,24 +3,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useServerApi } from "../../hooks/useServerApi";
 import { Menu, MenuItem, Button } from "@material-ui/core";
 import { Avatar, IconButton, Box, Card, CardContent } from "@material-ui/core";
+import { queryServerApi } from "../../utils/queryServerApi";
+import { useHistory } from 'react-router-dom'
 
 import avatar1 from "../../assets/images/avatars/avatar1.jpg";
 import avatar2 from "../../assets/images/avatars/avatar2.jpg";
 import avatar3 from "../../assets/images/avatars/avatar3.jpg";
-export default function PackagesTable(props) {
-  const [PackageApi] = useServerApi("package/");
-  const [packages, setPackages] = useState([]);
+export default function DeliveriesTable(props) {
+  const history = useHistory();
+  const [DeliveryApi] = useServerApi("delivery/");
+  const [deliveries, setDeliveries] = useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
-    useEffect(() => {
-        console.log("hi")
-        setPackages(PackageApi)
-    })
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleClose = () => {
+  const handleClose = (event) => {
+    setAnchorEl(null);
+  };
+  const handleDelete = async (id) => {
+    const [, err] = await queryServerApi(
+      `delivery/cancelDelivery/${id}`,
+      null,
+      "PUT",
+      false
+    );
+    if (err) {
+      //setShowLoader(false);
+    } else history.push("/Deliveries");
+    setDeliveries(DeliveryApi)
+    setAnchorEl(null);
+  };
+  const handleDetail = async (id) => {
     setAnchorEl(null);
   };
 
@@ -30,7 +43,7 @@ export default function PackagesTable(props) {
         <div className="card-header">
           <div className="card-header--title">
             <small>Tables</small>
-            <b>Packages</b>
+            <b>Deliveries</b>
           </div>
           <Box className="card-header--actions">
             <IconButton
@@ -51,50 +64,45 @@ export default function PackagesTable(props) {
             <table className="table table-striped table-hover text-nowrap mb-0">
               <thead className="thead-light">
                 <tr>
-                  <th style={{ width: "40%" }}>Package Name</th>
-                  <th className="text-center">status</th>
-                  <th className="text-center">source</th>
+                  <th style={{ width: "40%" }}>Source</th>
                   <th className="text-center">destination</th>
+                  <th className="text-center">Status</th>
+                  <th className="text-center">Type of package</th>
                   <th className="text-center">driver</th>
                   <th className="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {packages?.map((pack) => {
+                {DeliveryApi?.map((delivery) => {
                   return (
-                  <tr key={pack._id}>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <Avatar alt="..." src={avatar2} className="mr-2" />
-                        <div>
-                          <a
-                            href="#/"
-                            onClick={(e) => e.preventDefault()}
-                            className="font-weight-bold text-black"
-                            title="..."
-                          >
-                            {pack.Name}
-                          </a>
-                          <span className="text-black-50 d-block">
-                            UI Engineer, Apple Inc.
-                          </span>
-                        </div>
+                  <tr key={delivery._id}>
+                     <td className="text-center">
+                      <div className="h-auto py-0 px-3">
+                        {delivery.sourceAddress.City}
                       </div>
                     </td>
                     <td className="text-center">
-                      <div className="h-auto py-0 px-3 badge badge-warning">
-                        Pending
+                      <div className="h-auto py-0 px-3 ">
+                        {delivery.destinationAddress[0].City}
                       </div>
+                    </td>
+                    <td className="text-center">
+                    {delivery.state == 0 ? 
+                    <div className="h-auto py-0 px-3 badge badge-warning">
+                        pending
+                      </div> 
+                      :
+                      <div className="h-auto py-0 px-3 badge badge-danger">
+                      Canceled
+                    </div> }
                     </td>
                     <td className="text-center">
                       <div className="h-auto py-0 px-3">
-                        {pack.sourceAddress.City}
+                      {delivery.package[0].type}
                       </div>
                     </td>
                     <td className="text-center">
-                      <div className="h-auto py-0 px-3">
-                      {pack.destinationAddress.City}
-                      </div>
+                    {delivery?.driver}
                     </td>
                     <td className="text-center">
                       <Box>
@@ -113,8 +121,8 @@ export default function PackagesTable(props) {
                           open={Boolean(anchorEl)}
                           onClose={handleClose}
                         >
-                          <MenuItem onClick={handleClose}>delete</MenuItem>
-                          <MenuItem onClick={handleClose}>update</MenuItem>
+                          <MenuItem onClick={()=> {handleDelete(delivery._id)}}>Delete</MenuItem>
+                          <MenuItem onClick={()=> {handleDetail()}}>Details & tracking</MenuItem>
                         </Menu>
                       </Box>
                     </td>

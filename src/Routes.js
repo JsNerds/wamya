@@ -16,7 +16,7 @@ const Vehicules = lazy(() => import("./pages/back/Vehicules"));
 const addVehicule = lazy(() => import("./pages/back/addVehicule"));
 const Deposits = lazy(() => import("./pages/back/Deposits"));
 const AdminDashborad = lazy(() => import("./pages/back/AdminDashboard"));
-const Packages = lazy(() => import("./pages/back/Packages"));
+const Deliveries = lazy(() => import("./pages/back/Deliveries"));
 const Payments = lazy(() => import("./pages/back/Payments"));
 const Entreprises = lazy(() => import("./pages/back/Entreprises"));
 const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"));
@@ -83,7 +83,7 @@ const Routes = () => {
                 "/Vehicules",
                 "/addVehicule",
                 "/Deposits",
-                "/Packages",
+                "/Deliveries",
                 "/Payments",
                 "/Entreprises",
                 "/UpdateCustomer/:id",
@@ -102,7 +102,8 @@ const Routes = () => {
                     transition={pageTransition}
                   >
                     <Route path="/AdminDashborad" component={AdminDashborad} />
-                    <Route path="/Packages" component={Packages} />
+                    {/* Packaged And Delivery Management*/ }
+                    <Route path="/Deliveries" component={Deliveries} />
                     <Route path="/Vehicules" component={Vehicules} />
                     <Route path="/addVehicule" component={addVehicule} />
                     <Route path="/Deposits" component={Deposits} />
