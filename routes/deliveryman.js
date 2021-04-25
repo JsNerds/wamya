@@ -7,6 +7,7 @@ var User = require("../models/User");
 var multer = require("multer");
 var path = require("path");
 const Signature = require("../models/signature");
+const { render } = require("ejs");
 router.use(express.static(__dirname + "./public/"));
 // router.use(express.static(__dirname+"./public/"));
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -31,6 +32,12 @@ router.get("/", function (req, res, next) {
     } else {
       res.render("show", { users: data });
     }
+  });
+});
+router.get("/getdev", function (req, res, next) {
+  delivery.find(function (err, data) {
+    if (err) throw err;
+    res.json(data);
   });
 });
 router.get("/getsig", function (req, res, next) {
@@ -79,21 +86,23 @@ router.post("/add", upload, function (req, res, next) {
   };
   console.log(kar);
   console.log(mynewdelivery);
-  delivery.create(mynewdelivery).then( d => {
-    User.create({
-      Id: d._id,
-      Username: mynewdelivery.Username,
-      Password: mynewdelivery.Password,
-      Role:"DeliveryManP"
-    }, function (err) {
-      if (err) {
-        res.render("/adddelivery");
-      } else {
-        res.redirect("/deliveryman");
+  delivery.create(mynewdelivery).then((d) => {
+    User.create(
+      {
+        Id: d._id,
+        Username: mynewdelivery.Username,
+        Password: mynewdelivery.Password,
+        Role: "DeliveryManP",
+      },
+      function (err) {
+        if (err) {
+          res.render("/adddelivery");
+        } else {
+          res.redirect("/deliveryman");
+        }
       }
-    })
+    );
   });
-
 });
 /* POST signture*/
 router.post("/addsign", function (req, res, next) {
@@ -142,6 +151,24 @@ router.get("/edit/delivery/:id", function (req, res, next) {
       res.render("editdelivery", { user: data });
     }
   });
+});
+
+router.get("/showdms", function (req, res, next) {
+  const Username = req.query.username;
+  const Phone = req.query.phone;
+  var condition = Username
+    ? { Username: { $regex: new RegExp(Username), $options: "i" } }
+    : Phone
+    ? { Phone: { $regex: new RegExp(Phone), $options: "i" } }
+    : {};
+  delivery
+    .find(condition, function (err, data) {
+      if (err) throw err;
+      res.json(data);
+    })
+    .populate("Delivery men");
+  console.log(res.json(data));
+  render(res.json(data));
 });
 
 module.exports = router;
