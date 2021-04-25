@@ -37,4 +37,17 @@ router.delete('/delete/:id', function (req, res, next) {
   });
 });
 
+router.get("/:id",function (req,res) {
+  Package.findById(req.params.id, function (err, doc){
+    if(err)
+    {
+      res.send(err);
+    }
+    else
+    {
+      res.send(doc);
+    }
+  })
+})
+
 module.exports = router;
