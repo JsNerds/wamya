@@ -14,11 +14,8 @@ var bcrypt = require("bcrypt");
 router.get('/', function(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
-    var condition =
-        username ?
-            { Username : { $regex: new RegExp(username), $options: "i" } }
-            : {};
-    User.find(condition,async function(err,data){
+
+    User.find({Username:username},async function(err,data){
         if(err) throw err;
         if(data.length === 0)
         {
