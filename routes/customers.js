@@ -192,8 +192,12 @@ router.put('/update/:id',upload,function(req,res,next){
     },
     img: req.file.filename
   };
-  Customer.findByIdAndUpdate(req.params.id,newCustomer,function(err,data){
+  Customer.findByIdAndUpdate(req.params.id,newCustomer,async function(err,data){
     if(err) throw err;
+    await User.findOneAndUpdate({Id: req.params.id}, {
+      Username: newCustomer.UserName,
+      Email: newCustomer.Email,
+    });
     console.log('UPDATED');
     res.send("UPDATED OK");
   });
@@ -201,8 +205,60 @@ router.put('/update/:id',upload,function(req,res,next){
 
 
 
+/** EditProfile Customer(REACT) **/
+
+router.put('/EditProfile/:id',upload,function(req,res,next){
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const newCustomer = {
+    Cin: obj.cin,
+    FirstName: obj.firstname,
+    LastName: obj.lastname,
+    UserName: obj.username,
+    Email: obj.email,
+    PhoneNumber: obj.phoneNumber,
+    Adress: {
+      Street: obj.street,
+      City: obj.city,
+      State: obj.state,
+      ZipCode: obj.zipCode
+    },
+    img: req.file.filename
+  };
+  Customer.findByIdAndUpdate(req.params.id,newCustomer,async function(err,data){
+    if(err) throw err;
+    await User.findOneAndUpdate({Id: req.params.id}, {
+      Username: newCustomer.UserName,
+      Email: newCustomer.Email,
+    });
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
 
 
+router.put('/updatePassword/:id', async function(req,res,next){
+  const {currentPassword,password} = req.body;
+  const hashedPassword = await bcrypt.hash(password,10);
+  try {
+    const user = await User.find({Id: req.params.id});
+    if (await bcrypt.compare(currentPassword,user[0].Password) === false) {
+      return res.send("WrongPassword");
+    }
+      else {
+          Customer.findByIdAndUpdate(req.params.id, {Password:hashedPassword},async function(err,data){
+            if(err) throw err;
+            await User.findOneAndUpdate({Id: req.params.id}, {
+              Password:hashedPassword
+            });
+            console.log('UPDATED');
+            return res.send("PasswordUpdated");
+          });
+        }
+  }
+  catch (error){
+    res.send(error);
+  }
+});
 
 
 

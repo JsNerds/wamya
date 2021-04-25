@@ -195,8 +195,12 @@ router.put('/update/:id',function(req,res,next){
     Email: obj.Email,
     PhoneNumber: obj.PhoneNumber,
   };
-  Entreprise.findByIdAndUpdate(req.params.id,newCompany,function(err,data){
+  Entreprise.findByIdAndUpdate(req.params.id,newCompany,async function(err,data){
     if(err) throw err;
+    await User.findOneAndUpdate({Id: req.params.id}, {
+      Username: newCompany.ResponsibleName,
+      Email: newCompany.Email,
+    });
     console.log('UPDATED');
     res.send("UPDATED OK");
   });
@@ -231,6 +235,31 @@ router.delete('/remove/:id', function(req,res,next){
     res.send("DELETED OK");
   })
 
+});
+
+
+router.put('/updatePassword/:id', async function(req,res,next){
+  const {currentPassword,password} = req.body;
+  const hashedPassword = await bcrypt.hash(password,10);
+  try {
+    const user = await User.find({Id: req.params.id});
+    if (await bcrypt.compare(currentPassword,user[0].Password) === false) {
+      return res.send("WrongPassword");
+    }
+    else {
+      Entreprise.findByIdAndUpdate(req.params.id, {Password:hashedPassword},async function(err,data){
+        if(err) throw err;
+        await User.findOneAndUpdate({Id: req.params.id}, {
+          Password:hashedPassword
+        });
+        console.log('UPDATED');
+        return res.send("PasswordUpdated");
+      });
+    }
+  }
+  catch (error){
+    res.send(error);
+  }
 });
 
 
