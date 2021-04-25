@@ -8,6 +8,7 @@ var delivery_man = new Schema({
   FullName: String,
   Phone: Number,
   Status: Number,
+  address: String,
   Region: [
     {
       value: String,
@@ -19,6 +20,7 @@ var delivery_man = new Schema({
   Gender: String,
   Date_birth: Date,
   img: String,
+  pdp: String,
 });
 
 module.exports = mongoose.model("delivery_man", delivery_man);
