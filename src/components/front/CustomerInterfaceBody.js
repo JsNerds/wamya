@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import EntrepriseDrivers from "./EntrepriseDrivers";
 import MyPackages from "../../pages/front/MyPackages";
 import CustomerStats from "./CustomerStats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
@@ -8,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Tooltip } from '@material-ui/core';
 import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import PackagesForm from "./PackagesForm";
+import EditProfileCustomerForm from "./EditProfileCustomerForm";
+import ChangePasswordCustomer from "./ChangePasswordCustomer";
 
 
 const CustomerInterfaceBody =(props)=>{
@@ -42,6 +43,12 @@ const CustomerInterfaceBody =(props)=>{
                                     <a className="nav-link" id="price-tab" data-toggle="tab" href="#Payments" role="tab" aria-controls="price" aria-selected="false">My Operations and Payments</a>
                                 </li>
 
+                                <li className="nav-item">
+                                    <a className="nav-link" id="price-tab" data-toggle="tab" href="#Profile" role="tab" aria-controls="price" aria-selected="false">Edit Profile</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" id="price-tab" data-toggle="tab" href="#Security" role="tab" aria-controls="price" aria-selected="false">Security</a>
+                                </li>
 
                             </ul>
                         </div>
@@ -74,6 +81,15 @@ const CustomerInterfaceBody =(props)=>{
                             <div className="tab-pane fade" id="SendPackage" role="tabpanel" aria-labelledby="price-tab">
                                     <PackagesForm/>
                             </div>
+
+                            <div className="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="price-tab">
+                                <EditProfileCustomerForm id={props.customer._id}/>
+                            </div>
+
+                            <div className="tab-pane fade" id="Security" role="tabpanel" aria-labelledby="price-tab">
+                                <ChangePasswordCustomer id={props.customer._id}/>
+                            </div>
+
                         </div>
                     </div>
                 </div>

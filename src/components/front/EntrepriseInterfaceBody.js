@@ -4,6 +4,11 @@ import EntrepriseDrivers from "./EntrepriseDrivers";
 import PackageList from "./PackageList";
 import CompanyOperationsPayments from "./CompanyOperationsPayments";
 import CompanyPackageForm from "./CompanyPackageForm";
+import EditProfileCustomerForm from "./EditProfileCustomerForm";
+import CustomerOperationsPayments from "./CustomerOperationsPayments";
+import EditProfileCompanyForm from "./EditProfileCompanyForm";
+import ChangePasswordCustomer from "./ChangePasswordCustomer";
+import ChangePasswordCompany from "./ChangePasswordCompany";
 
 const FaqSection = (props) => {
   return (
@@ -84,6 +89,13 @@ const FaqSection = (props) => {
                     Send a package
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" id="price-tab" data-toggle="tab" href="#Profile" role="tab" aria-controls="price" aria-selected="false">Edit Profile</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" id="price-tab" data-toggle="tab" href="#Security" role="tab" aria-controls="price" aria-selected="false">Security</a>
+                </li>
+
               </ul>
             </div>
           </div>
@@ -131,6 +143,13 @@ const FaqSection = (props) => {
                 style={{ backgroundColor: "#F7F7F7" }}
               >
                 <CompanyPackageForm />
+              </div>
+              <div className="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="price-tab">
+                    <EditProfileCompanyForm id={props.company._id} />
+              </div>
+
+              <div className="tab-pane fade" id="Security" role="tabpanel" aria-labelledby="price-tab">
+                    <ChangePasswordCompany id={props.company._id}/>
               </div>
             </div>
           </div>
