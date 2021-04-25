@@ -7,6 +7,8 @@ var User = require("../models/User");
 var multer = require("multer");
 var path = require("path");
 const Signature = require("../models/signature");
+var bcrypt = require("bcrypt");
+
 router.use(express.static(__dirname + "./public/"));
 // router.use(express.static(__dirname+"./public/"));
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -61,15 +63,17 @@ router.post("/", function (req, res, next) {
 });
 
 /* POST 2*/
-router.post("/add", upload, function (req, res, next) {
+router.post("/add", upload, async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   const kar = JSON.parse(obj.region);
+  const hashedPassword = await bcrypt.hash(obj.pass,10);
+
   const mynewdelivery = {
     FullName: obj.fullname,
     Username: obj.username,
     Email: req.body.mail,
     Date_birth: obj.date,
-    Password: obj.pass,
+    Password: hashedPassword,
     Gender: obj.gender,
     Licence: obj.lic,
     Phone: obj.phone,
@@ -95,6 +99,7 @@ router.post("/add", upload, function (req, res, next) {
   });
 
 });
+
 /* POST signture*/
 router.post("/addsign", function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -111,6 +116,8 @@ router.post("/addsign", function (req, res, next) {
     }
   });
 });
+
+
 /*EDITTTTTTTTTTTTTTTTTT*/
 router.post("/edit/:id", function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -127,6 +134,8 @@ router.post("/edit/:id", function (req, res, next) {
     }
   });
 });
+
+
 /* Delete contact*/
 router.get("/delete/:id", function (req, res, next) {
   delivery.findByIdAndRemove(req.params.id, function (err, docs) {
