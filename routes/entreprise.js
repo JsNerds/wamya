@@ -139,7 +139,7 @@ router.post('/addCompany', async function (req, res, next) {
 
 
 
-/** Activate Customer **/
+/** Activate Company **/
 router.get('/ActivateCompany/:id',async function (req, res, next) {
   Entreprise.findById(req.params.id).then( e => {
         User.create({
@@ -150,7 +150,7 @@ router.get('/ActivateCompany/:id',async function (req, res, next) {
           Role:"Company"
         }, function (err,user) {
           if(err) throw err;
-          res.redirect("http://localhost:3022/ActivatedAccount");
+          res.redirect(`http://localhost:${process.env.DOMAIN_REACT}/ActivatedAccount`);
           res.end();
         });
       }

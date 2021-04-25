@@ -166,7 +166,7 @@ router.get('/ActivateCustomer/:id',async function (req, res, next) {
         Role:"Customer"
       }, function (err,user) {
         if(err) throw err;
-        res.redirect("http://localhost:3022/ActivatedAccount");
+        res.redirect(`http://localhost:${process.env.DOMAIN_REACT}/ActivatedAccount`);
         res.end();
       });
       }
