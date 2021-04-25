@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, setState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Form from "../components/front/form_deliveryman/Form";
@@ -11,18 +11,34 @@ export default function Sign_dm(props) {
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const history = useHistory();
+  const [baseImage, setBaseImage] = useState("");
+  const base64 = "";
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
   let valeurs;
   const custom_file_upload_url = `http://localhost:3000/deliveryman/add`;
 
-  const handleSubmitFile = (values) => {
+  async function handleSubmitFile(values) {
     console.log(valeurs);
+
     let formData = new FormData();
     formData.append("img", valeurs.img);
+    const wow = await getBase64(valeurs.pdp);
+    console.log("testing" + wow);
     formData.append("username", valeurs.username);
+    formData.append("fullname", valeurs.fullname);
+    formData.append("address", valeurs.address);
     formData.append("mail", valeurs.mail);
     formData.append("date", valeurs.date);
     formData.append("pass", valeurs.pass);
     formData.append("gender", valeurs.gender);
+    formData.append("pdp", wow);
     var reg = JSON.stringify(valeurs.region);
 
     formData.append("region", reg);
@@ -43,7 +59,7 @@ export default function Sign_dm(props) {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
   return (
     <section className="sign_in_area bg_color sec_pad">
       <div className="container">

@@ -55,7 +55,7 @@ const PersonalDetailsForm = (props) => {
         <Card className="card-border">
           <CardBody>
             <Field
-              name="Address"
+              name="address"
               type="textarea"
               component={FormInput}
               label="Address *"
@@ -139,6 +139,7 @@ const PersonalDetailsForm = (props) => {
                           />{" "}
                           Male
                         </label>
+                        <br></br>
                         <label>
                           <Field
                             name="gender"
