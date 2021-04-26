@@ -106,10 +106,7 @@ export default function CompanyPackageForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else
-        history.push(
-          "/Payment?amount=" + 2222 + "&id=" + id + "&userType=Enterprise"
-        );
+      } else history.push("/EntrepriseInterface");
     },
   });
   const MyMarkers = () => {
