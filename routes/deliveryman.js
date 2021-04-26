@@ -71,7 +71,7 @@ router.post("/", function (req, res, next) {
 router.post("/add", upload, async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   const kar = JSON.parse(obj.region);
-  const hashedPassword = await bcrypt.hash(obj.pass,10);
+  const hashedPassword = await bcrypt.hash(obj.pass, 10);
 
   const mynewdelivery = {
     FullName: obj.fullname,
@@ -84,6 +84,7 @@ router.post("/add", upload, async function (req, res, next) {
     Phone: obj.phone,
     Status: obj.status,
     Region: kar,
+    pdp: obj.pdp,
     img: req.file.filename,
   };
   console.log(kar);
@@ -124,7 +125,6 @@ router.post("/addsign", function (req, res, next) {
   });
 });
 
-
 /*EDITTTTTTTTTTTTTTTTTT*/
 router.post("/edit/:id", function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -141,7 +141,6 @@ router.post("/edit/:id", function (req, res, next) {
     }
   });
 });
-
 
 /* Delete contact*/
 router.get("/delete/:id", function (req, res, next) {
