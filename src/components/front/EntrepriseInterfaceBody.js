@@ -9,6 +9,7 @@ import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import EditProfileCompanyForm from "./EditProfileCompanyForm";
 import ChangePasswordCustomer from "./ChangePasswordCustomer";
 import ChangePasswordCompany from "./ChangePasswordCompany";
+import MyPackages from "../../pages/front/MyPackages";
 
 const FaqSection = (props) => {
   return (
@@ -90,12 +91,31 @@ const FaqSection = (props) => {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" id="price-tab" data-toggle="tab" href="#Profile" role="tab" aria-controls="price" aria-selected="false">Edit Profile</a>
+                  <a
+                    className="nav-link"
+                    id="price-tab"
+                    data-toggle="tab"
+                    href="#Profile"
+                    role="tab"
+                    aria-controls="price"
+                    aria-selected="false"
+                  >
+                    Edit Profile
+                  </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" id="price-tab" data-toggle="tab" href="#Security" role="tab" aria-controls="price" aria-selected="false">Security</a>
+                  <a
+                    className="nav-link"
+                    id="price-tab"
+                    data-toggle="tab"
+                    href="#Security"
+                    role="tab"
+                    aria-controls="price"
+                    aria-selected="false"
+                  >
+                    Security
+                  </a>
                 </li>
-
               </ul>
             </div>
           </div>
@@ -125,7 +145,7 @@ const FaqSection = (props) => {
                 role="tabpanel"
                 aria-labelledby="price-tab"
               >
-                <PackageList />
+                <MyPackages customer={props.company} />
               </div>
               <div
                 className="tab-pane fade"
@@ -144,12 +164,22 @@ const FaqSection = (props) => {
               >
                 <CompanyPackageForm />
               </div>
-              <div className="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="price-tab">
-                    <EditProfileCompanyForm id={props.company._id} />
+              <div
+                className="tab-pane fade"
+                id="Profile"
+                role="tabpanel"
+                aria-labelledby="price-tab"
+              >
+                <EditProfileCompanyForm id={props.company._id} />
               </div>
 
-              <div className="tab-pane fade" id="Security" role="tabpanel" aria-labelledby="price-tab">
-                    <ChangePasswordCompany id={props.company._id}/>
+              <div
+                className="tab-pane fade"
+                id="Security"
+                role="tabpanel"
+                aria-labelledby="price-tab"
+              >
+                <ChangePasswordCompany id={props.company._id} />
               </div>
             </div>
           </div>
