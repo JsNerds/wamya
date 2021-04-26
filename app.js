@@ -31,7 +31,6 @@ var app = express();
 require("dotenv").config();
 const bodyParser = require("body-parser");
 
-
 // mongo config
 mongoose
   .connect(config.mongo.uri, {
@@ -59,7 +58,7 @@ app.use("/users", usersRouter);
 app.use("/deliveryman", deliveryManRouter);
 
 //Package & delivery Module's middlewares
-app.use("/vehicule", vehiculeRouter);
+app.use("/vehicle", vehiculeRouter);
 app.use("/Package", packageRouter);
 app.use("/delivery", deliveryRouter);
 
@@ -70,7 +69,6 @@ app.use("/payments", paymentRouter);
 
 //User middlewares
 app.use("/users", usersRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
