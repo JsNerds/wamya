@@ -83,9 +83,9 @@ export default [
     "icon": "ChatIcon",
     "content": [
       {
-        "label": "Example",
+        "label": "Delivery men",
         "description": "Wonderful animated charts built with ApexCharts components.",
-        "to": "/Customers"
+        "to": "/Deliverymanview"
       }
     ]
   },  

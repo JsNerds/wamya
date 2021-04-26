@@ -8,7 +8,6 @@ import MuiTheme from "./theme";
 
 import { LeftSidebar, PresentationLayout } from "./layout-blueprintsBack";
 
-
 // Example PagesFront
 const LandingPage = lazy(() => import("./PagesBack/LandingPage"));
 const Customers = lazy(() => import("./pages/back/Customers"));
@@ -19,10 +18,11 @@ const AdminDashborad = lazy(() => import("./pages/back/AdminDashboard"));
 const Deliveries = lazy(() => import("./pages/back/Deliveries"));
 const Payments = lazy(() => import("./pages/back/Payments"));
 const Entreprises = lazy(() => import("./pages/back/Entreprises"));
-const UpdateCustoomer = lazy(()=> import("./pages/back/UpdateCustomer"));
-const UpdateCompany = lazy(()=> import("./pages/back/UpdateCompany"));
-const Customer = lazy(()=> import("./pages/back/Customer"));
-const Company = lazy(()=> import("./pages/back/Company"));
+const UpdateCustoomer = lazy(() => import("./pages/back/UpdateCustomer"));
+const UpdateCompany = lazy(() => import("./pages/back/UpdateCompany"));
+const Customer = lazy(() => import("./pages/back/Customer"));
+const Company = lazy(() => import("./pages/back/Company"));
+const Dm_view = lazy(() => import("./pages/back/Delivery_men"));
 
 const Routes = () => {
   const location = useLocation();
@@ -90,6 +90,7 @@ const Routes = () => {
                 "/UpdateCompany/:id",
                 "/CustomerDetails/:id",
                 "/CompanyDetails/:id",
+                "/Deliverymanview",
               ]}
             >
               <LeftSidebar>
@@ -111,10 +112,18 @@ const Routes = () => {
                     <Route path="/Customers" component={Customers} />
                     <Route path="/Payments" component={Payments} />
                     <Route path="/Entreprises" component={Entreprises} />
-                    <Route path="/UpdateCustomer/:id" component={UpdateCustoomer} />
-                    <Route path="/UpdateCompany/:id" component={UpdateCompany} />
+                    <Route
+                      path="/UpdateCustomer/:id"
+                      component={UpdateCustoomer}
+                    />
+                    <Route
+                      path="/UpdateCompany/:id"
+                      component={UpdateCompany}
+                    />
                     <Route path="/CustomerDetails/:id" component={Customer} />
                     <Route path="/CompanyDetails/:id" component={Company} />
+                    {/* Delivey_man Module*/}
+                    <Route path="/Deliverymanview" component={Dm_view} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
