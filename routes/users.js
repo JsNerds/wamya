@@ -6,10 +6,12 @@ var Entreprise = require("../models/entreprise");
 var ResetCode = require("../models/ResetCode");
 var {SendResetPasswordEmail} = require("../mailer");
 var bcrypt = require("bcrypt");
+const {OAuth2Client} = require('google-auth-library');
+
+const client =  new OAuth2Client("991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com");
 
 
-
-/** Search Customer By FirstName and LastName **/
+/** LOGIN **/
 
 router.get('/', function(req, res, next) {
     const username = req.query.username;
@@ -29,6 +31,27 @@ router.get('/', function(req, res, next) {
         res.json(data);
         }
     });
+});
+
+/** LOGIN WITH GOOGLE **/
+router.get('/loginWithGoogle', function(req, res, next) {
+    const tokenId = req.query.tokenId;
+    client.verifyIdToken({idToken: tokenId, audience:"991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"})
+        .then(response => {
+            const {email_verified, name, email} = response.getPayload();
+            if(email_verified){
+                User.find({Email:email},async function(err,data){
+                    if(err) throw err;
+                    if(data.length === 0)
+                    {
+                        return res.send("UserNotFound");
+                    }
+                    else {
+                        res.json(data);
+                    }
+                });
+            }
+        });
 });
 
 
