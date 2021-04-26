@@ -7,6 +7,7 @@ var ResetCode = require("../models/ResetCode");
 var {SendResetPasswordEmail} = require("../mailer");
 var bcrypt = require("bcrypt");
 const {OAuth2Client} = require('google-auth-library');
+const fetch = require('node-fetch');
 
 const client =  new OAuth2Client("991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com");
 
@@ -17,7 +18,7 @@ router.get('/', function(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
 
-    User.find({Username:username},async function(err,data){
+    User.find({$or:[{Username: username},{Email: username}]},async function(err,data){
         if(err) throw err;
         if(data.length === 0)
         {
@@ -52,6 +53,33 @@ router.get('/loginWithGoogle', function(req, res, next) {
                 });
             }
         });
+});
+
+
+/** LOGIN WITH Facebook **/
+router.get('/loginWithFacebook', function(req, res, next) {
+    const accessToken = req.query.accessToken;
+    const userID = req.query.userID;
+    let urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`
+    fetch(urlGraphFacebook, {
+        method: 'GET'
+    })
+        .then(res => res.json())
+        .then(json => {
+            const {email,name}= json;
+            if(email!=null){
+            User.find({Email:email},async function(err,data){
+                if(err) throw err;
+                if(data.length === 0)
+                {
+                    return res.send("UserNotFound");
+                }
+                else {
+                    res.json(data);
+                }
+            });
+
+            }});
 });
 
 
