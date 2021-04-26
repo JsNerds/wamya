@@ -1,30 +1,20 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import * as Yup from "yup";
 
-import clsx from 'clsx';
 
 import {
     Grid,
-    Input,
     Card,
-    FormControl,
     FormHelperText,
     Divider,
-    InputLabel,
     FormGroup,
-    InputAdornment,
-    TextField,
     Button
 
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import {useFormik} from "formik";
-import {useHistory} from "react-router";
 import {queryServerApi} from "../../utils/queryServerApi";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import FilledInput from "@material-ui/core/FilledInput";
 import MuiAlert from "@material-ui/lab/Alert";
 
 

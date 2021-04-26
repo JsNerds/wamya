@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import MuiAlert from "@material-ui/lab/Alert";
 import {FormHelperText} from "@material-ui/core";
 import GoogleLogin from "react-google-login";
+import FacebookLogin from 'react-facebook-login';
+
 
 
 
@@ -126,7 +128,34 @@ const EntrepriseSignUpForm =()=>{
 
     }
 
+    const responseErrorGoogle = (response) => {
+        setError({
+            visible: true,
+            message: "Something wrong",
+        });
+    }
 
+    const responseFacebook = (response) => {
+        console.log(response);
+        formik.setValues({
+            ResponsibleCin: "",
+            ResponsibleName: response.name,
+            CreationYear: "",
+            CommercialName: "",
+            Activity: "",
+            Street: "",
+            City: "",
+            ZipCode: "",
+            RegisterStatus: "",
+            RegionalOffice: "",
+            Denomination: "",
+            TaxSituation: "",
+            Email: response.email,
+            Password:"",
+            passwordConfirmation: "",
+            PhoneNumber: ""
+        });
+    }
     return(
         <section className="sign_in_area bg_color sec_pad">
             <div className="container">
@@ -152,16 +181,26 @@ const EntrepriseSignUpForm =()=>{
                                     <div className="social_text d-flex ">
                                         <div className="lead-text">Sign up Using</div>
                                         <ul className="list-unstyled social_tag mb-0">
-                                            {/* <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                <li><a href="/#"><i className="ti-google"></i></a></li>*/}
-                                            <GoogleLogin
-                                                clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
-                                                buttonText="Google"
-                                                onSuccess={responseGoogle}
-                                                onFailure={responseGoogle}
-                                                cookiePolicy={'single_host_origin'}
-                                            />
+                                            <li>
+                                                <GoogleLogin
+                                                    clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
+                                                    buttonText="Google"
+                                                    onSuccess={responseGoogle}
+                                                    onFailure={responseErrorGoogle}
+                                                    cookiePolicy={'single_host_origin'}
+                                                /></li>
+                                            <li>
+                                                <FacebookLogin
+                                                    size="Small"
+                                                    appId="2762210330731766"
+                                                    autoLoad={false}
+                                                    fields="name,email,picture"
+                                                    cssClass="btnFacebook"
+                                                    icon="fa-facebook"
+                                                    textButton="acebook"
+                                                    callback={responseFacebook}
+                                                />
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
