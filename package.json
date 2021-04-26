@@ -46,6 +46,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.2",
     "react-flag-kit": "0.3.1",
+    "react-google-login": "^5.2.2",
     "react-history": "^0.18.2",
     "react-image-comparison-slider": "^1.8.4",
     "react-images-loaded": "^2.0.0",

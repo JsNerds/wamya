@@ -5,6 +5,7 @@ import {queryServerApi} from "../../utils/queryServerApi";
 import * as Yup from "yup";
 import MuiAlert from "@material-ui/lab/Alert";
 import {FormHelperText} from "@material-ui/core";
+import GoogleLogin from "react-google-login";
 
 
 
@@ -102,6 +103,29 @@ const EntrepriseSignUpForm =()=>{
         });
     }
 
+    const responseGoogle = (response) => {
+        console.log(response);
+        formik.setValues({
+            ResponsibleCin: "",
+            ResponsibleName: response.profileObj.familyName+response.profileObj.givenName,
+            CreationYear: "",
+            CommercialName: response.profileObj.name,
+            Activity: "",
+            Street: "",
+            City: "",
+            ZipCode: "",
+            RegisterStatus: "",
+            RegionalOffice: "",
+            Denomination: "",
+            TaxSituation: "",
+            Email: response.profileObj.email,
+            Password:"",
+            passwordConfirmation: "",
+            PhoneNumber: ""
+        });
+
+    }
+
 
     return(
         <section className="sign_in_area bg_color sec_pad">
@@ -124,7 +148,24 @@ const EntrepriseSignUpForm =()=>{
                             <div className="login_info">
                                 <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Sign Up</h2>
 
-
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <div className="social_text d-flex ">
+                                        <div className="lead-text">Sign up Using</div>
+                                        <ul className="list-unstyled social_tag mb-0">
+                                            {/* <li><a href="/#"><i className="ti-facebook"></i></a></li>
+                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
+                                                <li><a href="/#"><i className="ti-google"></i></a></li>*/}
+                                            <GoogleLogin
+                                                clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
+                                                buttonText="Google"
+                                                onSuccess={responseGoogle}
+                                                onFailure={responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                            />
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p></p>
 
                                 <form  className="login-form sign-in-form" onSubmit={formik.handleSubmit}>
 
@@ -403,17 +444,7 @@ const EntrepriseSignUpForm =()=>{
                                             <button className="btn_three" onClick={Reset}>Reset</button>
                                         </div>
                                     </div>
-                                    <p></p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <div className="social_text d-flex ">
-                                            <div className="lead-text">Or Sign up Using</div>
-                                            <ul className="list-unstyled social_tag mb-0">
-                                                <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                <li><a href="/#"><i className="ti-google"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
                                 </form>
                             </div>
                         </div>
