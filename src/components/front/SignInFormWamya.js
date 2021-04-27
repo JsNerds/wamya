@@ -59,6 +59,7 @@ const SignInFromWamya =()=>{
                         localStorage.setItem('username', user[0].Username);
                         localStorage.setItem('role', user[0].Role);
                         localStorage.setItem('id', user[0].Id);
+                        localStorage.setItem('img', user[0].img);
                         history.push("/");
                     }
                     else
@@ -76,6 +77,8 @@ const SignInFromWamya =()=>{
                     localStorage.setItem('username', user[0].Username);
                     localStorage.setItem('role', user[0].Role);
                     localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
+
                     history.push("/");
 
                 }
@@ -96,6 +99,7 @@ const SignInFromWamya =()=>{
             });
         }
         else {
+            console.log(user[0].img);
 
             if(user[0].Role === "Admin")
             {
@@ -112,6 +116,7 @@ const SignInFromWamya =()=>{
                     localStorage.setItem('username', user[0].Username);
                     localStorage.setItem('role', user[0].Role);
                     localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
                     history.push("/");
                 }
                 else
@@ -129,6 +134,7 @@ const SignInFromWamya =()=>{
                 localStorage.setItem('username', user[0].Username);
                 localStorage.setItem('role', user[0].Role);
                 localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('img', user[0].img);
                 history.push("/");
 
             }
@@ -172,6 +178,7 @@ const SignInFromWamya =()=>{
                     localStorage.setItem('username', user[0].Username);
                     localStorage.setItem('role', user[0].Role);
                     localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
                     history.push("/");
                 }
                 else
@@ -189,6 +196,7 @@ const SignInFromWamya =()=>{
                 localStorage.setItem('username', user[0].Username);
                 localStorage.setItem('role', user[0].Role);
                 localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('img', user[0].img);
                 history.push("/");
 
             }
