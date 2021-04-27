@@ -147,7 +147,8 @@ router.get('/ActivateCompany/:id',async function (req, res, next) {
           Username: e.ResponsibleName,
           Password: e.Password,
           Email: e.Email,
-          Role:"Company"
+          Role:"Company",
+          img:e.img
         }, function (err,user) {
           if(err) throw err;
           res.redirect(`http://localhost:${process.env.DOMAIN_REACT}/ActivatedAccount`);
