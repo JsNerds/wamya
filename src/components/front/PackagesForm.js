@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
+import {useServerApi } from '../../hooks/useServerApi'
 import { useFormik } from "formik";
 import Select from "react-select";
 
@@ -11,15 +12,18 @@ import {
   Marker,
   Popup,
   useMapEvent,
+  useMap
 } from "react-leaflet";
 import { marker } from "leaflet";
+import DeliveryManItem from "./DeliveryManItem";
 
 export default function PackagesForm(props) {
-
   const id = localStorage.getItem('id');
   const role = localStorage.getItem('role');
   const history = useHistory();
+  const [DriverApi] = useServerApi("deliveryman/getdev");
   const [showLoader, setShowLoader] = useState(false);
+  const [driverShow, setDriverShow] = useState();
   const [error, setError] = useState({ visible: false, message: "" });
   const [step, setStep] = useState(1);
   const [markers, setMarkers] = useState([]);
@@ -40,6 +44,7 @@ export default function PackagesForm(props) {
   const formik = useFormik({
     initialValues: {
       customer: id,
+      driver: "",
       package: [{
         note: "",
         dimension: {
@@ -106,8 +111,12 @@ export default function PackagesForm(props) {
     { value: "Safe", label: "Safe" },
     { value: "Brittle", label: "Brittle" },
   ];
+  const chooseDriver =  (id) => {
+    formik.setFieldValue('driver',id)
+  }
   const MyMarkers = () => {
     const map = useMapEvent("click", (loc) => {
+      map.invalidateSize()
       if (markers.length < 2) {
         axios
           .get(
@@ -117,7 +126,6 @@ export default function PackagesForm(props) {
             let newmarkers = markers;
             newmarkers.push(loc.latlng);
             setMarkers([...newmarkers]);
-            console.log(loc.latlng);
             if (markers.length == 1) {
               let newSource = { ...source };
               newSource.State = doc.data.address.state;
@@ -128,7 +136,6 @@ export default function PackagesForm(props) {
               };
               newSource.ZipCode = parseInt(doc.data.address.postcode);
               setSource({ ...newSource });
-              console.log(newSource);
             } else if (markers.length == 2) {
               let newDestination = { ...source };
               newDestination.State = doc.data.address.state;
@@ -139,7 +146,15 @@ export default function PackagesForm(props) {
               };
               newDestination.ZipCode = parseInt(doc.data.address.postcode);
               setDestination({ ...newDestination });
-              console.log(newDestination);
+              console.log(destination)
+              let recommendedDriversArray = DriverApi?.filter((driver) => {
+                let regions = driver?.Region.map((reg) => {
+                  return reg.value == destination.State
+                })
+                return regions.includes(true);
+              })
+            console.log(recommendedDriversArray)
+            setDriverShow(recommendedDriversArray)
             }
           });
       } else {
@@ -153,29 +168,7 @@ export default function PackagesForm(props) {
       <div className="container">
         <div className="sign_info">
           <div className="row">
-            <div className="col-lg-5">
-              <div className="sign_info_content">
-                <h3 className="f_p f_600 f_size_24 t_color3 mb_40">
-                  Send Your Package Now!!!
-                </h3>
-                <h2 className="f_p f_400 f_size_30 mb-30">
-                  Fill out the Form <br /> starting using our <br />
-                  <span className="f_700">amazing</span> Application
-                </h2>
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <i className="ti-check"></i>Safety
-                  </li>
-                  <li>
-                    <i className="ti-check"></i>Digital Signature
-                  </li>
-                  <li>
-                    <i className="ti-check"></i>Real Time Tracking
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-7">
+            <div className="col-lg-12">
               <div className="login_info">
                 <form onSubmit={formik.handleSubmit}>
                   <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Package</h2>
@@ -237,7 +230,7 @@ export default function PackagesForm(props) {
               </div>
               <div className="row mt-4">
               <div className="col-md-12">
-              <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={false}>
+              <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -253,7 +246,12 @@ export default function PackagesForm(props) {
               </MapContainer>
             </div>
           </div>
-          
+          <div className="row mt-4">
+              <div className="col-md-12">
+              {driverShow?.map((driver,index)=>{
+                  return (<DeliveryManItem key={driver._id} driver={driver} chosen={()=> {chooseDriver(driver._id)}}/>)})}
+            </div>
+          </div>
             </div>
                   <div className="d-flex justify-content-between align-items-center">
                     <button type="submit" className="btn_three">

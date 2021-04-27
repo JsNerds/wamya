@@ -73,11 +73,11 @@ const PersonalDetailsForm = (props) => {
               </Col>
               <Col xs="12" lg="6">
                 <Field
-                  name="qualification"
-                  type="text"
+                  name="phone"
+                  type="number"
                   component={FormInput}
-                  label="Qualifications"
-                  inputPlaceHolder="Enter Qualifications"
+                  label="Phone"
+                  inputPlaceHolder="Enter phone number"
                 />
               </Col>
             </FormGroup>

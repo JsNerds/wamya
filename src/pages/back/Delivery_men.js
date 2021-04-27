@@ -9,12 +9,11 @@ export default function Delivery_men() {
   return (
     <Fragment>
       <PageTitle
-        titleHeading="Customers"
+        titleHeading="Delivery men"
         titleDescription="Wonderful animated charts built with ApexCharts components."
       />
-      <ExampleWrapperSeamless sectionHeading="Customers Table">
+      <ExampleWrapperSeamless sectionHeading="Delivery men Table">
         <Deliverymendata dms={dms} />
-        <CustomerStat dms={dms} />
       </ExampleWrapperSeamless>
     </Fragment>
   );

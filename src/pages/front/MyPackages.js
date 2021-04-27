@@ -8,20 +8,10 @@ import PackageSlider from "../../components/front/PackageSlider";
 import { useServerApi } from "../../hooks/useServerApi";
 
 export default function MyPackages(props) {
-  let user = "Customer";
-  let packageCont = null;
-  if (user === "Customer") {
-    packageCont = (
-      <>
-        <PackageList packagesList={props.customer.deliveries} />
-      </>
-    );
-  } else if (user === "Company") {
-    packageCont = (
-      <>
-        <PackageList packagesList={props.company.deliveries} />
-      </>
-    );
-  }
-  return <>{packageCont}</>;
-}
+        
+        return(
+            <>
+                 <PackageList packagesList={props.customer.deliveries} />
+            </>
+        );
+    }

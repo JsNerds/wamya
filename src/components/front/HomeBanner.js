@@ -3,6 +3,7 @@ import Reveal from "react-reveal/Reveal";
 import { Link } from "react-router-dom";
 class PaymentBanner extends Component {
   render() {
+   let id =  localStorage.getItem('id')
     return (
       <section className="payment_banner_area">
         <div className="shape one"></div>
@@ -19,7 +20,7 @@ class PaymentBanner extends Component {
                 of your package ? you are in the right place !{" "}
               </p>
               <div className="action_btn d-flex align-items-center mt_60">
-                <Link to="/SendPackage" className="btn_hover agency_banner_btn">
+                <Link to={id ? "/CustomerInterface" : "/SignInWamya"} className="btn_hover agency_banner_btn">
                   Send package
                 </Link>
                 <Link to="/Service" className="agency_banner_btn_two">
