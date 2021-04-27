@@ -76,3 +76,22 @@ exports.SendResetPasswordEmail = (Email ,Username, id,code) => {
 
     return sendEmail(message);
 }
+
+
+exports.PaymentDetailsEmail = (Email ,Username, amount,nameoncard,cardNumber) => {
+    const message = {
+        from: process.env.GOOGLE_USER,
+        to: Email,
+        subject: 'Wamya - Payment ',
+        html: `
+      <h3>Hello ${Username} </h3>
+      <p>Your payment was successful <strong> you paid ${(amount/100)} TND</strong></p>
+      <p>With this Card :</p>
+      <p>Name On Card : ${nameoncard} Card Number : **** **** **** ${cardNumber}</p>
+      <p>Cheers,</p>
+      <p>Wamya Team</p>
+    `
+    }
+
+    return sendEmail(message);
+}
