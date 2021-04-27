@@ -15,6 +15,8 @@ import { marker } from "leaflet";
 
 export default function CompanyPackageForm(props) {
   const history = useHistory();
+  const id = localStorage.getItem("id");
+  const role = localStorage.getItem("role");
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
@@ -41,8 +43,23 @@ export default function CompanyPackageForm(props) {
   ];
   const formik = useFormik({
     initialValues: {
-      Name: "",
-      dimension: [0, 0, 0],
+      customer: id,
+      package: [
+        {
+          note: "",
+          dimension: {
+            Length: 0,
+            Height: 0,
+            Width: 0,
+          },
+          type: "",
+          weight: 0,
+        },
+      ],
+      date_Launch: new Date().getDate(),
+      distance: 0,
+      duration: 0,
+      state: 0,
       sourceAddress: {
         Street: "",
         City: "",
@@ -69,16 +86,16 @@ export default function CompanyPackageForm(props) {
         Longitude: 0,
         Latitude: 0,
       },
-      type: "",
-      state: "",
+      CustomerModel: "customer",
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
-      values.destinationAddress = destination;
+      values.destinationAddress.shift();
+      values.destinationAddress.push(destination);
       console.log(values);
       setShowLoader(false);
       const [, err] = await queryServerApi(
-        "package/startDelivery/607f647df4f2f5422cb7f781",
+        "delivery/startDelivery",
         values,
         "POST",
         false
@@ -103,6 +120,7 @@ export default function CompanyPackageForm(props) {
           newmarkers.push(loc.latlng);
           setMarkers([...newmarkers]);
           console.log(markers.length);
+          console.log(markers);
           if (markers.length === 1) {
             let newSource = { ...source };
             newSource.State = doc.data.address.state;
@@ -126,7 +144,7 @@ export default function CompanyPackageForm(props) {
             newDestination.ZipCode = parseInt(doc.data.address.postcode);
 
             //destinationList.push(newDestination);
-            destinationList[markers.length] = newDestination;
+            destinationList[markers.length - 1] = newDestination;
             setDestination({ ...destinationList });
             console.log(destinationList);
           }
@@ -158,7 +176,7 @@ export default function CompanyPackageForm(props) {
               <div className="col-md-4">
                 <input
                   type="text"
-                  name="dimension[0]"
+                  name="package.0.dimension.Length"
                   onChange={formik.handleChange}
                   placeholder="Length"
                 />
@@ -166,7 +184,7 @@ export default function CompanyPackageForm(props) {
               <div className="col-md-4">
                 <input
                   type="text"
-                  name="dimension[1]"
+                  name="package.0.dimension.Height"
                   onChange={formik.handleChange}
                   placeholder="Height"
                 />
@@ -174,7 +192,7 @@ export default function CompanyPackageForm(props) {
               <div className="col-md-4">
                 <input
                   type="text"
-                  name="dimension[2]"
+                  name="package.0.dimension.Width"
                   onChange={formik.handleChange}
                   placeholder="Width"
                 />
@@ -197,7 +215,7 @@ export default function CompanyPackageForm(props) {
               <label className="f_p text_c f_400">Note to driver :</label>
               <input
                 type="text"
-                name="note"
+                name="package.0.note"
                 onChange={formik.handleChange}
                 placeholder="Note to driver"
               />

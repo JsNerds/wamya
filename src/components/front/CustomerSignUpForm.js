@@ -5,6 +5,9 @@ import {queryServerApi} from "../../utils/queryServerApi";
 import * as Yup from "yup";
 import {FormHelperText} from '@material-ui/core';
 import MuiAlert from "@material-ui/lab/Alert";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from 'react-facebook-login';
+
 
 const CustomerSignUpForm =()=>{
     const history = useHistory();
@@ -88,6 +91,50 @@ const CustomerSignUpForm =()=>{
                 zipCode: ""
             });
         }
+    const responseGoogle = (response) => {
+        console.log(response);
+        formik.setValues({
+            cin: "",
+            firstname: response.profileObj.familyName,
+            lastname:response.profileObj.givenName,
+            username: response.profileObj.name,
+            email:response.profileObj.email,
+            password: "",
+            passwordConfirmation: "",
+            phoneNumber: "",
+            street: "",
+            city: "",
+            zipCode: ""
+        });
+
+    }
+
+
+    const responseErrorGoogle = (response) => {
+        setError({
+            visible: true,
+            message: "Something wrong",
+        });
+    }
+
+
+    const responseFacebook = (response) => {
+        console.log(response);
+        formik.setValues({
+            cin: "",
+            firstname: "",
+            lastname:"",
+            username: response.name,
+            email:response.email,
+            password: "",
+            passwordConfirmation: "",
+            phoneNumber: "",
+            street: "",
+            city: "",
+            zipCode: ""
+        });
+    }
+
 
 
     return(
@@ -115,6 +162,37 @@ const CustomerSignUpForm =()=>{
                                 {!success ? (
 
                                 <form onSubmit={formik.handleSubmit}>
+
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div className="social_text d-flex ">
+                                            <div className="lead-text">Sign up Using</div>
+                                            <ul className="list-unstyled social_tag mb-0">
+                                                <li>
+                                                    <GoogleLogin
+                                                        clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
+                                                        buttonText="Google"
+                                                        onSuccess={responseGoogle}
+                                                        onFailure={responseErrorGoogle}
+                                                        cookiePolicy={'single_host_origin'}
+                                                    /></li>
+                                                <li>
+                                                    <FacebookLogin
+                                                        size="Small"
+                                                        appId="2762210330731766"
+                                                        autoLoad={false}
+                                                        fields="name,email,picture"
+                                                        cssClass="btnFacebook"
+                                                        icon="fa-facebook"
+                                                        textButton="acebook"
+                                                        callback={responseFacebook}
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
                                     <div>
                                         {error.visible && <MuiAlert className="mb-4" severity="error">
                                             <div className="d-flex align-items-center align-content-center">
@@ -330,19 +408,6 @@ const CustomerSignUpForm =()=>{
                                              <button className="btn_three" onClick={Reset}>Reset</button>
                                         </div>
                                     </div>
-                                    <p></p>
-                                    <div className="d-flex justify-content-between align-items-center">
-
-                                        <div className="social_text d-flex ">
-                                            <div className="lead-text">Or Sign up Using</div>
-                                            <ul className="list-unstyled social_tag mb-0">
-                                                <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                <li><a href="/#"><i className="ti-google"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
 
                                 </form>
                                     ) :

@@ -8,7 +8,7 @@ import {
     Card,
     Button,
     List,
-    ListItem
+    ListItem, CardContent
 } from '@material-ui/core';
 
 export default function CustomerStats(props) {
@@ -35,7 +35,34 @@ export default function CustomerStats(props) {
     return (
         <Fragment>
             <Grid container spacing={4}>
-                <Grid item xs={12} lg={6}>
+
+                <Grid item xs={10} sm={6} md={4} lg={6}>
+                    <Card className="mb-4">
+                        <img alt="..." className="card-img-top" src={process.env.REACT_APP_API_URL_UPLOADS + "/" + props.customer.img} />
+                        <CardContent className="p-3">
+                            <h5 className="card-title font-weight-bold font-size-lg">
+                                {props.customer.FirstName} {props.customer.LastName}
+                            </h5>
+                            <p className="card-text">
+                                <strong>Username : </strong> {props.customer.UserName}
+                            </p>
+                            <p className="card-text">
+                                <strong>Email : </strong> {props.customer.Email}
+                            </p>
+                            <p className="card-text">
+                                <strong>Phone Number : </strong> {props.customer.PhoneNumber}
+                            </p>
+                            <p className="card-text">
+                                <strong>Address : </strong> <br/>
+                                Street : {props.customer.Adress.Street} <br/>
+                                City : {props.customer.Adress.City} <br/>
+                                ZipCode : {props.customer.Adress.ZipCode} <br/>
+                            </p>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                <Grid item xs={15} lg={6}>
                     <Card className="card-box mb-4">
                         <div className="card-header">
                             <div className="card-header--title">
@@ -106,7 +133,7 @@ export default function CustomerStats(props) {
 
 
 
-                <Grid item xs={12} lg={6}>
+                <Grid item xs={12} lg={12}>
                     <Card className="card-box mb-4">
                         <div className="card-header">
                             <div className="card-header--title">

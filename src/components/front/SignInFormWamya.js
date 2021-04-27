@@ -4,6 +4,8 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import MuiAlert from "@material-ui/lab/Alert";
 import {useHistory} from "react-router-dom";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from 'react-facebook-login';
 
 
 
@@ -57,6 +59,7 @@ const SignInFromWamya =()=>{
                         localStorage.setItem('username', user[0].Username);
                         localStorage.setItem('role', user[0].Role);
                         localStorage.setItem('id', user[0].Id);
+                        localStorage.setItem('img', user[0].img);
                         history.push("/");
                     }
                     else
@@ -74,6 +77,8 @@ const SignInFromWamya =()=>{
                     localStorage.setItem('username', user[0].Username);
                     localStorage.setItem('role', user[0].Role);
                     localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
+
                     history.push("/");
 
                 }
@@ -82,6 +87,122 @@ const SignInFromWamya =()=>{
 
         },
     });
+
+
+    const responseGoogle = async (response) => {
+            console.log(response);
+            const [user, err] = await queryServerApi("users/loginWithGoogle?tokenId="+response.tokenId, null, "GET", false);
+        if(user === "UserNotFound"){
+            setError({
+                visible: true,
+                message:`You need to sing Up with this Google Account First !`,
+            });
+        }
+        else {
+            console.log(user[0].img);
+
+            if(user[0].Role === "Admin")
+            {
+                localStorage.setItem('username', user[0].Username);
+                localStorage.setItem('role', user[0].Role);
+                localStorage.setItem('id', user[0].Id);
+                history.push("/AdminDashborad");
+                history.go(0);
+            }
+            else if (user[0].Role === "Company")
+            {
+                const [company, err] = await queryServerApi("entreprises/"+user[0].Id, null, "GET", false);
+                if(company.Subscribed){
+                    localStorage.setItem('username', user[0].Username);
+                    localStorage.setItem('role', user[0].Role);
+                    localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
+                    history.push("/");
+                }
+                else
+                {
+                    setError({
+                        visible: true,
+                        message: "You are not Subscribed Please Update your subscription",
+                        subscription: true,
+                        id:user[0].Id
+                    });
+
+                }
+            }
+            else {
+                localStorage.setItem('username', user[0].Username);
+                localStorage.setItem('role', user[0].Role);
+                localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('img', user[0].img);
+                history.push("/");
+
+            }
+        }
+
+
+    }
+
+
+    const responseErrorGoogle = (response) => {
+        setError({
+            visible: true,
+            message: "Something wrong",
+        });
+    }
+
+
+    const responseFacebook = async (response) => {
+        console.log(response);
+        const [user, err] = await queryServerApi("users/loginWithFacebook?accessToken="+response.accessToken+"&userID="+response.userID, null, "GET", false);
+        if(user === "UserNotFound"){
+            setError({
+                visible: true,
+                message:`You need to sing Up with this Facebook Account First !`,
+            });
+        }
+        else {
+
+            if(user[0].Role === "Admin")
+            {
+                localStorage.setItem('username', user[0].Username);
+                localStorage.setItem('role', user[0].Role);
+                localStorage.setItem('id', user[0].Id);
+                history.push("/AdminDashborad");
+                history.go(0);
+            }
+            else if (user[0].Role === "Company")
+            {
+                const [company, err] = await queryServerApi("entreprises/"+user[0].Id, null, "GET", false);
+                if(company.Subscribed){
+                    localStorage.setItem('username', user[0].Username);
+                    localStorage.setItem('role', user[0].Role);
+                    localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('img', user[0].img);
+                    history.push("/");
+                }
+                else
+                {
+                    setError({
+                        visible: true,
+                        message: "You are not Subscribed Please Update your subscription",
+                        subscription: true,
+                        id:user[0].Id
+                    });
+
+                }
+            }
+            else {
+                localStorage.setItem('username', user[0].Username);
+                localStorage.setItem('role', user[0].Role);
+                localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('img', user[0].img);
+                history.push("/");
+
+            }
+        }
+
+    }
 
     return(
         <section className="sign_in_area bg_color sec_pad">
@@ -148,11 +269,28 @@ const SignInFromWamya =()=>{
                                     <div className="d-flex justify-content-between align-items-center">
                                         <button type="submit" className="btn_three">Sign in</button>
                                         <div className="social_text d-flex ">
-                                            <div className="lead-text">Don't have an account?</div>
+                                            <div className="lead-text"> Login with </div>
                                             <ul className="list-unstyled social_tag mb-0">
-                                                <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                <li><a href="/#"><i className="ti-google"></i></a></li>
+                                                <li>
+                                                <GoogleLogin
+                                                    clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
+                                                    buttonText="Google"
+                                                    onSuccess={responseGoogle}
+                                                    onFailure={responseErrorGoogle}
+                                                    cookiePolicy={'single_host_origin'}
+                                                /></li>
+                                                <li>
+                                                <FacebookLogin
+                                                    size="Small"
+                                                    appId="2762210330731766"
+                                                    autoLoad={false}
+                                                    fields="name,email,picture"
+                                                    cssClass="btnFacebook"
+                                                    icon="fa-facebook"
+                                                    textButton="acebook"
+                                                    callback={responseFacebook}
+                                                />
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
