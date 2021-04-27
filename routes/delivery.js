@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
   delivery.find(condition,function(err,data){
     if(err) throw err;
     res.json(data);
-  }).populate("customer package")
+  }).populate("customer package driver")
 });
 
 /* start delivery */

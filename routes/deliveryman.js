@@ -88,7 +88,7 @@ router.post("/add", upload, async function (req, res, next) {
     img: req.file.filename,
   };
   console.log(kar);
-  console.log(mynewdelivery);
+  /*console.log(mynewdelivery);*/
   delivery.create(mynewdelivery).then((d) => {
     User.create(
       {

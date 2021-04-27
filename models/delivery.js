@@ -10,7 +10,7 @@ var delivery = new Schema({
   },
   driver: {
       type: Schema.Types.ObjectId,
-      refPath: 'DriverModel'
+      ref: 'delivery_man'
   },
   package: [{
       type: Schema.Types.ObjectId,
