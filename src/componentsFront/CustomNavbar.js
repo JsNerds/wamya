@@ -37,6 +37,18 @@ export default function CustomNavbar(props) {
     history.go(0);
   };
 
+  const myAccountPath = () =>{
+    if(role === "Company"){
+      history.push("/EntrepriseInterface");
+    }
+    else if (role === "Customer"){
+      history.push("/CustomerInterface");
+    }
+    else {
+      history.push("/Delivery_man_interface");
+    }
+  }
+
   return (
     <Sticky top={0} innerZ={9999} activeClass="navbar_fixed">
       <header className="header_area">
@@ -355,7 +367,7 @@ export default function CustomNavbar(props) {
                               </div>
                             </div>
                             <Divider className="w-100 mt-2" />
-                            <ListItem button>My Account</ListItem>
+                            <ListItem button onClick={myAccountPath}>My Account</ListItem>
                             <ListItem button>Profile settings</ListItem>
                             <ListItem button>Active tasks</ListItem>
                             <Divider className="w-100" />

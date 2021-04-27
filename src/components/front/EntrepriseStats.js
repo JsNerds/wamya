@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {Grid, Card, CardContent, Button, Divider, LinearProgress, List,ListItem} from '@material-ui/core';
 
 import Chart from 'react-apexcharts';
+import {useHistory} from "react-router-dom";
 export default function EntrepriseStats(props) {
 
-
+    const history = useHistory();
     function total(payments) {
         return payments.reduce(function (total, item){
             console.log("amount",payments[0])
@@ -16,6 +17,7 @@ export default function EntrepriseStats(props) {
             return total
         },0)
     }
+
 
     function finishedDeliv(deliveries) {
         return deliveries.reduce(function (nb, item){
@@ -27,6 +29,9 @@ export default function EntrepriseStats(props) {
         },0)
     }
 
+    const UpgradeSubscription = () => {
+        history.push("/Pricing/"+props.company._id);
+    }
     const chart31Options = {
         chart: {
             toolbar: {
@@ -105,14 +110,17 @@ export default function EntrepriseStats(props) {
                             <div className="d-flex align-items-start">
                                 <div className="font-weight-bold">
                                     <small className="text-white-50 d-block mb-1 text-uppercase">
-                                        Subscription Expiration Date
+                                        Subscription Expiration Date :
                                     </small>
-                                    <span>{Date(props.company.SubscriptionExpirationDate).toString()}</span>
+                                    <span>{props.company.SubscriptionExpirationDate.toString().substr(0,10)}</span>
+                                    <br/>
+                                    <button className="btn-primary" onClick={UpgradeSubscription}>Upgrade your subscription</button>
                                 </div>
+
                                 <div className="ml-auto">
                                     <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
                                         <FontAwesomeIcon
-                                            icon={['far', 'lightbulb']}
+                                            icon={['far', 'id-card']}
                                             className="font-size-xl"
                                         />
                                     </div>
