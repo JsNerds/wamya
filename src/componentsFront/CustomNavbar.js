@@ -324,7 +324,7 @@ export default function CustomNavbar(props) {
                           onClick={handleClick}
                           className="text-capitalize px-3 text-left btn-inverse d-flex align-items-center">
                         <Box>
-                          <Avatar sizes="44" alt="Emma Taylor" src={process.env.REACT_APP_API_URL_UPLOADS + "/" + img} />
+                          <Avatar sizes="44" alt={username} src={process.env.REACT_APP_API_URL_UPLOADS + "/" + img} />
                         </Box>
                         <span className="pl-1 pl-xl-3"><FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" /></span>
                       </Button>
