@@ -12,7 +12,7 @@ import FacebookLogin from 'react-facebook-login';
 
 
 const SignInFromWamya =()=>{
-    const [error,setError] = useState({visible: false,message: "",subscription:false,id:""});
+    const [error,setError] = useState({visible: false,message: "",subscription:false,id:"",severity:""});
     const history = useHistory();
 
     const UpgradeSubscription = () => {
@@ -33,12 +33,14 @@ const SignInFromWamya =()=>{
                 setError({
                     visible: true,
                     message:`Username or Email doesn't exist  if you registred recently please activate your account`,
+                    severity: "error"
                 });
             }
             else if (user === "WrongPassword"){
                 setError({
                     visible: true,
                     message: "Incorrect Password",
+                    severity: "error"
                 });
 
             }
@@ -68,7 +70,9 @@ const SignInFromWamya =()=>{
                             visible: true,
                             message: "You are not Subscribed Please Update your subscription",
                             subscription: true,
-                            id:user[0].Id
+                            id:user[0].Id,
+                            severity: 'warning'
+
                         });
 
                     }
@@ -96,6 +100,8 @@ const SignInFromWamya =()=>{
             setError({
                 visible: true,
                 message:`You need to sing Up with this Google Account First !`,
+                severity: 'info'
+
             });
         }
         else {
@@ -125,7 +131,8 @@ const SignInFromWamya =()=>{
                         visible: true,
                         message: "You are not Subscribed Please Update your subscription",
                         subscription: true,
-                        id:user[0].Id
+                        id:user[0].Id,
+                        severity: 'warning'
                     });
 
                 }
@@ -159,6 +166,7 @@ const SignInFromWamya =()=>{
             setError({
                 visible: true,
                 message:`You need to sing Up with this Facebook Account First !`,
+                severity: 'info'
             });
         }
         else {
@@ -187,7 +195,8 @@ const SignInFromWamya =()=>{
                         visible: true,
                         message: "You are not Subscribed Please Update your subscription",
                         subscription: true,
-                        id:user[0].Id
+                        id:user[0].Id,
+                        severity: 'warning'
                     });
 
                 }
@@ -228,7 +237,7 @@ const SignInFromWamya =()=>{
                                 <form onSubmit={formik.handleSubmit}>
 
                                     {error.visible &&
-                                    <MuiAlert className="mb-4" severity="error">
+                                    <MuiAlert className="mb-4" severity={error.severity}>
                                         <div className="d-flex align-items-center align-content-center">
                                          <span>
                                          <strong className="d-block">Danger!</strong> {error.message}

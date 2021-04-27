@@ -149,7 +149,7 @@ export default function PackagesForm(props) {
               console.log(destination)
               let recommendedDriversArray = DriverApi?.filter((driver) => {
                 let regions = driver?.Region.map((reg) => {
-                  return reg.value == destination.State
+                  return destination.State.includes(reg.value);
                 })
                 return regions.includes(true);
               })

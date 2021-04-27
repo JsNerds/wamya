@@ -1,15 +1,13 @@
 import React from "react";
 import EntrepriseStats from "./EntrepriseStats";
 import EntrepriseDrivers from "./EntrepriseDrivers";
-import PackageList from "./PackageList";
 import CompanyOperationsPayments from "./CompanyOperationsPayments";
 import CompanyPackageForm from "./CompanyPackageForm";
-import EditProfileCustomerForm from "./EditProfileCustomerForm";
-import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import EditProfileCompanyForm from "./EditProfileCompanyForm";
-import ChangePasswordCustomer from "./ChangePasswordCustomer";
 import ChangePasswordCompany from "./ChangePasswordCompany";
 import MyPackages from "../../pages/front/MyPackages";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const FaqSection = (props) => {
   return (
@@ -32,6 +30,11 @@ const FaqSection = (props) => {
                     aria-controls="purchas"
                     aria-selected="true"
                   >
+                    <FontAwesomeIcon
+                        icon={['far', 'chart-bar']}
+                        className="font-size-xl"
+                    />
+                    <br/>
                     Analytics
                   </a>
                 </li>
@@ -46,7 +49,12 @@ const FaqSection = (props) => {
                     aria-controls="returns"
                     aria-selected="false"
                   >
-                    My Drivers{" "}
+                    <FontAwesomeIcon
+                        icon={['fas', 'car']}
+                        className="font-size-xl"
+                    />
+                    <br/>
+                    My Drivers
                   </a>
                 </li>
 
@@ -60,6 +68,11 @@ const FaqSection = (props) => {
                     aria-controls="price"
                     aria-selected="false"
                   >
+                    <FontAwesomeIcon
+                        icon={['fas', 'box']}
+                        className="font-size-xl"
+                    />
+                    <br/>
                     My Packages
                   </a>
                 </li>
@@ -74,8 +87,12 @@ const FaqSection = (props) => {
                     aria-controls="price"
                     aria-selected="false"
                   >
-                    My Operations and Payments
-                  </a>
+                    <FontAwesomeIcon
+                        icon={['fa', 'credit-card']}
+                        className="font-size-xl"
+                    />
+                    <br/>
+                    My Payments</a>
                 </li>
                 <li className="nav-item">
                   <a
@@ -87,8 +104,12 @@ const FaqSection = (props) => {
                     aria-controls="price"
                     aria-selected="false"
                   >
-                    Send a package
-                  </a>
+                    <FontAwesomeIcon
+                        icon={['fa', 'paper-plane']}
+                        className="font-size-xl"
+                    />
+                    <br/>
+                    Send Packages </a>
                 </li>
                 <li className="nav-item">
                   <a
@@ -100,6 +121,11 @@ const FaqSection = (props) => {
                     aria-controls="price"
                     aria-selected="false"
                   >
+                    <FontAwesomeIcon
+                        icon={['fa', 'user-edit']}
+                        className="font-size-xl"
+                    />
+                    <br/>
                     Edit Profile
                   </a>
                 </li>
@@ -113,6 +139,11 @@ const FaqSection = (props) => {
                     aria-controls="price"
                     aria-selected="false"
                   >
+                    <FontAwesomeIcon
+                        icon={['fa', 'user-secret']}
+                        className="font-size-xl"
+                    />
+                    <br/>
                     Security
                   </a>
                 </li>
