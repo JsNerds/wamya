@@ -3,6 +3,7 @@ var router = express.Router();
 var delivery = require("../models/delivery_man");
 var signature = require("../models/signature");
 var User = require("../models/User");
+var mile = require("../models/milestone");
 
 var multer = require("multer");
 var path = require("path");
@@ -36,6 +37,12 @@ router.get("/", function (req, res, next) {
 });
 router.get("/getdev", function (req, res, next) {
   delivery.find(function (err, data) {
+    if (err) throw err;
+    res.json(data);
+  });
+});
+router.get("/getdev/:id", function (req, res, next) {
+  delivery.findById(req.params.id, function (err, data) {
     if (err) throw err;
     res.json(data);
   });
@@ -87,24 +94,29 @@ router.post("/add", upload, async function (req, res, next) {
     pdp: obj.pdp,
     img: req.file.filename,
   };
+  var ids;
   console.log(kar);
-  /*console.log(mynewdelivery);*/
+
+  //console.log(mynewdelivery);
+
   delivery.create(mynewdelivery).then((d) => {
-    User.create(
-      {
+    (ids = d._id), console.log(ids);
+    User.create({
+      Id: d._id,
+      Username: mynewdelivery.Username,
+      Password: mynewdelivery.Password,
+      Role: "DeliveryManP",
+    }).then((d) => {
+      (ids = d._id), console.log(ids);
+      mile.create({
         Id: d._id,
-        Username: mynewdelivery.Username,
-        Password: mynewdelivery.Password,
-        Role: "DeliveryManP",
-      },
-      function (err) {
-        if (err) {
-          res.render("/adddelivery");
-        } else {
-          res.redirect("/deliveryman");
-        }
-      }
-    );
+        delivs: "0",
+        profit: "0",
+        stage: "0",
+        rating: "0",
+        badges: "0",
+      });
+    });
   });
 });
 
@@ -124,7 +136,20 @@ router.post("/addsign", function (req, res, next) {
     }
   });
 });
-
+/*validate*/
+router.post("/validate/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    Status: 2,
+  };
+  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
 /*EDITTTTTTTTTTTTTTTTTT*/
 router.post("/edit/:id", function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -143,7 +168,7 @@ router.post("/edit/:id", function (req, res, next) {
 });
 
 /* Delete contact*/
-router.get("/delete/:id", function (req, res, next) {
+router.delete("/delete/:id", function (req, res, next) {
   delivery.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
     res.redirect("/deliveryman");
@@ -157,24 +182,6 @@ router.get("/edit/delivery/:id", function (req, res, next) {
       res.render("editdelivery", { user: data });
     }
   });
-});
-
-router.get("/showdms", function (req, res, next) {
-  const Username = req.query.username;
-  const Phone = req.query.phone;
-  var condition = Username
-    ? { Username: { $regex: new RegExp(Username), $options: "i" } }
-    : Phone
-    ? { Phone: { $regex: new RegExp(Phone), $options: "i" } }
-    : {};
-  delivery
-    .find(condition, function (err, data) {
-      if (err) throw err;
-      res.json(data);
-    })
-    .populate("Delivery men");
-  console.log(res.json(data));
-  render(res.json(data));
 });
 
 module.exports = router;

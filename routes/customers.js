@@ -163,7 +163,8 @@ router.get('/ActivateCustomer/:id',async function (req, res, next) {
         Username: c.UserName,
         Password: c.Password,
         Email: c.Email,
-        Role:"Customer"
+        Role:"Customer",
+        img:c.img
       }, function (err,user) {
         if(err) throw err;
         res.redirect(`http://localhost:${process.env.DOMAIN_REACT}/ActivatedAccount`);
