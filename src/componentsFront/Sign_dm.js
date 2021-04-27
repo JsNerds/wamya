@@ -33,12 +33,14 @@ export default function Sign_dm(props) {
     console.log("testing" + wow);
     formData.append("username", valeurs.username);
     formData.append("fullname", valeurs.fullname);
+    formData.append("phone", valeurs.phone);
     formData.append("address", valeurs.address);
     formData.append("mail", valeurs.mail);
     formData.append("date", valeurs.date);
     formData.append("pass", valeurs.pass);
     formData.append("gender", valeurs.gender);
     formData.append("pdp", wow);
+    formData.append("status", "1");
     var reg = JSON.stringify(valeurs.region);
 
     formData.append("region", reg);
