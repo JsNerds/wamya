@@ -48,16 +48,6 @@ export default function PackageDetailItem() {
               </Popup>
             </Marker>
           ))}
-          <Marker
-            position={[
-              deliv?.destinationAddress[0].Location.Latitude,
-              deliv?.destinationAddress[0].Location.Longitude,
-            ]}
-          >
-            <Popup>
-              <span>Popup</span>
-            </Popup>
-          </Marker>
         </>
       );
     } else {
@@ -111,7 +101,10 @@ export default function PackageDetailItem() {
                 </div>
                 <div className="info_item">
                   <h6>Service Cost:</h6>
-                  <p>$250.00</p>
+                  <p>
+                    duration :{deliv?.duration}
+                    distance :{deliv?.distance}
+                  </p>
                 </div>
                 <div className="info_item">
                   <h6>Source Adress</h6>
@@ -119,7 +112,9 @@ export default function PackageDetailItem() {
                 </div>
                 <div className="info_item">
                   <h6>Destination Address</h6>
-                  <p>{deliv?.destinationAddress[0].City}</p>
+                  {deliv?.destinationAddress.map((el, index) => (
+                    <p>{el.City}</p>
+                  ))}
                 </div>
                 <div className="info_item">
                   <h6>Package Type</h6>
