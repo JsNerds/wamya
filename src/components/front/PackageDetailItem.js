@@ -9,42 +9,60 @@ import {
   useMap,
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
-import {queryServerApi} from '../../utils/queryServerApi';
+import { queryServerApi } from "../../utils/queryServerApi";
 export default function PackageDetailItem() {
   let { id } = useParams();
   console.log(id);
-  const [delivery] = useServerApi("delivery/"+id);
+  const [delivery] = useServerApi("delivery/" + id);
   const [markers, setMarkers] = useState([]);
   const [deliv, setDeliv] = useState();
 
   useEffect(() => {
-    setDeliv(delivery)
-    console.log(delivery)
+    setDeliv(delivery);
+    console.log(delivery);
   });
 
   const MyMarkers = () => {
     const map = useMap();
-    if(deliv){
-      map.panTo([deliv?.sourceAddress.Location.Latitude,deliv?.sourceAddress.Location.Longitude])
+    if (deliv) {
+      map.panTo([
+        deliv?.sourceAddress.Location.Latitude,
+        deliv?.sourceAddress.Location.Longitude,
+      ]);
       return (
         <>
-      <Marker position={[deliv?.sourceAddress.Location.Latitude,deliv?.sourceAddress.Location.Longitude]}>
-      <Popup>
-        <span>Popup</span>
-      </Popup>
-    </Marker>
-    <Marker position={[deliv?.destinationAddress[0].Location.Latitude, deliv?.destinationAddress[0].Location.Longitude]}>
-      <Popup>
-        <span>Popup</span>
-      </Popup>
-    </Marker>
-    </>)
+          <Marker
+            position={[
+              deliv?.sourceAddress.Location.Latitude,
+              deliv?.sourceAddress.Location.Longitude,
+            ]}
+          >
+            <Popup>
+              <span>Popup</span>
+            </Popup>
+          </Marker>
+          {deliv?.destinationAddress.map((el) => (
+            <Marker position={[el.Location.Latitude, el.Location.Longitude]}>
+              <Popup>
+                <span>Popup</span>
+              </Popup>
+            </Marker>
+          ))}
+          <Marker
+            position={[
+              deliv?.destinationAddress[0].Location.Latitude,
+              deliv?.destinationAddress[0].Location.Longitude,
+            ]}
+          >
+            <Popup>
+              <span>Popup</span>
+            </Popup>
+          </Marker>
+        </>
+      );
+    } else {
+      return null;
     }
-    else
-    {
-      return null
-    }
-    
   };
   /*function LocationMarker() {
     const [position, setPosition] = useState(null);
@@ -82,14 +100,14 @@ export default function PackageDetailItem() {
                   <p>Driver's Name</p>
                 </div>
                 <div className="info_item">
-                  <h6>
-                    Live Time:
-                  </h6>
-                  <p>{new Intl.DateTimeFormat("en-GB", {
+                  <h6>Live Time:</h6>
+                  <p>
+                    {new Intl.DateTimeFormat("en-GB", {
                       year: "numeric",
                       month: "long",
                       day: "2-digit",
-                    }).format(deliv?.date_launch)}</p>
+                    }).format(deliv?.date_launch)}
+                  </p>
                 </div>
                 <div className="info_item">
                   <h6>Service Cost:</h6>
@@ -111,16 +129,12 @@ export default function PackageDetailItem() {
             </div>
             <div className="col-lg-7">
               <div className="details_content">
-                <MapContainer
-                  center={[0,0]}
-                  zoom={13}
-                  scrollWheelZoom={true}
-                >
+                <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={true}>
                   <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <MyMarkers/>
+                  <MyMarkers />
                 </MapContainer>
               </div>
             </div>

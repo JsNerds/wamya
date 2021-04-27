@@ -11,12 +11,11 @@ import {
   Popup,
   useMapEvent,
 } from "react-leaflet";
-import { marker } from "leaflet";
 
 export default function CompanyPackageForm(props) {
   const history = useHistory();
   const id = localStorage.getItem("id");
-  const role = localStorage.getItem("role");
+  //const role = localStorage.getItem("role");
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
@@ -27,15 +26,7 @@ export default function CompanyPackageForm(props) {
     ZipCode: 0,
     Location: { Longitude: 0, Latitude: 0 },
   });
-  const [destination, setDestination] = useState([
-    {
-      Street: "",
-      City: "",
-      State: "",
-      ZipCode: 0,
-      Location: { Longitude: 0, Latitude: 0 },
-    },
-  ]);
+  const [destination, setDestination] = useState([]);
   const options = [
     { value: "Dangerous", label: "Dangerous" },
     { value: "Safe", label: "Safe" },
@@ -86,13 +77,12 @@ export default function CompanyPackageForm(props) {
         Longitude: 0,
         Latitude: 0,
       },
-      CustomerModel: "customer",
+      CustomerModel: "entreprise",
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
-      values.destinationAddress.shift();
-      values.destinationAddress.push(destination);
-      console.log(values);
+      values.destinationAddress = destination;
+      console.log(values.destinationAddress);
       setShowLoader(false);
       const [, err] = await queryServerApi(
         "delivery/startDelivery",
@@ -106,7 +96,7 @@ export default function CompanyPackageForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/EntrepriseInterface");
+      } else history.go(0);
     },
   });
   const MyMarkers = () => {
@@ -119,8 +109,8 @@ export default function CompanyPackageForm(props) {
           let newmarkers = markers;
           newmarkers.push(loc.latlng);
           setMarkers([...newmarkers]);
-          console.log(markers.length);
-          console.log(markers);
+          //console.log(markers.length);
+          // console.log(markers);
           if (markers.length === 1) {
             let newSource = { ...source };
             newSource.State = doc.data.address.state;
@@ -131,10 +121,18 @@ export default function CompanyPackageForm(props) {
             };
             newSource.ZipCode = parseInt(doc.data.address.postcode);
             setSource({ ...newSource });
-            console.log(newSource);
+            // console.log(newSource);
           } else {
-            let destinationList = { ...destination };
-            let newDestination = { ...destination[0] };
+            let newDestination = {
+              Street: "",
+              City: "",
+              State: "",
+              ZipCode: 0,
+              Location: {
+                Longitude: 0,
+                Latitude: 0,
+              },
+            };
             newDestination.State = doc.data.address.state;
             newDestination.City = doc.data.address.county;
             newDestination.Location = {
@@ -142,19 +140,16 @@ export default function CompanyPackageForm(props) {
               Latitude: doc.data.lat,
             };
             newDestination.ZipCode = parseInt(doc.data.address.postcode);
-
-            //destinationList.push(newDestination);
-            destinationList[markers.length - 1] = newDestination;
-            setDestination({ ...destinationList });
-            console.log(destinationList);
+            destination.push(newDestination);
+            //console.log(destination);
           }
         });
     });
     return null;
   };
-  const calculateRoute = () => {
-    console.log(source.Location);
-    console.log(destination[1].Location);
+  const clear = () => {
+    setDestination([]);
+    setMarkers([]);
   };
 
   return (
@@ -243,12 +238,8 @@ export default function CompanyPackageForm(props) {
             <button type="submit" className="btn_three">
               Send Package
             </button>
-            <button
-              type="button"
-              onClick={() => calculateRoute}
-              className="btn_three"
-            >
-              Calculate Route
+            <button type="button" onClick={() => clear()} className="btn_three">
+              Clear marks
             </button>
           </div>
         </form>
