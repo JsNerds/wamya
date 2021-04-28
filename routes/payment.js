@@ -4,6 +4,9 @@ var Payment = require('../models/payment');
 var Customer = require('../models/customer')
 var Entreprise = require('../models/entreprise');
 const stripe = require("stripe")("sk_test_51IfWBLCVTWqP5309JTjdorJKTRm2p4oXBBe746cv5gR9lVnMyAy4373gs2mcIm0ceEu35XuVoJbLOVg98asz0sgV00mQZFDbV4");
+var twilio = require('twilio');
+var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "e49bcee7581fe3f68e00b99edae3d0b4");
+var {PaymentDetailsEmail } = require('../mailer');
 
 
 
@@ -116,10 +119,17 @@ router.post('/addPaymentCust/:id', function(req,res,next){
             $push: { payments : p._id }
           },
           {new: true, useFindAndModify: false},
-          function (err){
+          function (err,customer){
             if (err) {
               console.log(err);
             } else {
+              PaymentDetailsEmail(customer.Email,customer.UserName,obj.Amount,obj.NameOnCard,obj.creditCard)
+              clientSMS.messages.create({
+                body: `Congrats! ${customer.UserName} your package will reaches his destination after minutes `,
+                to: `+216${customer.PhoneNumber}`,  // Text this number
+                from: '+14079179267' // From a valid Twilio number
+              })
+                  .then((message) => console.log(message.sid));
               console.log("add");
             }
 
@@ -168,10 +178,11 @@ router.post('/addPaymentEntrep/:id', function(req,res,next){
             Subscribed:true
           },
           {new: true, useFindAndModify: false},
-          function (err){
+          function (err,entrep){
             if (err) {
               console.log(err);
             } else {
+              PaymentDetailsEmail(entrep.Email,entrep.Denomination,obj.Amount,obj.NameOnCard,obj.creditCard)
               console.log("add");
             }
 

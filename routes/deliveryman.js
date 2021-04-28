@@ -105,6 +105,8 @@ router.post("/add", upload, async function (req, res, next) {
       Id: d._id,
       Username: mynewdelivery.Username,
       Password: mynewdelivery.Password,
+      Email: mynewdelivery.Email,
+      img:mynewdelivery.pdp,
       Role: "DeliveryManP",
     }).then((d) => {
       (ids = d._id), console.log(ids);
