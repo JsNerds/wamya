@@ -5,7 +5,7 @@ var Customer = require('../models/customer')
 var Entreprise = require('../models/entreprise');
 const stripe = require("stripe")("sk_test_51IfWBLCVTWqP5309JTjdorJKTRm2p4oXBBe746cv5gR9lVnMyAy4373gs2mcIm0ceEu35XuVoJbLOVg98asz0sgV00mQZFDbV4");
 var twilio = require('twilio');
-var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "e49bcee7581fe3f68e00b99edae3d0b4");
+var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "3a515fc8ed3e25378a4b23e76a5c95f9");
 var {PaymentDetailsEmail } = require('../mailer');
 
 
@@ -91,7 +91,6 @@ router.post('/', function(req,res,next){
 
 router.post('/addPaymentCust/:id', function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
-  console.log("Obj", obj)
   const newPayment = {
     PaymentMethod: obj.PaymentMethod,
     NameOnCard: obj.NameOnCard,
@@ -126,7 +125,7 @@ router.post('/addPaymentCust/:id', function(req,res,next){
               PaymentDetailsEmail(customer.Email,customer.UserName,obj.Amount,obj.NameOnCard,obj.creditCard)
               clientSMS.messages.create({
                 body: `Congrats! ${customer.UserName} your package will reaches his destination after minutes `,
-                to: `+216${customer.PhoneNumber}`,  // Text this number
+                to: '+21620566666',  // Text this number
                 from: '+14079179267' // From a valid Twilio number
               })
                   .then((message) => console.log(message.sid));
