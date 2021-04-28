@@ -129,5 +129,53 @@ router.get("/:id",function(req,res){
   }).populate("package")
 });
 
+router.put("/confirmDeliveryCustomer",function(req,res){
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state : 1  }
+    },
+    {new: true, useFindAndModify: false},
+    function(err,doc){
+      if (err) {
+        res.send(err)
+      } else {
+        res.send("Delivery confirmed by customer")
+      }
+    })
+})
+
+router.put("/confirmDeliveryDriver",function(req,res){
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state : 2  }
+    },
+    {new: true, useFindAndModify: false},
+    function(err,doc){
+      if (err) {
+        res.send(err)
+      } else {
+        res.send("Delivery confirmed by driver")
+      }
+    })
+})
+
+router.put("/finishedDelivery",function(req,res){
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state : 3  }
+    },
+    {new: true, useFindAndModify: false},
+    function(err,doc){
+      if (err) {
+        res.send(err)
+      } else {
+        res.send("Delivery finished")
+      }
+    })
+})
+
 
 module.exports = router;
