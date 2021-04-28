@@ -129,7 +129,7 @@ router.get("/:id",function(req,res){
   }).populate("package")
 });
 
-router.put("/confirmDeliveryCustomer",function(req,res){
+router.put("/confirmDeliveryCustomer/:id",function(req,res){
   delivery.findByIdAndUpdate(
     req.params.id,
     {
@@ -145,7 +145,7 @@ router.put("/confirmDeliveryCustomer",function(req,res){
     })
 })
 
-router.put("/confirmDeliveryDriver",function(req,res){
+router.put("/confirmDeliveryDriver/:id",function(req,res){
   delivery.findByIdAndUpdate(
     req.params.id,
     {
@@ -161,7 +161,7 @@ router.put("/confirmDeliveryDriver",function(req,res){
     })
 })
 
-router.put("/finishedDelivery",function(req,res){
+router.put("/finishedDelivery/:id",function(req,res){
   delivery.findByIdAndUpdate(
     req.params.id,
     {
