@@ -103,7 +103,7 @@ export default function PackagesForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/Payment?amount="+2222+"&id="+id+"&userType=Customer");
+      } else history.push("/Payment?amount="+6000+"&id="+id+"&userType=Customer");
     },
   });
   const options = [

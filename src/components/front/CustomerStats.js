@@ -10,8 +10,11 @@ import {
     List,
     ListItem, CardContent
 } from '@material-ui/core';
+import {queryServerApi} from "../../utils/queryServerApi";
+import {useHistory} from "react-router-dom";
 
 export default function CustomerStats(props) {
+    const history = useHistory();
 
     function total(payments) {
         return payments.reduce(function (total, item){
@@ -24,7 +27,7 @@ export default function CustomerStats(props) {
 
     function finishedDeliv(deliveries) {
         return deliveries.reduce(function (nb, item){
-            if(item.state === 0){
+            if(item.state === 3){
                 nb+=1;
             }
 
@@ -34,12 +37,17 @@ export default function CustomerStats(props) {
 
     function notConfirmedDeliv(deliveries) {
         return deliveries.reduce(function (nb, item){
-            if(item.state === 2){
+            if(item.state === 0){
                 return item;
             }
 
             return null;
         },0)
+    }
+
+    const confirmDelivery = async (id) =>{
+        const [res, err] = await queryServerApi("delivery/confirmDeliveryCustomer/"+id, null, "PUT", false);
+        history.go(0);
     }
 
     return (
@@ -96,7 +104,7 @@ export default function CustomerStats(props) {
                                                         </small>
                                                         <span>You need to confirm that the driver get your package</span>
                                                         <br/>
-                                                        <button className="btn-primary" >Confirm Delivery</button>
+                                                        <button className="btn-primary"onClick={()=>confirmDelivery(notConfirmedDeliv(props.customer.deliveries)._id)} >Confirm Delivery</button>
                                                     </div>
 
                                                     <div className="ml-auto">
