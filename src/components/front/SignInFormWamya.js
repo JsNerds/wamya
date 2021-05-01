@@ -248,6 +248,7 @@ const SignInFromWamya =()=>{
                                 {
                                     !loginWithFace ? (
                                         <>
+
                                         <form onSubmit={formik.handleSubmit}>
 
                                                 {error.visible &&

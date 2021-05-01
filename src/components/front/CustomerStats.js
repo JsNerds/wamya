@@ -94,7 +94,7 @@ export default function CustomerStats(props) {
 
                             <ListItem className="py-2 d-block">
                                 {
-                                    notConfirmedDeliv(props.customer.deliveries) !=null ? (
+                                    notConfirmedDeliv(props.customer.deliveries) !=null && props.customer.deliveries.length != 0  ? (
                                         <Card className="card-box bg-midnight-bloom text-light mb-4">
                                             <CardContent className="p-3">
                                                 <div className="d-flex align-items-start">
@@ -120,7 +120,8 @@ export default function CustomerStats(props) {
                                             </CardContent>
                                         </Card>
 
-                                    ):(
+                                    ): props.customer.deliveries.length === 0 ?
+                                    (
                                         <Card className="card-box bg-plum-plate text-light mb-4">
                                             <CardContent className="p-3">
                                                 <div className="d-flex align-items-start">
@@ -128,12 +129,12 @@ export default function CustomerStats(props) {
                                                         <small className="text-white-50 d-block mb-1 text-uppercase">
                                                             Notification
                                                         </small>
-                                                        <span className="font-size-xxl mt-1">All deliveries are confirmed</span>
+                                                        <span className="font-size-xxl mt-1">you don't have any delivery yet </span>
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                                                             <FontAwesomeIcon
-                                                                icon={['fa', 'check-circle']}
+                                                                icon={['far', '']}
                                                                 className="font-size-xl"
                                                             />
                                                         </div>
@@ -141,7 +142,28 @@ export default function CustomerStats(props) {
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                    )
+                                    ):(
+                                            <Card className="card-box bg-plum-plate text-light mb-4">
+                                                <CardContent className="p-3">
+                                                    <div className="d-flex align-items-start">
+                                                        <div className="font-weight-bold">
+                                                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                                                                Notification
+                                                            </small>
+                                                            <span className="font-size-xxl mt-1">All deliveries are confirmed</span>
+                                                        </div>
+                                                        <div className="ml-auto">
+                                                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                                                                <FontAwesomeIcon
+                                                                    icon={['fa', 'check-circle']}
+                                                                    className="font-size-xl"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        )
                                 }
 
                                 <div className="align-box-row mb-1">

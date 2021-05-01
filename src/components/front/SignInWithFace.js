@@ -157,7 +157,7 @@ const SignInWithFace = () => {
                 if(resultClear === "unknown"){
                     setError({
                         visible: true,
-                        message: "Unknown user Please stay stable or try another way to sing in",
+                        message: "Unknown user please stay stable or try another way to sing in",
                         severity: "error"
                     });
                 }else {
@@ -204,7 +204,7 @@ const SignInWithFace = () => {
                 <MuiAlert className="mb-4" severity="success">
                     <div className="d-flex align-items-center align-content-center">
                          <span>
-                                 <strong className="d-block">Ready!</strong>
+                                 <strong className="d-block">Ready stay stable please!</strong>
                          </span>
                     </div>
                 </MuiAlert>
