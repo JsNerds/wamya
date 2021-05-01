@@ -6,6 +6,7 @@ import CustomerStat from "../../components/back/CustomerStat";
 import { useServerApi } from "../../hooks/useServerApi";
 export default function Delivery_men() {
   const [dms] = useServerApi("deliveryman/getdev");
+
   return (
     <Fragment>
       <PageTitle
@@ -14,6 +15,7 @@ export default function Delivery_men() {
       />
       <ExampleWrapperSeamless sectionHeading="Delivery men Table">
         <Deliverymendata dms={dms} />
+        <CustomerStat dms={dms} />
       </ExampleWrapperSeamless>
     </Fragment>
   );

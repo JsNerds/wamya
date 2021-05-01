@@ -11528,6 +11528,11 @@ react-visibility-sensor@^5.1.1:
   dependencies:
     prop-types "^15.7.2"
 
+react-wheel-of-prizes@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-wheel-of-prizes/-/react-wheel-of-prizes-1.0.8.tgz#dd2842935785eb217789674888f3403ff34320bc"
+  integrity sha512-DkSiIz0lmM7/0BbftjcA6vY+BSHg/pS5ADenQY75VPhbLLstRjOgE+wlPt6661ilMIYCUAyvABnCkw55hjvX8Q==
+
 react-widgets@^5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/react-widgets/-/react-widgets-5.0.3.tgz#8a23f081fcbabb05c11d7d510753cda2b92d0c2f"

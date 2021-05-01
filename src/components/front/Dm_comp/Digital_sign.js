@@ -9,8 +9,12 @@ import ImageSlider from "react-image-comparison-slider";
 import { recolorSVGString, recolorPNGImage } from "recolor-img";
 import "./sigCanvas.css";
 import axios from "axios";
+import Wheel from "./Wheel";
+import Wheels from "./Wheels";
+
 import ReactCompareImage from "react-compare-image";
 import "./App.css";
+import "./styles.css";
 import ig from "./logoBlue.png";
 import {
   ReactCompareSlider,
@@ -41,12 +45,9 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <div className="App">
+          <Wheels></Wheels>
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

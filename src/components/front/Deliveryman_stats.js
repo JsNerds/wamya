@@ -63,16 +63,15 @@ export default function CustomerStats() {
                     <Blacked src={img3} />
                     <Blacked src={img4} />
                     <Blacked src={img5} />
+                    <Blacked src={img} />
+                    <Blacked src={img1} />
                   </Div>
                 </div>
 
                 <div>
                   <div className="font-weight-bold">Unlocked milestones</div>
                 </div>
-                <Div>
-                  <Origin src={img} />
-                  <Origin src={img1} />
-                </Div>
+                <Div></Div>
               </ListItem>
             </List>
           </Card>
@@ -103,18 +102,18 @@ export default function CustomerStats() {
                   </div>
                   <div className="ml-auto">
                     <div className="font-size-xl font-weight-bold text-success">
-                      72
+                      0
                     </div>
                   </div>
                 </div>
                 <LinearProgress
                   className="progress-animated-alt"
                   color="secondary"
-                  value={72}
+                  value={0}
                 />
                 <div className="align-box-row progress-bar--label mt-1 text-muted">
                   <small className="text-dark">0</small>
-                  <div className="ml-auto">82%</div>
+                  <div className="ml-auto">0%</div>
                 </div>
               </ListItem>
               <ListItem className="py-2 d-block">
@@ -124,19 +123,18 @@ export default function CustomerStats() {
                   </div>
                   <div className="ml-auto">
                     <div className="font-size-xl font-weight-bold text-danger">
-                      <small>Hour</small>
-                      39
+                      <small>Hour</small>0
                     </div>
                   </div>
                 </div>
                 <LinearProgress
                   variant="determinate"
                   color="primary"
-                  value={39}
+                  value={0}
                 />
                 <div className="align-box-row progress-bar--label mt-1 text-muted">
-                  <small className="text-dark">39</small>
-                  <div className="ml-auto">39%</div>
+                  <small className="text-dark">0</small>
+                  <div className="ml-auto">0%</div>
                 </div>
               </ListItem>
               <ListItem className="py-2 d-block">
@@ -147,8 +145,7 @@ export default function CustomerStats() {
                   </div>
                   <div className="ml-auto">
                     <div className="font-size-xl font-weight-bold text-info">
-                      <small>#</small>
-                      42
+                      <small>#</small>0
                     </div>
                   </div>
                 </div>
@@ -173,7 +170,7 @@ export default function CustomerStats() {
                         count={5}
                         edit={false}
                         isHalf={true}
-                        value={3.5}
+                        value={0}
                         size={24}
                         activeColor="#ffd700"
                       />
@@ -210,7 +207,7 @@ export default function CustomerStats() {
                     <LinearProgress
                       color="secondary"
                       variant="determinate"
-                      value={38}
+                      value={0}
                     />
                   </div>
                   <div className="line-height-sm text-center ml-4">
@@ -218,8 +215,7 @@ export default function CustomerStats() {
                       Totals
                     </small>
                     <b className="font-size-lg text-warning">
-                      <small className="text-black-50 pr-1">Dinar</small>
-                      869
+                      <small className="text-black-50 pr-1">Dinar</small>0
                     </b>
                   </div>
                 </div>

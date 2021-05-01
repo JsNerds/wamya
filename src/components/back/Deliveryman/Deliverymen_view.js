@@ -11,19 +11,21 @@ import {
   Button,
   Tooltip,
 } from "@material-ui/core";
+import { useServerApi } from "../../../hooks/useServerApi";
 
 import avatar2 from "../../../assets/images/avatars/avatar2.jpg";
 import { queryServerApi } from "../../../utils/queryServerApi";
 import { useHistory } from "react-router";
-
+import { useParams } from "react-router";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import validate from "../../../validation/validation";
-
+import ReactStars from "react-rating-stars-component";
 export default function Deliverymen_view(props) {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-
+  const [ws] = useServerApi("deliveryman/getmiles");
+  console.log(ws);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -96,7 +98,8 @@ export default function Deliverymen_view(props) {
                   <th style={{ width: "40%" }}>deliveryman</th>
                   <th className="text-center">status</th>
                   <th className="text-center">Region</th>
-                  <th className="text-center">Address</th>
+                  <th className="text-center">Gender</th>
+                  <th className="text-center">Rating</th>
                   <th className="text-center">Phone Number</th>
                   <th className="text-center">Actions</th>
                   <th className="text-center"></th>
@@ -115,25 +118,25 @@ export default function Deliverymen_view(props) {
                             className="font-weight-bold text-black"
                             title="..."
                           >
-                            {dm.fullname}
+                            {dm.FullName}
                           </a>
                           <span className="text-black-50 d-block">
-                            Full name : {dm.FullName} | Username : {dm.Username}
+                            Username : {dm.Username}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="text-center">
-                      {dm.Status == 1 && (
+                      {dm.Status === 1 && (
                         <span class="badge badge-first">waiting</span>
                       )}
-                      {dm.Status == 2 && (
+                      {dm.Status === 2 && (
                         <span class="badge badge-danger">Offline</span>
                       )}
-                      {dm.Status == 3 && (
+                      {dm.Status === 3 && (
                         <span class="badge badge-success">Available</span>
                       )}
-                      {dm.Status == 4 && (
+                      {dm.Status === 4 && (
                         <span class="badge badge-warning">Delivering</span>
                       )}
                     </td>
@@ -147,10 +150,23 @@ export default function Deliverymen_view(props) {
                       ))}
                     </td>
                     <td className="text-center">
-                      <div>zz</div>
+                      <div>{dm.Gender}</div>
                     </td>
                     <td className="text-center">
-                      <div>{dm.Gender}</div>
+                      <div>
+                        {ws?.map((wa, index) => (
+                          <div className="row" key={index}>
+                            <span class=" badge badge-primary">
+                              {dm._id === wa.Id && (
+                                <span class="fa fa-star">{wa.rating}</span>
+                              )}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div>{dm.Phone}</div>
                     </td>
                     <td className="text-center">
                       <Button
@@ -182,7 +198,7 @@ export default function Deliverymen_view(props) {
                           <FontAwesomeIcon icon={["fas", "arrow-right"]} />
                         </IconButton>
                       </Tooltip>
-                      {dm.Status == 1 && (
+                      {dm.Status === 1 && (
                         <Tooltip arrow title="Validate">
                           <IconButton
                             size="small"
