@@ -41,8 +41,30 @@ router.get("/getdev", function (req, res, next) {
     res.json(data);
   });
 });
+
+router.get("/getmiles", function (req, res, next) {
+  mile.find(function (err, data) {
+    if (err) throw err;
+    res.json(data);
+  });
+});
+
+router.get("/getrate/:id", function (req, res, next) {
+  mile.find(
+    { $or: [{ Id: req.params.id }, { Id: req.params.id }] },
+    async function (err, data) {
+      res.json(data);
+    }
+  );
+});
 router.get("/getdev/:id", function (req, res, next) {
   delivery.findById(req.params.id, function (err, data) {
+    if (err) throw err;
+    res.json(data);
+  });
+});
+router.get("/getmileid/:id", function (req, res, next) {
+  mile.findById(req.params.id, function (err, data) {
     if (err) throw err;
     res.json(data);
   });
@@ -74,6 +96,23 @@ router.post("/", function (req, res, next) {
   res.send("Added");
 });
 
+router.put("/updatemile/:id", function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const mynewmine = {
+    delivs: obj.delivs,
+    profit: obj.profit,
+    rating: obj.rating,
+    badges: obj.badges,
+    stage: obj.stage,
+  };
+  console.log(obj);
+  mile.findByIdAndUpdate(req.params.id, mynewmine, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
 /* POST 2*/
 router.post("/add", upload, async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
@@ -88,6 +127,7 @@ router.post("/add", upload, async function (req, res, next) {
     Password: hashedPassword,
     Gender: obj.gender,
     Licence: obj.lic,
+    address: obj.address,
     Phone: obj.phone,
     Status: obj.status,
     Region: kar,
@@ -106,12 +146,12 @@ router.post("/add", upload, async function (req, res, next) {
       Username: mynewdelivery.Username,
       Password: mynewdelivery.Password,
       Email: mynewdelivery.Email,
-      img:mynewdelivery.pdp,
+      img: mynewdelivery.pdp,
       Role: "DeliveryManP",
     }).then((d) => {
       (ids = d._id), console.log(ids);
       mile.create({
-        Id: d._id,
+        Id: d.Id,
         delivs: "0",
         profit: "0",
         stage: "0",
