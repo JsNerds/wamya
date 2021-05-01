@@ -230,6 +230,7 @@ router.put('/EditProfile/:id',upload,function(req,res,next){
     await User.findOneAndUpdate({Id: req.params.id}, {
       Username: newCustomer.UserName,
       Email: newCustomer.Email,
+      img:newCustomer.img
     });
     console.log('UPDATED');
     res.send("UPDATED OK");
