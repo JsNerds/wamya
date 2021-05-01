@@ -11,7 +11,9 @@ import PaymentsTable from "../../components/back/PaymentsTable";
 export default function Delivery_man() {
   const { id } = useParams();
   const [dm, err, reload] = useServerApi("deliveryman/getdev/" + id);
+  const [mile, err1, reload1] = useServerApi("deliveryman/getrate/" + id);
   const toRender = dm;
+  const toRender2 = mile;
   return (
     <Fragment>
       <PageTitle
@@ -22,7 +24,7 @@ export default function Delivery_man() {
       <ExampleWrapperSeamless sectionHeading="Deliveryman's informations">
         {toRender ? (
           <>
-            <Deliveryman_data dm={toRender} />
+            <Deliveryman_data dm={toRender} mile={toRender2} />
           </>
         ) : (
           <p>Product not found</p>

@@ -24,6 +24,7 @@ const Customer = lazy(() => import("./pages/back/Customer"));
 const Company = lazy(() => import("./pages/back/Company"));
 const Dm_view = lazy(() => import("./pages/back/Delivery_men"));
 const Dmd = lazy(() => import("./pages/back/Delivery_man"));
+const Updatemile = lazy(() => import("./pages/back/Updatemile"));
 
 const Routes = () => {
   const location = useLocation();
@@ -93,6 +94,7 @@ const Routes = () => {
                 "/CompanyDetails/:id",
                 "/Deliverymanview",
                 "/DeliverymanDetails/:id",
+                "/Updatemille/:id",
               ]}
             >
               <LeftSidebar>
@@ -127,6 +129,7 @@ const Routes = () => {
                     {/* Delivey_man Module*/}
                     <Route path="/Deliverymanview" component={Dm_view} />
                     <Route path="/DeliverymanDetails/:id" component={Dmd} />
+                    <Route path="/Updatemille/:id" component={Updatemile} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
