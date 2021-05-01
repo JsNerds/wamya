@@ -10,8 +10,11 @@ import {
     List,
     ListItem, CardContent
 } from '@material-ui/core';
+import {queryServerApi} from "../../utils/queryServerApi";
+import {useHistory} from "react-router-dom";
 
 export default function CustomerStats(props) {
+    const history = useHistory();
 
     function total(payments) {
         return payments.reduce(function (total, item){
@@ -24,12 +27,27 @@ export default function CustomerStats(props) {
 
     function finishedDeliv(deliveries) {
         return deliveries.reduce(function (nb, item){
-            if(item.state === 0){
+            if(item.state === 3){
                 nb+=1;
             }
 
             return nb
         },0)
+    }
+
+    function notConfirmedDeliv(deliveries) {
+        return deliveries.reduce(function (nb, item){
+            if(item.state === 0){
+                return item;
+            }
+
+            return null;
+        },0)
+    }
+
+    const confirmDelivery = async (id) =>{
+        const [res, err] = await queryServerApi("delivery/confirmDeliveryCustomer/"+id, null, "PUT", false);
+        history.go(0);
     }
 
     return (
@@ -73,7 +91,59 @@ export default function CustomerStats(props) {
                             </div>
                         </div>
                         <List>
+
                             <ListItem className="py-2 d-block">
+                                {
+                                    notConfirmedDeliv(props.customer.deliveries) !=null ? (
+                                        <Card className="card-box bg-midnight-bloom text-light mb-4">
+                                            <CardContent className="p-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="font-weight-bold">
+                                                        <small className="text-white-50 d-block mb-1 text-uppercase">
+                                                            Notification :
+                                                        </small>
+                                                        <span>You need to confirm that the driver get your package</span>
+                                                        <br/>
+                                                        <button className="btn-primary"onClick={()=>confirmDelivery(notConfirmedDeliv(props.customer.deliveries)._id)} >Confirm Delivery</button>
+                                                    </div>
+
+                                                    <div className="ml-auto">
+                                                        <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
+                                                            <FontAwesomeIcon
+                                                                icon={['fa', 'box']}
+                                                                className="font-size-xl"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </CardContent>
+                                        </Card>
+
+                                    ):(
+                                        <Card className="card-box bg-plum-plate text-light mb-4">
+                                            <CardContent className="p-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="font-weight-bold">
+                                                        <small className="text-white-50 d-block mb-1 text-uppercase">
+                                                            Notification
+                                                        </small>
+                                                        <span className="font-size-xxl mt-1">All deliveries are confirmed</span>
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                                                            <FontAwesomeIcon
+                                                                icon={['fa', 'check-circle']}
+                                                                className="font-size-xl"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                }
+
                                 <div className="align-box-row mb-1">
                                     <div>
                                         <div className="font-weight-bold">Finished deliveries</div>

@@ -260,26 +260,43 @@ const PaymentForm =(props)=>{
                                         <br/>
 
                                         <div className="d-flex justify-content-between align-items-center">
-
                                             <button type="submit" className="btn_three" > Pay Now</button>
-                                            <div className="social_text d-flex ">
-                                                <div className="lead-text">Or Sign up Using</div>
-                                                <ul className="list-unstyled social_tag mb-0">
-                                                    <li><a href="/#"><i className="ti-facebook"></i></a></li>
-                                                    <li><a href="/#"><i className="ti-twitter-alt"></i></a></li>
-                                                    <li><a href="/#"><i className="ti-google"></i></a></li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </form>
-                                ) :
+                                ) : userType === "Customer" ? (
                                     <MuiAlert className="mb-4" severity="success">
                                         <div className="d-flex align-items-center align-content-center">
                                              <span>
-                                                <strong className="d-block">Success!</strong> Your payment was successful! , <br/> Please check out your Email and active your account to login!
+                                                <strong className="d-block">Success!</strong> Your payment was successful! <br/> you'll receive an <strong>EMAIL</strong> with more details of your payment
+                                                 and <strong>SMS</strong> with more details of your delivery<br/>
+                                                    Thank you !
                                              </span>
+
                                         </div>
                                     </MuiAlert>
+                                    ) : (
+                                        <>
+                                    <MuiAlert className="mb-4" severity="success">
+                                        <div className="d-flex align-items-center align-content-center">
+                                             <span>
+                                                <strong className="d-block">Success!</strong> Your payment was successful! you'll receive an EMAIL with more details of your payment
+                                             </span>
+                                            <br/>
+                                        </div>
+                                    </MuiAlert>
+                                            <p></p>
+                                    <MuiAlert className="mb-4" severity="info">
+                                        <div className="d-flex align-items-center align-content-center">
+                                             <span>
+                                                <strong className="d-block">This is your first subscription ? Activate your Account!</strong> Please check out your email to activate your account
+                                             </span>
+                                            <br/>
+                                        </div>
+                                    </MuiAlert>
+                                        </>
+                                    )
+
+
 
                                 }
 

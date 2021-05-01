@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
@@ -11,15 +11,17 @@ import {
   Popup,
   useMapEvent,
 } from "react-leaflet";
-import { marker } from "leaflet";
 
 export default function CompanyPackageForm(props) {
   const history = useHistory();
   const id = localStorage.getItem("id");
-  const role = localStorage.getItem("role");
+  //const role = localStorage.getItem("role");
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [duration, setDuration] = useState(0);
+  const [distance, setDistance] = useState(0);
   const [source, setSource] = useState({
     Street: "",
     City: "",
@@ -27,20 +29,33 @@ export default function CompanyPackageForm(props) {
     ZipCode: 0,
     Location: { Longitude: 0, Latitude: 0 },
   });
-  const [destination, setDestination] = useState([
-    {
-      Street: "",
-      City: "",
-      State: "",
-      ZipCode: 0,
-      Location: { Longitude: 0, Latitude: 0 },
-    },
-  ]);
+  const [destination, setDestination] = useState([]);
   const options = [
     { value: "Dangerous", label: "Dangerous" },
     { value: "Safe", label: "Safe" },
     { value: "Brittle", label: "Brittle" },
   ];
+  // useEffect(() => {});
+  const calculateDistance = async () => {
+    let destinations = "";
+    locations.forEach((value, i) => {
+      destinations = destinations + value.lat + "," + value.lng;
+      if (i + 1 < locations.length) {
+        destinations = destinations + ";";
+      }
+    });
+    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&overview=simplified`;
+    console.log(url);
+    await axios.get(url).then((doc) => {
+      let newDistance = doc.data.trips[0].distance;
+      let newDuration = doc.data.trips[0].duration;
+      setDuration(newDuration);
+      setDistance(newDistance);
+      console.log(newDistance, distance, duration, doc.data.trips[0].distance);
+    });
+    console.log(distance, duration);
+  };
+
   const formik = useFormik({
     initialValues: {
       customer: id,
@@ -86,14 +101,17 @@ export default function CompanyPackageForm(props) {
         Longitude: 0,
         Latitude: 0,
       },
-      CustomerModel: "customer",
+      CustomerModel: "entreprise",
     },
     onSubmit: async (values) => {
+      await calculateDistance();
+
       values.sourceAddress = source;
-      values.destinationAddress.shift();
-      values.destinationAddress.push(destination);
-      console.log(values);
+      values.destinationAddress = destination;
+      values.duration = duration;
+      values.distance = distance;
       setShowLoader(false);
+      console.log(values);
       const [, err] = await queryServerApi(
         "delivery/startDelivery",
         values,
@@ -106,10 +124,13 @@ export default function CompanyPackageForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/EntrepriseInterface");
+      } else history.go(0);
     },
   });
   const MyMarkers = () => {
+    /*const myMap = useMap();
+
+    myMap.panTo([12, 40]);*/
     const map = useMapEvent("click", (loc) => {
       axios
         .get(
@@ -121,6 +142,7 @@ export default function CompanyPackageForm(props) {
           setMarkers([...newmarkers]);
           console.log(markers.length);
           console.log(markers);
+          locations.push(markers[markers.length - 1]);
           if (markers.length === 1) {
             let newSource = { ...source };
             newSource.State = doc.data.address.state;
@@ -131,10 +153,19 @@ export default function CompanyPackageForm(props) {
             };
             newSource.ZipCode = parseInt(doc.data.address.postcode);
             setSource({ ...newSource });
-            console.log(newSource);
+            // console.log(newSource);
           } else {
-            let destinationList = { ...destination };
-            let newDestination = { ...destination[0] };
+            let newDestination = {
+              Street: "",
+              City: "",
+              State: "",
+              ZipCode: 0,
+              Location: {
+                Longitude: 0,
+                Latitude: 0,
+              },
+            };
+
             newDestination.State = doc.data.address.state;
             newDestination.City = doc.data.address.county;
             newDestination.Location = {
@@ -142,19 +173,17 @@ export default function CompanyPackageForm(props) {
               Latitude: doc.data.lat,
             };
             newDestination.ZipCode = parseInt(doc.data.address.postcode);
-
-            //destinationList.push(newDestination);
-            destinationList[markers.length - 1] = newDestination;
-            setDestination({ ...destinationList });
-            console.log(destinationList);
+            destination.push(newDestination);
+            //console.log(destination);
           }
         });
     });
     return null;
   };
-  const calculateRoute = () => {
-    console.log(source.Location);
-    console.log(destination[1].Location);
+  const clear = () => {
+    calculateDistance();
+    setDestination([]);
+    setMarkers([]);
   };
 
   return (
@@ -201,7 +230,9 @@ export default function CompanyPackageForm(props) {
 
             <div className=" mt-3 mr-1 row">
               <div className="col-lg-12">
-                <label className="f_p text_c f_400">Package type:</label>
+                <label className="f_p text_c f_400">
+                  Package type: {duration} {distance}
+                </label>
                 <Select
                   label="Choose type"
                   options={options}
@@ -224,7 +255,11 @@ export default function CompanyPackageForm(props) {
             <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
               Select source address first then the destinations :
             </h3>
-            <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={true}>
+            <MapContainer
+              center={[33.892166, 9.561555499999997]}
+              zoom={13}
+              scrollWheelZoom={true}
+            >
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -243,12 +278,8 @@ export default function CompanyPackageForm(props) {
             <button type="submit" className="btn_three">
               Send Package
             </button>
-            <button
-              type="button"
-              onClick={() => calculateRoute}
-              className="btn_three"
-            >
-              Calculate Route
+            <button type="button" onClick={() => clear()} className="btn_three">
+              Clear marks
             </button>
           </div>
         </form>

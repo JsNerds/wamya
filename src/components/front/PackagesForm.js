@@ -103,7 +103,7 @@ export default function PackagesForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else history.push("/Payment?amount="+2222+"&id="+id+"&userType=Customer");
+      } else history.push("/Payment?amount="+6000+"&id="+id+"&userType=Customer");
     },
   });
   const options = [
@@ -149,7 +149,7 @@ export default function PackagesForm(props) {
               console.log(destination)
               let recommendedDriversArray = DriverApi?.filter((driver) => {
                 let regions = driver?.Region.map((reg) => {
-                  return reg.value == destination.State
+                  return destination.State.includes(reg.value);
                 })
                 return regions.includes(true);
               })
