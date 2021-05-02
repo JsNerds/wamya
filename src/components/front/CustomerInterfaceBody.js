@@ -9,6 +9,7 @@ import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import PackagesForm from "./PackagesForm";
 import EditProfileCustomerForm from "./EditProfileCustomerForm";
 import ChangePasswordCustomer from "./ChangePasswordCustomer";
+import DisableAccountCustomer from "./DisableAccountCustomer";
 
 
 const CustomerInterfaceBody =(props)=>{
@@ -130,6 +131,7 @@ const CustomerInterfaceBody =(props)=>{
 
                             <div className="tab-pane fade" id="Security" role="tabpanel" aria-labelledby="price-tab">
                                 <ChangePasswordCustomer id={props.customer._id}/>
+                                <DisableAccountCustomer id={props.customer._id}/>
                             </div>
 
                         </div>

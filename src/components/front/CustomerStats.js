@@ -232,9 +232,6 @@ export default function CustomerStats(props) {
                                 <small className="d-block text-uppercase mt-1">Progress</small>
                                 <b>Customer Analytics</b>
                             </div>
-                            <div className="card-header--actions">
-                                <div className="badge badge-warning">Pending</div>
-                            </div>
                         </div>
                         <List>
                             <ListItem className="d-block">
@@ -292,26 +289,6 @@ export default function CustomerStats(props) {
                                         </small>
                                         <b className="font-size-lg text-danger">
                                             {props.customer.deliveries.length}
-                                        </b>
-                                    </div>
-                                </div>
-                            </ListItem>
-                            <ListItem className="d-block">
-                                <div className="align-box-row">
-                                    <div className="flex-grow-1">
-                                        <LinearProgress
-                                            color="secondary"
-                                            variant="determinate"
-                                            value={38}
-                                        />
-                                    </div>
-                                    <div className="line-height-sm text-center ml-4">
-                                        <small className="text-black-50 d-block text-uppercase">
-                                            Totals
-                                        </small>
-                                        <b className="font-size-lg text-warning">
-                                            <small className="text-black-50 pr-1"></small>
-                                            2,594
                                         </b>
                                     </div>
                                 </div>
