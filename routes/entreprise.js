@@ -265,5 +265,30 @@ router.put('/updatePassword/:id', async function(req,res,next){
 
 
 
+/** Disable Account Customer **/
+
+router.put('/DisableAccount/:id', async function(req,res,next){
+  const {passwordD} = req.body;
+  try {
+    const user = await User.find({Id: req.params.id});
+    if (await bcrypt.compare(passwordD,user[0].Password) === false) {
+      return res.send("WrongPassword");
+    }
+    else {
+      Entreprise.findByIdAndRemove(req.params.id,async function(err,data){
+        if(err) throw err;
+        await User.remove({Id: req.params.id});
+        console.log('UserDeleted');
+        return res.send("Deleted");
+      });
+    }
+  }
+  catch (error){
+    res.send(error);
+  }
+});
+
+
+
 
 module.exports = router;
