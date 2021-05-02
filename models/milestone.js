@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var milestone = new Schema({
+  _id: String,
   Id: String,
   delivs: String,
   profit: String,

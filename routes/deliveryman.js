@@ -53,7 +53,7 @@ router.get("/getrate/:id", function (req, res, next) {
   mile.find(
     { $or: [{ Id: req.params.id }, { Id: req.params.id }] },
     async function (err, data) {
-      res.json(data);
+      res.json(data[0]);
     }
   );
 });
@@ -69,6 +69,36 @@ router.get("/getmileid/:id", function (req, res, next) {
     res.json(data);
   });
 });
+
+router.put("/updatedm/:id", upload, function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log(obj);
+  const newCustomer = {
+    FullName: obj.FullName,
+    Username: obj.Username,
+    Email: obj.Email,
+    Phone: obj.Phone,
+    address: obj.address,
+    img: req.file.filename,
+  };
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    newCustomer,
+    async function (err, data) {
+      if (err) throw err;
+      await User.findOneAndUpdate(
+        { Id: req.params.id },
+        {
+          Username: newCustomer.Username,
+          Email: newCustomer.Email,
+        }
+      );
+      console.log("UPDATED");
+      res.send("UPDATED OK");
+    }
+  );
+});
+
 router.get("/getsig", function (req, res, next) {
   signature.find(function (err, data) {
     if (err) throw err;
@@ -107,9 +137,8 @@ router.put("/updatemile/:id", function (req, res, next) {
   };
   console.log(obj);
   mile.findByIdAndUpdate(req.params.id, mynewmine, function (err) {
-    if (err) {
-      console.log(err);
-    }
+    if (err) throw err;
+    res.send("done");
   });
 });
 
@@ -133,6 +162,7 @@ router.post("/add", upload, async function (req, res, next) {
     Region: kar,
     pdp: obj.pdp,
     img: req.file.filename,
+    Type: "DeliveryManP",
   };
   var ids;
   console.log(kar);
@@ -151,6 +181,7 @@ router.post("/add", upload, async function (req, res, next) {
     }).then((d) => {
       (ids = d._id), console.log(ids);
       mile.create({
+        _id: d.Id,
         Id: d.Id,
         delivs: "0",
         profit: "0",
@@ -160,6 +191,52 @@ router.post("/add", upload, async function (req, res, next) {
       });
     });
   });
+  res.send("Done");
+});
+
+/* POST company dm*/
+router.post("/addcd", upload, async function (req, res, next) {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const hashedPassword = await bcrypt.hash(obj.password, 10);
+
+  const mynewdelivery = {
+    FullName: obj.fullname,
+    Username: obj.username,
+    Email: req.body.email,
+    Date_birth: obj.date,
+    Password: hashedPassword,
+    address: obj.address,
+    Phone: obj.phone,
+    Status: 3,
+    img: req.file.filename,
+    Type: "DeliveryManE",
+  };
+  var ids;
+  //console.log(mynewdelivery);
+
+  delivery.create(mynewdelivery).then((d) => {
+    (ids = d._id), console.log(ids);
+    User.create({
+      Id: d._id,
+      Username: mynewdelivery.Username,
+      Password: mynewdelivery.Password,
+      Email: mynewdelivery.Email,
+      img: mynewdelivery.pdp,
+      Role: "DeliveryManE",
+    }).then((d) => {
+      (ids = d._id), console.log(ids);
+      mile.create({
+        _id: d.Id,
+        Id: d.Id,
+        delivs: "0",
+        profit: "0",
+        stage: "0",
+        rating: "0",
+        badges: "0",
+      });
+    });
+  });
+  res.send("Done");
 });
 
 /* POST signture*/
