@@ -212,4 +212,33 @@ router.delete('/remove', function(req,res,next){
         });
 });
 
+
+
+/** Get All Users **/
+
+ router.get('/usersAll', function(req, res, next) {
+  User.find(function(err,data){
+    if(err) throw err;
+    res.json(data);
+  });
+});
+
+
+
+router.get('/EmailFace', function(req, res, next) {
+    const email = req.query.email;
+
+    User.find({Email:email},async function(err,data){
+        if(err) throw err;
+        if(data.length === 0)
+        {
+            return res.send("UserNotFound");
+        }
+        else {
+            res.json(data);
+        }
+    });
+});
+
+
 module.exports = router;
