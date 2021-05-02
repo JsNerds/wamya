@@ -6,9 +6,7 @@ import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button, Tooltip } from "@material-ui/core";
-import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import SendPackages from "../../pages/front/SendPackages";
-import PackagesForm from "./PackagesForm";
 import Degiral_sign from "./Dm_comp/Digital_sign";
 
 const Deliveryman_Body = () => {

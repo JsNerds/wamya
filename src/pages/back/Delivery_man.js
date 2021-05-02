@@ -10,10 +10,15 @@ import PaymentsTable from "../../components/back/PaymentsTable";
 
 export default function Delivery_man() {
   const { id } = useParams();
+  const { id1 } = useParams();
+  const [mile, err1, reload1] = useServerApi("deliveryman/getmileid/" + id);
+
   const [dm, err, reload] = useServerApi("deliveryman/getdev/" + id);
-  const [mile, err1, reload1] = useServerApi("deliveryman/getrate/" + id);
   const toRender = dm;
   const toRender2 = mile;
+  console.log("dm:" + dm);
+  console.log("mile" + mile);
+
   return (
     <Fragment>
       <PageTitle
