@@ -10,7 +10,6 @@ import HomeCRM from "./PagesFront/Home-CRM";
 import About from "./PagesFront/About";
 import Service from "./PagesFront/Service";
 import Process from "./PagesFront/Process";
-import SignUp from "./pages/front/SignUp";
 import Team from "./PagesFront/Team";
 import Portfolio2col from "./PagesFront/Portfolio-2col";
 import Portfolio3col from "./PagesFront/Portfolio-3col";

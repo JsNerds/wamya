@@ -227,9 +227,9 @@ export default function CustomNavbar(props) {
                     <li className="nav-item">
                       <NavLink
                         exact
-                        title="SignUp"
+                        title="SignInWithFace"
                         className="nav-link"
-                        to="/SignUp"
+                        to="/SignInWithFace"
                       >
                         Sign Up
                       </NavLink>
