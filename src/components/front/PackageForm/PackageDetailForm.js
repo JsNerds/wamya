@@ -19,7 +19,7 @@ export default function PackageDetailForm(props) {
                 options={options}
                 value={props.formik.getFieldProps("package.0.type").value}
                 onChange={(value) => {
-                  props.formik.setFieldValue("package.0.type", value)
+                  props.formik.setFieldValue("package.0.type", value.value)
                 }}
               />
             </div>

@@ -17,8 +17,8 @@ export default function PackagesForm(props) {
   const history = useHistory();
   const [DriverApi] = useServerApi("deliveryman/getdev");
   const [chosenDriver, setChosenDriver] = useState();
-  const [duration, setDuration] = useState();
-  const [distance, setDistance] = useState();
+  const [duration, setDuration] = useState(0);
+  const [distance, setDistance] = useState(0);
   const [locations, setLocations] = useState([]);
   const [amount, setAmount] = useState(0);
   const [showLoader, setShowLoader] = useState(false);
@@ -92,6 +92,8 @@ export default function PackagesForm(props) {
       values.sourceAddress = source;
       values.destinationAddress.shift();
       values.destinationAddress.push(destination);
+      values.duration = duration;
+      values.distance = distance;
       console.log(values);
       setShowLoader(false);
       const [, err] = await queryServerApi(
@@ -120,15 +122,12 @@ export default function PackagesForm(props) {
               "min"
           );
         } else {
-          history.push(
-            "/Payment?amount=" +
-              Math.round(amount.toFixed(2) * 100) +
-              "&id=" +
-              id +
-              "&userType=Customer&duration=" +
-              Math.round(duration / 60) +
-              "min"
-          );
+          if (Math.round(duration / 3600) !== 0) {
+            history.push("/Payment?amount=" + Math.round(amount.toFixed(2) * 100) + "&id=" + id + "&userType=Customer&duration=hr" + Math.round(duration / 3600) + ":" + Math.round((duration / 60) % 60) + "min");
+          }
+          else {
+            history.push("/Payment?amount=" + Math.round(amount.toFixed(2)*100) + "&id=" + id + "&userType=Customer&duration="+Math.round(duration / 60) +"min");
+          }
         }
       }
     },
@@ -140,6 +139,7 @@ export default function PackagesForm(props) {
 
   const calculateDistance = async () => {
     let destinations = "";
+    setDistance(0);
     locations.forEach((value, i) => {
       destinations = destinations + value.lng + "," + value.lat;
       if (i + 1 < locations.length) {
@@ -153,7 +153,7 @@ export default function PackagesForm(props) {
       let newDuration = doc.data.trips[0].duration;
       setDuration(newDuration);
       setDistance(newDistance);
-      setAmount((newDistance / 1000) * 0.6);
+      setAmount((newDistance / 1000) * 0.7);
       console.log(newDistance, distance, duration, doc.data.trips[0].distance);
     });
     console.log(distance, duration);
@@ -207,6 +207,15 @@ export default function PackagesForm(props) {
                   </div>
                   <div className="form-group text_box">
                     <PackageSteps component={component} step={step} />
+                  </div>
+                  <div className="col-md-4">
+                    {distance !== 0 && duration !== 0 ? (
+                        <>
+                          <p>
+                            Price : {amount.toFixed(3)} DT
+                          </p>
+                        </>
+                    ) : null}
                   </div>
                   <div className="d-flex justify-content-between align-items-end">
                     {step != 0 ? (
