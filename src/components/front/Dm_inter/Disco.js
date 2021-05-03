@@ -14,13 +14,17 @@ import {
 import ReactStars from "react-rating-stars-component";
 import { useHistory } from "react-router";
 import { queryServerApi } from "../../../utils/queryServerApi";
-
+import { useServerApi } from "../../../hooks/useServerApi";
 const CustomerInterfaceBody = (props) => {
   const [a, seta] = React.useState(props.dm.Status);
 
-  const history = useHistory();
+  const [delivs, setdelivs] = React.useState(props.delivs);
 
+  const history = useHistory();
+  console.log("waaw" + props.delivs);
+  console.log("ooop" + delivs);
   console.log("aaaaaaaaaaa" + a);
+
   function online() {
     seta(3);
     Dispo(props.dm._id);
@@ -55,35 +59,101 @@ const CustomerInterfaceBody = (props) => {
   return (
     <Fragment>
       <Grid container spacing={4}>
-        {a === 3 && (
+        {a === 3 && props.delivs?.length !== 0 && (
           <Grid item xs={12} md={6} lg={6}>
-            <Card className="card-box mb-4 bg-premium-dark border-0 text-light">
-              <CardContent className="p-3">
-                <div className="align-box-row align-items-start">
-                  <div className="font-weight-bold">
-                    <small className="text-white-50 d-block mb-1 text-uppercase">
-                      New Accounts
-                    </small>
-                    <span className="font-size-xxl mt-1">586,356</span>
-                  </div>
-                  <a className="ml-auto" href="#">
-                    <div className="ml-auto">
-                      <div className="bg-white text-center text-success font-size-xl d-50 d-flex align-items-center justify-content-center rounded-circle">
-                        <AddCircleTwoToneIcon />
-                      </div>
-                    </div>
-                  </a>
+            <Card className="card-box mb-4">
+              <div className="card-header">
+                <div className="card-header--title">
+                  <b>Detailed informations</b>
+                  <div className="d-block text-capitalize mt-1 font-size-sm"></div>
                 </div>
-                <div className="mt-3">
-                  <FontAwesomeIcon
-                    icon={["fas", "arrow-up"]}
-                    className="text-success"
-                  />
+              </div>
+              <List>
+                <ListItem className="py-2 d-block">
+                  {props.delivs.map((dlv, index) => (
+                    <Card
+                      key={index}
+                      className="card-box mb-4 bg-premium-dark border-0 text-light"
+                    >
+                      <CardContent className="p-3">
+                        <div className="align-box-row align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              {dlv._id}
+                            </small>
+                            <span className="font-size-xxl mt-1">586,356</span>
+                          </div>
+                          <a className="ml-auto" href="#">
+                            <div className="ml-auto">
+                              <div className="bg-white text-center text-success font-size-xl d-50 d-flex align-items-center justify-content-center rounded-circle">
+                                <AddCircleTwoToneIcon />
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                            icon={["fas", "arrow-up"]}
+                            className="text-success"
+                          />
 
-                  <span className="text-success px-1">15.4%</span>
-                  <span className="text-white-50">increase this month</span>
+                          <span className="text-success px-1">15.4%</span>
+                          <span className="text-white-50">
+                            increase this month
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </ListItem>
+              </List>
+            </Card>
+          </Grid>
+        )}
+
+        {a === 3 && props.delivs?.length === 0 && (
+          <Grid item xs={12} md={6} lg={6}>
+            <Card className="card-box mb-4">
+              <div className="card-header">
+                <div className="card-header--title">
+                  <b>Detailed informations</b>
+                  <div className="d-block text-capitalize mt-1 font-size-sm"></div>
                 </div>
-              </CardContent>
+              </div>
+              <List>
+                <ListItem className="py-2 d-block">
+                  <Card className="card-box mb-4 bg-premium-dark border-0 text-light">
+                    <CardContent className="p-3">
+                      <div className="align-box-row align-items-start">
+                        <div className="font-weight-bold">
+                          <small className="text-white-50 d-block mb-1 text-uppercase">
+                            NOPE{" "}
+                          </small>
+                          <span className="font-size-xxl mt-1">nope</span>
+                        </div>
+                        <a className="ml-auto" href="#">
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success font-size-xl d-50 d-flex align-items-center justify-content-center rounded-circle">
+                              <AddCircleTwoToneIcon />
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div className="mt-3">
+                        <FontAwesomeIcon
+                          icon={["fas", "arrow-up"]}
+                          className="text-success"
+                        />
+
+                        <span className="text-success px-1">15.4%</span>
+                        <span className="text-white-50">
+                          increase this month
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </ListItem>
+              </List>
             </Card>
           </Grid>
         )}
