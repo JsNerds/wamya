@@ -146,7 +146,7 @@ export default function CustomerStats(props) {
                             Notification
                           </small>
                           <span className="font-size-xxl mt-1">
-                            you don't have any delivery yet{" "}
+                            you don't have any delivery yet
                           </span>
                         </div>
                         <div className="ml-auto">
@@ -183,7 +183,41 @@ export default function CustomerStats(props) {
                       </div>
                     </CardContent>
                   </Card>
-                )}
+                )
+                }
+
+
+                { props.customer.deliveries.length >= 1 && (
+                    <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              New Accounts
+                            </small>
+                            <span className="font-size-xxl mt-1">586,356</span>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                  icon={['far', 'chart-bar']}
+                                  className="font-size-xl"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                              icon={['fas', 'arrow-up']}
+                              className="text-success mr-1"
+                          />
+                          <span className="text-success pr-1">15.4%</span>
+                          <span className="text-white-50">increase this month</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                )
+                }
 
                 <div className="align-box-row mb-1">
                   <div>
@@ -245,6 +279,9 @@ export default function CustomerStats(props) {
             </div>
           </Card>
         </Grid>
+
+
+
 
         <Grid item xs={12} lg={12}>
           <Card className="card-box mb-4">

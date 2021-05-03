@@ -26,6 +26,7 @@ export default function PackagesForm(props) {
   const [driverShow, setDriverShow] = useState();
   const [duration, setDuration] = useState(0);
   const [distance, setDistance] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [locations, setLocations] = useState([]);
   const [error, setError] = useState({ visible: false, message: "" });
   const [step, setStep] = useState(1);
@@ -113,9 +114,15 @@ export default function PackagesForm(props) {
           message: JSON.stringify(err.errors, null, 2),
         });
       } else
-        history.push(
-          "/Payment?amount=" + 6000 + "&id=" + id + "&userType=Customer"
-        );
+      {
+          if (Math.round(duration / 3600) !== 0) {
+          history.push("/Payment?amount=" + Math.round(amount.toFixed(2) * 100) + "&id=" + id + "&userType=Customer&duration=hr" + Math.round(duration / 3600) + ":" + Math.round((duration / 60) % 60) + "min");
+          }
+          else {
+          history.push("/Payment?amount=" + Math.round(amount.toFixed(2)*100) + "&id=" + id + "&userType=Customer&duration="+Math.round(duration / 60) +"min");
+         }
+      }
+
     },
   });
   const options = [
@@ -126,7 +133,9 @@ export default function PackagesForm(props) {
   const chooseDriver = (id) => {
     formik.setFieldValue("driver", id);
   };
+
   const calculateDistance = async () => {
+
     let destinations = "";
     locations.forEach((value, i) => {
       destinations = destinations + value.lng + "," + value.lat;
@@ -141,10 +150,13 @@ export default function PackagesForm(props) {
       let newDuration = doc.data.trips[0].duration;
       setDuration(newDuration);
       setDistance(newDistance);
+      setAmount(( newDistance / 1000) * 0.6);
       console.log(newDistance, distance, duration, doc.data.trips[0].distance);
     });
     console.log(distance, duration);
   };
+
+
   const MyMarkers = () => {
     const map = useMapEvent("click", (loc) => {
       map.invalidateSize();
@@ -187,6 +199,7 @@ export default function PackagesForm(props) {
               });
               console.log(recommendedDriversArray);
               setDriverShow(recommendedDriversArray);
+              calculateDistance();
             }
           });
       } else {
@@ -297,28 +310,14 @@ export default function PackagesForm(props) {
                               className="btn_three"
                               style={{ marginTop: 10 }}
                             >
-                              Calculate
+                              Show Price
                             </button>
                           </div>
                           <div className="col-md-4">
                             {distance !== 0 && duration !== 0 ? (
                               <>
-                                <p
-                                  className="f_p text_c f_400"
-                                  style={{ marginBottom: 0 }}
-                                >
-                                  Distance: {(distance / 1000).toFixed(2)} Km
-                                </p>
-                                <p className="f_p text_c f_400">
-                                  Duration:{" "}
-                                  {Math.round(duration / 3600) !== 0 ? (
-                                    <>
-                                      {Math.round(duration / 3600)}Hr
-                                      {Math.round((duration / 60) % 60)}min
-                                    </>
-                                  ) : (
-                                    <>{Math.round(duration / 60)}min </>
-                                  )}
+                                <p>
+                                  Price : {amount.toFixed(3)} DT
                                 </p>
                               </>
                             ) : null}
