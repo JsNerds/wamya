@@ -91,6 +91,8 @@ router.post('/', function(req,res,next){
 
 router.post('/addPaymentCust/:id', function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
+  const duration = req.query.duration;
+
   const newPayment = {
     PaymentMethod: obj.PaymentMethod,
     NameOnCard: obj.NameOnCard,
@@ -124,7 +126,7 @@ router.post('/addPaymentCust/:id', function(req,res,next){
             } else {
               PaymentDetailsEmail(customer.Email,customer.UserName,obj.Amount,obj.NameOnCard,obj.creditCard)
               clientSMS.messages.create({
-                body: `Congrats! ${customer.UserName} your package will reaches his destination after minutes `,
+                body: `Congrats! ${customer.UserName} your package will reaches his destination after ${duration} `,
                 to: '+21620566666',  // Text this number
                 from: '+14079179267' // From a valid Twilio number
               })
