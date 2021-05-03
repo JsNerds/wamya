@@ -60,17 +60,17 @@ export default function Deliveryman_data(props) {
                 <strong>Gender : </strong> {props.dm.Gender}
               </p>
               <p className="card-text">
-                <strong>Date of birth : </strong>{" "}
+                <strong>Date of birth : </strong>
                 {props.dm.Date_birth.substring(0, 10)}
               </p>
               <p className="card-text">
-                <strong>Joined the : </strong>{" "}
-                {props.dm.createdAt.substring(0, 10)} at{" "}
+                <strong>Joined the : </strong>
+                {props.dm.createdAt.substring(0, 10)} at
                 {props.dm.createdAt.substring(11, 16)}
               </p>
               <p className="card-text">
-                <strong>Last update : </strong>{" "}
-                {props.dm.updatedAt.substring(0, 10)} at{" "}
+                <strong>Last update : </strong>
+                {props.dm.updatedAt.substring(0, 10)} at
                 {props.dm.updatedAt.substring(11, 16)}
               </p>
             </CardContent>
