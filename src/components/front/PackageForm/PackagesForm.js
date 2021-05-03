@@ -12,11 +12,15 @@ import RecommendedDriverForm from "./RecommendedDriverForm";
 
 export default function PackagesForm(props) {
   const id = localStorage.getItem("id");
-  const [recommendedDriversList,setRecommendedDriverList]= useState([]);
+  const [recommendedDriversList, setRecommendedDriverList] = useState([]);
   const role = localStorage.getItem("role");
   const history = useHistory();
   const [DriverApi] = useServerApi("deliveryman/getdev");
-  const [chosenDriver,setChosenDriver] = useState();
+  const [chosenDriver, setChosenDriver] = useState();
+  const [duration, setDuration] = useState();
+  const [distance, setDistance] = useState();
+  const [locations, setLocations] = useState([]);
+  const [amount, setAmount] = useState(0);
   const [showLoader, setShowLoader] = useState(false);
   const [driverShow, setDriverShow] = useState();
   const [error, setError] = useState({ visible: false, message: "" });
@@ -102,10 +106,31 @@ export default function PackagesForm(props) {
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
         });
-      } else
-        history.push(
-          "/Payment?amount=" + 6000 + "&id=" + id + "&userType=Customer"
-        );
+      } else {
+        if (Math.round(duration / 3600) !== 0) {
+          history.push(
+            "/Payment?amount=" +
+              Math.round(amount.toFixed(2) * 100) +
+              "&id=" +
+              id +
+              "&userType=Customer&duration=hr" +
+              Math.round(duration / 3600) +
+              ":" +
+              Math.round((duration / 60) % 60) +
+              "min"
+          );
+        } else {
+          history.push(
+            "/Payment?amount=" +
+              Math.round(amount.toFixed(2) * 100) +
+              "&id=" +
+              id +
+              "&userType=Customer&duration=" +
+              Math.round(duration / 60) +
+              "min"
+          );
+        }
+      }
     },
   });
 
@@ -113,19 +138,42 @@ export default function PackagesForm(props) {
     formik.setFieldValue("driver", id);
   };
 
+  const calculateDistance = async () => {
+    let destinations = "";
+    locations.forEach((value, i) => {
+      destinations = destinations + value.lng + "," + value.lat;
+      if (i + 1 < locations.length) {
+        destinations = destinations + ";";
+      }
+    });
+    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&destination=last&roundtrip=false&overview=simplified`;
+    console.log(url);
+    await axios.get(url).then((doc) => {
+      let newDistance = doc.data.trips[0].distance;
+      let newDuration = doc.data.trips[0].duration;
+      setDuration(newDuration);
+      setDistance(newDistance);
+      setAmount((newDistance / 1000) * 0.6);
+      console.log(newDistance, distance, duration, doc.data.trips[0].distance);
+    });
+    console.log(distance, duration);
+  };
+
   const changeStep = (i) => {
     if (step + i < 0 || step + i > component.length) {
       return null;
     } else {
-      if(step+i == 2)
-      {
-        setRecommendedDriverList(DriverApi?.filter((driver) => {
-          let regions = driver?.Region.map((reg) => {
-            return destination.State.includes(reg.value);
+      if (step + i == 2) {
+        calculateDistance();
+        setRecommendedDriverList(
+          DriverApi?.filter((driver) => {
+            let regions = driver?.Region.map((reg) => {
+              return destination.State.includes(reg.value);
+            });
+            return regions.includes(true);
           })
-          return regions.includes(true);
-        }))
-        console.log(recommendedDriversList)
+        );
+        console.log(recommendedDriversList);
       }
       setStep(step + i);
     }
@@ -135,8 +183,16 @@ export default function PackagesForm(props) {
     <DestinationForm
       changeSource={setSource}
       changeDestination={setDestination}
+      changeDuration={setDuration}
+      changeDistance={setDistance}
+      changeLocations={setLocations}
+      locations={locations}
+      changeAmout={setAmount}
     />,
-    <RecommendedDriverForm chooseDriver={chooseDriver} driverList={recommendedDriversList} />,
+    <RecommendedDriverForm
+      chooseDriver={chooseDriver}
+      driverList={recommendedDriversList}
+    />,
   ];
   return (
     <section className="sign_in_area bg_color sec_pad">

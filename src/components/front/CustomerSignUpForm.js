@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import {useHistory} from "react-router";
 import {useFormik} from "formik";
 import {queryServerApi} from "../../utils/queryServerApi";
@@ -11,7 +11,13 @@ import FacebookLogin from 'react-facebook-login';
 
 const CustomerSignUpForm =()=>{
     const history = useHistory();
+    const videoRef = useRef(null);
+    const photoRef = useRef(null);
+    const stripRef = useRef(null);
+
     const [success,setSuccess] = useState(false);
+    const [showCam,setshowCam] = useState(false);
+    const [showTerms,setShowTerms] = useState(false);
     const [error,setError] = useState({
         visible: false,
         message: "",
@@ -32,7 +38,8 @@ const CustomerSignUpForm =()=>{
             phoneNumber: "",
             street: "",
             city: "",
-            zipCode: ""
+            zipCode: "",
+            acceptTerms: false
         },validationSchema: YupSchema,
         onSubmit: async (values) => {
             console.log("Values",values);
@@ -133,6 +140,72 @@ const CustomerSignUpForm =()=>{
             city: "",
             zipCode: ""
         });
+    }
+
+
+    const getVideo =  async () => {
+        navigator.mediaDevices
+            .getUserMedia({ video: { width: 300 } })
+            .then(stream => {
+                let video = videoRef.current;
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(err => {
+                console.error("error:", err);
+            });
+    };
+
+
+
+    const paintToCanvas = () => {
+        let video = videoRef.current;
+        let photo = photoRef.current;
+        let ctx = photo.getContext("2d");
+
+        const width = 320;
+        const height = 240;
+        photo.width = width;
+        photo.height = height;
+
+        return setInterval(() => {
+            ctx.drawImage(video, 0, 0, width, height);
+        }, 200);
+    };
+
+    const showCamVideo = ()=> {
+        setshowCam(true);
+        getVideo();
+    }
+
+    const stopVideo = (e) => {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+
+        for (let i = 0; i < tracks.length; i++) {
+            let track = tracks[i];
+            track.stop();
+        }
+
+        videoRef.current.srcObject = null;
+    }
+
+    const takePhoto = () => {
+        let photo = photoRef.current;
+        let strip = stripRef.current;
+
+        const data = photo.toDataURL("image/jpeg");
+        const link = document.createElement("a");
+        link.href = data;
+        link.setAttribute("download", "myWebcam");
+        link.innerHTML = `<img src='${data}' alt='thumbnail'/>`;
+        strip.insertBefore(link, strip.firstChild);
+        stopVideo();
+    };
+
+
+    const showTemrss = () => {
+        setShowTerms(!showTerms);
     }
 
 
@@ -307,20 +380,63 @@ const CustomerSignUpForm =()=>{
                                     </div>
 
 
-                                    <div className="form-group text_box">
-                                        <label className="f_p text_c f_400"> <strong>Upload your Profile picture : </strong></label><br/>
 
-                                        <input
-                                             id="fileinput"
-                                             type="file"
-                                             name="img"
-                                             onChange={(event) => {
-                                            formik.setFieldValue("img", event.target.files[0]);
-                                             }}/>
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> <strong>Take a picture with camera </strong></label><br/>
+                                        {showCam ?
+                                            <>
+                                            <video
+                                                onCanPlay={() => paintToCanvas()}
+                                                ref={videoRef}
+                                                className="player"/>
+                                            <canvas ref={photoRef} className="photo" hidden={true}/>
+                                                <br/>
+                                                <button className="btn-outline-primary" onClick={takePhoto}>Capture photo</button>
+                                                <br/>
+
+                                                <MuiAlert className="mb-4" severity="info">
+                                                    <div className="d-flex align-items-center align-content-center">
+                                                        <span>
+                                                              <strong className="d-block">This is your picturee!</strong> now click on it to download it and upload it below
+                                                        </span>
+                                                    </div>
+                                                </MuiAlert>
+
+                                                <div className="photo-booth">
+                                                  <div ref={stripRef} className="strip" />
+                                                </div>
+                                            </>
+                                            :
+                                            <button className="btn-outline-primary" onClick={showCamVideo}>Take photo</button>
+
+                                        }
                                         {formik.errors.image && formik.touched.image && (
                                             <FormHelperText error={formik.errors.image}>{formik.errors.image}</FormHelperText>
                                         )}
                                     </div>
+
+
+
+                                    <label className="f_p text_c f_400"> <strong>Or </strong></label><br/>
+
+
+
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> <strong>Upload your Profile picture : </strong></label><br/>
+
+                                        <input
+                                            id="fileinput"
+                                            type="file"
+                                            name="img"
+                                            onChange={(event) => {
+                                                formik.setFieldValue("img", event.target.files[0]);
+                                            }}/>
+                                        {formik.errors.image && formik.touched.image && (
+                                            <FormHelperText error={formik.errors.image}>{formik.errors.image}</FormHelperText>
+                                        )}
+                                    </div>
+
+
 
                                     <div className="form-group text_box">
                                         <label className="f_p text_c f_400">Address</label>
@@ -393,9 +509,21 @@ const CustomerSignUpForm =()=>{
 
                                     <div className="extra mb_20">
                                         <div className="checkbox remember">
+                                            <label onClick={showTemrss}>Show terms</label><br/>
+                                            {showTerms && (
+                                                <p>
+                                                    Purpose of these terms of use
+                                                    Although you may be tempted not to read these Terms of Service, it is important that you know what to expect from us when using the <strong>Wamya services</strong>, and vice versa.
+
+                                                </p>
+                                            )}
                                             <label>
-                                                <input type="checkbox"/> I agree to terms and conditions of this website
+                                                <input type="checkbox" id="acceptTerms" onChange={(e)=> formik.setFieldValue("acceptTerms",!formik.values.acceptTerms)}/> I agree to terms and conditions of this website
                                             </label>
+
+                                            {formik.errors.acceptTerms && formik.touched.acceptTerms && (
+                                                <FormHelperText error={formik.errors.acceptTerms}>{formik.errors.acceptTerms}</FormHelperText>
+                                            )}
                                         </div>
 
                                     </div>
@@ -403,9 +531,9 @@ const CustomerSignUpForm =()=>{
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div className="d-flex ">
                                             <div className="lead-text">
-                                                <button type="submit" className="btn_three">Sign Up</button>
+                                                <button type="submit" className={(formik.values.acceptTerms ? 'btn-primary' : 'btn-outline-primary')} disabled={!formik.values.acceptTerms}>Sign Up</button>
                                             </div>
-                                             <button className="btn_three" onClick={Reset}>Reset</button>
+                                             <button className="btn-outline-danger" onClick={Reset}>Reset</button>
                                         </div>
                                     </div>
 
@@ -458,7 +586,8 @@ const YupSchema = Yup.object ({
         .max(15 | " longer than 15 characters")
         .required("password is Required"),
     passwordConfirmation: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required')
 
 
 

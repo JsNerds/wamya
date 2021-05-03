@@ -1,15 +1,14 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
-  useMapEvents,
+  // useMapEvents,
   useMap,
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
-import { queryServerApi } from "../../utils/queryServerApi";
 export default function PackageDetailItem() {
   let { id } = useParams();
   console.log(id);
@@ -38,13 +37,13 @@ export default function PackageDetailItem() {
             ]}
           >
             <Popup>
-              <span>Popup</span>
+              <span>start : {deliv?.sourceAddress.City}</span>
             </Popup>
           </Marker>
           {deliv?.destinationAddress.map((el) => (
             <Marker position={[el.Location.Latitude, el.Location.Longitude]}>
               <Popup>
-                <span>Popup</span>
+                <span>{el.City}</span>
               </Popup>
             </Marker>
           ))}
@@ -102,9 +101,10 @@ export default function PackageDetailItem() {
                 <div className="info_item">
                   <h6>Service Cost:</h6>
                   <p>
-                    duration :{deliv?.duration}
-                    distance :{deliv?.distance}
+                    Duration: {Math.round(deliv?.duration / 3600)}Hr
+                    {Math.round((deliv?.duration / 60) % 60)}min
                   </p>
+                  <p>Distance: {Math.round(deliv?.distance / 1000)} Km</p>
                 </div>
                 <div className="info_item">
                   <h6>Source Adress</h6>

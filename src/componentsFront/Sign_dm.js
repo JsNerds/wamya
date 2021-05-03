@@ -30,7 +30,8 @@ export default function Sign_dm(props) {
     let formData = new FormData();
     formData.append("img", valeurs.img);
     const wow = await getBase64(valeurs.pdp);
-    console.log("testing" + wow);
+    //console.log("testing" + wow);
+    console.log("plan" + valeurs.plan);
     formData.append("username", valeurs.username);
     formData.append("fullname", valeurs.fullname);
     formData.append("phone", valeurs.phone);

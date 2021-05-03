@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import {
   Grid,
@@ -16,6 +16,14 @@ import { useHistory } from "react-router";
 
 export default function Deliveryman_data(props) {
   const history = useHistory();
+  console.log("dm + " + props.dm);
+  console.log("mile +" + props.mile);
+  const firstExample = {
+    size: 30,
+    value: props.mile["rating"],
+    edit: false,
+  };
+  console.log(firstExample);
 
   const Updatemille = (id) => {
     history.push("/Updatemille/" + id);
@@ -25,13 +33,17 @@ export default function Deliveryman_data(props) {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6} md={4}>
           <Card className="mb-4">
-            <img alt="..." className="card-img-top" src={props.dm.pdp} />
+            <img
+              alt="..."
+              className="card-img-top"
+              src={process.env.REACT_APP_API_URL_UPLOADS + "/" + props.dm.img}
+            />
             <CardContent className="p-3">
               <h5 className="card-title font-weight-bold font-size-lg">
                 {props.dm.Fullname}
               </h5>
               <p className="card-text">
-                <strong>Username : </strong> {props.dm.Username}{" "}
+                <strong>Username : </strong> {props.dm.Username}
                 {console.log(props.mile)}
                 {console.log(props.dm)}
               </p>
@@ -42,10 +54,24 @@ export default function Deliveryman_data(props) {
                 <strong>Phone Number : </strong> {props.dm.Phone}
               </p>
               <p className="card-text">
-                <strong>Address : </strong> {props.dm.Address}
+                <strong>Address : </strong> {props.dm.address}
               </p>
               <p className="card-text">
                 <strong>Gender : </strong> {props.dm.Gender}
+              </p>
+              <p className="card-text">
+                <strong>Date of birth : </strong>
+                {props.dm.Date_birth.substring(0, 10)}
+              </p>
+              <p className="card-text">
+                <strong>Joined the : </strong>
+                {props.dm.createdAt.substring(0, 10)} at
+                {props.dm.createdAt.substring(11, 16)}
+              </p>
+              <p className="card-text">
+                <strong>Last update : </strong>
+                {props.dm.updatedAt.substring(0, 10)} at
+                {props.dm.updatedAt.substring(11, 16)}
               </p>
             </CardContent>
           </Card>
@@ -61,13 +87,7 @@ export default function Deliveryman_data(props) {
               </div>
               <List>
                 <ListItem className="d-block">
-                  <img
-                    alt="..."
-                    className="card-img-top"
-                    src={
-                      process.env.REACT_APP_API_URL_UPLOADS + "/" + props.dm.img
-                    }
-                  />
+                  <img alt="..." className="card-img-top" src={props.dm.pdp} />
                 </ListItem>
               </List>
             </Card>
@@ -89,7 +109,7 @@ export default function Deliveryman_data(props) {
                     <LinearProgress
                       color="secondary"
                       variant="determinate"
-                      value={props.mile?.map((ds, index) => ds.delivs)}
+                      value={props.mile["delivs"]}
                     />
                   </div>
                   <div className="line-height-sm text-center ml-4">
@@ -98,7 +118,7 @@ export default function Deliveryman_data(props) {
                     </small>
                     <b className="font-size-lg text-success">
                       <small className="pr-1 text-black-50"></small>
-                      {props.mile?.map((ds, index) => ds.delivs)}
+                      {props.mile["delivs"]}
                     </b>
                   </div>
                 </div>
@@ -109,7 +129,7 @@ export default function Deliveryman_data(props) {
                     <LinearProgress
                       variant="determinate"
                       color="primary"
-                      value={props.mile?.map((ds, index) => ds.profit)}
+                      value={props.mile["profit"]}
                     />
                   </div>
                   <div className="line-height-sm text-center ml-4">
@@ -117,7 +137,7 @@ export default function Deliveryman_data(props) {
                       Profit
                     </small>
                     <b className="font-size-lg text-info">
-                      {props.mile?.map((ds, index) => ds.profit)}
+                      {props.mile["profit"]}
                       <small className="text-black-50 pr-1">TND</small>
                     </b>
                   </div>
@@ -129,19 +149,9 @@ export default function Deliveryman_data(props) {
                   <div className="flex-grow-1">
                     <b className="font-size-lg text-warning">
                       <small className="text-black-50 pr-1">Rating</small>
-                      {props.mile?.map((ds, index) => ds.delivs)}
+                      {props.mile.rating}
                     </b>
-
-                    <ReactStars
-                      count={5}
-                      edit={false}
-                      isHalf={true}
-                      value={parseInt(
-                        props.mile?.map((ds, index) => ds.rating)
-                      )}
-                      size={24}
-                      activeColor="#ffd700"
-                    />
+                    <ReactStars {...firstExample} />
                   </div>
                 </div>
               </ListItem>
@@ -150,13 +160,8 @@ export default function Deliveryman_data(props) {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() =>
-                  Updatemille(props.mile?.map((ds, index) => ds._id))
-                }
+                onClick={() => Updatemille(props.mile["_id"])}
               >
-                <span className="btn-wrapper--icon">
-                  <FontAwesomeIcon icon={["far", "question-circle"]} />
-                </span>
                 <span className="btn-wrapper--label">Update</span>
               </Button>
             </div>

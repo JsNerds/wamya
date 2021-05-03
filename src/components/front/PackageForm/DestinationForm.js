@@ -38,6 +38,7 @@ export default function DestinationForm(props) {
             let newmarkers = markers;
             newmarkers.push(loc.latlng);
             setMarkers([...newmarkers]);
+            props.locations.push(markers[markers.length - 1]);
             if (markers.length == 1) {
               let newSource = { ...source };
               newSource.State = doc.data.address.state;
@@ -63,6 +64,9 @@ export default function DestinationForm(props) {
           });
       } else {
         setMarkers([]);
+        props.changeDistance(0)
+        props.changeDuration(0)
+        props.changeLocations([])
       }
     });
     return null;

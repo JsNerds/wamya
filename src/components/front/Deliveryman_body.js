@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import EntrepriseDrivers from "./EntrepriseDrivers";
 import PackageSlider from "./PackageSlider";
 import Deliveryman_stats from "./Deliveryman_stats";
@@ -6,11 +6,18 @@ import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button, Tooltip } from "@material-ui/core";
-import CustomerOperationsPayments from "./CustomerOperationsPayments";
 import SendPackages from "../../pages/front/SendPackages";
 import Degiral_sign from "./Dm_comp/Digital_sign";
+import Disco from "./Dm_inter/Disco";
 
-const Deliveryman_Body = () => {
+import { useServerApi } from "../../hooks/useServerApi";
+
+export default function Deliveryman_Body(props) {
+  useEffect(() => {
+    console.log(props.dm);
+  }, [props.dm]);
+  console.log(props.dm);
+  const a = 4;
   return (
     <section className="faq_area bg_color sec_pad">
       <div className="container">
@@ -62,6 +69,20 @@ const Deliveryman_Body = () => {
                     Drop by authentification{" "}
                   </a>
                 </li>
+
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    id="returns-tab"
+                    data-toggle="tab"
+                    href="#accept"
+                    role="tab"
+                    aria-controls="returns"
+                    aria-selected="false"
+                  >
+                    My Deliveries{" "}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -86,7 +107,7 @@ const Deliveryman_Body = () => {
               <div
                 className="tab-pane fade"
                 id="Drivers"
-                role="tabpanel"
+                role="tabpane2"
                 aria-labelledby="returns-tab"
               >
                 <CustomerFavoriteDrivers />
@@ -95,10 +116,21 @@ const Deliveryman_Body = () => {
               <div
                 className="tab-pane fade"
                 id="Drop"
-                role="tabpanel"
+                role="tabpane3"
                 aria-labelledby="returns-tab"
               >
                 <Degiral_sign />
+              </div>
+
+              <div
+                className="tab-pane fade"
+                id="accept"
+                role="tabpane4"
+                aria-labelledby="returns-tab"
+              >
+                {console.log(props.dm.img)}
+                {a === 4 && <Disco dm={props.dm} />}
+                {a === 3 && <Deliveryman_stats />}
               </div>
             </div>
           </div>
@@ -106,5 +138,4 @@ const Deliveryman_Body = () => {
       </div>
     </section>
   );
-};
-export default Deliveryman_Body;
+}

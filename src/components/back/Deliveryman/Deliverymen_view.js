@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -21,10 +21,12 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import validate from "../../../validation/validation";
 import ReactStars from "react-rating-stars-component";
+
 export default function Deliverymen_view(props) {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [ws] = useServerApi("deliveryman/getmiles");
+
   console.log(ws);
   const handleOpen = () => {
     setOpen(true);
@@ -33,11 +35,14 @@ export default function Deliverymen_view(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const UpdateCustomer = (customer) => {
-    history.replace("/UpdateCustomer/" + customer._id);
+  const Updatedm = (id) => {
+    history.replace("/Updatedm/" + id);
   };
   const Details = (id) => {
     history.replace("/DeliverymanDetails/" + id);
+  };
+  const addnew = (id) => {
+    history.replace("/adddm");
   };
 
   const deletedriver = async (id) => {
@@ -74,7 +79,7 @@ export default function Deliverymen_view(props) {
         <div className="card-header">
           <div className="card-header--title">
             <small>Tables</small>
-            <b>Customers</b>
+            <b>delivery men</b>
           </div>
           <Box className="card-header--actions">
             <IconButton
@@ -85,6 +90,7 @@ export default function Deliverymen_view(props) {
             >
               <FontAwesomeIcon
                 icon={["far", "keyboard"]}
+                onClick={addnew}
                 className="font-size-lg"
               />
             </IconButton>
@@ -98,7 +104,7 @@ export default function Deliverymen_view(props) {
                   <th style={{ width: "40%" }}>deliveryman</th>
                   <th className="text-center">status</th>
                   <th className="text-center">Region</th>
-                  <th className="text-center">Gender</th>
+                  <th className="text-center">Age</th>
                   <th className="text-center">Rating</th>
                   <th className="text-center">Phone Number</th>
                   <th className="text-center">Actions</th>
@@ -110,11 +116,17 @@ export default function Deliverymen_view(props) {
                   <tr key={index} className={dm.Status == 1 && "table-warning"}>
                     <td>
                       <div className="d-flex align-items-center">
-                        <Avatar alt="..." src={dm.pdp} className="mr-2" />
+                        <Avatar
+                          alt="..."
+                          src={
+                            process.env.REACT_APP_API_URL_UPLOADS + "/" + dm.img
+                          }
+                          className="mr-2"
+                        />
                         <div>
                           <a
                             href="#/"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={() => Details(dm._id)}
                             className="font-weight-bold text-black"
                             title="..."
                           >
@@ -150,7 +162,9 @@ export default function Deliverymen_view(props) {
                       ))}
                     </td>
                     <td className="text-center">
-                      <div>{dm.Gender}</div>
+                      <div>
+                        {2021 - parseInt(dm.Date_birth.substring(0, 4))}
+                      </div>
                     </td>
                     <td className="text-center">
                       <div>
@@ -174,7 +188,7 @@ export default function Deliverymen_view(props) {
                         variant="contained"
                         className="mr-3"
                         color="primary"
-                        onClick={() => UpdateCustomer(dm)}
+                        onClick={() => Updatedm(dm._id)}
                       >
                         Update
                       </Button>

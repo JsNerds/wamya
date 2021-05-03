@@ -82,7 +82,7 @@ const GeneralForm = (props) => {
               <Col xs="12" lg="6">
                 <Col xs="12" md="9">
                   <label>Image</label>
-                  <Field name="pdp" component={FileInput} type="file" />
+                  <Field name="img" component={FileInput} type="file" />
                 </Col>
               </Col>
             </FormGroup>

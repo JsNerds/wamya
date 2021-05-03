@@ -19,6 +19,7 @@ const PaymentForm =(props)=>{
     const amount= query.get("amount");
     const idUser= query.get("id");
     const userType = query.get("userType");
+    const duration = query.get("duration");
     const stripe= useStripe();
     const elements = useElements();
     const [error, setError] = useState(null);
@@ -99,7 +100,7 @@ const PaymentForm =(props)=>{
                         }
                         else setSuccess(true);
                     } else if (userType==="Customer"){
-                        const [res,err] = await queryServerApi("payments/addPaymentCust/"+idUser, newVal,"POST",false);
+                        const [res,err] = await queryServerApi("payments/addPaymentCust/"+idUser+"?duration="+duration, newVal,"POST",false);
                         console.log(res);
                         if(err){
                             setError({

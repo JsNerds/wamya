@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from 'react-facebook-login';
 import SignInWithFace from "./SignInWithFace";
+import {FormHelperText} from "@material-ui/core";
 
 
 
@@ -228,17 +229,19 @@ const SignInFromWamya =()=>{
                     <div className="row">
                         <div className="col-lg-5">
                             <div className="sign_info_content">
-                                <h3 className="f_p f_600 f_size_24 t_color3 mb_40">First time here?</h3>
-                                <h2 className="f_p f_400 f_size_30 mb-30">Join now and get<br/> <span className="f_700">20% OFF</span> for all <br/> products</h2>
-                                <ul className="list-unstyled mb-0">
-                                    <li><i className="ti-check"></i> Premium Access to all Products</li>
-                                    <li><i className="ti-check"></i> Free Testing Tools</li>
-                                    <li><i className="ti-check"></i> Unlimited User Accounts</li>
-                                </ul>
-                                <span className="f_700">Sign in with </span>
-                                <button className="btn_three sign_btn_transparent" onClick={LoginWithFaceRecognition} >
-                                    Face Recognition
-                                </button>
+                                <h3 className="f_p f_600 f_size_24 t_color3 mb_40">First time here? <br/>
+                                    <button className="btn_three">
+                                        Sign Up
+                                    </button>
+                                </h3>
+
+                                <h2 className="f_p f_400 f_size_30 mb-30">You are a customer?<br/> <span className="f_700">Use your face to sign in</span> , it's an easy and fast way! <br/> Sign in with
+                                <br/>
+                                    <button className="btn_three sign_btn_transparent" onClick={LoginWithFaceRecognition} >
+                                        Face Recognition
+                                    </button>
+                                </h2>
+
                             </div>
                         </div>
                         <div className="col-lg-7">
@@ -248,6 +251,7 @@ const SignInFromWamya =()=>{
                                 {
                                     !loginWithFace ? (
                                         <>
+
                                         <form onSubmit={formik.handleSubmit}>
 
                                                 {error.visible &&
@@ -268,6 +272,9 @@ const SignInFromWamya =()=>{
                                                     <input  id="username" type="text" placeholder="saasland@gmail.com"
                                                             value={formik.values.username}
                                                             onChange={formik.handleChange}/>
+                                                    {formik.errors.username && formik.touched.username && (
+                                                        <FormHelperText error={formik.errors.username}>{formik.errors.username}</FormHelperText>
+                                                    )}
                                                 </div>
 
 
@@ -276,6 +283,9 @@ const SignInFromWamya =()=>{
                                                     <input id="password" type="password" placeholder="******"
                                                            value={formik.values.password}
                                                            onChange={formik.handleChange}/>
+                                                    {formik.errors.password && formik.touched.password && (
+                                                        <FormHelperText error={formik.errors.password}>{formik.errors.password}</FormHelperText>
+                                                    )}
                                                 </div>
 
                                                 <div className="extra mb_20">
@@ -334,7 +344,13 @@ const SignInFromWamya =()=>{
 }
 
 
-
 const YupSchema = Yup.object ({
+    password: Yup.string()
+        .min(8 | " your password should be 8 characters at least")
+        .max(15 | " longer than 15 characters")
+        .required("password is Required"),
+    username: Yup.string()
+        .required("username is Required"),
+
 });
 export default SignInFromWamya;

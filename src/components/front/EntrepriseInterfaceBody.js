@@ -7,6 +7,7 @@ import EditProfileCompanyForm from "./EditProfileCompanyForm";
 import ChangePasswordCompany from "./ChangePasswordCompany";
 import MyPackages from "../../pages/front/MyPackages";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DisableAccountCompany from "./DisableAccountCompanyr";
 
 
 const FaqSection = (props) => {
@@ -211,6 +212,7 @@ const FaqSection = (props) => {
                 aria-labelledby="price-tab"
               >
                 <ChangePasswordCompany id={props.company._id} />
+                <DisableAccountCompany id={props.company._id} />
               </div>
             </div>
           </div>

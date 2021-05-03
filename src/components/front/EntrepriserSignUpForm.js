@@ -13,6 +13,7 @@ import FacebookLogin from 'react-facebook-login';
 
 const EntrepriseSignUpForm =()=>{
     const history = useHistory();
+    const [showTerms,setShowTerms] = useState(false);
     const [error,setError] = useState({
         visible: false,
         message: "",
@@ -38,7 +39,8 @@ const EntrepriseSignUpForm =()=>{
             Email: "",
             Password:"",
             passwordConfirmation: "",
-            PhoneNumber: ""
+            PhoneNumber: "",
+            acceptTerms: false
         },validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
@@ -156,6 +158,11 @@ const EntrepriseSignUpForm =()=>{
             PhoneNumber: ""
         });
     }
+
+    const showTemrss = () => {
+        setShowTerms(!showTerms);
+    }
+
     return(
         <section className="sign_in_area bg_color sec_pad">
             <div className="container">
@@ -469,18 +476,31 @@ const EntrepriseSignUpForm =()=>{
 
                                     <div className="extra mb_20">
                                         <div className="checkbox remember">
+                                            <label onClick={showTemrss}>Show terms</label><br/>
+                                            {showTerms && (
+                                                <p>
+                                                    Purpose of these terms of use
+                                                    Although you may be tempted not to read these Terms of Service, it is important that you know what to expect from us when using the <strong>Wamya services</strong>, and vice versa.
+
+                                                </p>
+                                            )}
                                             <label>
-                                                <input type="checkbox"/> I agree to terms and conditions of this website
+                                                <input type="checkbox" id="acceptTerms" onChange={(e)=> formik.setFieldValue("acceptTerms",!formik.values.acceptTerms)}/> I agree to terms and conditions of this website
                                             </label>
+
+                                            {formik.errors.acceptTerms && formik.touched.acceptTerms && (
+                                                <FormHelperText error={formik.errors.acceptTerms}>{formik.errors.acceptTerms}</FormHelperText>
+                                            )}
                                         </div>
+
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div className="d-flex ">
                                             <div className="lead-text">
-                                                <button type="submit" className="btn_three">Sign Up</button>
+                                                <button type="submit" className={(formik.values.acceptTerms ? 'btn-primary' : 'btn-outline-primary')} disabled={!formik.values.acceptTerms}>Sign Up</button>
                                             </div>
-                                            <button className="btn_three" onClick={Reset}>Reset</button>
+                                            <button className="btn-outline-danger" onClick={Reset}>Reset</button>
                                         </div>
                                     </div>
 

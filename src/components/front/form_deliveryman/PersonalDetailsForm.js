@@ -9,6 +9,7 @@ import { upper, aadhaar, pan, salary } from "../../../validation/normalize";
 import { Button, Card, CardBody, Col, FormGroup, Label } from "reactstrap";
 import Select from "react-select";
 import { regionOptions } from "../data";
+import { Toggle } from "react-toggle";
 import Test from "./Test";
 
 const customFileInput = (field) => {
@@ -33,7 +34,13 @@ const FileInput = ({
     />
   );
 };
-
+const renderToggleInput = (field) => (
+  <Toggle
+    checked={field.input.value}
+    onChange={field.input.onChange}
+    icons={false}
+  />
+);
 const RenderSelectInput = ({ input, reg, name, id }) => (
   <Select
     {...input}
@@ -89,7 +96,7 @@ const PersonalDetailsForm = (props) => {
 
               <Col xs="12" lg="6">
                 <Field
-                  name="income"
+                  name="plan"
                   type="text"
                   component={FormInput}
                   label="Annual Income"
@@ -125,7 +132,7 @@ const PersonalDetailsForm = (props) => {
               <Col xs="12" lg="6">
                 <FormGroup row>
                   <Col xs="12" lg="6">
-                    <Label>Martial Status</Label>
+                    <Label>Gender</Label>
                   </Col>
                   <Col xs="6" lg="12">
                     <FormGroup check className="radio">
@@ -162,7 +169,7 @@ const PersonalDetailsForm = (props) => {
                     <Label htmlFor="file-input">Upload Visitor Image</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Field name="img" component={FileInput} type="file" />
+                    <Field name="pdp" component={FileInput} type="file" />
                   </Col>
                 </FormGroup>
               </Col>

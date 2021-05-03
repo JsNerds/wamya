@@ -1,6 +1,6 @@
-import React, { Component, Fragment,useState } from "react";
+import React, {Fragment,useState } from "react";
 import FooterData from "../../componentsFront/Footer/FooterData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useHistory } from "react-router-dom";
 
 import {queryServerApi} from '../../utils/queryServerApi'
