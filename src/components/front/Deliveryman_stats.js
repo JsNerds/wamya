@@ -38,6 +38,7 @@ export default function CustomerStats() {
     flex-wrap: wrap;
     align-items: center;
   `;
+  console.log(localStorage.getItem("id"));
   return (
     <Fragment>
       <Grid container spacing={10}>
