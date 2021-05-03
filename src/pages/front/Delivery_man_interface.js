@@ -31,7 +31,7 @@ const CustomerInterface = () => {
           <Deliveryman_body dm={toRender} />
         </>
       ) : (
-        <Deliveryman_body />
+        console.log("nopeeee no render")
       )}
 
       <FooterTwo fClass="pt_150" FooterData={FooterData} />

@@ -128,7 +128,8 @@ export default function Deliveryman_Body(props) {
                 role="tabpane4"
                 aria-labelledby="returns-tab"
               >
-                {a === 4 && <Deliveryman_stats dm={props.dm} />}
+                {console.log(props.dm.img)}
+                {a === 4 && <Disco dm={props.dm} />}
                 {a === 3 && <Deliveryman_stats />}
               </div>
             </div>
