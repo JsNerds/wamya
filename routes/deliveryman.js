@@ -256,7 +256,33 @@ router.post("/addsign", function (req, res, next) {
   });
 });
 /*validate*/
-router.post("/validate/:id", function (req, res, next) {
+router.put("/validate/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    Status: 2,
+  };
+  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+router.put("/dispo/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    Status: 3,
+  };
+  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+router.put("/nondispo/:id", function (req, res, next) {
   console.log("waa");
   const mynewdelivery = {
     Status: 2,
