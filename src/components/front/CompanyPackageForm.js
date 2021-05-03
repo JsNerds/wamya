@@ -7,6 +7,7 @@ import Select from "react-select";
 import {
   MapContainer,
   TileLayer,
+  useMap,
   Marker,
   Popup,
   useMapEvent,
@@ -15,7 +16,6 @@ import {
 export default function CompanyPackageForm(props) {
   const history = useHistory();
   const id = localStorage.getItem("id");
-  //const role = localStorage.getItem("role");
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
@@ -35,16 +35,15 @@ export default function CompanyPackageForm(props) {
     { value: "Safe", label: "Safe" },
     { value: "Brittle", label: "Brittle" },
   ];
-  // useEffect(() => {});
   const calculateDistance = async () => {
     let destinations = "";
     locations.forEach((value, i) => {
-      destinations = destinations + value.lat + "," + value.lng;
+      destinations = destinations + value.lng + "," + value.lat;
       if (i + 1 < locations.length) {
         destinations = destinations + ";";
       }
     });
-    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&overview=simplified`;
+    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&roundtrip=false&overview=simplified`;
     console.log(url);
     await axios.get(url).then((doc) => {
       let newDistance = doc.data.trips[0].distance;
@@ -128,10 +127,11 @@ export default function CompanyPackageForm(props) {
     },
   });
   const MyMarkers = () => {
-    /*const myMap = useMap();
-
-    myMap.panTo([12, 40]);*/
     const map = useMapEvent("click", (loc) => {
+      setTimeout(function() {
+        map.invalidateSize();
+      }, 500);
+
       axios
         .get(
           `https://eu1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&lat=${loc.latlng.lat}&lon=${loc.latlng.lng}&format=json`
@@ -181,9 +181,10 @@ export default function CompanyPackageForm(props) {
     return null;
   };
   const clear = () => {
-    calculateDistance();
     setDestination([]);
     setMarkers([]);
+    setDuration(0);
+    setDistance(0);
   };
 
   return (
@@ -230,9 +231,7 @@ export default function CompanyPackageForm(props) {
 
             <div className=" mt-3 mr-1 row">
               <div className="col-lg-12">
-                <label className="f_p text_c f_400">
-                  Package type: {duration} {distance}
-                </label>
+                <label className="f_p text_c f_400">Package type:</label>
                 <Select
                   label="Choose type"
                   options={options}
@@ -255,11 +254,7 @@ export default function CompanyPackageForm(props) {
             <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
               Select source address first then the destinations :
             </h3>
-            <MapContainer
-              center={[33.892166, 9.561555499999997]}
-              zoom={13}
-              scrollWheelZoom={true}
-            >
+            <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={true}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -268,11 +263,43 @@ export default function CompanyPackageForm(props) {
               {markers.map((position, idx) => (
                 <Marker key={`marker-${idx}`} position={position}>
                   <Popup>
-                    <span>Popup</span>
+                    <span>destination : {idx}</span>
                   </Popup>
                 </Marker>
               ))}
             </MapContainer>
+            <div className="row">
+              <div className="col-md-4">
+                <button
+                  type="button"
+                  onClick={() => calculateDistance()}
+                  className="btn_three"
+                  style={{ marginTop: 10 }}
+                >
+                  Calculate
+                </button>
+              </div>
+              <div className="col-md-8">
+                {distance !== 0 && duration !== 0 ? (
+                  <>
+                    <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
+                      Distance: {(distance / 1000).toFixed(2)} Km
+                    </p>
+                    <p className="f_p text_c f_400">
+                      Duration:
+                      {Math.round(duration / 3600) !== 0 ? (
+                        <>
+                          {Math.round(duration / 3600)}Hr
+                          {Math.round((duration / 60) % 60)}min
+                        </>
+                      ) : (
+                        <>{Math.round(duration / 60)}min </>
+                      )}
+                    </p>
+                  </>
+                ) : null}
+              </div>
+            </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button type="submit" className="btn_three">
