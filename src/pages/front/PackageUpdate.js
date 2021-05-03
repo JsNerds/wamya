@@ -3,7 +3,7 @@ import CustomNavbar from '../../componentsFront/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
-import PackagesForm from '../../components/front/PackagesForm';
+import PackagesForm from '../../components/front/PackageForm/PackagesForm';
 import PackageUpdateForm from '../../components/front/PackageUpdateForm';  
 
 
