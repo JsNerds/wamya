@@ -7,10 +7,10 @@ import Select from "react-select";
 import {
   MapContainer,
   TileLayer,
-  useMap,
   Marker,
   Popup,
   useMapEvent,
+  useMap,
 } from "react-leaflet";
 
 export default function CompanyPackageForm(props) {
@@ -43,7 +43,7 @@ export default function CompanyPackageForm(props) {
         destinations = destinations + ";";
       }
     });
-    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&roundtrip=false&overview=simplified`;
+    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first`;
     console.log(url);
     await axios.get(url).then((doc) => {
       let newDistance = doc.data.trips[0].distance;
@@ -54,7 +54,6 @@ export default function CompanyPackageForm(props) {
     });
     console.log(distance, duration);
   };
-
   const formik = useFormik({
     initialValues: {
       customer: id,
@@ -180,13 +179,13 @@ export default function CompanyPackageForm(props) {
     });
     return null;
   };
+
   const clear = () => {
     setDestination([]);
     setMarkers([]);
     setDuration(0);
     setDistance(0);
   };
-
   return (
     <div className="sign_info_content">
       <h3 className=" ml-3 f_p f_600 f_size_24 t_color3 mb_40">
@@ -254,7 +253,11 @@ export default function CompanyPackageForm(props) {
             <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
               Select source address first then the destinations :
             </h3>
-            <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={true}>
+            <MapContainer
+              center={{ lat: 36.8065, lng: 10.1815 }}
+              zoom={10}
+              scrollWheelZoom={true}
+            >
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -284,6 +287,7 @@ export default function CompanyPackageForm(props) {
                   <>
                     <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
                       Distance: {(distance / 1000).toFixed(2)} Km
+                      <strong> Rq:Le calcul de retour est inclus</strong>
                     </p>
                     <p className="f_p text_c f_400">
                       Duration:
