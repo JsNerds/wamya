@@ -139,7 +139,6 @@ export default function PackagesForm(props) {
 
   const calculateDistance = async () => {
     let destinations = "";
-    setDistance(0);
     locations.forEach((value, i) => {
       destinations = destinations + value.lng + "," + value.lat;
       if (i + 1 < locations.length) {
@@ -175,8 +174,14 @@ export default function PackagesForm(props) {
         );
         console.log(recommendedDriversList);
       }
+      else if (step + i == 1){
+        setDistance(0);
+        setDuration(0);
+        setAmount(0);
+      }
       setStep(step + i);
     }
+
   };
   const component = [
     <PackageDetailForm formik={formik} />,

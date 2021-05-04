@@ -159,6 +159,7 @@ const SignInFromWamya =()=>{
         setError({
             visible: true,
             message: "Something wrong",
+            severity: "error"
         });
     }
 

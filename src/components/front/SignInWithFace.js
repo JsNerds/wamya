@@ -67,6 +67,19 @@ const SignInWithFace = () => {
 
     }
 
+    const stopVideo = (e) => {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+
+        for (let i = 0; i < tracks.length; i++) {
+            let track = tracks[i];
+            track.stop();
+        }
+
+        videoRef.current.srcObject = null;
+    }
+
+
 
     const login = async (Email) => {
         const [user, err] = await queryServerApi("users/EmailFace?email="+Email, null, "GET", false);
@@ -215,7 +228,10 @@ const SignInWithFace = () => {
                 <video ref={videoRef} autoPlay muted width={videoWidth} height={videoHeight} onPlay={handleVideoOnPlay}/>
                 <canvas ref={canvasRef} className="position-absolute"/>
             </div>
-
+            <br/>
+            <center>
+            <button className="btn-outline-danger" onClick={stopVideo}>Close Camera</button>
+            </center>
         </div>
     )
 }

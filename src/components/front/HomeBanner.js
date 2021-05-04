@@ -34,8 +34,8 @@ class PaymentBanner extends Component {
           <div
             className="animation_img_two wow fadeInRight"
             data-wow-delay="0.5s"
-          >
-            <img src={require("../../img/home9/mac.png")} alt="" />
+          >    <img src={require("../../assets/images/WamyaHome2.png")} alt="" width={600} height={500} />
+
           </div>
         </Reveal>
         <img
