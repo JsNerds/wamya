@@ -20,16 +20,20 @@ router.get("/", function (req, res, next) {
     })
     .populate("customer package driver");
 });
-router.get('/getLastDeliveryByCustomer/:id',function(req,res) {
-  delivery.findOne({customer: req.params.id },{},{ sort: { 'created_at' : -1 } },
-  function (err, doc) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(doc);
+router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
+  delivery.findOne(
+    { customer: req.params.id },
+    {},
+    { sort: { created_at: -1 } },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
     }
-  })
-})
+  );
+});
 /* start delivery */
 router.post("/startDelivery", function (req, res) {
   const package = new Package({
@@ -133,7 +137,6 @@ router.get("/:id", function (req, res) {
     .populate("package");
 });
 
-
 router.put("/confirmDeliveryCustomer/:id", function (req, res) {
   delivery.findByIdAndUpdate(
     req.params.id,
@@ -150,7 +153,7 @@ router.put("/confirmDeliveryCustomer/:id", function (req, res) {
     }
   );
 });
-
+/* ---------------------- driver part delivery ----------------------- */
 router.put("/confirmDeliveryDriver/:id", function (req, res) {
   delivery.findByIdAndUpdate(
     req.params.id,
@@ -168,6 +171,22 @@ router.put("/confirmDeliveryDriver/:id", function (req, res) {
   );
 });
 
+router.put("/confirmsigndrop/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state: 4 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery confirmed by driver");
+      }
+    }
+  );
+});
 
 router.put("/acceptdelivery/:id", function (req, res) {
   delivery.findByIdAndUpdate(
@@ -251,22 +270,35 @@ router.get("/delivstatethird/:id", function (req, res) {
         res.send(err);
       } else {
         res.send(doc);
-      } 
+      }
     })
     .populate("package");
 });
 
-router.delete('/deleteAllDeliveries',function(req,res){
-  delivery.deleteMany({}).then(function(doc,err){
-    if(err)
+router.delete("/deleteAllDeliveries", function (req, res) {
+  delivery.deleteMany({}).then(function (doc, err) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(doc);
+    }
+  });
+});
+router.put("/setfourth/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
     {
-      res.send(err)
+      $set: { state: 3 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery confirmed");
+      }
     }
-    else{
-      res.send(doc)
-    }
-  })
-})
-
+  );
+});
 
 module.exports = router;
