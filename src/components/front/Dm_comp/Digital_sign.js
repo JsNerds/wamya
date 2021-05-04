@@ -27,6 +27,8 @@ import {
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import { queryServerApi } from "../../../utils/queryServerApi";
+
 import {
   Grid,
   LinearProgress,
@@ -75,6 +77,10 @@ const CustomHandle = ({
   );
 };
 
+async function confirmsig(id) {
+  console.log("waa");
+}
+
 export default function Digital_sign(props) {
   const custom_file_upload_url = `http://localhost:3000/deliveryman/addsign`;
   const handleSubmitFile = (values) => {};
@@ -119,6 +125,21 @@ export default function Digital_sign(props) {
   /* a function that uses the canvas ref to trim the canvas 
   from white spaces via a method given by react-signature-canvas
   then saves it in our state */
+  const confirmsig = async (id) => {
+    const [res, err] = await queryServerApi(
+      "delivery/confirmsigndrop/" + id,
+      null,
+      "PUT",
+      false
+    );
+    const [res1, err1] = await queryServerApi(
+      "deliveryman/dispo/" + localStorage.getItem("id"),
+      null,
+      "PUT",
+      false
+    );
+  };
+
   const save = () => {
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
     axios({
@@ -261,6 +282,14 @@ export default function Digital_sign(props) {
         <br></br>
         <br></br>
         <br></br>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          onClick={() => confirmsig(props.idel)}
+        >
+          Save
+        </Button>
       </Card>
     </Fragment>
   );

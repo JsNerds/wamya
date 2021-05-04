@@ -274,6 +274,30 @@ const CustomerInterfaceBody = (props) => {
           </Card>
         )}
 
+        {props.dm.Status === 1 && (
+          <Card className="card-box bg-love-kiss text-light mb-4">
+            <CardContent className="p-3">
+              <div className="d-flex align-items-start">
+                <div className="font-weight-bold">
+                  <small className="text-white-50 d-block mb-1 text-uppercase">
+                    Notification :
+                  </small>
+                  <span>Your account is not activated or approved yet</span>
+                  <br />
+                </div>
+                <div className="ml-auto">
+                  <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon
+                      icon={["fa", "power-off"]}
+                      className="font-size-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {props.dm.Status === 4 && dlc.state === 1 && (
           <Grid item xs={15} lg={6}>
             <Card className="card-box mb-4">
@@ -366,76 +390,78 @@ const CustomerInterfaceBody = (props) => {
             </Card>
           </Grid>
         )}
-        {props.dm.Status <= 4 && props.dm.Status !== 2 && (
-          <Grid item xs={15} lg={6}>
-            <Card className="card-box mb-4">
-              <div className="card-header">
-                <div className="card-header--title">
-                  <b>Detailed informations</b>
-                  <div className="d-block text-capitalize mt-1 font-size-sm"></div>
+        {props.dm.Status <= 4 &&
+          props.dm.Status !== 2 &&
+          props.dm.Status !== 1 && (
+            <Grid item xs={15} lg={6}>
+              <Card className="card-box mb-4">
+                <div className="card-header">
+                  <div className="card-header--title">
+                    <b>Detailed informations</b>
+                    <div className="d-block text-capitalize mt-1 font-size-sm"></div>
+                  </div>
                 </div>
-              </div>
-              <List>
-                <ListItem className="py-2 d-block">
-                  <Card className="card-box bg-plum-plate text-light mb-4">
-                    <CardContent className="p-3">
-                      <div className="d-flex align-items-start">
-                        <div className="font-weight-bold">
-                          <small className="text-white-50 d-block mb-1 text-uppercase">
-                            Notification
-                          </small>
-                          <span className="font-size-xxl mt-1">
-                            You are online
-                          </span>
-                          <button
-                            className="btn-primary"
-                            onClick={() => offline()}
-                          >
-                            Get offline
-                          </button>
-                        </div>
-                        <div className="ml-auto">
-                          <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
-                            <FontAwesomeIcon
-                              icon={["fa", "check-circle"]}
-                              className="font-size-xl"
-                            />
+                <List>
+                  <ListItem className="py-2 d-block">
+                    <Card className="card-box bg-plum-plate text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              Notification
+                            </small>
+                            <span className="font-size-xxl mt-1">
+                              You are online
+                            </span>
+                            <button
+                              className="btn-primary"
+                              onClick={() => offline()}
+                            >
+                              Get offline
+                            </button>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                icon={["fa", "check-circle"]}
+                                className="font-size-xl"
+                              />
+                            </div>
                           </div>
                         </div>
+                      </CardContent>
+                    </Card>
+                    <div className="align-box-row mb-1">
+                      <div>
+                        <div className="font-weight-bold">
+                          Finished deliveries
+                        </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                  <div className="align-box-row mb-1">
-                    <div>
-                      <div className="font-weight-bold">
-                        Finished deliveries
+                      <div className="ml-auto">
+                        <div className="font-size-xl font-weight-bold text-success"></div>
                       </div>
                     </div>
-                    <div className="ml-auto">
-                      <div className="font-size-xl font-weight-bold text-success"></div>
-                    </div>
-                  </div>
-                  <LinearProgress
-                    className="progress-animated-alt"
-                    color="primary"
-                    value={34}
-                  />
-                </ListItem>
-              </List>
-              <div className="card-footer bg-light p-4 text-center">
-                <Button color="primary" variant="contained">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={["far", "question-circle"]} />
-                  </span>
-                  <span className="btn-wrapper--label">View details</span>
-                </Button>
-              </div>
-            </Card>
-          </Grid>
-        )}
+                    <LinearProgress
+                      className="progress-animated-alt"
+                      color="primary"
+                      value={34}
+                    />
+                  </ListItem>
+                </List>
+                <div className="card-footer bg-light p-4 text-center">
+                  <Button color="primary" variant="contained">
+                    <span className="btn-wrapper--icon">
+                      <FontAwesomeIcon icon={["far", "question-circle"]} />
+                    </span>
+                    <span className="btn-wrapper--label">View details</span>
+                  </Button>
+                </div>
+              </Card>
+            </Grid>
+          )}
 
         {props.dm.Status === 5 && dll.state === 3 && (
-          <Degital_sign idc={dll.customer} />
+          <Degital_sign idc={dll.customer} idel={dll._id} />
         )}
       </Grid>
     </Fragment>
