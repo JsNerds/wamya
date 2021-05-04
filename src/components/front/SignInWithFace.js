@@ -50,11 +50,10 @@ const SignInWithFace = () => {
 
         const [users, err] = await queryServerApi("users/usersAll", null, "GET", false);
 
-
         return Promise.all(
-        users.map( async user => {
+        users?.map( async user => {
             const descriptions = []
-            const imgSrc =  process.env.REACT_APP_API_URL_UPLOADS+"/"+user.img;
+            const imgSrc =  process.env?.REACT_APP_API_URL_UPLOADS+"/"+user?.img;
                 const img = await faceapi.fetchImage(imgSrc);
                 const results = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(results.descriptor);
@@ -181,11 +180,7 @@ const SignInWithFace = () => {
                     });
                     login(resultClear);
                 }
-
-
             })
-
-
 
         },1000)
     }
