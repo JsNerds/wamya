@@ -29,7 +29,9 @@ var Entreprise = new Schema({
     type: Schema.Types.ObjectId,
     ref: "delivery"
   }
-]
+  ],
+  img: String,
+
 });
 
 module.exports = mongoose.model("entreprise", Entreprise);
