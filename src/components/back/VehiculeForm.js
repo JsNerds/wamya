@@ -47,7 +47,7 @@ const LivePreviewExample = () => {
     registrationNumber: "",
     model: "",
     weightCapacity: 0,
-    trunkDimension: "",
+    trunkVolume: 0,
   });
   const formik = useFormik({
     initialValues: {
@@ -60,7 +60,7 @@ const LivePreviewExample = () => {
       console.log(values);
       setShowLoader(false);
       const [, err] = await queryServerApi(
-        "vehicule/add",
+        "vehicle/add",
         values,
         "POST",
         false

@@ -13,14 +13,15 @@ export default function CustomersTable(props) {
   const deleteVehicule = async (id) => {
     console.log(id);
     const [, err] = await queryServerApi(
-      `vehicule/delete/${id}`,
+      `vehicle/delete/${id}`,
       null,
       "DELETE",
       false
     );
+    history.go(0);
     if (err) {
       //setShowLoader(false);
-    } else history.push("/Vehicules");
+    } else history.go(0);
   };
   return (
     <Fragment>
@@ -51,8 +52,8 @@ export default function CustomersTable(props) {
                 <tr>
                   <th style={{ width: "20%" }}>Model</th>
                   <th style={{ width: "20%" }}>Registration Number</th>
-                  <th style={{ width: "20%" }}>Weight Capacity</th>
                   <th style={{ width: "20%" }}>Trunk Volume</th>
+                  <th style={{ width: "20%" }}>Weight Capacity</th>
                   <th style={{ width: "10%" }}>edit/Delete</th>
                 </tr>
               </thead>

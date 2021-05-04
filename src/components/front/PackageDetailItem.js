@@ -28,15 +28,38 @@ export default function PackageDetailItem() {
 
     if (deliv) {
       const preparedData = [];
+      preparedData.push(
+        L.latLng(
+          deliv.sourceAddress.Location.Latitude,
+          deliv.sourceAddress.Location.Longitude
+        )
+      );
       deliv.destinationAddress.forEach((el) => {
         preparedData.push(
           L.latLng(el.Location.Latitude, el.Location.Longitude)
         );
       });
-      L.Routing.control({
-        waypoints: [L.latLng(36.8065, 10.1815), L.latLng(57.6792, 11.949)],
-      }).addTo(map);
-      //console.log(preparedData);
+
+      var control = L.Routing.control({
+        waypoints: preparedData,
+        //router: new L.Routing.Google(),
+        lineOptions: {
+          styles: [
+            {
+              color: "blue",
+              opacity: 0.6,
+              weight: 4,
+            },
+          ],
+        },
+        addWaypoints: false,
+        draggableWaypoints: false,
+        fitSelectedRoutes: true,
+        showAlternatives: false,
+      });
+      //L.Routing.Itinerary({ show: false });
+      control.addTo(map);
+
       map.panTo([
         deliv?.sourceAddress.Location.Latitude,
         deliv?.sourceAddress.Location.Longitude,
@@ -53,37 +76,19 @@ export default function PackageDetailItem() {
               <span>start : {deliv?.sourceAddress.City}</span>
             </Popup>
           </Marker>
-          {deliv?.destinationAddress.map((el) => (
+          {/*deliv?.destinationAddress.map((el) => (
             <Marker position={[el.Location.Latitude, el.Location.Longitude]}>
               <Popup>
                 <span>{el.City}</span>
               </Popup>
             </Marker>
-          ))}
+          ))*/}
         </>
       );
     } else {
       return null;
     }
   };
-  /*function LocationMarker() {
-    const [position, setPosition] = useState(null);
-    const map = useMapEvents({
-      click() {
-        map.locate();
-      },
-      locationfound(e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-      },
-    });
-
-    return position === null ? null : (
-      <Marker position={position}>
-        <Popup>You are here</Popup>
-      </Marker>
-    );
-  }*/
   return (
     <div>
       <section className="service_details_area sec_pad">
