@@ -28,7 +28,7 @@ export default function CustomerStats(props) {
 
   function finishedDeliv(deliveries) {
     return deliveries.reduce(function(nb, item) {
-      if (item.state === 3) {
+      if (item.state === 6) {
         nb += 1;
       }
 
@@ -229,10 +229,10 @@ export default function CustomerStats(props) {
                         <div className="mt-3">
                           <FontAwesomeIcon
                               icon={['fas', 'arrow-up']}
-                              className="text-success mr-1"
+                              className="text-dark mr-1"
                           />
-                          <span className="text-success pr-1">{props.customer.deliveries.length}</span>
-                          <span className="text-white-50">increase this month</span>
+                          <span className="text-dark pr-1">{props.customer.deliveries.length}</span>
+                          <span className="text-dark">increase this month</span>
                         </div>
                       </CardContent>
                     </Card>
