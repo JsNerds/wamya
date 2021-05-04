@@ -5,7 +5,23 @@ var User = require('../models/User');
 var {sendCompanyConfirmationEmail } = require('../mailer');
 var bcrypt = require("bcrypt");
 
-
+var multer = require("multer");
+var path = require("path");
+router.use(express.static(__dirname + "./public/"));
+// router.use(express.static(__dirname+"./public/"));
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require("node-localstorage").LocalStorage;
+  localStorage = new LocalStorage("./scratch");
+}
+var Storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+var upload = multer({
+  storage: Storage,
+}).single("img");
 
 /*********************************************   CRUD RESTFUL APIs For React   *********************************************/
 
@@ -74,7 +90,7 @@ router.post('/', function(req,res,next){
 
 
 /** Add Entreprise(REACT) **/
-router.post('/addCompany', async function (req, res, next) {
+router.post('/addCompany', upload ,async function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log("Obj", obj);
   const hashedPassword = await bcrypt.hash(obj.Password,10);
@@ -100,7 +116,8 @@ router.post('/addCompany', async function (req, res, next) {
     Subscribed:false,
     SubscriptionExpirationDate: new Date(),
     payments: [],
-    packages: []
+    packages: [],
+    img: req.file.filename,
   };
 
   const Denomination = await Entreprise.find({Denomination: newCompany.Denomination});
@@ -174,7 +191,7 @@ router.put('/UpdateSubscription/:id',function(req,res,next){
 
 /** Update Entreprise(REACT) **/
 
-router.put('/update/:id',function(req,res,next){
+router.put('/update/:id',upload,function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log("Company : ",obj)
   const newCompany = {
@@ -195,12 +212,14 @@ router.put('/update/:id',function(req,res,next){
     TaxSituation: obj.TaxSituation,
     Email: obj.Email,
     PhoneNumber: obj.PhoneNumber,
+    img: req.file.filename
   };
   Entreprise.findByIdAndUpdate(req.params.id,newCompany,async function(err,data){
     if(err) throw err;
     await User.findOneAndUpdate({Id: req.params.id}, {
-      Username: newCompany.ResponsibleName,
+      Username: newCompany.UserName,
       Email: newCompany.Email,
+      img:newCompany.img
     });
     console.log('UPDATED');
     res.send("UPDATED OK");

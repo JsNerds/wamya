@@ -91,7 +91,9 @@ router.post('/', async function(req,res,next){
     const user = new User(   {
         Username:req.body.Username,
         Password:hashedPassword,
-        Role:req.body.Role
+        Email:req.body.Email,
+        Role:req.body.Role,
+        img:req.body.img
     });
     try{
         user.save();
