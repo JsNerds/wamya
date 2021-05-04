@@ -59,20 +59,7 @@ export default function Deliveryman_Body(props) {
               <h4 className="f_p t_color3 f_600 f_size_22 mb_40">
                 Quick Navigation
               </h4>
-              <ul>
-                {delivs.map((dell) => (
-                  <li key={dell._id}>{dell.driver}</li>
-                ))}
-              </ul>
-              <Button
-                variant="contained"
-                color="primary"
-                className="m-2"
-                onClick={(e) => reget(e, 10)}
-              >
-                <FontAwesomeIcon icon={["far", "fa-redo"]} />
-                Refrech
-              </Button>
+
               <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item">
                   <a
@@ -127,6 +114,14 @@ export default function Deliveryman_Body(props) {
                     aria-selected="false"
                   >
                     My Deliveries
+                    <ul>
+                      {delivs.map((dell) => (
+                        <li key={dell._id}>
+                          From {dell.sourceAddress.City} To{" "}
+                          {dell.destinationAddress[0].City}
+                        </li>
+                      ))}
+                    </ul>
                   </a>
                 </li>
               </ul>

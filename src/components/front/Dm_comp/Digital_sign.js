@@ -17,7 +17,7 @@ import "./sigCanvas.css";
 import axios from "axios";
 import Wheel from "./Wheel";
 import Wheels from "./Wheels";
-
+import stock from "../../../assets/images/stock-photos/stock-3.jpg";
 import ReactCompareImage from "react-compare-image";
 import "./App.css";
 import "./styles.css";
@@ -140,13 +140,16 @@ export default function Digital_sign(props) {
           <p className="text-black-50 mb-0">
             The costomer myst sign before the dropby.
           </p>
-          <button onClick={console.log("ahwaaaaaaaa" + props.idc)}>show</button>
         </div>
         <div className="d-flex flex-row flex-wrap justify-content-center">
           <h1>Signature Pad Example</h1>
           <Popup
             modal
-            trigger={<button>Open Signature Pad</button>}
+            trigger={
+              <Button color="primary" variant="contained">
+                Open Signature Pad
+              </Button>
+            }
             closeOnDocumentClick={false}
           >
             {(close) => (
@@ -159,50 +162,65 @@ export default function Digital_sign(props) {
                 />
                 {/* Button to trigger save canvas image */}
 
-                <button type="submit" onClick={save}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  type="submit"
+                  onClick={save}
+                >
                   Save
-                </button>
-                <button onClick={clear}>Clear</button>
-                <button onClick={close}>Close</button>
+                </Button>
+                <Button color="secondary" variant="contained" onClick={clear}>
+                  Clear
+                </Button>
+                <Button color="secondary" variant="contained" onClick={close}>
+                  Close
+                </Button>
               </>
             )}
           </Popup>
           <div class="header-spacer header-spacer-small mb-3"></div>
           <div class="header-spacer header-spacer-small mb-3"></div>
-          <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="container">
-              <div className="row">
-                {sig &&
-                  sig.map((dm, index) => (
-                    <img
-                      key={index}
-                      src={dm.img}
-                      onClick={() => setit(dm.img)}
-                      style={{
-                        display: "block",
-                        margin: "0 auto",
-                        border: "1px solid black",
-                        height: "150px",
-                        width: "150px",
-                      }}
-                      alt="img"
-                    ></img>
-                  ))}
-              </div>
-            </div>
-          </div>
+
+          {sig?.length !== 0 && <h1>there is not old signature</h1>}
+
+          <Fragment>
+            <Grid container spacing={4}>
+              {sig &&
+                sig.map((dm, index) => (
+                  <Grid key={index} item xs={12} sm={6} md={4}>
+                    <Card className="mb-4">
+                      <img alt="..." className="card-img-top" src={dm.img} />
+                      <CardContent className="p-3">
+                        <h5 className="card-title font-weight-bold font-size-lg">
+                          {dm.createdAt.substring(0, 10)}
+                        </h5>
+
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          onClick={() => setit(dm.img)}
+                        >
+                          preview
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+            </Grid>
+          </Fragment>
 
           {imageURL ? (
-            <img
-              src={imageURL}
-              alt="my signature"
-              style={{
-                display: "block",
-                margin: "0 auto",
-                border: "1px solid black",
-                width: "150px",
-              }}
-            />
+            <Grid item xs={12} sm={6} md={4}>
+              <Card className="mb-4">
+                <img alt="..." className="card-img-top" src={imageURL} />
+                <CardContent className="p-3">
+                  <h5 className="card-title font-weight-bold font-size-lg">
+                    Just now
+                  </h5>
+                </CardContent>
+              </Card>
+            </Grid>
           ) : null}
           {imageURL1 ? (
             <div style={{ width: 700, height: 450 }}>
