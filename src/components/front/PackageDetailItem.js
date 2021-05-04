@@ -9,6 +9,8 @@ import {
   useMap,
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
+import * as L from "leaflet";
+import "leaflet-routing-machine";
 export default function PackageDetailItem() {
   let { id } = useParams();
   console.log(id);
@@ -23,7 +25,18 @@ export default function PackageDetailItem() {
 
   const MyMarkers = () => {
     const map = useMap();
+
     if (deliv) {
+      const preparedData = [];
+      deliv.destinationAddress.forEach((el) => {
+        preparedData.push(
+          L.latLng(el.Location.Latitude, el.Location.Longitude)
+        );
+      });
+      L.Routing.control({
+        waypoints: [L.latLng(36.8065, 10.1815), L.latLng(57.6792, 11.949)],
+      }).addTo(map);
+      //console.log(preparedData);
       map.panTo([
         deliv?.sourceAddress.Location.Latitude,
         deliv?.sourceAddress.Location.Longitude,
