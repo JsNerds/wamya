@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button, Tooltip } from '@material-ui/core';
 import CustomerOperationsPayments from "./CustomerOperationsPayments";
-import PackagesForm from "./PackagesForm";
+import PackagesForm from "./PackageForm/PackagesForm";
 import EditProfileCustomerForm from "./EditProfileCustomerForm";
 import ChangePasswordCustomer from "./ChangePasswordCustomer";
 import DisableAccountCustomer from "./DisableAccountCustomer";

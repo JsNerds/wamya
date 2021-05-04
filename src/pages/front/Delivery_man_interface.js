@@ -10,7 +10,13 @@ const CustomerInterface = () => {
   const [dm, err, reload] = useServerApi(
     "deliveryman/getdev/" + localStorage.getItem("id")
   );
+
+  const [dlv, err1, reload1] = useServerApi(
+    "delivery/delivsfordv/" + localStorage.getItem("id")
+  );
+
   const toRender = dm;
+  const toRender1 = dlv;
 
   return (
     <div className="body_wrapper">
@@ -28,7 +34,7 @@ const CustomerInterface = () => {
 
       {toRender ? (
         <>
-          <Deliveryman_body dm={toRender} />
+          <Deliveryman_body dm={toRender} deliveries={toRender1} />
         </>
       ) : (
         console.log("nopeeee no render")

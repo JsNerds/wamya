@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     IconButton,
-    LinearProgress,
     Card,
     CardContent,
     Button,

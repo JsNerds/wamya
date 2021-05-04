@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, {Fragment, useEffect} from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -55,6 +55,12 @@ export default function CustomerStats(props) {
     );
     history.go(0);
   };
+
+  useEffect(()=>{
+    if(props.customer.deliveries.length >= 3){
+
+    }
+  })
 
   return (
     <Fragment>
@@ -146,7 +152,7 @@ export default function CustomerStats(props) {
                             Notification
                           </small>
                           <span className="font-size-xxl mt-1">
-                            you don't have any delivery yet{" "}
+                            you don't have any delivery yet
                           </span>
                         </div>
                         <div className="ml-auto">
@@ -183,7 +189,71 @@ export default function CustomerStats(props) {
                       </div>
                     </CardContent>
                   </Card>
-                )}
+                )
+                }
+
+
+                { props.customer.deliveries.length >= 3 ? (
+                    <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              Notification
+                            </small>
+                            <span className="font-size-xxl mt-1">Congrats!<br/>
+                            you achieve to pass more than 3 deliveries , you have a 40% of reduction for your next delivery</span>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                  icon={['far', 'chart-bar']}
+                                  className="font-size-xl"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                              icon={['fas', 'arrow-up']}
+                              className="text-success mr-1"
+                          />
+                          <span className="text-success pr-1">{props.customer.deliveries.length}</span>
+                          <span className="text-white-50">increase this month</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                ) : (
+                    <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              Notification
+                            </small>
+                            <span className="font-size-xxl mt-1">You have to pass antoher {3 - (props.customer.deliveries.length)} deliveries to get a 40% for the 4th one</span>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                  icon={['far', 'chart-bar']}
+                                  className="font-size-xl"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                              icon={['fas', 'arrow-up']}
+                              className="text-success mr-1"
+                          />
+                          <span className="text-success pr-1">{props.customer.deliveries.length}</span>
+                          <span className="text-white-50">increase this month</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                )
+                }
 
                 <div className="align-box-row mb-1">
                   <div>
@@ -245,6 +315,9 @@ export default function CustomerStats(props) {
             </div>
           </Card>
         </Grid>
+
+
+
 
         <Grid item xs={12} lg={12}>
           <Card className="card-box mb-4">
