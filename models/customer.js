@@ -23,7 +23,8 @@ var Customer = new Schema({
       type: Schema.Types.ObjectId,
       ref: "delivery"
     }
-  ]
+  ],
+  reduction:Boolean
 
 });
 

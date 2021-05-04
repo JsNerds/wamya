@@ -244,6 +244,7 @@ router.post("/addsign", function (req, res, next) {
   const obj = JSON.parse(JSON.stringify(req.body));
   const mynewconst = {
     img: obj.img,
+    client: obj.client,
   };
   console.log(obj);
   console.log(mynewconst);
@@ -256,7 +257,7 @@ router.post("/addsign", function (req, res, next) {
   });
 });
 /*validate*/
-router.put("/validate/:id", function (req, res, next) {
+router.post("/validate/:id", function (req, res, next) {
   console.log("waa");
   const mynewdelivery = {
     Status: 2,
@@ -273,6 +274,34 @@ router.put("/dispo/:id", function (req, res, next) {
   console.log("waa");
   const mynewdelivery = {
     Status: 3,
+  };
+  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
+router.put("/fourthstate/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    Status: 5,
+  };
+  delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
+router.put("/accept/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    Status: 4,
   };
   delivery.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
     if (err) {
@@ -328,5 +357,15 @@ router.get("/edit/delivery/:id", function (req, res, next) {
     }
   });
 });
-
+router.get("/checksign/:id", function (req, res) {
+  signature
+    .find({ client: req.params.id }, function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    })
+    .populate("package");
+});
 module.exports = router;

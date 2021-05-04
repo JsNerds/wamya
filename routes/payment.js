@@ -89,10 +89,17 @@ router.post('/', function(req,res,next){
 
 /** Add payment with update Customer's Payments 2 **/
 
-router.post('/addPaymentCust/:id', function(req,res,next){
+router.post('/addPaymentCust/:id', async function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
   const duration = req.query.duration;
-
+  const customer = await Customer.findById(req.params.id);
+  let amount = obj.Amount;
+  console.log(customer.reduction);
+  console.log(obj.Amount);
+  if(customer.reduction === true){
+      amount = amount * 40 / 100;
+      console.log(amount);
+  }
   const newPayment = {
     PaymentMethod: obj.PaymentMethod,
     NameOnCard: obj.NameOnCard,
@@ -108,7 +115,7 @@ router.post('/addPaymentCust/:id', function(req,res,next){
     SecurityCode: obj.SecurityCode,
     ExpirationDate: obj.ExpirationDate,
     Country: obj.Country,
-    Amount:obj.Amount,
+    Amount:amount,
     CreationDate: new Date()
   };
 
@@ -124,7 +131,7 @@ router.post('/addPaymentCust/:id', function(req,res,next){
             if (err) {
               console.log(err);
             } else {
-              PaymentDetailsEmail(customer.Email,customer.UserName,obj.Amount,obj.NameOnCard,obj.creditCard)
+              PaymentDetailsEmail(customer.Email,customer.UserName,amount,obj.NameOnCard,obj.creditCard)
               clientSMS.messages.create({
                 body: `Congrats! ${customer.UserName} your package will reaches his destination after ${duration} `,
                 to: '+21620566666',  // Text this number
@@ -201,7 +208,13 @@ router.post('/addPaymentEntrep/:id', function(req,res,next){
 /** AddPayment Stripe **/
 router.post("/stripePayment", async (req, res) => {
   // Create a PaymentIntent with the order amount and currency
-  let {amount , id } = req.body;
+  let {amount , id , idUser} = req.body;
+  const customer = await Customer.findById(idUser);
+  console.log(customer.reduction);
+  if(customer !=null && customer.reduction === true){
+    amount =  Math.round((amount * 40 / 100).toFixed(2) * 100) / 100;
+    console.log(amount);
+  }
   const paymentIntent = await stripe.paymentIntents.create({
         amount,
         currency:"USD",

@@ -142,6 +142,41 @@ router.get("/delivsfordv/:id", function (req, res) {
     .populate("package");
 });
 
+router.get("/delivsongo/:id", function (req, res) {
+  delivery
+    .find({ state: 1, driver: req.params.id }, function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    })
+    .populate("package");
+});
+
+router.get("/delivstatesecond/:id", function (req, res) {
+  delivery
+    .find({ state: 2, driver: req.params.id }, function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    })
+    .populate("package");
+});
+router.get("/delivstatethird/:id", function (req, res) {
+  delivery
+    .find({ state: 3, driver: req.params.id }, function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    })
+    .populate("package");
+});
+
 router.put("/confirmDeliveryCustomer/:id", function (req, res) {
   delivery.findByIdAndUpdate(
     req.params.id,
@@ -188,6 +223,40 @@ router.put("/finishedDelivery/:id", function (req, res) {
         res.send(err);
       } else {
         res.send("Delivery finished");
+      }
+    }
+  );
+});
+
+router.put("/acceptdelivery/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state: 1 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery accepted");
+      }
+    }
+  );
+});
+
+router.put("/confirmdrop/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state: 3 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery confirmed");
       }
     }
   );

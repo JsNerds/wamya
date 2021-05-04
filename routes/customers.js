@@ -123,7 +123,8 @@ router.post('/addCustomer',upload, async function (req, res, next) {
     },
     img: req.file.filename,
     payments: [],
-    packages: []
+    packages: [],
+    reduction:false
   };
   const UserNameExist = await Customer.find({UserName: newCustomer.UserName});
   const CINExist =  await Customer.find({Cin: newCustomer.Cin});
@@ -204,6 +205,30 @@ router.put('/update/:id',upload,function(req,res,next){
   });
 });
 
+
+
+/** Active reduction for Customer **/
+
+router.put('/reduction/:id',upload,function(req,res,next){
+
+  Customer.findByIdAndUpdate(req.params.id, {reduction:true},async function(err,data){
+    if(err) throw err;
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
+
+
+/** Desactivate reduction for Customer **/
+
+router.put('/reductionDes/:id',upload,function(req,res,next){
+
+  Customer.findByIdAndUpdate(req.params.id, {reduction:false},async function(err,data){
+    if(err) throw err;
+    console.log('UPDATED');
+    res.send("UPDATED OK");
+  });
+});
 
 
 /** EditProfile Customer(REACT) **/
