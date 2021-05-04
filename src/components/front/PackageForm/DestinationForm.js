@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -9,9 +9,11 @@ import {
 } from "react-leaflet";
 
 import axios from "axios";
+import { latLng, marker } from "leaflet";
 
 export default function DestinationForm(props) {
   const [markers, setMarkers] = useState([]);
+  const [userLocation,setUserLocation] = useState([0,0]);
   const [source, setSource] = useState({
     Street: "",
     City: "",
@@ -26,10 +28,22 @@ export default function DestinationForm(props) {
     ZipCode: 0,
     Location: { Longitude: 0, Latitude: 0 },
   });
+  const [mapCentered,setMapCentered] = useState(false);
   const MyMarkers = () => {
+    const mapLocation = useMap();
+    if(!mapCentered)
+    {
+      if(navigator.geolocation)
+      {
+        navigator.geolocation.getCurrentPosition(function(pos){
+          mapLocation.panTo(latLng(pos.coords.latitude,pos.coords.longitude))
+        },()=>{},{enableHighAccuracy:true})
+        setMapCentered(true);
+      }
+    }
     const map = useMapEvent("click", (loc) => {
       map.invalidateSize();
-      if (markers.length < 2) {
+      if (props.locations.length < 2) {
         axios
           .get(
             `https://eu1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&lat=${loc.latlng.lat}&lon=${loc.latlng.lng}&format=json`
@@ -73,13 +87,13 @@ export default function DestinationForm(props) {
   };
 
   const TextInfo = () => {
-    if (markers.length == 0) {
+    if (props.locations.length == 0) {
       return (
         <label className="f_p text_c f_400 ">
           Please choose the address of departure
         </label>
       );
-    } else if (markers.length == 1) {
+    } else if (props.locations.length == 1) {
       return (
         <label className="f_p text_c f_400 ">
           Please choose the address of destination
@@ -93,7 +107,6 @@ export default function DestinationForm(props) {
       );
     }
   };
-
   return (
     <>
       <h2 className="f_p f_600 f_size_24 t_color3 mb_40">
@@ -102,13 +115,13 @@ export default function DestinationForm(props) {
       <TextInfo/>
       <div className="row mt-4">
         <div className="col-md-12">
-          <MapContainer center={[50, 12]} zoom={13} scrollWheelZoom={true}>
+          <MapContainer center={userLocation} zoom={6} scrollWheelZoom={true}>
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MyMarkers />
-            {markers.map((position, idx) => (
+            {props.locations?.map((position, idx) => (
               <Marker key={`marker-${idx}`} position={position}>
                 <Popup>
                   <span>Popup</span>
