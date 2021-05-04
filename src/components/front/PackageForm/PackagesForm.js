@@ -9,6 +9,9 @@ import PackageSteps from "../PackageSteps";
 import DestinationForm from "./DestinationForm";
 import PackageDetailForm from "./PackageDetailForm";
 import RecommendedDriverForm from "./RecommendedDriverForm";
+import WaitingForDriverToAccept from './WaitingForDriverToAccept'
+import ConfirmGivingPackage from './ConfirmGivingPackage'
+import WaitingForDriverToConfirmPackage from "./WaitingForDriverToConfirmPackage";
 
 export default function PackagesForm(props) {
   const id = localStorage.getItem("id");
@@ -24,6 +27,7 @@ export default function PackagesForm(props) {
   const [showLoader, setShowLoader] = useState(false);
   const [driverShow, setDriverShow] = useState();
   const [error, setError] = useState({ visible: false, message: "" });
+  const [startedDeliv,setStartedDeliv] = useState();
   const [step, setStep] = useState(0);
   const [markers, setMarkers] = useState([]);
   const [source, setSource] = useState({
@@ -96,7 +100,7 @@ export default function PackagesForm(props) {
       values.distance = distance;
       console.log(values);
       setShowLoader(false);
-      const [, err] = await queryServerApi(
+      const [startedDelivery, err] = await queryServerApi(
         "delivery/startDelivery",
         values,
         "POST",
@@ -109,44 +113,27 @@ export default function PackagesForm(props) {
           message: JSON.stringify(err.errors, null, 2),
         });
       } else {
-        if (Math.round(duration / 3600) !== 0) {
-          history.push(
-            "/Payment?amount=" +
-              Math.round(amount.toFixed(2) * 100) +
-              "&id=" +
-              id +
-              "&userType=Customer&duration=hr" +
-              Math.round(duration / 3600) +
-              ":" +
-              Math.round((duration / 60) % 60) +
-              "min"
-          );
-        } else {
-          if (Math.round(duration / 3600) !== 0) {
-            history.push("/Payment?amount=" + Math.round(amount.toFixed(2) * 100) + "&id=" + id + "&userType=Customer&duration=hr" + Math.round(duration / 3600) + ":" + Math.round((duration / 60) % 60) + "min");
-          }
-          else {
-            history.push("/Payment?amount=" + Math.round(amount.toFixed(2)*100) + "&id=" + id + "&userType=Customer&duration="+Math.round(duration / 60) +"min");
-          }
-        }
+        setStartedDeliv(startedDelivery);
+        console.log(startedDeliv);    
       }
     },
   });
 
   const chooseDriver = (id) => {
     formik.setFieldValue("driver", id);
+    formik.submitForm();
+    setStep(step+1);
   };
 
   const calculateDistance = async () => {
     let destinations = "";
-    setDistance(0);
     locations.forEach((value, i) => {
       destinations = destinations + value.lng + "," + value.lat;
       if (i + 1 < locations.length) {
         destinations = destinations + ";";
       }
     });
-    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first&destination=last&roundtrip=false&overview=simplified`;
+    let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&source=first&destination=last&roundtrip=false&overview=simplified`;
     console.log(url);
     await axios.get(url).then((doc) => {
       let newDistance = doc.data.trips[0].distance;
@@ -175,8 +162,14 @@ export default function PackagesForm(props) {
         );
         console.log(recommendedDriversList);
       }
+      else if (step + i == 1){
+        setDistance(0);
+        setDuration(0);
+        setAmount(0);
+      }
       setStep(step + i);
     }
+
   };
   const component = [
     <PackageDetailForm formik={formik} />,
@@ -193,6 +186,9 @@ export default function PackagesForm(props) {
       chooseDriver={chooseDriver}
       driverList={recommendedDriversList}
     />,
+    <WaitingForDriverToAccept changeStep={changeStep}/>,
+    <ConfirmGivingPackage changeStep={changeStep}/>,
+    <WaitingForDriverToConfirmPackage duration={duration} amount={amount}/>
   ];
   return (
     <section className="sign_in_area bg_color sec_pad">
@@ -228,13 +224,8 @@ export default function PackagesForm(props) {
                       >
                         Previous
                       </button>
-                    ) : null}
-                    {step == 3 ? (
-                      <button type="submit" className="btn_three align">
-                        Send Package
-                      </button>
-                    ) : null}
-                    {step == 3 ? null : (
+                    ) : null} 
+                    {step > 1 ? null : (
                       <button
                         type="button"
                         onClick={() => {

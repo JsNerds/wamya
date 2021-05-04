@@ -4,7 +4,7 @@ import { ExampleWrapperSeamless, PageTitle } from "../../layout-componentsBack";
 import VehiculesTable from "../../components/back/VehiculesTable";
 import { useServerApi } from "../../hooks/useServerApi";
 export default function Vehicules() {
-  const [vehicules, err, reload] = useServerApi("vehicule/");
+  const [vehicules, err, reload] = useServerApi("vehicle/");
   return (
     <Fragment>
       <PageTitle

@@ -50,11 +50,10 @@ const SignInWithFace = () => {
 
         const [users, err] = await queryServerApi("users/usersAll", null, "GET", false);
 
-
         return Promise.all(
-        users.map( async user => {
+        users?.map( async user => {
             const descriptions = []
-            const imgSrc =  process.env.REACT_APP_API_URL_UPLOADS+"/"+user.img;
+            const imgSrc =  process.env?.REACT_APP_API_URL_UPLOADS+"/"+user?.img;
                 const img = await faceapi.fetchImage(imgSrc);
                 const results = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(results.descriptor);
@@ -66,6 +65,19 @@ const SignInWithFace = () => {
 
 
     }
+
+    const stopVideo = (e) => {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+
+        for (let i = 0; i < tracks.length; i++) {
+            let track = tracks[i];
+            track.stop();
+        }
+
+        videoRef.current.srcObject = null;
+    }
+
 
 
     const login = async (Email) => {
@@ -168,11 +180,7 @@ const SignInWithFace = () => {
                     });
                     login(resultClear);
                 }
-
-
             })
-
-
 
         },1000)
     }
@@ -215,7 +223,10 @@ const SignInWithFace = () => {
                 <video ref={videoRef} autoPlay muted width={videoWidth} height={videoHeight} onPlay={handleVideoOnPlay}/>
                 <canvas ref={canvasRef} className="position-absolute"/>
             </div>
-
+            <br/>
+            <center>
+            <button className="btn-outline-danger" onClick={stopVideo}>Close Camera</button>
+            </center>
         </div>
     )
 }

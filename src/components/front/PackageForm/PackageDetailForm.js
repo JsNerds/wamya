@@ -17,7 +17,6 @@ export default function PackageDetailForm(props) {
               <Select
                 label="Choose type"
                 options={options}
-                value={props.formik.getFieldProps("package.0.type").value}
                 onChange={(value) => {
                   props.formik.setFieldValue("package.0.type", value.value)
                 }}

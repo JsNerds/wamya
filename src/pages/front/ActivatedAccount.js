@@ -16,7 +16,7 @@ const ActivatedAccount = () => {
                 <div className="d-flex align-items-center align-content-center">
                       <span>
                              <strong className="d-block">Congrats!</strong> You have been succesfuly activated , You can login now
-                                <strong><a href="/SignInWamya">Login</a></strong>
+                                <strong> <a href="/SignInWamya"> Login </a></strong>
                       </span>
                 </div>
             </MuiAlert>

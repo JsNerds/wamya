@@ -38,7 +38,17 @@ export default function CustomerStats(props) {
 
   function notConfirmedDeliv(deliveries) {
     return deliveries.reduce(function(nb, item) {
-      if (item.state === 0) {
+      if (item.state === 1) {
+        return item;
+      }
+
+      return null;
+    }, 0);
+  }
+
+  function ConfirmedDeliv(deliveries) {
+    return deliveries.reduce(function(nb, item) {
+      if (item.state === 2) {
         return item;
       }
 
@@ -56,9 +66,12 @@ export default function CustomerStats(props) {
     history.go(0);
   };
 
-  useEffect(()=>{
-    if(props.customer.deliveries.length >= 3){
-
+  useEffect(async  ()=>{
+    if(props.customer.deliveries.length === 3){
+      const [user, err] = await queryServerApi("customers/reduction/"+props.customer._id, null, "PUT", false);
+    }
+    else if (props.customer.deliveries.length >= 4){
+      const [user, err] = await queryServerApi("customers/reductionDes/"+props.customer._id, null, "PUT", false);
     }
   })
 
@@ -166,7 +179,7 @@ export default function CustomerStats(props) {
                       </div>
                     </CardContent>
                   </Card>
-                ) : (
+                ) : ConfirmedDeliv(props.customer.deliveries) != null && (
                   <Card className="card-box bg-plum-plate text-light mb-4">
                     <CardContent className="p-3">
                       <div className="d-flex align-items-start">
@@ -194,7 +207,7 @@ export default function CustomerStats(props) {
 
 
                 { props.customer.deliveries.length >= 3 ? (
-                    <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+                    <Card className="card-box bg-happy-green border-0 text-light mb-4">
                       <CardContent className="p-3">
                         <div className="d-flex align-items-start">
                           <div className="font-weight-bold">
@@ -202,12 +215,12 @@ export default function CustomerStats(props) {
                               Notification
                             </small>
                             <span className="font-size-xxl mt-1">Congrats!<br/>
-                            you achieve to pass more than 3 deliveries , you have a 40% of reduction for your next delivery</span>
+                            you achieve to pass more than 3 deliveries , you have a 40% of reduction for 4th delivery</span>
                           </div>
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
-                                  icon={['far', 'chart-bar']}
+                                  icon={['fas', 'boxes']}
                                   className="font-size-xl"
                               />
                             </div>
@@ -224,7 +237,7 @@ export default function CustomerStats(props) {
                       </CardContent>
                     </Card>
                 ) : (
-                    <Card className="card-box bg-premium-dark border-0 text-light mb-4">
+                    <Card className="card-box bg-red-lights border-0 text-light mb-4">
                       <CardContent className="p-3">
                         <div className="d-flex align-items-start">
                           <div className="font-weight-bold">
@@ -236,7 +249,7 @@ export default function CustomerStats(props) {
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
-                                  icon={['far', 'chart-bar']}
+                                  icon={['fas', 'boxes']}
                                   className="font-size-xl"
                               />
                             </div>
@@ -288,12 +301,12 @@ export default function CustomerStats(props) {
                   <div className="ml-auto">
                     {total(props.customer.payments) === 0 ? (
                       <div className="font-size-xl font-weight-bold text-success">
-                        {total(props.customer.payments)} TND
+                        {Math.round(total(props.customer.payments).toFixed(2) * 100) / 100} TND
                       </div>
                     ) : (
                       <div className="font-size-xl font-weight-bold text-danger">
                         <small> - </small>
-                        {total(props.customer.payments)} TND
+                        {Math.round(total(props.customer.payments).toFixed(2) * 100) / 100} TND
                       </div>
                     )}
                   </div>
@@ -354,7 +367,8 @@ export default function CustomerStats(props) {
                     <LinearProgress
                       variant="determinate"
                       color="primary"
-                      value={total(props.customer.payments) / 10}
+                      value={Math.round(total(props.customer.payments).toFixed(2) * 100) / 100}
+
                     />
                   </div>
                   <div className="line-height-sm text-center ml-4">
@@ -363,7 +377,7 @@ export default function CustomerStats(props) {
                     </small>
                     <b className="font-size-lg text-info">
                       <small className="text-black-50 pr-1">TND</small>
-                      {total(props.customer.payments)}
+                      {Math.round(total(props.customer.payments).toFixed(2) * 100) / 100} TND
                     </b>
                   </div>
                 </div>

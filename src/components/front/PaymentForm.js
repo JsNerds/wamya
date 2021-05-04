@@ -72,7 +72,8 @@ const PaymentForm =(props)=>{
                 const {id} = paymentMethod
                 const response = await axios.post("http://localhost:3000/payments/stripePayment",{
                     amount,
-                    id
+                    id,
+                    idUser
                 });
                 if(response.data.success){
                     const newVal={
