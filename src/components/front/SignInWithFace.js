@@ -96,6 +96,8 @@ const SignInWithFace = () => {
                 localStorage.setItem('username', user[0].Username);
                 localStorage.setItem('role', user[0].Role);
                 localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('email', user[0].Email);
+                localStorage.setItem('img', user[0].img);
                 history.push("/AdminDashborad");
                 history.go(0);
             }
@@ -106,6 +108,7 @@ const SignInWithFace = () => {
                     localStorage.setItem('username', user[0].Username);
                     localStorage.setItem('role', user[0].Role);
                     localStorage.setItem('id', user[0].Id);
+                    localStorage.setItem('email', user[0].Email);
                     localStorage.setItem('img', user[0].img);
                     history.push("/");
                     history.go(0);
@@ -128,6 +131,7 @@ const SignInWithFace = () => {
                 localStorage.setItem('username', user[0].Username);
                 localStorage.setItem('role', user[0].Role);
                 localStorage.setItem('id', user[0].Id);
+                localStorage.setItem('email', user[0].Email);
                 localStorage.setItem('img', user[0].img);
                 history.push("/");
                 history.go(0);
