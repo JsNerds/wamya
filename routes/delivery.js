@@ -21,15 +21,13 @@ router.get("/", function (req, res, next) {
     .populate("customer package driver");
 });
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
-  delivery.findOne(
+  delivery.find(
     { customer: req.params.id },
-    {},
-    { sort: { created_at: -1 } },
     function (err, doc) {
       if (err) {
         res.send(err);
       } else {
-        res.send(doc);
+        res.send(doc?.pop());
       }
     }
   );
