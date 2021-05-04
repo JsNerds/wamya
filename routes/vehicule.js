@@ -39,9 +39,9 @@ router.post("/add", function (req, res, next) {
   };
   vehicule.create(newVehicule, function (err) {
     if (err) {
-      res.render("/addvehicule");
+      res.render("/vehicle");
     } else {
-      res.redirect("/vehicule");
+      res.redirect("/vehicle");
     }
   });
 });
@@ -57,9 +57,9 @@ router.post("/edit/:id", function (req, res, next) {
   };
   vehicule.findByIdAndUpdate(req.params.id, newVehicle, function (err) {
     if (err) {
-      res.render("/vehicule/edit/" + req.params.id);
+      res.render("/vehicle/edit/" + req.params.id);
     } else {
-      res.redirect("/vehicule");
+      res.redirect("/vehicle");
     }
   });
 });
@@ -67,7 +67,7 @@ router.post("/edit/:id", function (req, res, next) {
 router.delete("/delete/:id", function (req, res, next) {
   vehicule.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) console.log(err);
-    res.redirect("/vehicule");
+    res.redirect("/vehicle");
   });
 });
 router.get("/edit/vehicule/:id", function (req, res, next) {
