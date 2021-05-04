@@ -21,16 +21,15 @@ router.get("/", function (req, res, next) {
     .populate("customer package driver");
 });
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
-  delivery.find(
-    { customer: req.params.id },
-    function (err, doc) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(doc?.pop());
-      }
+  delivery.find({ customer: req.params.id }, function (err, doc) {
+    if (err) {
+      res.send(err);
+    } else {
+      if (doc) {
+        res.send(doc.pop());
+      } else res.send("ok");
     }
-  );
+  });
 });
 /* start delivery */
 router.post("/startDelivery", function (req, res) {
