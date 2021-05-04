@@ -38,7 +38,17 @@ export default function CustomerStats(props) {
 
   function notConfirmedDeliv(deliveries) {
     return deliveries.reduce(function(nb, item) {
-      if (item.state === 0) {
+      if (item.state === 1) {
+        return item;
+      }
+
+      return null;
+    }, 0);
+  }
+
+  function ConfirmedDeliv(deliveries) {
+    return deliveries.reduce(function(nb, item) {
+      if (item.state === 2) {
         return item;
       }
 
@@ -56,9 +66,12 @@ export default function CustomerStats(props) {
     history.go(0);
   };
 
-  useEffect(()=>{
-    if(props.customer.deliveries.length >= 3){
-
+  useEffect(async  ()=>{
+    if(props.customer.deliveries.length === 3){
+      const [user, err] = await queryServerApi("customers/reduction/"+props.customer._id, null, "PUT", false);
+    }
+    else if (props.customer.deliveries.length >= 4){
+      const [user, err] = await queryServerApi("customers/reductionDes/"+props.customer._id, null, "PUT", false);
     }
   })
 
@@ -166,7 +179,7 @@ export default function CustomerStats(props) {
                       </div>
                     </CardContent>
                   </Card>
-                ) : (
+                ) : ConfirmedDeliv(props.customer.deliveries) != null && (
                   <Card className="card-box bg-plum-plate text-light mb-4">
                     <CardContent className="p-3">
                       <div className="d-flex align-items-start">
@@ -207,7 +220,7 @@ export default function CustomerStats(props) {
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
-                                  icon={['far', 'chart-bar']}
+                                  icon={['fas', 'boxes']}
                                   className="font-size-xl"
                               />
                             </div>
@@ -236,7 +249,7 @@ export default function CustomerStats(props) {
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
-                                  icon={['far', 'chart-bar']}
+                                  icon={['fas', 'boxes']}
                                   className="font-size-xl"
                               />
                             </div>
