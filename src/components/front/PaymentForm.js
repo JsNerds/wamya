@@ -15,6 +15,7 @@ function useQuery() {
 
 const PaymentForm =(props)=>{
 
+    const history = useHistory();
     const query = useQuery();
     const amount= query.get("amount");
     const idUser= query.get("id");
@@ -118,6 +119,11 @@ const PaymentForm =(props)=>{
             }
         }
     });
+
+
+    const GotoFeedback = () => {
+        history.push("");
+    }
 
     return(
         <section className="sign_in_area bg_color sec_pad">
@@ -266,6 +272,7 @@ const PaymentForm =(props)=>{
                                         </div>
                                     </form>
                                 ) : userType === "Customer" ? (
+                                    <>
                                     <MuiAlert className="mb-4" severity="success">
                                         <div className="d-flex align-items-center align-content-center">
                                              <span>
@@ -276,6 +283,12 @@ const PaymentForm =(props)=>{
 
                                         </div>
                                     </MuiAlert>
+                                        <center>
+                                            <h2>you wanna give your feedback</h2>
+                                             <button className="btn-success" onClick={GotoFeedback}>Yes</button>
+                                             <button className="btn-danger" onClick={GotoFeedback}>No</button>
+                                        </center>
+                                    </>
                                     ) : (
                                         <>
                                     <MuiAlert className="mb-4" severity="success">
