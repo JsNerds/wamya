@@ -210,10 +210,11 @@ router.post("/stripePayment", async (req, res) => {
   // Create a PaymentIntent with the order amount and currency
   let {amount , id , idUser} = req.body;
   const customer = await Customer.findById(idUser);
-  console.log(customer.reduction);
   if(customer !=null && customer.reduction === true){
-    amount =  Math.round((amount * 40 / 100).toFixed(2) * 100) / 100;
+    amount =  (Math.round((amount * 40 / 100).toFixed(2) * 100));
     console.log(amount);
+  }else{
+    amount= amount;
   }
   const paymentIntent = await stripe.paymentIntents.create({
         amount,
