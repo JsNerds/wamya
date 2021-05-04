@@ -5,8 +5,7 @@ import React, {
   Component,
   useCallback,
 } from "react";
-import EntrepriseDrivers from "./EntrepriseDrivers";
-import PackageSlider from "./PackageSlider";
+
 import Deliveryman_stats from "./Deliveryman_stats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,14 +47,8 @@ export default function Deliveryman_Body(props) {
   }, []);
   function reget() {
     settoRender2(toRender2);
-    console.log("no2" + toRender3);
   }
 
-  console.log("no1" + toRender3);
-  useEffect(() => {
-    console.log(props.dm);
-  }, [props.dm]);
-  console.log(props.dm);
   const a = 4;
   return (
     <section className="faq_area bg_color sec_pad">

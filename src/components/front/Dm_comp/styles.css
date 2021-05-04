@@ -8,7 +8,14 @@ button {
   font-size: 20px;
   border-radius: 5px;
 }
+.header-spacer {
+  display: block;
+  width: 110px;
+}
 
+.header-spacer-small {
+  width: 70px;
+}
 #spin,
 #reset {
   position: absolute;

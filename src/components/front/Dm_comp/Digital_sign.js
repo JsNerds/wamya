@@ -1,4 +1,10 @@
-import React, { useCallback, Fragment, useState, useRef } from "react";
+import React, {
+  useCallback,
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import styles from "./test.css";
@@ -26,35 +32,12 @@ import {
   LinearProgress,
   Card,
   Button,
+  CardContent,
   List,
   ListItem,
+  Container,
 } from "@material-ui/core";
 import { number } from "yup";
-
-function MyVerticallyCenteredModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="App">
-          <Wheels></Wheels>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 
 const CustomHandle = ({
   onlyHandleDraggable = true,
@@ -92,13 +75,34 @@ const CustomHandle = ({
   );
 };
 
-export default function Digital_sign() {
+export default function Digital_sign(props) {
   const custom_file_upload_url = `http://localhost:3000/deliveryman/addsign`;
   const handleSubmitFile = (values) => {};
 
   const [imageURL, setImageURL] = useState(null);
   const [imageURL1, setImageURL1] = useState(null);
+  const [sig, setsig] = useState([]);
+  const getsign = async () => {
+    try {
+      const userPosts = await axios.get(
+        "http://localhost:3000/deliveryman/checksign/" + props.idc
+      );
 
+      setsig(userPosts.data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getsign();
+
+    const interval = setInterval(() => {
+      getsign();
+    }, 2000000);
+
+    return () => clearInterval(interval);
+  }, []);
   var image0 = "";
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = React.useState(false);
@@ -110,6 +114,7 @@ export default function Digital_sign() {
   /* a function that uses the canvas ref to clear the canvas 
   via a method given by react-signature-canvas */
   const clear = () => sigCanvas.current.clear();
+  const setit = (data) => setImageURL1(data);
 
   /* a function that uses the canvas ref to trim the canvas 
   from white spaces via a method given by react-signature-canvas
@@ -121,40 +126,9 @@ export default function Digital_sign() {
       url: custom_file_upload_url,
       data: {
         img: sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"),
+        client: props.idc,
       },
     });
-    axios.get("http://localhost:3000/deliveryman/getsig").then((resp) => {
-      console.log(resp.data);
-      //  image0 = resp.data[length].img;
-
-      Object.size = function(obj) {
-        var size = 0,
-          key;
-        for (key in obj) {
-          if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-      };
-
-      console.log(
-        resp.data[Object.keys(resp.data)[Object.keys(resp.data).length - 1]].img
-      );
-      image0 =
-        resp.data[Object.keys(resp.data)[Object.keys(resp.data).length - 1]]
-          .img;
-
-      setImageURL1(
-        resp.data[Object.keys(resp.data)[Object.keys(resp.data).length - 1]].img
-      );
-    });
-
-    function hexToRGB(hexStr) {
-      var col = {};
-      col.r = parseInt(hexStr.substr(1, 2), 16);
-      col.g = parseInt(hexStr.substr(3, 2), 16);
-      col.b = parseInt(hexStr.substr(5, 2), 16);
-      return col;
-    }
   };
   return (
     <Fragment>
@@ -166,17 +140,10 @@ export default function Digital_sign() {
           <p className="text-black-50 mb-0">
             The costomer myst sign before the dropby.
           </p>
+          <button onClick={console.log("ahwaaaaaaaa" + props.idc)}>show</button>
         </div>
         <div className="d-flex flex-row flex-wrap justify-content-center">
-          <Button variant="primary" onClick={() => setModalShow(true)}>
-            Launch vertically centered modal
-          </Button>
-          <MyVerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
           <h1>Signature Pad Example</h1>
-
           <Popup
             modal
             trigger={<button>Open Signature Pad</button>}
@@ -200,8 +167,31 @@ export default function Digital_sign() {
               </>
             )}
           </Popup>
-          <br />
-          <br />
+          <div class="header-spacer header-spacer-small mb-3"></div>
+          <div class="header-spacer header-spacer-small mb-3"></div>
+          <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div className="container">
+              <div className="row">
+                {sig &&
+                  sig.map((dm, index) => (
+                    <img
+                      key={index}
+                      src={dm.img}
+                      onClick={() => setit(dm.img)}
+                      style={{
+                        display: "block",
+                        margin: "0 auto",
+                        border: "1px solid black",
+                        height: "150px",
+                        width: "150px",
+                      }}
+                      alt="img"
+                    ></img>
+                  ))}
+              </div>
+            </div>
+          </div>
+
           {imageURL ? (
             <img
               src={imageURL}
@@ -214,7 +204,7 @@ export default function Digital_sign() {
               }}
             />
           ) : null}
-          {imageURL ? (
+          {imageURL1 ? (
             <div style={{ width: 700, height: 450 }}>
               <br></br>
               <ImageSlider
@@ -227,8 +217,7 @@ export default function Digital_sign() {
               />
             </div>
           ) : null}
-
-          {imageURL ? (
+          {imageURL1 ? (
             <div style={{ width: 350, height: 350 }}>
               <br></br>
               <ReactCompareSlider

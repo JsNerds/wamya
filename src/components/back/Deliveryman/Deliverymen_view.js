@@ -113,7 +113,10 @@ export default function Deliverymen_view(props) {
               </thead>
               <tbody>
                 {props.dms?.map((dm, index) => (
-                  <tr key={index} className={dm.Status == 1 && "table-warning"}>
+                  <tr
+                    key={index}
+                    className={dm.Status === 1 && "table-warning"}
+                  >
                     <td>
                       <div className="d-flex align-items-center">
                         <Avatar
@@ -149,6 +152,9 @@ export default function Deliverymen_view(props) {
                         <span class="badge badge-success">Available</span>
                       )}
                       {dm.Status === 4 && (
+                        <span class="badge badge-warning">Delivering</span>
+                      )}
+                      {dm.Status === 5 && (
                         <span class="badge badge-warning">Delivering</span>
                       )}
                     </td>
