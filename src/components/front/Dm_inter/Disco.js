@@ -18,6 +18,7 @@ import { queryServerApi } from "../../../utils/queryServerApi";
 import { useServerApi } from "../../../hooks/useServerApi";
 import axios from "axios";
 import Degital_sign from "../Dm_comp/Digital_sign";
+
 const CustomerInterfaceBody = (props) => {
   const [a, seta] = React.useState(props.dm.Status);
 

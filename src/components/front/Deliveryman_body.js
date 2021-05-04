@@ -9,7 +9,7 @@ import React, {
 import Deliveryman_stats from "./Deliveryman_stats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Feed from "./Dm_inter/Feed";
 import { Button, Tooltip } from "@material-ui/core";
 import Degiral_sign from "./Dm_comp/Digital_sign";
 import Disco from "./Dm_inter/Disco";
@@ -80,6 +80,20 @@ export default function Deliveryman_Body(props) {
                     className="nav-link"
                     id="returns-tab"
                     data-toggle="tab"
+                    href="#Feed"
+                    role="tab"
+                    aria-controls="returns"
+                    aria-selected="false"
+                  >
+                    Feedback{" "}
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    id="returns-tab"
+                    data-toggle="tab"
                     href="#Drivers"
                     role="tab"
                     aria-controls="returns"
@@ -136,6 +150,14 @@ export default function Deliveryman_Body(props) {
                 aria-labelledby="purchas-tab"
               >
                 <Deliveryman_stats />
+              </div>
+              <div
+                className="tab-pane fade show active"
+                id="Feed"
+                role="tabpanel"
+                aria-labelledby="purchas-tab"
+              >
+                <Feed />
               </div>
 
               <div
