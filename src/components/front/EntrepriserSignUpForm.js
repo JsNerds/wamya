@@ -44,7 +44,7 @@ const EntrepriseSignUpForm =()=>{
         },validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
-            const [res,err] = await queryServerApi("entreprises/addCompany", values,"POST",false);
+            const [res,err] = await queryServerApi("entreprises/addCompany", values,"POST",true);
             console.log(res);
             if(res === "DenominationExist"){
                 setError({
@@ -302,6 +302,18 @@ const EntrepriseSignUpForm =()=>{
                                             <FormHelperText error={error.DenominationErr}>{error.message}</FormHelperText>
                                         )}
 
+                                    </div>
+
+                                    <div className="form-group text_box">
+                                        <label className="f_p text_c f_400"> <strong>Upload your Logo : </strong></label><br/>
+
+                                        <input
+                                            id="fileinput"
+                                            type="file"
+                                            name="img"
+                                            onChange={(event) => {
+                                                formik.setFieldValue("img", event.target.files[0]);
+                                            }}/>
                                     </div>
 
                                     <div className="form-group text_box">

@@ -28,7 +28,7 @@ export default function CustomerStats(props) {
 
   function finishedDeliv(deliveries) {
     return deliveries.reduce(function(nb, item) {
-      if (item.state === 3) {
+      if (item.state === 6) {
         nb += 1;
       }
 
