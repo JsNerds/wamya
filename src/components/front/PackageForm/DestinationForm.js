@@ -53,7 +53,7 @@ export default function DestinationForm(props) {
             newmarkers.push(loc.latlng);
             setMarkers([...newmarkers]);
             props.locations.push(markers[markers.length - 1]);
-            if (markers.length == 1) {
+            if (props.locations.length == 1) {
               let newSource = { ...source };
               newSource.State = doc.data.address.state;
               newSource.City = doc.data.address.county;
@@ -63,7 +63,7 @@ export default function DestinationForm(props) {
               };
               newSource.ZipCode = parseInt(doc.data.address.postcode);
               props.changeSource({ ...newSource });
-            } else if (markers.length == 2) {
+            } else if (props.locations.length == 2) {
               let newDestination = { ...destination };
               newDestination.State = doc.data.address.state;
               newDestination.City = doc.data.address.county;

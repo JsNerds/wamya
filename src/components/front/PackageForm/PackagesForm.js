@@ -187,7 +187,7 @@ export default function PackagesForm(props) {
       driverList={recommendedDriversList}
     />,
     <WaitingForDriverToAccept changeStep={changeStep}/>,
-    <ConfirmGivingPackage/>,
+    <ConfirmGivingPackage changeStep={changeStep}/>,
     <WaitingForDriverToConfirmPackage duration={duration} amount={amount}/>
   ];
   return (

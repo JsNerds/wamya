@@ -38,12 +38,15 @@ export default function ConfirmGivingPackage(props) {
   }, []);
 
   const confirmDelivery = async (id) => {
+      console.log(delivery)
     const [res, err] = await queryServerApi(
       "delivery/confirmDeliveryCustomer/" + delivery._id,
       null,
       "PUT",
       false
     );
+    props.changeStep(1);
+
   };
   return (
       <>
@@ -59,6 +62,7 @@ export default function ConfirmGivingPackage(props) {
                           </span>
                           <br />
                           <button
+                          type="button"
                             className="btn-primary"
                             onClick={() =>
                               confirmDelivery()
