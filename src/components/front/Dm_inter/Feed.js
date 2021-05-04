@@ -6,12 +6,12 @@ class Feed extends Component {
   render() {
     var ok = ["Bad", "Normal", "good"];
     // See al=l customizable props below
-    var mail = localStorage.getItem("Email");
+    var mail = localStorage.getItem("email");
     return (
       <Feedback
-        emailDefaultValue={"was"}
+        emailDefaultValue={mail}
         projectId="6091ce2ae2cb6100047099d9"
-        feedbackTypes={ok}
+        feedbackTypes={["Bad", "Normal", "Good"]}
       />
     );
   }
