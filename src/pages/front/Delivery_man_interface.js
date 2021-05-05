@@ -12,6 +12,8 @@ const CustomerInterface = () => {
     "deliveryman/getdev/" + localStorage.getItem("id")
   );
   const [deli, setdeli] = useState([]);
+  const [mile, setmile] = useState([]);
+
   const [dlv, err1, reload1] = useServerApi(
     "delivery/delivsfordv/" + localStorage.getItem("id")
   );
@@ -26,8 +28,21 @@ const CustomerInterface = () => {
     }
   };
 
+  const getmile = async () => {
+    try {
+      const userPosts = await axios.get(
+        "http://localhost:3000/deliveryman/getmileid/" +
+          localStorage.getItem("id")
+      );
+      setmile(userPosts.data); // set State
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   useEffect(() => {
     getdriver();
+    getmile();
     const interval = setInterval(() => {
       getdriver();
     }, 2000);
@@ -36,6 +51,7 @@ const CustomerInterface = () => {
   }, []);
   const toRender = deli;
   const toRender1 = dlv;
+  const toRender2 = mile;
 
   return (
     <div className="body_wrapper">
@@ -53,7 +69,11 @@ const CustomerInterface = () => {
 
       {toRender ? (
         <>
-          <Deliveryman_body dm={toRender} deliveries={toRender1} />
+          <Deliveryman_body
+            dm={toRender}
+            deliveries={toRender1}
+            mile={toRender2}
+          />
         </>
       ) : (
         console.log("nopeeee no render")

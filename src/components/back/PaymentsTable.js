@@ -118,7 +118,7 @@ export default function PaymentsTable(props) {
                                 <div className="d-flex align-items-center justify-content-end">
                                     <div className="font-weight-bold font-size-lg pr-2">
                                         {' '}
-                                        {payment.Amount / 100}TND
+                                        {Math.round(props.amount.toFixed(2) * 100) / 100}TND
                                     </div>
                                 </div>
                             </td>

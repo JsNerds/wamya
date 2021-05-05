@@ -46,7 +46,6 @@ export default function ConfirmGivingPackage(props) {
       false
     );
     props.changeStep(1);
-
   };
   return (
       <>

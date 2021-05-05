@@ -9,7 +9,7 @@ import React, {
 import Deliveryman_stats from "./Deliveryman_stats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Feed from "./Dm_inter/Feed";
 import { Button, Tooltip } from "@material-ui/core";
 import Degiral_sign from "./Dm_comp/Digital_sign";
 import Disco from "./Dm_inter/Disco";
@@ -59,20 +59,7 @@ export default function Deliveryman_Body(props) {
               <h4 className="f_p t_color3 f_600 f_size_22 mb_40">
                 Quick Navigation
               </h4>
-              <ul>
-                {delivs.map((dell) => (
-                  <li key={dell._id}>{dell.driver}</li>
-                ))}
-              </ul>
-              <Button
-                variant="contained"
-                color="primary"
-                className="m-2"
-                onClick={(e) => reget(e, 10)}
-              >
-                <FontAwesomeIcon icon={["far", "fa-redo"]} />
-                Refrech
-              </Button>
+
               <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item">
                   <a
@@ -85,6 +72,20 @@ export default function Deliveryman_Body(props) {
                     aria-selected="true"
                   >
                     Analytics
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    id="returns-tab"
+                    data-toggle="tab"
+                    href="#Feed"
+                    role="tab"
+                    aria-controls="returns"
+                    aria-selected="false"
+                  >
+                    Feedback{" "}
                   </a>
                 </li>
 
@@ -127,6 +128,14 @@ export default function Deliveryman_Body(props) {
                     aria-selected="false"
                   >
                     My Deliveries
+                    <ul>
+                      {delivs.map((dell) => (
+                        <li key={dell._id}>
+                          From {dell.sourceAddress.City} To{" "}
+                          {dell.destinationAddress[0].City}
+                        </li>
+                      ))}
+                    </ul>
                   </a>
                 </li>
               </ul>
@@ -140,7 +149,15 @@ export default function Deliveryman_Body(props) {
                 role="tabpanel"
                 aria-labelledby="purchas-tab"
               >
-                <Deliveryman_stats />
+                <Deliveryman_stats mile={props.mile} />
+              </div>
+              <div
+                className="tab-pane fade show active"
+                id="Feed"
+                role="tabpanel"
+                aria-labelledby="purchas-tab"
+              >
+                <Feed />
               </div>
 
               <div
@@ -167,7 +184,7 @@ export default function Deliveryman_Body(props) {
                 role="tabpane4"
                 aria-labelledby="returns-tab"
               >
-                <Disco dm={props.dm} delivs={delivs} />
+                <Disco dm={props.dm} delivs={delivs} mile={props.mile} />
                 {a === 3 && <Deliveryman_stats />}
               </div>
             </div>
