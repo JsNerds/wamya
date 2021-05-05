@@ -10,7 +10,85 @@ var path = require("path");
 const Signature = require("../models/signature");
 var bcrypt = require("bcrypt");
 router.use(express.static(__dirname + "./public/"));
+var cors = require("cors");
+
 // router.use(express.static(__dirname+"./public/"));
+//------------------------------------------------------------------
+const { google } = require("googleapis");
+const { OAuth2 } = google.auth;
+const oAuth2Client = new OAuth2(
+  "6891402954-6usd74cfvlb19itnrtbvp4ak0lc99fss.apps.googleusercontent.com",
+  "sO4ywZFRgnNQ4Q5XV2vFCXtf"
+);
+
+oAuth2Client.setCredentials({
+  refresh_token:
+    "1//04E0N65ZKA0ciCgYIARAAGAQSNwF-L9IrBAnaj_9XfMD8J6cm_QDE7SEvGI-oirPyh2gHHwaOj6IIjHwX6ECeHKppLLclTePr2Bw",
+});
+
+const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+router.post("/showCalendar/:id", cors(), async (req, res) => {
+  delivery.findById(req.params.id, function (err, data) {
+    const obj = JSON.parse(JSON.stringify(data));
+    if (obj != null) {
+      const datee = new Date();
+      datee.setDate(datee.getDay() + 2);
+
+      const dateeF = new Date();
+
+      dateeF.setDate(dateeF.getDay() + 2);
+      dateeF.setMinutes(dateeF.getMinutes() + 45);
+      const event = {
+        summary: obj.FullName,
+        location: "",
+        description: obj.FullName + "has made a delivery",
+        colorId: 1,
+        start: {
+          dateTime: datee,
+          timeZone: "America/Denver",
+        },
+        end: {
+          dateTime: dateeF,
+          timeZone: "America/Denver",
+        },
+      };
+      calendar.freebusy.query(
+        {
+          resource: {
+            timeMin: datee,
+            timeMax: dateeF,
+            timeZone: "America/Denver",
+            items: [{ id: "primary" }],
+          },
+        },
+        (err, res) => {
+          // Check for errors in our query and log them if they exist.
+          if (err) return console.error("Free Busy Query Error: ", err);
+
+          // Create an array of all events on our calendar during that time.
+          const eventArr = res.data.calendars.primary.busy;
+
+          // Check if event array is empty which means we are not busy
+
+          // If we are not busy create a new calendar event.
+          return calendar.events.insert(
+            { calendarId: "primary", resource: event },
+
+            (err) => {
+              // Check for errors and log them if they exist.
+              if (err)
+                return console.error("Error Creating Calender Event:", err);
+              // Else log that the event was created.
+              return console.log("Calendar event successfully created.");
+            }
+          );
+        }
+      );
+    }
+  });
+  res.send("calendar done");
+});
+//------------------------------------------------------------------
 if (typeof localStorage === "undefined" || localStorage === null) {
   const LocalStorage = require("node-localstorage").LocalStorage;
   localStorage = new LocalStorage("./scratch");
@@ -374,6 +452,21 @@ router.put("/putmile/:id/:deliv/:profit", function (req, res, next) {
   const mynewdelivery = {
     delivs: req.params.deliv,
     profit: req.params.profit,
+  };
+  mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
+router.get("/prize/:id/:priz", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    stage: req.params.priz,
+    badges: "0",
   };
   mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
     if (err) {

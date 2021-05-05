@@ -217,7 +217,7 @@ router.put('/update/:id',upload,function(req,res,next){
   Entreprise.findByIdAndUpdate(req.params.id,newCompany,async function(err,data){
     if(err) throw err;
     await User.findOneAndUpdate({Id: req.params.id}, {
-      Username: newCompany.UserName,
+      Username: newCompany.ResponsibleName,
       Email: newCompany.Email,
       img:newCompany.img
     });
