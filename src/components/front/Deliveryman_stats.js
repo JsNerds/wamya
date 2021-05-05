@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,6 +10,7 @@ import img4 from "../../img/home4/14d.png";
 import img5 from "../../img/home4/15d.png";
 import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
+import Modal from "react-bootstrap/Modal";
 
 import {
   Grid,
@@ -20,7 +21,7 @@ import {
   ListItem,
 } from "@material-ui/core";
 
-export default function CustomerStats() {
+export default function deliverymanStats(props) {
   const Blacked = styled.img`
     width: 150px;
     height: 150px;
@@ -61,18 +62,26 @@ export default function CustomerStats() {
                   </div>
                   <Div>
                     <Blacked src={img2} />
-                    <Blacked src={img3} />
-                    <Blacked src={img4} />
-                    <Blacked src={img5} />
-                    <Blacked src={img} />
-                    <Blacked src={img1} />
+                    {props.mile.delivs <= 1000 && <Blacked src={img3} />}
+
+                    {props.mile.delivs <= 500 && <Blacked src={img4} />}
+                    {props.mile.delivs <= 100 && <Blacked src={img5} />}
+                    {props.mile.delivs <= 10 && <Blacked src={img} />}
+                    {props.mile.delivs <= 1 && <Blacked src={img1} />}
                   </Div>
                 </div>
 
                 <div>
                   <div className="font-weight-bold">Unlocked milestones</div>
                 </div>
-                <Div></Div>
+                <Div>
+                  {props.mile.delivs >= 1000 && <Origin src={img3} />}
+
+                  {props.mile.delivs >= 500 && <Origin src={img4} />}
+                  {props.mile.delivs >= 100 && <Origin src={img5} />}
+                  {props.mile.delivs >= 10 && <Origin src={img} />}
+                  {props.mile.delivs >= 1 && <Origin src={img1} />}
+                </Div>
               </ListItem>
             </List>
           </Card>
@@ -94,7 +103,18 @@ export default function CustomerStats() {
                   <div>
                     <div className="font-weight-bold">
                       Next milestone to unlock
-                      <Blacked src={img5} />
+                      {props.mile.delivs >= 1000 &&
+                        props.mile.delivs >= 500 && <Origin src={img3} />}
+                      {props.mile.delivs <= 500 && props.mile.delivs >= 100 && (
+                        <Blacked src={img4} />
+                      )}
+                      {props.mile.delivs <= 100 && props.mile.delivs >= 10 && (
+                        <Blacked src={img5} />
+                      )}
+                      {props.mile.delivs <= 10 && props.mile.delivs >= 1 && (
+                        <Blacked src={img} />
+                      )}
+                      {props.mile.delivs <= 1 && <Blacked src={img1} />}
                     </div>
                   </div>
 
@@ -103,61 +123,18 @@ export default function CustomerStats() {
                   </div>
                   <div className="ml-auto">
                     <div className="font-size-xl font-weight-bold text-success">
-                      0
+                      {props.mile.delivs}
                     </div>
                   </div>
                 </div>
                 <LinearProgress
                   className="progress-animated-alt"
                   color="secondary"
-                  value={0}
+                  value={props.mile.delivs}
                 />
                 <div className="align-box-row progress-bar--label mt-1 text-muted">
-                  <small className="text-dark">0</small>
-                  <div className="ml-auto">0%</div>
-                </div>
-              </ListItem>
-              <ListItem className="py-2 d-block">
-                <div className="align-box-row mb-1">
-                  <div>
-                    <div className="font-weight-bold">Hours in service</div>
-                  </div>
-                  <div className="ml-auto">
-                    <div className="font-size-xl font-weight-bold text-danger">
-                      <small>Hour</small>0
-                    </div>
-                  </div>
-                </div>
-                <LinearProgress
-                  variant="determinate"
-                  color="primary"
-                  value={0}
-                />
-                <div className="align-box-row progress-bar--label mt-1 text-muted">
-                  <small className="text-dark">0</small>
-                  <div className="ml-auto">0%</div>
-                </div>
-              </ListItem>
-              <ListItem className="py-2 d-block">
-                <div className="align-box-row mb-1">
-                  <div>
-                    <div className="font-weight-bold">Regional ranking</div>
-                    <Blacked src={img2} />
-                  </div>
-                  <div className="ml-auto">
-                    <div className="font-size-xl font-weight-bold text-info">
-                      <small>#</small>0
-                    </div>
-                  </div>
-                </div>
-                <LinearProgress
-                  className="progress-animated-alt"
-                  color="primary"
-                  value={51}
-                />
-                <div className="align-box-row progress-bar--label mt-1 text-muted">
-                  <small className="text-dark">0</small>
-                  <div className="ml-auto">in progress</div>
+                  <small className="text-dark"> {props.mile.delivs}</small>
+                  <div className="ml-auto"> {props.mile.delivs}%</div>
                 </div>
               </ListItem>
 
@@ -165,13 +142,13 @@ export default function CustomerStats() {
                 <div className="align-box-row mb-1">
                   <div>
                     <div className="font-weight-bold">Costumer rating</div>
-                    <Origin src={img} />
+                    <Origin src={img1} />
                     <Div>
                       <ReactStars
                         count={5}
                         edit={false}
                         isHalf={true}
-                        value={0}
+                        value={props.mile.rating}
                         size={24}
                         activeColor="#ffd700"
                       />
@@ -208,7 +185,7 @@ export default function CustomerStats() {
                     <LinearProgress
                       color="secondary"
                       variant="determinate"
-                      value={0}
+                      value={props.mile.profit}
                     />
                   </div>
                   <div className="line-height-sm text-center ml-4">
@@ -216,11 +193,17 @@ export default function CustomerStats() {
                       Totals
                     </small>
                     <b className="font-size-lg text-warning">
-                      <small className="text-black-50 pr-1">Dinar</small>0
+                      <small className="text-black-50 pr-1">Dinar</small>{" "}
+                      {parseInt(props.mile.profit)}
                     </b>
                   </div>
                 </div>
               </ListItem>
+              <center>
+                {props.mile.stage !== "better luck next time" && (
+                  <b>{props.mile.stage}</b>
+                )}
+              </center>
             </List>
             <div className="card-footer bg-light text-center">
               <Button variant="contained" color="primary">
