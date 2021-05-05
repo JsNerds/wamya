@@ -20,6 +20,7 @@ router.get("/", function (req, res, next) {
     })
     .populate("customer package driver");
 });
+
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
   delivery.find(
     { customer: req.params.id },
@@ -27,11 +28,27 @@ router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
       if (err) {
         res.send(err);
       } else {
-        res.send(doc?.pop());
+        if (doc) {
+          res.send(doc.pop());
+        } else res.send("ok");
       }
     }
   );
 });
+
+router.get("/getDeliveryByCustomer/:id", function (req, res) {
+  delivery.find(
+    { customer: req.params.id },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    }
+  ).populate("package");
+});
+
 /* start delivery */
 router.post("/startDelivery", function (req, res) {
   const package = new Package({
