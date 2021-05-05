@@ -368,4 +368,33 @@ router.get("/checksign/:id", function (req, res) {
     })
     .populate("package");
 });
+
+router.put("/putmile/:id/:deliv/:profit", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    delivs: req.params.deliv,
+    profit: req.params.profit,
+  };
+  mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
+router.get("/setrating/:id/:rate", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    rating: req.params.rate,
+  };
+  mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
 module.exports = router;
