@@ -21,84 +21,31 @@ const NomineeDetailsForm = (props) => {
       <Col xs="12" sm="12">
         <Card className="card-border">
           <CardBody>
-            <FormGroup row>
-              <Col xs="12" lg="6">
-                <Field
-                  name="nominee"
-                  type="text"
-                  component={FormInput}
-                  label="Nominee Name"
-                  inputPlaceHolder="Enter Nominee Name"
-                  normalize={captialize}
-                />
-              </Col>
-              <Col xs="12" lg="6">
-                <Field
-                  name="relationship"
-                  type="text"
-                  component={FormInput}
-                  label="Nominee Relationship"
-                  inputPlaceHolder="Enter Nominee Relationship"
-                  normalize={captialize}
-                />
-              </Col>
-            </FormGroup>
             <FormGroup row className="my-0">
-              <Col xs="12" lg="6">
-                <Field
-                  name="date"
-                  type="date"
-                  component={FormInput}
-                  label="Date of Birth"
-                />
-              </Col>
-              <Col xs="12" lg="6">
-                <Field
-                  name="age"
-                  type="text"
-                  component={FormInput}
-                  label="Age"
-                  inputPlaceHolder="Enter Age"
-                  normalize={age}
-                />
-              </Col>
+              <div>
+                <h6>
+                  You shall comply with all laws, regulations, rules, policies
+                  and guidelines as well as this Code and any further guidelines
+                  that may be issued by the Company from time to time. The
+                  Company will conduct random checks on delivery man as well as
+                  merchants. You are required to co-operate courteously and
+                  comply with the reasonable requests from the Company. You are
+                  prohibited from taking part in any illegal demonstrations
+                  against the Company, being a member of an unregistered
+                  association, incite other delivery partners not to use the
+                  Byte application, boycott or threaten to boycott the Byte
+                  application or any other acts that may be construed to be
+                  against the interests of the Company.
+                </h6>
+                <div className="checkbox remember">
+                  <label>
+                    <input type="checkbox" /> I agree to terms and conditions of
+                    this website
+                  </label>
+                </div>
+              </div>
             </FormGroup>
             <br />
-            <FormGroup row>
-              <Col xs="12" lg="6">
-                <Field
-                  name="occupation"
-                  type="text"
-                  component={FormInput}
-                  label="Nominee Occupation"
-                  inputPlaceHolder="Enter Nominee Occupation"
-                />
-              </Col>
-              <Col xs="12" lg="6">
-                <Field
-                  name="income"
-                  type="text"
-                  component={FormInput}
-                  label="Nominee Annual Income"
-                  inputPlaceHolder="Enter Nominee Annual Income"
-                  normalize={salary}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col xs="12" lg="6">
-                <Label htmlFor="textarea-input">Comments</Label>
-              </Col>
-              <Col xs="12" lg="12">
-                <Input
-                  type="textarea"
-                  name="textarea-input"
-                  id="textarea-input"
-                  rows="3"
-                  placeholder="Content..."
-                />
-              </Col>
-            </FormGroup>
           </CardBody>
           <div style={{ paddingBottom: 30 }}>
             <Button

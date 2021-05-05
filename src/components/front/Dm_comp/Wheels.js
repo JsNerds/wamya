@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import { queryServerApi } from "../../../utils/queryServerApi";
 
 import WheelComponent from "react-wheel-of-prizes";
+import { Button } from "@material-ui/core";
 import "react-wheel-of-prizes/dist/index.css";
 import "./styles.css";
 const Wheels = () => {
@@ -24,8 +26,19 @@ const Wheels = () => {
     "#EC3F3F",
     "#FF9000",
   ];
+  const [sig, setsig] = useState(false);
   const onFinished = (winner) => {
     console.log(winner);
+    setsig(winner);
+  };
+
+  const claim = async (prize) => {
+    const [res2, err2] = await queryServerApi(
+      "deliveryman/prize/" + localStorage.getItem("id") + "/" + prize,
+      null,
+      "GET",
+      false
+    );
   };
   return (
     <div className="App">
@@ -42,6 +55,15 @@ const Wheels = () => {
         upDuration={220}
         downDuration={610}
       />
+
+      <Button
+        color="secondary"
+        variant="contained"
+        type="submit"
+        onClick={() => claim(sig)}
+      >
+        Claim
+      </Button>
     </div>
   );
 };
