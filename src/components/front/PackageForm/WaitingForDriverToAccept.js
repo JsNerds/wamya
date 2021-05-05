@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 export default function WaitingForDriverToAccept(props) {
-    const [delivery,setDelivery] = useState();
+  const [delivery, setDelivery] = useState();
   const getAcceptedDelivery = async () => {
     try {
-      const Delivery = await axios.get(
-        "http://localhost:3000/delivery/getLastDeliveryByCustomer/" + localStorage.getItem("id")
-      ).then(function(doc){
-        if(doc.data.state == 1)
-        {
-            props.changeStep(1)
-        }
-        else
-        {
-            setDelivery(doc.data)
-        }
-      });
-       // set State
+      const Delivery = await axios
+        .get(
+          "http://localhost:3000/delivery/getLastDeliveryByCustomer/" +
+            localStorage.getItem("id")
+        )
+        .then(function(doc) {
+          if (doc.data.state === 1) {
+            props.changeStep(1);
+          } else {
+            setDelivery(doc.data);
+          }
+        });
+      // set State
     } catch (err) {
       console.error(err.message);
     }

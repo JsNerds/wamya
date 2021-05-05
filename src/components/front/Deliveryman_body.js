@@ -5,6 +5,7 @@ import React, {
   Component,
   useCallback,
 } from "react";
+import Modal from "react-bootstrap/Modal";
 
 import Deliveryman_stats from "./Deliveryman_stats";
 import CustomerFavoriteDrivers from "./CustomerFavoriteDrivers";
@@ -15,6 +16,31 @@ import Degiral_sign from "./Dm_comp/Digital_sign";
 import Disco from "./Dm_inter/Disco";
 import axios from "axios";
 import { useServerApi } from "../../hooks/useServerApi";
+import Wheel from "./Dm_comp/Wheel";
+import Wheels from "./Dm_comp/Wheels";
+function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <center>
+          <h4>Centered Modal</h4>
+          <Wheels></Wheels>
+        </center>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 export default function Deliveryman_Body(props) {
   const [dlv, err, reload] = useServerApi(
@@ -24,6 +50,7 @@ export default function Deliveryman_Body(props) {
 
   const [toRender3, settoRender2] = useState(props.deliveries);
   const [delivs, setdelivs] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
 
   const getdelivs = async () => {
     try {
@@ -49,7 +76,6 @@ export default function Deliveryman_Body(props) {
     settoRender2(toRender2);
   }
 
-  const a = 4;
   return (
     <section className="faq_area bg_color sec_pad">
       <div className="container">
@@ -60,6 +86,16 @@ export default function Deliveryman_Body(props) {
                 Quick Navigation
               </h4>
 
+              {props.mile.badges - 1 === 0 && (
+                <Button variant="primary" onClick={() => setModalShow(true)}>
+                  You earned a wheel try
+                </Button>
+              )}
+
+              <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
               <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item">
                   <a
@@ -99,7 +135,7 @@ export default function Deliveryman_Body(props) {
                     aria-controls="returns"
                     aria-selected="false"
                   >
-                    Delivery man of the month{" "}
+                    Deliveryman of the month{" "}
                   </a>
                 </li>
 
@@ -149,7 +185,7 @@ export default function Deliveryman_Body(props) {
                 role="tabpanel"
                 aria-labelledby="purchas-tab"
               >
-                <Deliveryman_stats />
+                <Deliveryman_stats mile={props.mile} />
               </div>
               <div
                 className="tab-pane fade show active"
@@ -184,8 +220,7 @@ export default function Deliveryman_Body(props) {
                 role="tabpane4"
                 aria-labelledby="returns-tab"
               >
-                <Disco dm={props.dm} delivs={delivs} />
-                {a === 3 && <Deliveryman_stats />}
+                <Disco dm={props.dm} delivs={delivs} mile={props.mile} />
               </div>
             </div>
           </div>

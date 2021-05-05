@@ -125,7 +125,7 @@ export default function Digital_sign(props) {
   /* a function that uses the canvas ref to trim the canvas 
   from white spaces via a method given by react-signature-canvas
   then saves it in our state */
-  const confirmsig = async (id) => {
+  const confirmsig = async (id, delivs, profit) => {
     const [res, err] = await queryServerApi(
       "delivery/confirmsigndrop/" + id,
       null,
@@ -134,6 +134,23 @@ export default function Digital_sign(props) {
     );
     const [res1, err1] = await queryServerApi(
       "deliveryman/dispo/" + localStorage.getItem("id"),
+      null,
+      "PUT",
+      false
+    );
+    const [res3, err3] = await queryServerApi(
+      "deliveryman/showCalendar/" + localStorage.getItem("id"),
+      null,
+      "POST",
+      false
+    );
+    const [res2, err2] = await queryServerApi(
+      "deliveryman/putmile/" +
+        localStorage.getItem("id") +
+        "/" +
+        delivs +
+        "/" +
+        profit,
       null,
       "PUT",
       false
@@ -286,7 +303,13 @@ export default function Digital_sign(props) {
           color="secondary"
           variant="contained"
           type="submit"
-          onClick={() => confirmsig(props.idel)}
+          onClick={() =>
+            confirmsig(
+              props.idel,
+              parseInt(props.mile.delivs) + 1,
+              parseFloat(props.profit) + parseFloat(props.mile.profit)
+            )
+          }
         >
           Save
         </Button>
