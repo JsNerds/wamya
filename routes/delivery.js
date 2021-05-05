@@ -22,18 +22,16 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
-  delivery.find(
-    { customer: req.params.id },
-    function (err, doc) {
-      if (err) {
-        res.send(err);
-      } else {
-        if (doc) {
-          res.send(doc.pop());
-        } else res.send("ok");
-      }
+=
+  delivery.find({ customer: req.params.id }, function (err, doc) {
+    if (err) {
+      res.send(err);
+    } else {
+      if (doc) {
+        res.send(doc.pop());
+      } else res.send("ok");
     }
-  );
+  });
 });
 
 router.get("/getDeliveryByCustomer/:id", function (req, res) {
@@ -304,6 +302,23 @@ router.put("/setfourth/:id", function (req, res) {
     req.params.id,
     {
       $set: { state: 3 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery confirmed");
+      }
+    }
+  );
+});
+
+router.put("/setfifth/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state: 5 },
     },
     { new: true, useFindAndModify: false },
     function (err, doc) {
