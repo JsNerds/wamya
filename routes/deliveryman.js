@@ -39,9 +39,9 @@ router.post("/showCalendar/:id", cors(), async (req, res) => {
       dateeF.setDate(dateeF.getDay() + 2);
       dateeF.setMinutes(dateeF.getMinutes() + 45);
       const event = {
-        summary: obj.Username,
+        summary: obj.FullName,
         location: "",
-        description: obj.Username + "has made a delivery",
+        description: obj.FullName + "has made a delivery",
         colorId: 1,
         start: {
           dateTime: datee,
@@ -86,6 +86,7 @@ router.post("/showCalendar/:id", cors(), async (req, res) => {
       );
     }
   });
+  res.send("calendar done");
 });
 //------------------------------------------------------------------
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -451,6 +452,21 @@ router.put("/putmile/:id/:deliv/:profit", function (req, res, next) {
   const mynewdelivery = {
     delivs: req.params.deliv,
     profit: req.params.profit,
+  };
+  mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
+router.get("/prize/:id/:priz", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    stage: req.params.priz,
+    badges: "0",
   };
   mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
     if (err) {
