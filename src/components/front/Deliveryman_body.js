@@ -149,7 +149,7 @@ export default function Deliveryman_Body(props) {
                 role="tabpanel"
                 aria-labelledby="purchas-tab"
               >
-                <Deliveryman_stats />
+                <Deliveryman_stats mile={props.mile} />
               </div>
               <div
                 className="tab-pane fade show active"
@@ -184,7 +184,7 @@ export default function Deliveryman_Body(props) {
                 role="tabpane4"
                 aria-labelledby="returns-tab"
               >
-                <Disco dm={props.dm} delivs={delivs} />
+                <Disco dm={props.dm} delivs={delivs} mile={props.mile} />
                 {a === 3 && <Deliveryman_stats />}
               </div>
             </div>

@@ -204,7 +204,7 @@ const CustomerInterfaceBody = (props) => {
                           />
 
                           <span className="text-success px-1">
-                            {dlv.distance * 0.7}{" "}
+                            {(dlv.distance * 0.7) / 1000}{" "}
                           </span>
                           <span className="text-white-50">Dinar</span>
                         </div>
@@ -462,7 +462,12 @@ const CustomerInterfaceBody = (props) => {
           )}
 
         {props.dm.Status === 5 && dll.state === 3 && (
-          <Degital_sign idc={dll.customer} idel={dll._id} />
+          <Degital_sign
+            idc={dll.customer}
+            idel={dll._id}
+            mile={props.mile}
+            profit={((dll.distance * 0.7) / 1000) * 0.5}
+          />
         )}
       </Grid>
     </Fragment>
