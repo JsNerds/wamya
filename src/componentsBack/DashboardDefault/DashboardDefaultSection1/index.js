@@ -6,6 +6,7 @@ import { Grid, Card, CardContent, Button, Divider } from '@material-ui/core';
 
 import Chart from 'react-apexcharts';
 import {useHistory} from "react-router-dom";
+import axios from 'axios';
 export default function LivePreviewExample() {
 
   const history = useHistory();
@@ -32,8 +33,53 @@ export default function LivePreviewExample() {
     history.go(0);
     history.push("/");
   }
+  const [deliveryList,setDeliveryList] = useState();
+    const getAllDeliveriesForCustomer= async () => {
+        try {
+          const Delivery = await axios.get(
+            "http://localhost:3000/delivery/"
+          ).then(function(doc){
+                console.log(doc.data)
+                setDeliveryList(doc.data)
+          });
+           // set State
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+      useEffect(() => {
+        getAllDeliveriesForCustomer();
+        const interval = setInterval(() => {
+            getAllDeliveriesForCustomer();
+        }, 500);
+        return () => clearInterval(interval);
+      }, []);
 
 
+  const CalculateFinishedDeliveries = () => {
+    return deliveryList?.reduce(function(nb, deliv) {
+      if (deliv.state === 4 || deliv.state === 5) {
+        nb += 1;
+      }
+      return nb;
+    }, 0);
+  }
+  const CalculateNewDeliveries = () => {
+    return deliveryList?.reduce(function(nb, deliv) {
+      if (deliv.state === 0) {
+        nb += 1;
+      }
+      return nb;
+    }, 0);
+  }
+  const CalculateOnGoingDeliveries = () => {
+    return deliveryList?.reduce(function(nb, deliv) {
+      if (deliv.state > 0 && deliv.state < 4) {
+        nb += 1;
+      }
+      return nb;
+    }, 0);
+  }
   const chart30Options = {
     chart: {
       toolbar: {
@@ -103,7 +149,7 @@ export default function LivePreviewExample() {
   };
   const chart31Data = [
     {
-      name: 'Sales',
+      name: 'Deliveries',
       data: [47, 38, 56, 24, 45, 54, 38, 47, 38, 56, 24, 56, 24, 65]
     }
   ];
@@ -123,9 +169,9 @@ export default function LivePreviewExample() {
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">
                   <small className="text-white-50 d-block mb-1 text-uppercase">
-                    New Accounts
+                    New Deliveries
                   </small>
-                  <span className="font-size-xxl mt-1">586,356</span>
+                  <span className="font-size-xxl mt-1">{deliveryList?.length}</span>
                 </div>
                 <div className="ml-auto">
                   <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
@@ -153,9 +199,9 @@ export default function LivePreviewExample() {
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">
                   <small className="text-white-50 d-block mb-1 text-uppercase">
-                    Sales
+                    Finished Deliveries
                   </small>
-                  <span className="font-size-xxl mt-1">23,274</span>
+                  <span className="font-size-xxl mt-1">{CalculateFinishedDeliveries()}</span>
                 </div>
                 <div className="ml-auto">
                   <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
@@ -183,9 +229,9 @@ export default function LivePreviewExample() {
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">
                   <small className="text-white-50 d-block mb-1 text-uppercase">
-                    Orders
+                    On Going Deliveries
                   </small>
-                  <span className="font-size-xxl mt-1">345</span>
+                  <span className="font-size-xxl mt-1">{CalculateOnGoingDeliveries()}</span>
                 </div>
                 <div className="ml-auto">
                   <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">

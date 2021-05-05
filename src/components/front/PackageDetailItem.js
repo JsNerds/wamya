@@ -9,6 +9,10 @@ import {
   useMap,
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
+import PackageSteps from './PackageSteps';
+import WaitingForDriverToAccept from './PackageForm/WaitingForDriverToAccept';
+import WaitingForDriverToConfirmPackage from './PackageForm/WaitingForDriverToConfirmPackage';
+import ConfirmGivingPackage from './PackageForm/ConfirmGivingPackage';
 import * as L from "leaflet";
 import "leaflet-routing-machine";
 export default function PackageDetailItem() {
@@ -17,12 +21,30 @@ export default function PackageDetailItem() {
   const [delivery] = useServerApi("delivery/" + id);
   const [markers, setMarkers] = useState([]);
   const [deliv, setDeliv] = useState();
+  const [step,setStep] = useState(0);
 
   useEffect(() => {
     setDeliv(delivery);
     console.log(delivery);
   });
+  useEffect(() => {
+    setStep(delivery?.state);
+  },[delivery]);
 
+
+ 
+  const changeStep = (i) => {
+    if (step + i < 0 || step + i > component.length) {
+      return null;
+    } else {
+      setStep(step + i);
+    }
+  };
+  const component = [
+    <WaitingForDriverToAccept changeStep={changeStep}/>,
+    <ConfirmGivingPackage changeStep={changeStep}/>,
+    <WaitingForDriverToConfirmPackage duration={deliv?.duration} amount={deliv?.distance * 0.7 / 1000}/>
+  ];
   const MyMarkers = () => {
     const map = useMap();
 
@@ -117,7 +139,7 @@ export default function PackageDetailItem() {
                   </p>
                 </div>
                 <div className="info_item">
-                  <h6>Service Cost:</h6>
+                  <h6>Service Details:</h6>
                   <p>
                     Duration: {Math.round(deliv?.duration / 3600)}Hr
                     {Math.round((deliv?.duration / 60) % 60)}min
@@ -149,6 +171,26 @@ export default function PackageDetailItem() {
                   />
                   <MyMarkers />
                 </MapContainer>
+                {deliv?.state > -1 && deliv?.state <3 ? (
+                   <section className="sign_in_area bg_color sec_pad">
+      <div className="container">
+        <div className="sign_info">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="login_info">
+                <form>
+                  <div className="form-group text_box">
+                  </div>
+                  <div className="form-group text_box">
+                      <PackageSteps component={component} step={step} />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>) : null  }
               </div>
             </div>
           </div>

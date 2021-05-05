@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import usehs, { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 export default function WaitingForDriverToConfirmPackage(props) {
@@ -37,6 +37,7 @@ export default function WaitingForDriverToConfirmPackage(props) {
         }
         else
         {
+            console.log(doc.data)
             setDelivery(doc.data)
         }
       });

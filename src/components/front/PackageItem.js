@@ -12,17 +12,22 @@ export default function PackageItem(props) {
   const [packDel, setPackDel] = useState(0);
   let history = useHistory();
   const CancelPackage = async (id) => {
-    console.log(id);
-    const [, err] = await queryServerApi(
-      `delivery/cancelDelivery/${id}`,
-      null,
-      "PUT",
-      false
-    );
-    if (err) {
-      //setShowLoader(false);
-    } else history.go(0);
-    setPackDel(packDel+1);
+    if(props.pack.state > 1)
+    {
+      
+    }
+    else{
+      const [, err] = await queryServerApi(
+        `delivery/cancelDelivery/${id}`,
+        null,
+        "PUT",
+        false
+      );
+      if (err) {
+        //setShowLoader(false);
+      } else setPackDel(packDel+1);
+    }
+    
   };
   return (
     <Fragment>
@@ -30,7 +35,8 @@ export default function PackageItem(props) {
         <Grid item xs={12} md={8} lg={12}>
           <Card className="card-box mb-4">
             <CardContent className="p-3">
-              <div className="align-box-row align-items-start">
+              <div className="row">
+                <div className="col-md-4">
                 <div className="font-weight-bold">
                   <small className="text-black-50 d-block mb-1 text-uppercase">
                     Date :{" "}
@@ -47,13 +53,33 @@ export default function PackageItem(props) {
                   <small className="text-black-50 d-block mb-1 text-uppercase">
                     Destination : {props.pack.destinationAddress[0].City}
                   </small>
+                </div> 
                 </div>
-                <div className="ml-auto">
-                  <div className="bg-love-kiss text-center text-white font-size-xl d-50 rounded-circle">
-                    <img
-                      src={require("../../img/teams/" + props.PackageImage)}
-                    />
-                  </div>
+                <div className="col-md-4">
+                <div className="font-weight-bold">
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                   Note :{props.pack?.package[0].note}
+                  </small>
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                    Type : {props.pack?.package[0].type}
+                  </small>
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                    Weight : {props.pack?.package[0].weight}
+                  </small>
+                </div> 
+                </div>
+                <div className="col-md-4">
+                <div className="font-weight-bold">
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                   Length :{props.pack?.package[0].dimension.Length}
+                  </small>
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                   Height : {props.pack?.package[0].dimension.Height}
+                  </small>
+                  <small className="text-black-50 d-block mb-1 text-uppercase">
+                   Width : {props.pack?.package[0].dimension.Width}
+                  </small>
+                </div> 
                 </div>
               </div>
               <div className="row">
@@ -72,8 +98,10 @@ export default function PackageItem(props) {
 
                 </Link>    
               </div>
-              <div className="col-md-4">
-              <Link
+              
+                {props.state < 1 ? (<>
+                  <div className="col-md-4">
+                  <Link
                   to={`/PackageUpdate/${props.pack.package[0]._id}`}
                   className="nav-link active"
                   id="purchas-tab"
@@ -87,6 +115,8 @@ export default function PackageItem(props) {
               <div className="col-md-4">
               <Link><span className="text-danger px-1 mb-5" style={{cursor: "pointer"}} onClick={() => {CancelPackage(props.pack._id)}}>Cancel Package</span></Link>
               </div>
+              </>
+                ):null }
               </div>
             </CardContent>
           </Card>

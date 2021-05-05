@@ -13,7 +13,8 @@ export default function WaitingForDriverToAccept(props) {
             props.changeStep(1)
         }
         else
-        {
+        {  
+            console.log(doc.data)
             setDelivery(doc.data)
         }
       });

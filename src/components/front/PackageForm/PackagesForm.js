@@ -122,7 +122,7 @@ export default function PackagesForm(props) {
   const chooseDriver = (id) => {
     formik.setFieldValue("driver", id);
     formik.submitForm();
-    setStep(step+1);
+      changeStep(1);
   };
 
   const calculateDistance = async () => {
@@ -213,6 +213,7 @@ export default function PackagesForm(props) {
                         </>
                     ) : null}
                   </div>
+                  {startedDeliv?.state}
                   <div className="d-flex justify-content-between align-items-end">
                     {step != 0 ? (
                       <button
