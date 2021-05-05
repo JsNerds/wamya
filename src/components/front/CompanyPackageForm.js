@@ -46,6 +46,17 @@ export default function CompanyPackageForm(props) {
     let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first`;
     console.log(url);
     await axios.get(url).then((doc) => {
+      doc.data.waypoints.forEach((loc) => console.log(loc.location));
+      let organizedLocations = [];
+
+      doc.data.waypoints.slice(1).forEach((loc) => {
+        let i = loc.waypoint_index - 1;
+        organizedLocations.push(destination[i]);
+      });
+      console.log(destination);
+      console.log(organizedLocations);
+      setDestination([...organizedLocations]);
+
       let newDistance = doc.data.trips[0].distance;
       let newDuration = doc.data.trips[0].duration;
       setDuration(newDuration);
@@ -103,7 +114,6 @@ export default function CompanyPackageForm(props) {
     },
     onSubmit: async (values) => {
       await calculateDistance();
-
       values.sourceAddress = source;
       values.destinationAddress = destination;
       values.duration = duration;
@@ -279,18 +289,17 @@ export default function CompanyPackageForm(props) {
                   className="btn_three"
                   style={{ marginTop: 10 }}
                 >
-                  Calculate
+                  calculate distance
                 </button>
               </div>
               <div className="col-md-8">
                 {distance !== 0 && duration !== 0 ? (
                   <>
                     <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
-                      Distance: {(distance / 1000).toFixed(2)} Km
-                      <strong> Rq:Le calcul de retour est inclus</strong>
+                      the trip is {(distance / 1000).toFixed(2)} Km long
                     </p>
                     <p className="f_p text_c f_400">
-                      Duration:
+                      the trip will take:
                       {Math.round(duration / 3600) !== 0 ? (
                         <>
                           {Math.round(duration / 3600)}Hr
