@@ -298,4 +298,21 @@ router.put("/setfourth/:id", function (req, res) {
   );
 });
 
+router.put("/setfifth/:id", function (req, res) {
+  delivery.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { state: 5 },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Delivery confirmed");
+      }
+    }
+  );
+});
+
 module.exports = router;
