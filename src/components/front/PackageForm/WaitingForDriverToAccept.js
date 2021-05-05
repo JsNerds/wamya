@@ -5,7 +5,7 @@ export default function WaitingForDriverToAccept(props) {
   const [delivery, setDelivery] = useState();
   const getAcceptedDelivery = async () => {
     try {
-<<<<<<< HEAD
+
       const Delivery = await axios.get(
         "http://localhost:3000/delivery/getLastDeliveryByCustomer/" + localStorage.getItem("id")
       ).then(function(doc){
