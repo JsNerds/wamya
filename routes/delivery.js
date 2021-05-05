@@ -22,7 +22,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
-=
+
   delivery.find({ customer: req.params.id }, function (err, doc) {
     if (err) {
       res.send(err);
