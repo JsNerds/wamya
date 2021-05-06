@@ -212,6 +212,7 @@ const PaymentForm = (props) => {
 
   return (
     <section className="sign_in_area bg_color sec_pad">
+      <Feed />
       <div className="container">
         <div className="sign_info">
           <div className="row">
@@ -404,7 +405,7 @@ const PaymentForm = (props) => {
                     </MuiAlert>
                     <center>
                       <h2>you wanna give your feedback</h2>
-                      <Feed />
+
                       <ReactStars
                         count={5}
                         onChange={ratingChanged}
@@ -421,8 +422,7 @@ const PaymentForm = (props) => {
                         onClick={() =>
                           GotoFeedback(
                             Deliv._id,
-                            (parseFloat(mile?.rating) + Rating) /
-                              parseInt(mile?.delivs),
+                            (parseFloat(mile?.rating) + Rating) / 2,
                             Deliv.driver
                           )
                         }

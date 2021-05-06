@@ -18,6 +18,10 @@ import {useHistory} from "react-router-dom";
 export default function HeaderUserbox() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
+  const username = localStorage.getItem("username");
+  const id = localStorage.getItem("id");
+  const role = localStorage.getItem("role");
+  const img = localStorage.getItem("img");
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -41,7 +45,7 @@ export default function HeaderUserbox() {
         onClick={handleClick}
         className="text-capitalize px-3 text-left btn-inverse d-flex align-items-center">
         <Box>
-          <Avatar sizes="44" alt="Emma Taylor" src={avatar5} />
+          <Avatar sizes="44" alt={username} src={process.env.REACT_APP_API_URL_UPLOADS + "/" + img} />
         </Box>
         <div className="d-none d-xl-block pl-3">
           <div className="font-weight-bold pt-2 line-height-1">User Admin</div>
@@ -70,7 +74,7 @@ export default function HeaderUserbox() {
         <div className="dropdown-menu-right dropdown-menu-lg overflow-hidden p-0">
           <List className="text-left bg-transparent d-flex align-items-center flex-column pt-0">
             <Box>
-              <Avatar sizes="44" alt="Emma Taylor" src={avatar5} />
+              <Avatar sizes="44" alt={username} src={process.env.REACT_APP_API_URL_UPLOADS + "/" + img} />
             </Box>
             <div className="pl-3  pr-3">
               <div className="font-weight-bold text-center pt-2 line-height-1">

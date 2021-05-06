@@ -13,6 +13,7 @@ export default function Sign_dm(props) {
   const history = useHistory();
   const [baseImage, setBaseImage] = useState("");
   const base64 = "";
+
   function getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -57,7 +58,7 @@ export default function Sign_dm(props) {
         },
       })
       .then((res) => {
-        console.log(reg);
+        history.push("/SignInWamya");
       })
       .catch((err) => {
         console.log(err);

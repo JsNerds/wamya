@@ -138,6 +138,12 @@ export default function Digital_sign(props) {
       "PUT",
       false
     );
+    const [res3, err3] = await queryServerApi(
+      "deliveryman/showCalendar/" + localStorage.getItem("id"),
+      null,
+      "POST",
+      false
+    );
     const [res2, err2] = await queryServerApi(
       "deliveryman/putmile/" +
         localStorage.getItem("id") +

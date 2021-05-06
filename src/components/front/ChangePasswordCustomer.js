@@ -101,7 +101,7 @@ const ChangePasswordCustomer = (props) => {
 
 
                                 <div className="form-group text_box">
-                                    <label className="f_p text_c f_400">Current Password</label>
+                                    <label className="f_p text_c f_400">New Password</label>
                                     <input type="password" placeholder="******"
                                            id="password"
                                            value={formik.values.password}
@@ -113,7 +113,7 @@ const ChangePasswordCustomer = (props) => {
                                 </div>
 
                                 <div className="form-group text_box">
-                                    <label className="f_p text_c f_400">Confirm Password</label>
+                                    <label className="f_p text_c f_400">Confirm new password</label>
                                     <input
                                         type="password"
                                         placeholder="******"

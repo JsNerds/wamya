@@ -117,13 +117,13 @@ export default function CompanyDetails(props) {
                             </div>
                         </div>
                         <CardContent className="p-3">
-                                    <Grid container spacing={4}>
+                          <Grid container spacing={4}>
                                         <Grid item xs={12} lg={4} md={6}>
                                             <div className="text-center">
-                                                <br/> To <br/>
+                                                To <br/>
                                                 {delivery.destinationAddress.map((destinations,index)=>(
                                                     <>
-                                                        <span>{destinations.City} , {destinations.State}</span>
+                                                        <span className="text-info">{destinations.City} , {destinations.State}</span>
                                                         <br/>
                                                     </>
                                                 ))
@@ -145,8 +145,6 @@ export default function CompanyDetails(props) {
                                 ))
                                 }
                 </Grid>
-
-
 
                 <Grid item xs={12} lg={5}>
                     <Card className="card-box mb-4">
@@ -187,7 +185,6 @@ export default function CompanyDetails(props) {
                   Latest Payments
                 </span>
                             </div>
-
                             {props.company.payments.slice(0,3).sort((a, b) => a.CreationDate < b.CreationDate ? 1 : -1).map((payment,index)=>(
                                 <div key={index}>
                                     <div className="align-box-row">
@@ -204,8 +201,6 @@ export default function CompanyDetails(props) {
                                 </div>
                             ))
                             }
-
-
                             <div className="card-header border-0 d-block">
                 <span className="text-uppercase pb-1 pt-1 text-black d-block text-center font-weight-bold font-size-lg">
                   Charts
