@@ -9,7 +9,6 @@ import { ProgressBar } from "react-bootstrap";
 import { Grid, Card, CardContent } from "@material-ui/core";
 
 export default function PackageItem(props) {
-  console.log(props.pack);
   const [packDel, setPackDel] = useState(0);
   const [cancel, setCancel] = useState(false);
   let history = useHistory();

@@ -39,9 +39,9 @@ export default function PackageDetailItem() {
     }
   };
   const component = [
-    <WaitingForDriverToAccept changeStep={changeStep} deliveryId={deliv?._id} driver={deliv?.driver}/>,
+    <WaitingForDriverToAccept changeStep={changeStep} deliveryId={deliv?._id} driver={deliv?.driver._id}/>,
     <ConfirmGivingPackage changeStep={changeStep} deliveryId={deliv?._id} />,
-    <WaitingForDriverToConfirmPackage duration={deliv?.duration} driver={deliv?.driver} amount={deliv?.distance * 0.7 / 1000} deliveryId={deliv?._id}/>
+    <WaitingForDriverToConfirmPackage duration={deliv?.duration} driver={deliv?.driver._id} amount={deliv?.distance * 0.7 / 1000} deliveryId={deliv?._id}/>
   ];
   
   const MyMarkers = () => {

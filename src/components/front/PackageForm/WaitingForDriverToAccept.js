@@ -6,9 +6,25 @@ import { LinearProgress } from "@material-ui/core";
 export default function WaitingForDriverToAccept(props) {
   const [delivery, setDelivery] = useState();
   const [DriverApi] = useServerApi("deliveryman/getdev/" + props.driver);
+  const id = localStorage.getItem("id");
   const getAcceptedDelivery = async () => {
     try {
-      const Delivery = await axios
+      console.log(props.form);
+      if(props.form)
+      {
+        const Delivery = await axios
+        .get("http://localhost:3000/delivery/getLastDeliveryByCustomer/" + id )
+        .then(function(doc) {
+          if (doc.data.state == 1) {
+            props.changeStep(1);
+          } else {
+            console.log(doc.data);
+            setDelivery(doc.data);
+          }
+        });
+      }
+      else{
+        const Delivery = await axios
         .get("http://localhost:3000/delivery/" + props.deliveryId)
         .then(function(doc) {
           if (doc.data.state == 1) {
@@ -18,6 +34,8 @@ export default function WaitingForDriverToAccept(props) {
             setDelivery(doc.data);
           }
         });
+      }
+      
       // set State
     } catch (err) {
       console.error(err.message);

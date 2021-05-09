@@ -15,13 +15,24 @@ import axios from 'axios'
 
 export default function ConfirmGivingPackage(props) {
     const [delivery,setDelivery] = useState();
-  const getAcceptedDelivery = async () => {
+    const id = localStorage.getItem("id");
+    const getAcceptedDelivery = async () => {
     try {
-      const Delivery = await axios.get(
-        "http://localhost:3000/delivery/" + props.deliveryId
-      ).then(function(doc){
-        setDelivery(doc.data);
-      });
+      if(props.form)
+      {
+        const Delivery = await axios
+        .get("http://localhost:3000/delivery/getLastDeliveryByCustomer/" + id )
+        .then(function(doc) {
+          setDelivery(doc.data);
+        });
+      }
+      else{
+        const Delivery = await axios
+        .get("http://localhost:3000/delivery/" + props.deliveryId)
+        .then(function(doc) {
+          setDelivery(doc.data);
+        });
+      }
        // set State
     } catch (err) {
       console.error(err.message);

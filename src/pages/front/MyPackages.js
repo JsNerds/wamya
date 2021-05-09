@@ -13,16 +13,8 @@ export default function MyPackages(props) {
         try {
           const Delivery = await axios.get(
             "http://localhost:3000/delivery/getDeliveryByCustomer/" + localStorage.getItem("id")
-          ).then(function(doc){
-            if(doc.data.state == 1)
-            {
-                props.changeStep(1)
-            }
-            else
-            {  
-                console.log(doc.data)
+          ).then(function(doc){   
                 setDeliveryList(doc.data)
-            }
           });
            // set State
         } catch (err) {
@@ -35,7 +27,7 @@ export default function MyPackages(props) {
         const interval = setInterval(() => {
             getAllDeliveriesForCustomer();
             
-        }, 500);
+        }, 1500);
     
         return () => clearInterval(interval);
       }, []);

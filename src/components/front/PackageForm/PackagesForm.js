@@ -187,9 +187,9 @@ export default function PackagesForm(props) {
       chooseDriver={chooseDriver}
       driverList={recommendedDriversList}
     />,
-    <WaitingForDriverToAccept changeStep={changeStep} driver={chosenDriver}/>,
-    <ConfirmGivingPackage changeStep={changeStep}/>,
-    <WaitingForDriverToConfirmPackage duration={duration} driver={chosenDriver} amount={amount}/>
+    <WaitingForDriverToAccept changeStep={changeStep} driver={chosenDriver} form={true}/>,
+    <ConfirmGivingPackage changeStep={changeStep} form={true}/>,
+    <WaitingForDriverToConfirmPackage duration={duration} driver={chosenDriver} amount={amount} form={true}/>
   ];
   return (
     <section className="sign_in_area bg_color sec_pad">
