@@ -15,12 +15,12 @@ export default function DeliveryManItem(props) {
             <CardContent className="p-3">
               <div className="align-box-row align-items-start">
                 <div className="font-weight-bold">
-                  <span className="font-size-xxl mt-1">Name : {props.driver.Username}</span>
+                  <span className="font-size-xxl mt-1">Name : {props.driver.FullName}</span>
                   <small className="text-black-50 d-block mb-1 text-uppercase">
-                     License: {props.License}
+                     Gender: {props.driver.Gender}
                   </small>
                   <small className="text-black-50 d-block mb-1 text-uppercase">
-                    Phone Number : {props.Phone}
+                    Phone Number : {props.driver.Phone}
                   </small>
                 </div>
                 <div className="ml-auto">

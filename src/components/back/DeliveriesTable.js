@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useServerApi } from "../../hooks/useServerApi";
 import { Menu, MenuItem, Button } from "@material-ui/core";
-import { Avatar, IconButton, Box, Card, CardContent } from "@material-ui/core";
+import { Avatar, IconButton, Box, Card, CardContent, Tooltip } from "@material-ui/core";
 import { queryServerApi } from "../../utils/queryServerApi";
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -13,14 +13,10 @@ import avatar3 from "../../assets/images/avatars/avatar3.jpg";
 export default function DeliveriesTable(props) {
   const history = useHistory();
   const [deliveries, setDeliveries] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (event) => {
-    setAnchorEl(null);
-  };
   const [deliveryList,setDeliveryList] = useState();
+  const Details= (id) =>{
+    history.replace("/DeliveryDetails/"+ id)
+}
     const getAllDeliveriesForCustomer= async () => {
         try {
           const Delivery = await axios.get(
@@ -38,7 +34,7 @@ export default function DeliveriesTable(props) {
         getAllDeliveriesForCustomer();
         const interval = setInterval(() => {
             getAllDeliveriesForCustomer();
-        }, 500);
+        }, 1000);
         return () => clearInterval(interval);
       }, []);
 
@@ -51,12 +47,10 @@ export default function DeliveriesTable(props) {
     );
     if (err) {
       //setShowLoader(false);
-    } else history.push("/Deliveries");
-    setAnchorEl(null);
+    } else console.log("deleted")
   };
   const handleDetail = async (id) => {
     
-    setAnchorEl(null);
   };
   const DeliveryState = (props) => {
     if ( props.deliv.state == 0) {
@@ -113,12 +107,13 @@ export default function DeliveriesTable(props) {
             <table className="table table-striped table-hover text-nowrap mb-0">
               <thead className="thead-light">
                 <tr>
-                  <th style={{ width: "40%" }}>Source</th>
+                  <th className="text-center">Source</th>
                   <th className="text-center">destination</th>
                   <th className="text-center">Status</th>
                   <th className="text-center">Type of package</th>
                   <th className="text-center">driver</th>
                   <th className="text-center">Actions</th>
+                  <th className="text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -146,28 +141,23 @@ export default function DeliveriesTable(props) {
                     <td className="text-center">
                     {delivery?.driver.Username}
                     </td>
-                    <td className="text-center">
-                      <Box>
-                        <IconButton
-                          onClick={handleClick}
-                          color="primary"
-                          size="small"
-                        >
-                          <FontAwesomeIcon icon={["fas", "ellipsis-h"]} />
-                        </IconButton>
-
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={handleClose}
-                        >
-                          <MenuItem onClick={()=> {handleDelete(delivery?._id)}}>Cancel Package</MenuItem>
-                          <MenuItem onClick={()=> {handleDetail()}}>Details & tracking</MenuItem>
-                        </Menu>
-                      </Box>
-                    </td>
+                    <td className="text-center">   
+                                        <Button size="small" variant="contained" color="secondary" onClick={()=> {handleDelete(delivery._id)}}>
+                                            Cancel Delivery
+                                        </Button>
+                                    </td>
+                                    <td className="text-center">
+                                        <Tooltip arrow title="View Details">
+                                            <IconButton
+                                                size="small"
+                                                variant="outlined"
+                                                color="primary"
+                                                onClick={()=>{Details(delivery._id)}}
+                                            >
+                                                <FontAwesomeIcon icon={['fas', 'arrow-right']} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </td>
                   </tr>)
                 })}
               </tbody>

@@ -19,7 +19,7 @@ export default function PackageDetailItem() {
   let { id } = useParams();
   console.log(id);
   const [delivery] = useServerApi("delivery/" + id);
-  const [markers, setMarkers] = useState([]);
+  const [marker, setMarker] = useState();
   const [deliv, setDeliv] = useState();
   const [step,setStep] = useState(0);
 
@@ -31,8 +31,6 @@ export default function PackageDetailItem() {
     setStep(delivery?.state);
   },[delivery]);
 
-
- 
   const changeStep = (i) => {
     if (step + i < 0 || step + i > component.length) {
       return null;
@@ -41,10 +39,11 @@ export default function PackageDetailItem() {
     }
   };
   const component = [
-    <WaitingForDriverToAccept changeStep={changeStep}/>,
-    <ConfirmGivingPackage changeStep={changeStep}/>,
-    <WaitingForDriverToConfirmPackage duration={deliv?.duration} amount={deliv?.distance * 0.7 / 1000}/>
+    <WaitingForDriverToAccept changeStep={changeStep} deliveryId={deliv?._id} driver={deliv?.driver}/>,
+    <ConfirmGivingPackage changeStep={changeStep} deliveryId={deliv?._id} />,
+    <WaitingForDriverToConfirmPackage duration={deliv?.duration} driver={deliv?.driver} amount={deliv?.distance * 0.7 / 1000} deliveryId={deliv?._id}/>
   ];
+  
   const MyMarkers = () => {
     const map = useMap();
 
@@ -98,13 +97,6 @@ export default function PackageDetailItem() {
               <span>start : {deliv?.sourceAddress.City}</span>
             </Popup>
           </Marker>
-          {/*deliv?.destinationAddress.map((el) => (
-            <Marker position={[el.Location.Latitude, el.Location.Longitude]}>
-              <Popup>
-                <span>{el.City}</span>
-              </Popup>
-            </Marker>
-          ))*/}
         </>
       );
     } else {
@@ -126,7 +118,7 @@ export default function PackageDetailItem() {
                 </div>
                 <div className="info_item">
                   <h6></h6>
-                  <p>Driver's Name</p>
+                  <p>Driver's Name {deliv?.driver.FullName}</p>
                 </div>
                 <div className="info_item">
                   <h6>Live Time:</h6>
@@ -164,7 +156,7 @@ export default function PackageDetailItem() {
             </div>
             <div className="col-lg-7">
               <div className="details_content">
-                <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={true}>
+                <MapContainer center={[0,0]} zoom={13} scrollWheelZoom={true}>
                   <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

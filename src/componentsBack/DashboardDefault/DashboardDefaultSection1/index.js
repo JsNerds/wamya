@@ -7,15 +7,21 @@ import { Grid, Card, CardContent, Button, Divider } from '@material-ui/core';
 import Chart from 'react-apexcharts';
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
+
+import Simulation from './Simulation'
+
+
+
 export default function LivePreviewExample() {
 
   const history = useHistory();
   const username = localStorage.getItem('username');
   const id = localStorage.getItem('id');
   const role = localStorage.getItem('role');
-
+  const [started,setStarted] = useState(false);
   const [connected,setConnected] = useState(false);
-
+  const [deliveryList,setDeliveryList] = useState([]);
+  
   useEffect(()=> {
     if (username === null)
     {
@@ -27,20 +33,28 @@ export default function LivePreviewExample() {
 
   })
 
-
   const Logout = () => {
     localStorage.clear();
     history.go(0);
     history.push("/");
   }
-  const [deliveryList,setDeliveryList] = useState();
+  
+
     const getAllDeliveriesForCustomer= async () => {
         try {
           const Delivery = await axios.get(
             "http://localhost:3000/delivery/"
           ).then(function(doc){
-                console.log(doc.data)
-                setDeliveryList(doc.data)
+            if(JSON.stringify(doc.data) === JSON.stringify(deliveryList))
+            {
+              console.log("same")
+            }
+            else{
+              setDeliveryList(doc.data)
+              console.log(doc.data);
+              console.log(deliveryList);
+            }
+                
           });
            // set State
         } catch (err) {
@@ -50,8 +64,9 @@ export default function LivePreviewExample() {
       useEffect(() => {
         getAllDeliveriesForCustomer();
         const interval = setInterval(() => {
+          console.log("hi")
             getAllDeliveriesForCustomer();
-        }, 500);
+        }, 2000);
         return () => clearInterval(interval);
       }, []);
 
@@ -80,6 +95,15 @@ export default function LivePreviewExample() {
       return nb;
     }, 0);
   }
+  const CalculateCanceledDeliveries = () => {
+    return deliveryList?.reduce(function(nb, deliv) {
+      if (deliv.state === -1) {
+        nb += 1;
+      }
+      return nb;
+    }, 0);
+  }
+
   const chart30Options = {
     chart: {
       toolbar: {
@@ -159,12 +183,12 @@ export default function LivePreviewExample() {
        <br/>
        <br/>
        <br/>
-
+       <button type="button" onClick={()=>{setStarted(true)}}> start simulation</button>
+       <button type="button" onClick={()=>{setStarted(false)}}>stop simulation</button>
+       {started == true ? (<Simulation changeStarted={setStarted}/>) : null}
       <Grid container spacing={4}>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card className="card-box bg-premium-dark border-0 text-light mb-4">
-
-
             <CardContent className="p-3">
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">
@@ -193,7 +217,37 @@ export default function LivePreviewExample() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} md={3}>
+          <Card className="card-box bg-plum-plate text-light mb-4">
+            <CardContent className="p-3">
+              <div className="d-flex align-items-start">
+                <div className="font-weight-bold">
+                  <small className="text-white-50 d-block mb-1 text-uppercase">
+                    On Going Deliveries
+                  </small>
+                  <span className="font-size-xxl mt-1">{CalculateOnGoingDeliveries()}</span>
+                </div>
+                <div className="ml-auto">
+                  <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon
+                      icon={['far', 'chart-bar']}
+                      className="font-size-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3">
+                <FontAwesomeIcon
+                  icon={['fas', 'arrow-down']}
+                  className="text-white mr-1"
+                />
+                <span className="text-white px-1">15.4%</span>
+                <span className="text-white-50">less orders</span>
+              </div>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
           <Card className="card-box bg-midnight-bloom text-light mb-4">
             <CardContent className="p-3">
               <div className="d-flex align-items-start">
@@ -223,18 +277,18 @@ export default function LivePreviewExample() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Card className="card-box bg-plum-plate text-light mb-4">
+        <Grid item xs={12} sm={6} md={3}>
+          <Card className="card-box bg-premium-dark border-0 text-light mb-4">
             <CardContent className="p-3">
               <div className="d-flex align-items-start">
                 <div className="font-weight-bold">
                   <small className="text-white-50 d-block mb-1 text-uppercase">
-                    On Going Deliveries
+                    Canceled Deliveries
                   </small>
-                  <span className="font-size-xxl mt-1">{CalculateOnGoingDeliveries()}</span>
+                  <span className="font-size-xxl mt-1">{CalculateCanceledDeliveries()}</span>
                 </div>
                 <div className="ml-auto">
-                  <div className="bg-white text-center text-primary d-50 rounded-circle d-flex align-items-center justify-content-center">
+                  <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
                     <FontAwesomeIcon
                       icon={['far', 'chart-bar']}
                       className="font-size-xl"
@@ -244,11 +298,11 @@ export default function LivePreviewExample() {
               </div>
               <div className="mt-3">
                 <FontAwesomeIcon
-                  icon={['fas', 'arrow-down']}
-                  className="text-white mr-1"
+                  icon={['fas', 'arrow-up']}
+                  className="text-success mr-1"
                 />
-                <span className="text-white px-1">15.4%</span>
-                <span className="text-white-50">less orders</span>
+                <span className="text-success pr-1">15.4%</span>
+                <span className="text-white-50">increase this month</span>
               </div>
             </CardContent>
           </Card>

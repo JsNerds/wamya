@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom'
-import axios from 'axios'
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import {useServerApi} from '../../../hooks/useServerApi';
+import { LinearProgress } from "@material-ui/core";
 
 export default function WaitingForDriverToConfirmPackage(props) {
     const history = useHistory()
+    const [DriverApi] = useServerApi("deliveryman/getdev/" + props.driver);
     const [delivery,setDelivery] = useState();
     var id= localStorage.getItem("id");
   const getAcceptedDelivery = async () => {
     try {
       const Delivery = await axios.get(
-        "http://localhost:3000/delivery/getLastDeliveryByCustomer/" + id
+        "http://localhost:3000/delivery/" + props.deliveryId
       ).then(function(doc){
         if(doc.data.state == 3)
         {
@@ -56,10 +59,15 @@ export default function WaitingForDriverToConfirmPackage(props) {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div>
-      <h2 className="f_p f_600 f_size_24 t_color3 mb_40">
-        Waiting for Driver to confirm the package receipt
-      </h2>
-    </div>
+    <>
+    <div className="align-box-col d-flex justify-content-center mb-1">
+        <div>
+          <div className="font-weight-bold align-self-center">
+            Waiting for {DriverApi?.FullName} to Confirm the package receipt
+          </div>
+        </div>
+      </div>
+      <LinearProgress color="primary" variant="indeterminate" />
+      </>
   );
 }

@@ -18,7 +18,7 @@ export default function ConfirmGivingPackage(props) {
   const getAcceptedDelivery = async () => {
     try {
       const Delivery = await axios.get(
-        "http://localhost:3000/delivery/getLastDeliveryByCustomer/" + localStorage.getItem("id")
+        "http://localhost:3000/delivery/" + props.deliveryId
       ).then(function(doc){
         setDelivery(doc.data);
       });

@@ -27,6 +27,7 @@ const Dmd = lazy(() => import("./pages/back/Delivery_man"));
 const Updatemile = lazy(() => import("./pages/back/Updatemile"));
 const Updatedm = lazy(() => import("./pages/back/Updatedm"));
 const Adddm = lazy(() => import("./pages/back/Adddm"));
+const DeliveryDetails = lazy(()=> import("./pages/back/Delivery"))
 
 const Routes = () => {
   const location = useLocation();
@@ -88,6 +89,7 @@ const Routes = () => {
                 "/addVehicule",
                 "/Deposits",
                 "/Deliveries",
+                "/DeliveryDetails/:id",
                 "/Payments",
                 "/Entreprises",
                 "/UpdateCustomer/:id",
@@ -113,6 +115,7 @@ const Routes = () => {
                     <Route path="/AdminDashborad" component={AdminDashborad} />
                     {/* Packaged And Delivery Management*/}
                     <Route path="/Deliveries" component={Deliveries} />
+                    <Route path="/DeliveryDetails/:id" component={DeliveryDetails} />
                     <Route path="/Vehicules" component={Vehicules} />
                     <Route path="/addVehicule" component={addVehicule} />
                     <Route path="/Deposits" component={Deposits} />

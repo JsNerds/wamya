@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../../utils/queryServerApi";
 import { useServerApi } from "../../../hooks/useServerApi";
 import { useFormik } from "formik";
+import * as Yup from 'yup';
 
 import PackageSteps from "../PackageSteps";
 import DestinationForm from "./DestinationForm";
@@ -118,9 +119,9 @@ export default function PackagesForm(props) {
       }
     },
   });
-
   const chooseDriver = (id) => {
     formik.setFieldValue("driver", id);
+    setChosenDriver(id);
     formik.submitForm();
       changeStep(1);
   };
@@ -186,9 +187,9 @@ export default function PackagesForm(props) {
       chooseDriver={chooseDriver}
       driverList={recommendedDriversList}
     />,
-    <WaitingForDriverToAccept changeStep={changeStep}/>,
+    <WaitingForDriverToAccept changeStep={changeStep} driver={chosenDriver}/>,
     <ConfirmGivingPackage changeStep={changeStep}/>,
-    <WaitingForDriverToConfirmPackage duration={duration} amount={amount}/>
+    <WaitingForDriverToConfirmPackage duration={duration} driver={chosenDriver} amount={amount}/>
   ];
   return (
     <section className="sign_in_area bg_color sec_pad">
@@ -204,16 +205,6 @@ export default function PackagesForm(props) {
                   <div className="form-group text_box">
                     <PackageSteps component={component} step={step} />
                   </div>
-                  <div className="col-md-4">
-                    {distance !== 0 && duration !== 0 ? (
-                        <>
-                          <p>
-                            Price : {amount.toFixed(3)} DT
-                          </p>
-                        </>
-                    ) : null}
-                  </div>
-                  {startedDeliv?.state}
                   <div className="d-flex justify-content-between align-items-end">
                     {step != 0 ? (
                       <button
