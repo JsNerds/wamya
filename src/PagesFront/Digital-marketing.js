@@ -8,7 +8,7 @@ import AgencyAbout from '../componentsFront/About/AgencyAbout';
 import Features from '../componentsFront/Features/Features';
 import MarketingTestimonial from '../componentsFront/Testimonial/MarketingTestimonial';
 import AgencyAction from '../componentsFront/AgencyAction';
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 
 

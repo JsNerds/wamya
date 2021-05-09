@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import CustomNavbar from '../../components/front/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
-import FooterTwo from '../../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../../components/front/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import CustomerInterfaceBody from "../../components/front/CustomerInterfaceBody";
 import {useServerApi} from "../../hooks/useServerApi";

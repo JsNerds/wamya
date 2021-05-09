@@ -8,7 +8,7 @@ import AppWork from '../componentsFront/Service/AppWork';
 import ScreenshowCase from '../componentsFront/ScreenshowCase';
 import AppGetstarted from '../componentsFront/AppGetstarted';
 import AppTeam from '../componentsFront/Team/AppTeam';
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import ServiceData from '../componentsFront/Service/ServiceData';
 import FooterData from '../componentsFront/Footer/FooterData';
 

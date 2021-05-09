@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
-import FooterTwo from "../../componentsFront/Footer/FooterTwo";
+import FooterTwo from "../../components/front/FooterTwo";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import PackageList from "../../components/front/PackageList";
 import PackageSlider from "../../components/front/PackageSlider";

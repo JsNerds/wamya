@@ -8,7 +8,7 @@ import CloudFeaturesTwo from '../componentsFront/Features/CloudFeaturesTwo';
 import DeveloperTab from '../componentsFront/DeveloperTab';
 import Partner from '../componentsFront/Partner';
 import ServiceSubscribe from '../componentsFront/ServiceSubscribe';
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 
 const HomeCloud = () => {

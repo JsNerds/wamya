@@ -9,7 +9,7 @@ import Partner from '../componentsFront/Partner';
 import MarketingTestimonial from '../componentsFront/Testimonial/MarketingTestimonial';
 import ServiceData from '../componentsFront/Service/ServiceData';
 import BannerData from '../componentsFront/Banner/BannerData';
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 
 const Startup = () => (

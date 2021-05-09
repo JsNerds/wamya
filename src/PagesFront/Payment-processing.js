@@ -6,7 +6,7 @@ import PaymentService from '../componentsFront/Service/PaymentService';
 import ServiceData from '../componentsFront/Service/ServiceData';
 import Paymentprocess from '../componentsFront/Paymentprocess';
 import PaymentTestimonial from '../componentsFront/Testimonial/PaymentTestimonial';
-import FooterThree from '../componentsFront/Footer/FooterThree';
+import FooterThree from '../components/front/FooterThree';
 import FooterData from '../componentsFront/Footer/FooterData';
 
 const Paymentprocessing = () => {

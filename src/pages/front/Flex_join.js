@@ -2,7 +2,7 @@ import React, { Component, useEffect } from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
 import { Link, NavLink } from "react-router-dom";
-import FooterTwo from "../../componentsFront/Footer/FooterTwo";
+import FooterTwo from "../../components/front/FooterTwo";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import Featuresitems from "../../componentsFront/Features/Featuresitems";
 import { useLocation } from "react-router-dom";

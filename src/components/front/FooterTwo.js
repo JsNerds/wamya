@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
-import AboutWidget from './FooterWidget/AboutWidget';
-import SolutionWidget from './FooterWidget/SolutionWidget';
-import TeamWidget from './FooterWidget/TeamWidget';
+import AboutWidget from '../../componentsFront/Footer/FooterWidget/AboutWidget';
+import SolutionWidget from '../../componentsFront/Footer/FooterWidget/SolutionWidget';
+import TeamWidget from '../../componentsFront/Footer/FooterWidget/TeamWidget';
 import Reveal from 'react-reveal/Reveal'
 class FooterTwo extends Component {
     render(){
@@ -18,7 +18,7 @@ class FooterTwo extends Component {
                                         <Reveal effect="fadeInUp" key={widget.id}>
                                             <div className="col-lg-3 col-md-6">
                                                 <div className="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s">
-                                                <a href="index.html" className="f-logo"><img src={require('../../img/logo.png')} alt=""/></a>
+                                                <a href="index.html" className="f-logo"><img src={require('../../assets/images/WaymyaLogoBlue.png')} alt=""/></a>
                                                     <div className="widget-wrap">
                                                         <p className="f_400 f_p f_size_15 mb-0 l_height34"><span>Email:</span> <a href="mailto:saasland@gmail.com" className="f_400">saasland@gmail.com</a></p>
                                                         <p className="f_400 f_p f_size_15 mb-0 l_height34"><span>Phone:</span> <a href="tel:948256347968" className="f_400">+948 256 347 968</a></p>
@@ -58,8 +58,8 @@ class FooterTwo extends Component {
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <ul className="list-unstyled f_menu text-right">
-                                    <li><a href=".#">Terms of Use</a></li>
-                                    <li><a href=".#">Privacy Policy</a></li>
+                                    <li><a href="../../componentsFront/Footer#">Terms of Use</a></li>
+                                    <li><a href="../../componentsFront/Footer#">Privacy Policy</a></li>
                                 </ul>
                             </div>
                         </div>

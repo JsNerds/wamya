@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomNavbar from '../../components/front/CustomNavbar';
-import FooterThree from '../../componentsFront/Footer/FooterThree';
+import FooterThree from '../../components/front/FooterThree';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import HomeBanner from "../../components/front/HomeBanner";
 import CustomEntrepHome from "../../components/front/CustomEntrepHome";

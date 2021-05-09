@@ -1,6 +1,6 @@
 import React from "react";
 import CustomNavbar from "../components/front/CustomNavbar";
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 const NotFound = () => (
   <div className="body_wrapper">

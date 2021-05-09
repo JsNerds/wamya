@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import CustomNavbar from '../../components/front/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
-import FooterTwo from '../../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../../components/front/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import PricingComponent from "../../components/front/PricingComponent";
 import {useParams} from "react-router";

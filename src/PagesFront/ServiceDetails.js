@@ -2,7 +2,7 @@ import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
 import Breadcrumb from '../componentsFront/Breadcrumb';
 import ServiceDetails from '../componentsFront/Service/ServiceDetails';
-import FooterTwo from '../componentsFront/Footer/FooterTwo';
+import FooterTwo from '../components/front/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 
 const Faq = () => {
