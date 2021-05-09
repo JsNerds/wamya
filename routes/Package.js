@@ -27,7 +27,15 @@ router.put('/edit', function (req, res, next) {
     }
   });
 });
-
+router.delete("/deletePackages",function(req,res){
+  Package.deleteMany({}).then(function (doc, err) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(doc);
+    }
+  });
+})
 
 /* Delete Package*/
 router.delete('/delete/:id', function (req, res, next) {

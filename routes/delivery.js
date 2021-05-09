@@ -20,7 +20,6 @@ router.get("/", function (req, res, next) {
     })
     .populate("customer package driver");
 });
-
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
 
   delivery.find({ customer: req.params.id }, function (err, doc) {
@@ -33,7 +32,6 @@ router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
     }
   });
 });
-
 router.get("/getDeliveryByCustomer/:id", function (req, res) {
   delivery.find(
     { customer: req.params.id },
@@ -46,7 +44,6 @@ router.get("/getDeliveryByCustomer/:id", function (req, res) {
     }
   ).populate("package");
 });
-
 /* start delivery */
 router.post("/startDelivery", function (req, res) {
   const package = new Package({
@@ -102,23 +99,32 @@ router.post("/startDelivery", function (req, res) {
     res.send(error);
   }
 });
-
-router.put("/updateDelivery", function (req, res) {
-  delivery.findByIdAndUpdate(req.body.id, req.body, function (err) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send("updated");
-    }
-  });
+router.get("/:id", function (req, res) {
+  delivery
+    .findById(req.params.id, function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(doc);
+      }
+    })
+    .populate("package customer driver");
 });
-
 router.delete("/deleteDelivery/:id", function (req, res) {
   delivery.findByIdAndRemove(req.params.id, function (err, del) {
     if (err) {
       res.send(err);
     } else {
       res.send(del);
+    }
+  });
+});
+router.put("/updateDelivery", function (req, res) {
+  delivery.findByIdAndUpdate(req.body.id, req.body, function (err) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send("updated");
     }
   });
 });
@@ -138,18 +144,6 @@ router.put("/cancelDelivery/:id", function (req, res) {
     }
   );
 });
-router.get("/:id", function (req, res) {
-  delivery
-    .findById(req.params.id, function (err, doc) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(doc);
-      }
-    })
-    .populate("package");
-});
-
 router.put("/confirmDeliveryCustomer/:id", function (req, res) {
   delivery.findByIdAndUpdate(
     req.params.id,
@@ -297,6 +291,7 @@ router.delete("/deleteAllDeliveries", function (req, res) {
     }
   });
 });
+
 router.put("/setfourth/:id", function (req, res) {
   delivery.findByIdAndUpdate(
     req.params.id,
