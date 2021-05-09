@@ -36,6 +36,16 @@ export default function CustomerStats(props) {
     }, 0);
   }
 
+  function ontheWayDeliv(deliveries) {
+    return deliveries.reduce(function(nb, item) {
+      if (item.state > 0 && item.state < 4) {
+        nb += 1;
+      }
+
+      return nb;
+    }, 0);
+  }
+
   function notConfirmedDeliv(deliveries) {
     return deliveries.reduce(function(nb, item) {
       if (item.state === 1) {
@@ -157,7 +167,7 @@ export default function CustomerStats(props) {
                     </CardContent>
                   </Card>
                 ) : props.customer.deliveries.length === 0 ? (
-                  <Card className="card-box bg-plum-plate text-light mb-4">
+                  <Card className="card-box bg-amy-crisp text-light mb-4">
                     <CardContent className="p-3">
                       <div className="d-flex align-items-start">
                         <div className="font-weight-bold">
@@ -169,9 +179,9 @@ export default function CustomerStats(props) {
                           </span>
                         </div>
                         <div className="ml-auto">
-                          <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                          <div className="bg-white text-center text-danger d-50 rounded-circle d-flex align-items-center justify-content-center">
                             <FontAwesomeIcon
-                              icon={["far", ""]}
+                              icon={["fa", "house-damage"]}
                               className="font-size-xl"
                             />
                           </div>
@@ -247,7 +257,7 @@ export default function CustomerStats(props) {
                             <span className="font-size-xxl mt-1">You have to pass antoher {3 - (props.customer.deliveries.length)} deliveries to get a 40% for the 4th one</span>
                           </div>
                           <div className="ml-auto">
-                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                            <div className="bg-white text-center text-danger d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
                                   icon={['fas', 'boxes']}
                                   className="font-size-xl"
@@ -270,29 +280,84 @@ export default function CustomerStats(props) {
 
                 <div className="align-box-row mb-1">
                   <div>
-                    <div className="font-weight-bold">Finished deliveries</div>
+                    <div className="font-weight-bold"> Deliveries on the way </div>
                   </div>
                   <div className="ml-auto">
-                    <div className="font-size-xl font-weight-bold text-success">
-                      {finishedDeliv(props.customer.deliveries)}
-                    </div>
+                    {ontheWayDeliv(props.customer.deliveries) === 0 ? (
+                        <div className="font-size-xl font-weight-bold text-danger">
+                          {ontheWayDeliv(props.customer.deliveries)}
+                        </div>
+                    ):(
+                        <div className="font-size-xl font-weight-bold text-success">
+                          {ontheWayDeliv(props.customer.deliveries)}
+                        </div>
+                    )}
+
                   </div>
                 </div>
-                <LinearProgress
-                  className="progress-animated-alt"
-                  color="primary"
-                  value={34}
-                />
+                {ontheWayDeliv(props.customer.deliveries) === 0 ? (
+                        <LinearProgress
+                            className="progress-animated-alt"
+                            color="secondary"
+                            value={ontheWayDeliv(props.customer.deliveries)}
+                        />
+                    )
+                    : (
+                        <LinearProgress
+                            className="progress-animated-alt"
+                            color="primary"
+                            value={ontheWayDeliv(props.customer.deliveries)}
+                        />
+                    )
+                    }
+
+              </ListItem>
+
+              <ListItem className="py-2 d-block">
+                <div className="align-box-row mb-1">
+                  <div>
+                    <div className="font-weight-bold">Finished Deliveries</div>
+                  </div>
+
+                  <div className="ml-auto">
+                    {finishedDeliv(props.customer.deliveries) === 0 ? (
+                        <div className="font-size-xl font-weight-bold text-danger">
+                          {finishedDeliv(props.customer.deliveries)}
+                        </div>
+                    ):(
+                        <div className="font-size-xl font-weight-bold text-success">
+                          {finishedDeliv(props.customer.deliveries)}
+                        </div>
+                    )}
+
+                  </div>
+                </div>
+                {finishedDeliv(props.customer.deliveries) === 0 ? (
+                    <LinearProgress
+                        variant="determinate"
+                        color="secondary"
+                        value={finishedDeliv(props.customer.deliveries)}
+                    />
+                ): (
+                    <LinearProgress
+                        variant="determinate"
+                        color="primary"
+                        value={finishedDeliv(props.customer.deliveries)}
+                    />
+                )
+
+                }
+
                 <div className="align-box-row progress-bar--label mt-1 text-muted">
                   <small className="text-dark">0</small>
                   <div className="ml-auto">
-                    {(finishedDeliv(props.customer.deliveries) *
-                      props.customer.deliveries.length) /
-                      100}{" "}
+                    {((finishedDeliv(props.customer.deliveries) / props.customer.deliveries.length)) * 100}
                     %
                   </div>
                 </div>
               </ListItem>
+
+
               <ListItem className="py-2 d-block">
                 <div className="align-box-row mb-1">
                   <div>
@@ -311,11 +376,21 @@ export default function CustomerStats(props) {
                     )}
                   </div>
                 </div>
+                {total(props.customer.payments) === 0 ? (
                 <LinearProgress
                   variant="determinate"
-                  color="secondary"
+                  color="primary"
                   value={total(props.customer.payments)}
                 />
+                    )
+                    :
+                    (
+                        <LinearProgress
+                            variant="determinate"
+                            color="secondary"
+                            value={total(props.customer.payments)}
+                        />
+                    )}
               </ListItem>
             </List>
             <div className="card-footer bg-light p-4 text-center">

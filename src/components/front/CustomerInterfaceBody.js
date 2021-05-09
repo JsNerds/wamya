@@ -96,6 +96,9 @@ const CustomerInterfaceBody =(props)=>{
                             </ul>
                         </div>
                     </div>
+
+
+
                     <div className="col-lg-8">
                         <Button variant="contained" color="primary" className="m-2">
                             <FontAwesomeIcon icon={['far', 'bell']} />

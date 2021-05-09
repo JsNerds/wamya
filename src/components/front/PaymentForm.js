@@ -22,7 +22,6 @@ function useQuery() {
 }
 
 const PaymentForm = (props) => {
-  const history = useHistory();
   const query = useQuery();
   const amount = query.get("amount");
   const idUser = query.get("id");
@@ -35,8 +34,7 @@ const PaymentForm = (props) => {
   const [Rating, setRating] = useState(false);
   const [Deliv, setDelivery] = useState(false);
   const [mile, setmile] = useState();
-  //const [clientSecret, setClientSecret] = useState('');
-  //const history = useHistory();
+
 
   const getAcceptedDelivery = async () => {
     try {
@@ -57,6 +55,8 @@ const PaymentForm = (props) => {
       console.error(err.message);
     }
   };
+
+
   const getmile = async () => {
     try {
       console.log("driver" + Deliv);
@@ -70,6 +70,7 @@ const PaymentForm = (props) => {
       console.error(err.message);
     }
   };
+
   useEffect(() => {
     getAcceptedDelivery();
     const interval = setInterval(() => {
@@ -166,7 +167,7 @@ const PaymentForm = (props) => {
             } else setSuccess(true);
           } else if (userType === "Customer") {
             const [res, err] = await queryServerApi(
-              "payments/addPaymentCust/" + idUser + "?duration=" + duration,
+              "payments/addPaymentCust/" + idUser + "?duration=" + duration +"&idDeliv=" + Deliv._id,
               newVal,
               "POST",
               false

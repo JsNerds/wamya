@@ -92,6 +92,7 @@ export default function PackagesForm(props) {
         Latitude: 0,
       },
       CustomerModel: "customer",
+      Paid:false
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
