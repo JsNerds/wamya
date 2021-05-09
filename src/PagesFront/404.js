@@ -1,5 +1,5 @@
 import React from "react";
-import CustomNavbar from "../componentsFront/CustomNavbar";
+import CustomNavbar from "../components/front/CustomNavbar";
 import FooterTwo from '../componentsFront/Footer/FooterTwo';
 import FooterData from '../componentsFront/Footer/FooterData';
 const NotFound = () => (

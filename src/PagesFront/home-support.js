@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import SupportBanner from '../componentsFront/Banner/SupportBanner';
 import BannerData from '../componentsFront/Banner/BannerData';
 import SupportPartnerlogo from '../componentsFront/SupportPartnerlogo';

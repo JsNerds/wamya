@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import Breadcrumb from '../componentsFront/Breadcrumb';
 import SignInForm from '../componentsFront/SignInForm';
 import FooterTwo from '../componentsFront/Footer/FooterTwo';

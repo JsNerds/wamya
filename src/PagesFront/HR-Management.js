@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import HRBanner from '../componentsFront/Banner/HRBanner';
 import HRService from '../componentsFront/Service/HRService';
 import ServiceData from '../componentsFront/Service/ServiceData';

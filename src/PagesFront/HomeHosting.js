@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import HostingBanner from '../componentsFront/Banner/HostingBanner';
 import DomainSearch from '../componentsFront/DomainSearch';
 import HostingService from '../componentsFront/Service/HostingService';

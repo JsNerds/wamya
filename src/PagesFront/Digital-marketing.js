@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import AgencyBanner from '../componentsFront/Banner/AgencyBanner';
 import BannerData from '../componentsFront/Banner/BannerData';
 import MarketingService from '../componentsFront/Service/MarketingService';

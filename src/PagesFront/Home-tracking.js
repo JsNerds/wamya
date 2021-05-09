@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import TrackingBanner from '../componentsFront/Banner/TrackingBanner';
 import TrackingActivity from '../componentsFront/TrackingActivity';
 import TrackingProduct from '../componentsFront/Features/TrackingProduct';

@@ -1,5 +1,5 @@
 import React from "react";
-import CustomNavbar from "../componentsFront/CustomNavbar";
+import CustomNavbar from "../components/front/CustomNavbar";
 import ChatBanner from "../componentsFront/Banner/ChatBanner";
 import CoreFeatures from "../componentsFront/Features/CoreFeatures";
 import ChatFeatures from "../componentsFront/Features/ChatFeatures";

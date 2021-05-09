@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import CrmBanner from '../componentsFront/Banner/CrmBanner';
 import StartupFeatures from '../componentsFront/Features/StartupFeatures';
 import Stservice from '../componentsFront/Service/Sservice/StartupService';

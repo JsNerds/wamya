@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import SecurityBanner from "../componentsFront/Banner/SecurityBanner";
 import SecurityFeatures from "../componentsFront/Features/SecurityFeatures";
 import SecurityPowerFeatures from "../componentsFront/Features/SecurityPowerfulFeatures";

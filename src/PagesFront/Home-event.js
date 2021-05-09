@@ -1,5 +1,5 @@
 import React from "react";
-import CustomNavbar from "../componentsFront/CustomNavbar";
+import CustomNavbar from "../components/front/CustomNavbar";
 import EventBanner from "../componentsFront/Banner/EventBanner";
 import EventCount from "../componentsFront/Service/Sservice/EventCount";
 import EventAbout from "../componentsFront/About/EventAbout";

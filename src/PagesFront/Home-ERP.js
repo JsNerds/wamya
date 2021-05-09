@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import HomeERP from '../componentsFront/Banner/ErpBanner';
 import ErpService from '../componentsFront/Service/ErpService';
 import ErpAction from '../componentsFront/ErpAction';

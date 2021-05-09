@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import CloudBanner from '../componentsFront/Banner/CloudBanner';
 import CloudService from '../componentsFront/Service/CloudService';
 import CloudServiceTab from '../componentsFront/Service/Sservice/CloudServiceTab';

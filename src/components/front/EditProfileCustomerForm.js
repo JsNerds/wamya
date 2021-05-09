@@ -49,14 +49,21 @@ const EditProfileCustomerForm = (props) => {
         validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
-            const [,err] = await queryServerApi("customers/EditProfile/" +props.id, values,"PUT",true);
+            const [res,err] = await queryServerApi("customers/EditProfile/" +props.id, values,"PUT",true);
             if(err){
                 setError({
                     visible: true,
                     message: JSON.stringify(err.errors, null, 2),
                 });
             }
-            else setSuccess(true);
+
+            else {
+                setSuccess(true);
+                console.log(res.img);
+                localStorage.setItem('img', res.img);
+                localStorage.setItem('username', res.Username);
+                localStorage.setItem('email', res.Email);
+            }
         }
     });
 

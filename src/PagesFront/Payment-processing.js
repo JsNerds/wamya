@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import PaymentBanner from '../componentsFront/Banner/PaymentBanner';
 import PaymentFeatures from '../componentsFront/Features/PaymentFeatures';
 import PaymentService from '../componentsFront/Service/PaymentService';

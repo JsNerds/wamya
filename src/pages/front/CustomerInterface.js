@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
-import CustomNavbar from '../../componentsFront/CustomNavbar';
+import React, {useEffect, useState} from 'react';
+import CustomNavbar from '../../components/front/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../componentsFront/Footer/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import CustomerInterfaceBody from "../../components/front/CustomerInterfaceBody";
 import {useServerApi} from "../../hooks/useServerApi";
 import SignInFormWamya from "../../components/front/SignInFormWamya";
+import axios from "axios";
 
 
 const CustomerInterface = () => {
+    const [customer,setCustomer] = useState();
     const renderId = () => {
         let id = 0
         if(localStorage.getItem('id') != null)
@@ -21,15 +23,41 @@ const CustomerInterface = () => {
         return id;
     }
 
-    const [customer, err, reload] = useServerApi("customers/"+renderId());
-    const toRender = customer;
+    const getCustomer= async () => {
+        try {
+            const Customer = await axios.get(
+                "http://localhost:3000/customers/"+renderId()
+            ).then(function(doc){
+                if(JSON.stringify(doc.data) === JSON.stringify(customer))
+                {
+                    console.log("same")
+                }
+                else{
+                    setCustomer(doc.data)
+                    console.log(doc.data);
+                    console.log(customer);
+                }
+            });
+            // set State
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+    useEffect(() => {
+        getCustomer();
+        const interval = setInterval(() => {
+            getCustomer();
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
     return(
         <div className="body_wrapper">
             <CustomNavbar slogo="sticky_logo" mClass="menu_four" nClass="w_menu ml-auto mr-auto" />
             <Breadcrumb breadcrumbClass="breadcrumb_area" imgName="breadcrumb/banner_bg.png" Ptitle="Customer Interface" Pdescription=""/>
-            {toRender ?
+            {customer ?
                 (   <>
-                        <CustomerInterfaceBody customer={toRender}/>
+                        <CustomerInterfaceBody customer={customer}/>
                     </>
                 ) : (<SignInFormWamya/>)}
             <FooterTwo fClass="pt_150" FooterData={FooterData}/>

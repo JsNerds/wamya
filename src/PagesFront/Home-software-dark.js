@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import SoftwareDarkBanner from '../componentsFront/Banner/SoftwareDarkBanner';
 import BannerData from '../componentsFront/Banner/BannerData';
 import DarkSoftwareService from '../componentsFront/Service/DarkSoftwareService';

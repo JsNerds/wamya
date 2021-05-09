@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from "react";
-import CustomNavbar from "../../componentsFront/CustomNavbar";
+import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
 import { Link, NavLink } from "react-router-dom";
 import FooterTwo from "../../componentsFront/Footer/FooterTwo";

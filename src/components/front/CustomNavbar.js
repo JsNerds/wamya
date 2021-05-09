@@ -2,7 +2,7 @@ import React, {Component, Fragment, useEffect, useState} from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import Sticky from "react-stickynode";
 import {Avatar, Box, Button, Divider, List, ListItem, Menu, Tooltip} from "@material-ui/core";
-import avatar5 from "../assets/images/avatars/avatar5.jpg";
+import avatar5 from "../../assets/images/avatars/avatar5.jpg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function CustomNavbar(props) {
@@ -55,8 +55,8 @@ export default function CustomNavbar(props) {
         <nav className={`navbar navbar-expand-lg menu_one ${mClass}`}>
           <div className={`container ${cClass}`}>
             <Link className={`navbar-brand ${slogo}`} to="/">
-              <img src={require("../img/logoWhite.png")} alt="" />
-              <img src={require("../img/logoBlue.png")} alt="logo" />
+              <img src={require("../../img/logoWhite.png")} alt="" />
+              <img src={require("../../img/logoBlue.png")} alt="logo" />
             </Link>
             <button
               className="navbar-toggler collapsed"
@@ -96,228 +96,32 @@ export default function CustomNavbar(props) {
                     Services
                   </Link>
                 </li>
-                <li className="dropdown submenu nav-item">
-                  <Link
-                    to="./"
-                    title="Pages"
-                    className="dropdown-toggle nav-link"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Pages
-                  </Link>
-                  <ul role="menu" className=" dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/MyPackages"
-                      >
-                        My Packages
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/CustomerInterface"
-                      >
-                        Customer Interface
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/Delivery_man_interface"
-                      >
-                        Delivery man interface
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/Drop_by"
-                      >
-                        Drop by
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/EntrepriseInterface"
-                      >
-                        Company Interface
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/Payment"
-                      >
-                        Payment
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="About"
-                        className="nav-link"
-                        to="/Pricing"
-                      >
-                        Pricing
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="Process"
-                        className="nav-link"
-                        to="/Process"
-                      >
-                        Process
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="Team"
-                        className="nav-link"
-                        to="/Team"
-                      >
-                        Team
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="Price"
-                        className="nav-link"
-                        to="/Price"
-                      >
-                        Price
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink exact title="Faq" className="nav-link" to="/Faq">
-                        Faq
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="SignInWamya"
-                        className="nav-link"
-                        to="/SignInWamya"
-                      >
-                        Sign In
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        title="SignInWithFace"
-                        className="nav-link"
-                        to="/SignInWithFace"
-                      >
-                        Sign Up
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
                 <li className="nav-item">
                   <NavLink title="Pricing" className="nav-link" to="/flex_join">
                     Wamya flex
                   </NavLink>
                 </li>
 
-                <li className="dropdown submenu nav-item">
-                  <Link
-                    title="Pages"
-                    className="dropdown-toggle nav-link"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    to="#"
-                  >
-                    Portfolio
-                  </Link>
-                  <ul role="menu" className=" dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink
-                        title="Portfolio 2"
-                        className="nav-link"
-                        to="/Portfolio-2col"
-                      >
-                        Portfolio 2col
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        title="Portfolio 3"
-                        className="nav-link"
-                        to="/Portfolio-3col"
-                      >
-                        Portfolio 3col
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        title="Portfolio Fullwidth"
-                        className="nav-link"
-                        to="/Portfolio-fullwidth-4col"
-                      >
-                        Portfolio fullwidth
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        title="PortfolioSingle"
-                        className="nav-link"
-                        to="/PortfolioSingle"
-                      >
-                        Portfolio Single
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
                 <li className="nav-item dropdown submenu">
                   <a
                     className="nav-link dropdown-toggle"
-                    href=".#"
+                    href="../../componentsFront#"
                     role="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    Blog
+                    About Us
                   </a>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
                       <NavLink to="/Bloglist" className="nav-link">
-                        Blog List
+                        Team
                       </NavLink>
                     </li>
                     <li className="nav-item">
                       <NavLink to="/BlogGridPage" className="nav-link">
-                        Blog Grid
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink to="/BlogSingle" className="nav-link">
-                        Blog Single
+                        Terms
                       </NavLink>
                     </li>
                   </ul>

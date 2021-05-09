@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../componentsFront/CustomNavbar';
+import CustomNavbar from '../components/front/CustomNavbar';
 import AppBanner from '../componentsFront/Banner/AppBanner';
 import AppFeaturesTwo from '../componentsFront/Features/AppFeaturesTwo';
 import AppFeatures from '../componentsFront/Features/AppFeatures';
