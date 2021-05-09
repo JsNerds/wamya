@@ -1,5 +1,5 @@
 {
 	"mongo":{
-		"uri":"mongodb://localhost:27017/wamya"
+		"uri":"mongodb+srv://wamya:wamya@cluster0.7xqcd.mongodb.net/test"
 	}
 }
