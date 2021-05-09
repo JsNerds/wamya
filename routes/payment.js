@@ -3,9 +3,10 @@ var router = express.Router();
 var Payment = require('../models/payment');
 var Customer = require('../models/customer')
 var Entreprise = require('../models/entreprise');
+var Delivery = require('../models/delivery');
 const stripe = require("stripe")("sk_test_51IfWBLCVTWqP5309JTjdorJKTRm2p4oXBBe746cv5gR9lVnMyAy4373gs2mcIm0ceEu35XuVoJbLOVg98asz0sgV00mQZFDbV4");
 var twilio = require('twilio');
-var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "3a515fc8ed3e25378a4b23e76a5c95f9");
+var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "4f4d8b0d7d9d23636b90d2d8e132f1f2");
 var {PaymentDetailsEmail } = require('../mailer');
 
 
@@ -92,6 +93,7 @@ router.post('/', function(req,res,next){
 router.post('/addPaymentCust/:id', async function(req,res,next){
   const obj = JSON.parse(JSON.stringify(req.body));
   const duration = req.query.duration;
+  const delivId = req.query.idDeliv;
   const customer = await Customer.findById(req.params.id);
   let amount = obj.Amount;
   console.log(customer.reduction);
@@ -127,17 +129,18 @@ router.post('/addPaymentCust/:id', async function(req,res,next){
             $push: { payments : p._id }
           },
           {new: true, useFindAndModify: false},
-          function (err,customer){
+          async function (err,customer){
             if (err) {
               console.log(err);
             } else {
+              await Delivery.findByIdAndUpdate(delivId,{Paid:true});
               PaymentDetailsEmail(customer.Email,customer.UserName,amount,obj.NameOnCard,obj.creditCard)
-              clientSMS.messages.create({
+             /* clientSMS.messages.create({
                 body: `Congrats! ${customer.UserName} your package will reaches his destination after ${duration} `,
                 to: '+21620566666',  // Text this number
                 from: '+14079179267' // From a valid Twilio number
               })
-                  .then((message) => console.log(message.sid));
+                  .then((message) => console.log(message.sid));*/
               console.log("add");
             }
 

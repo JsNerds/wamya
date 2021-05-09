@@ -32,6 +32,7 @@ var delivery = new Schema({
     required: true,
     enum: ['customer', 'entreprise']
   },
+  Paid:Boolean
 });
 
 module.exports = mongoose.model("delivery", delivery);

@@ -219,7 +219,7 @@ router.put('/reduction/:id',upload,function(req,res,next){
 });
 
 
-/** Desactivate reduction for Customer **/
+/** Deactivated reduction for Customer **/
 
 router.put('/reductionDes/:id',upload,function(req,res,next){
 
