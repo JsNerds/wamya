@@ -10,7 +10,6 @@ export default function WaitingForDriverToConfirmPackage(props) {
   const [delivery, setDelivery] = useState();
   var id = localStorage.getItem("id");
   const renderPayment = () => {
-    
     if (Math.round(props.duration / 3600) !== 0) {
       history.push(
         "/Payment?amount=" +
@@ -48,20 +47,20 @@ export default function WaitingForDriverToConfirmPackage(props) {
         );
       }
     }
-  }
+  };
   const getAcceptedDelivery = async () => {
     try {
       if (props.form) {
         const Delivery = await axios
           .get("http://localhost:3000/delivery/getLastDeliveryByCustomer/" + id)
           .then(function(doc) {
-           setDelivery(doc.data);
+            setDelivery(doc.data);
           });
       } else {
         const Delivery = await axios
           .get("http://localhost:3000/delivery/" + props.deliveryId)
           .then(function(doc) {
-            setDelivery(doc.data)
+            setDelivery(doc.data);
           });
       }
 
@@ -79,30 +78,34 @@ export default function WaitingForDriverToConfirmPackage(props) {
 
     return () => clearInterval(interval);
   }, []);
+  const DisplayPaymentOrWait = () => {
+    if (delivery?.state === 2) {
+      return (<>
+        <div className="font-weight-bold align-self-center">
+          Waiting for {DriverApi?.FullName} to Confirm the package receipt
+        </div>
+        <LinearProgress color="primary" variant="indeterminate" />
+      </>)
+    } else if (delivery?.Paid === false) {
+      return (<button
+        type="button"
+        onClick={() => {
+          renderPayment();
+        }}
+        className="btn_three"
+      >
+        Go to Payment
+      </button>)
+    }
+    else{return null}
+  };
   return (
     <>
       <div className="align-box-col d-flex justify-content-center mb-1">
         <div>
-          {delivery?.state == 2 ? (<>
-            <div className="font-weight-bold align-self-center">
-              Waiting for {DriverApi?.FullName} to Confirm the package receipt
-            </div>
-            <LinearProgress color="primary" variant="indeterminate" />
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                renderPayment();
-              }}
-              className="btn_three"
-            >
-              Go to Payment
-            </button>
-          )}
+          <DisplayPaymentOrWait/>
         </div>
       </div>
-      
     </>
   );
 }

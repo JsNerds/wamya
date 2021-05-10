@@ -6,7 +6,6 @@ const PackageList = (props) => {
     <section className="">
       <div className="container mt-5">
         {props.packagesList?.map((p, index) => {
-          if (p.state != -1 && p.state != 4 && p.state != 5) {
             return (
               <div key={index} className="row">
                 <div className="col-lg-12 col-sm-8">
@@ -14,7 +13,6 @@ const PackageList = (props) => {
                 </div>
               </div>
             );
-          }
         })}
       </div>
     </section>

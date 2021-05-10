@@ -157,7 +157,7 @@ export default function PackagesForm(props) {
         setRecommendedDriverList(
           DriverApi?.filter((driver) => {
             let regions = driver?.Region.map((reg) => {
-              return destination.State.includes(reg.value);
+              return destination.State.includes(reg.value) && driver.Status === 3;
             });
             return regions.includes(true);
           })
