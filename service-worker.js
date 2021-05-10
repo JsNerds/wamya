@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/wamya/precache-manifest.485119a41c759e8811ca128bd3d72795.js"
+  "/wamya/precache-manifest.dfe3b488b8834afca9d53da8722b0965.js"
 );
 
 self.addEventListener('message', (event) => {
