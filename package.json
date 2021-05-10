@@ -1,6 +1,6 @@
 {
-  "homepage": "https://jsnerds.github.io/wamya/",
-  "name": "saasland-react",
+  "homepage": "https://wamya-delivery.herokuapp.com/",
+  "name": "wamya-smart-delivery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -305,7 +305,6 @@ const store = configureStore();
 const username = localStorage.getItem("username");
 const role = localStorage.getItem("role");
 
-
 class App extends Component {
   componentDidMount() {
     this.props.hideLoader();
@@ -357,12 +356,14 @@ class App extends Component {
               {/**Package Management*/}
               <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
               <ScrollToTopRoute path="/MyPackages" component={MyPackages} />
-              <ScrollToTopRoute path="/PackageUpdate/:id" component={PackageUpdate} />
+              <ScrollToTopRoute
+                path="/PackageUpdate/:id"
+                component={PackageUpdate}
+              />
               <ScrollToTopRoute
                 path="/PackageDetail/:id"
                 component={PackageDetail}
               />
-              
               {/** Blog ***/}
               <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
               <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
