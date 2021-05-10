@@ -41,7 +41,9 @@ export default function PackageDetailItem() {
   const component = [
     <WaitingForDriverToAccept changeStep={changeStep} deliveryId={deliv?._id} driver={deliv?.driver._id}/>,
     <ConfirmGivingPackage changeStep={changeStep} deliveryId={deliv?._id} />,
+    <WaitingForDriverToConfirmPackage duration={deliv?.duration} driver={deliv?.driver._id} amount={deliv?.distance * 0.7 / 1000} deliveryId={deliv?._id}/>,
     <WaitingForDriverToConfirmPackage duration={deliv?.duration} driver={deliv?.driver._id} amount={deliv?.distance * 0.7 / 1000} deliveryId={deliv?._id}/>
+
   ];
   
   const MyMarkers = () => {
@@ -163,7 +165,7 @@ export default function PackageDetailItem() {
                   />
                   <MyMarkers />
                 </MapContainer>
-                {deliv?.state > -1 && deliv?.state <3 ? (
+                {deliv?.state > -1 && deliv?.state < 4 ? (
                    <section className="sign_in_area bg_color sec_pad">
       <div className="container">
         <div className="sign_info">

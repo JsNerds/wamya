@@ -43,25 +43,6 @@ const FaqSection = (props) => {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    id="returns-tab"
-                    data-toggle="tab"
-                    href="#Drivers"
-                    role="tab"
-                    aria-controls="returns"
-                    aria-selected="false"
-                  >
-                    <FontAwesomeIcon
-                        icon={['fas', 'car']}
-                        className="font-size-xl"
-                    />
-                    <br/>
-                    My Drivers
-                  </a>
-                </li>
-
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
                     id="price-tab"
                     data-toggle="tab"
                     href="#Packages"
@@ -160,15 +141,6 @@ const FaqSection = (props) => {
                 aria-labelledby="purchas-tab"
               >
                 <EntrepriseStats company={props.company} />
-              </div>
-
-              <div
-                className="tab-pane fade"
-                id="Drivers"
-                role="tabpanel"
-                aria-labelledby="returns-tab"
-              >
-                <EntrepriseDrivers />
               </div>
 
               <div

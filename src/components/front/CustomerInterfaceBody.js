@@ -33,16 +33,6 @@ const CustomerInterfaceBody =(props)=>{
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" id="returns-tab" data-toggle="tab" href="#Drivers" role="tab" aria-controls="returns" aria-selected="false">
-                                        <FontAwesomeIcon
-                                            icon={['fas', 'car']}
-                                            className="font-size-xl"
-                                        />
-                                        <br/>
-                                        My Favorite Drivers </a>
-                                </li>
-
-                                <li className="nav-item">
                                     <a className="nav-link" id="price-tab" data-toggle="tab" href="#SendPackage" role="tab" aria-controls="price" aria-selected="false">
                                         <FontAwesomeIcon
                                             icon={['fa', 'paper-plane']}
@@ -110,11 +100,6 @@ const CustomerInterfaceBody =(props)=>{
                         <div className="tab-content faq_content" id="myTabContent">
                             <div className="tab-pane fade show active" id="Analytics" role="tabpanel" aria-labelledby="purchas-tab">
                                     <CustomerStats customer={props.customer}/>
-                            </div>
-
-
-                            <div className="tab-pane fade" id="Drivers" role="tabpanel" aria-labelledby="returns-tab">
-                                    <CustomerFavoriteDrivers/>
                             </div>
 
                             <div className="tab-pane fade" id="Packages" role="tabpanel" aria-labelledby="price-tab">
