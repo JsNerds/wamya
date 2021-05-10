@@ -258,7 +258,7 @@ router.put('/EditProfile/:id',upload,function(req,res,next){
       img:newCustomer.img
     });
     console.log('UPDATED');
-    res.send("UPDATED OK");
+    res.send(newCustomer);
   });
 });
 
