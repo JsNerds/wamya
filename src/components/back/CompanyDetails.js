@@ -124,7 +124,6 @@ export default function CompanyDetails(props) {
                                                 {delivery.destinationAddress.map((destinations,index)=>(
                                                     <>
                                                         <span className="text-info">{destinations.City} , {destinations.State}</span>
-                                                        <br/>
                                                     </>
                                                 ))
                                                 }

@@ -1,8 +1,7 @@
-import React, {Component, Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import Sticky from "react-stickynode";
 import {Avatar, Box, Button, Divider, List, ListItem, Menu, Tooltip} from "@material-ui/core";
-import avatar5 from "../../assets/images/avatars/avatar5.jpg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function CustomNavbar(props) {
@@ -34,7 +33,7 @@ export default function CustomNavbar(props) {
 
   const Logout = () => {
     localStorage.clear();
-    history.go(0);
+    history.push("/");
   };
 
   const myAccountPath = () =>{

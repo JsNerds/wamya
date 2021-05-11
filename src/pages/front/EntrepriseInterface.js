@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
 import FooterTwo from "../../components/front/FooterTwo";
 import FooterData from "../../componentsFront/Footer/FooterData";
 import EntrepriseInterfaceBody from "../../components/front/EntrepriseInterfaceBody";
-import { useServerApi } from "../../hooks/useServerApi";
 import SignInFormWamya from "../../components/front/SignInFormWamya";
+import axios from "axios";
 
 const EntrepriseInterface = () => {
-
+    const  [company,setCompany] = useState();
 
     const renderId = () => {
         let id = 0
@@ -21,10 +21,36 @@ const EntrepriseInterface = () => {
         }
         return id;
     }
+    const getCompany= async () => {
+        try {
+            const Customer = await axios.get(
+                "http://localhost:3000/entreprises/"+renderId()
+            ).then(function(doc){
+                if(JSON.stringify(doc.data) === JSON.stringify(company))
+                {
+                    console.log("same")
+                }
+                else{
+                    setCompany(doc.data)
+                    console.log(doc.data);
+                    console.log(company);
+                }
+            });
+            // set State
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    useEffect(() => {
+        getCompany();
+        const interval = setInterval(() => {
+            getCompany();
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
 
-    const [company, err, reload] = useServerApi("entreprises/"+renderId());
-  const toRender = company;
   return (
     <div className="body_wrapper">
       <CustomNavbar
@@ -40,9 +66,9 @@ const EntrepriseInterface = () => {
       />
       {/*<HRService ServiceData={ServiceData}/>*/}
       <p></p>
-      {toRender ? (
+      {company ? (
         <>
-          <EntrepriseInterfaceBody company={toRender} />
+          <EntrepriseInterfaceBody company={company} />
         </>
       ) : (
           <SignInFormWamya/>
