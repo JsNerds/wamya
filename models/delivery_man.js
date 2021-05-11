@@ -18,7 +18,7 @@ var delivery_man = new Schema(
         rating: String,
       },
     ],
-    type: String,
+    Type: String,
     Licence: String,
     Gender: String,
     Date_birth: Date,
