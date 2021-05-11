@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
@@ -10,7 +10,6 @@ import {
   Marker,
   Popup,
   useMapEvent,
-  useMap,
 } from "react-leaflet";
 
 export default function CompanyPackageForm(props) {
@@ -68,6 +67,7 @@ export default function CompanyPackageForm(props) {
   const formik = useFormik({
     initialValues: {
       customer: id,
+      driver: "",
       package: [
         {
           note: "",
@@ -183,7 +183,7 @@ export default function CompanyPackageForm(props) {
             };
             newDestination.ZipCode = parseInt(doc.data.address.postcode);
             destination.push(newDestination);
-            //console.log(destination);
+            calculateDistance();
           }
         });
     });
@@ -212,7 +212,7 @@ export default function CompanyPackageForm(props) {
           <div className="form-group text_box">
             <label className="f_p text_c f_400">Dimensions :</label>
             <div className="row mr-2">
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Length"
@@ -220,7 +220,7 @@ export default function CompanyPackageForm(props) {
                   placeholder="Length"
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Height"
@@ -228,12 +228,20 @@ export default function CompanyPackageForm(props) {
                   placeholder="Height"
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Width"
                   onChange={formik.handleChange}
                   placeholder="Width"
+                />
+              </div>
+              <div className="col-md-3">
+                <input
+                  type="text"
+                  name="package.0.weight"
+                  onChange={formik.handleChange}
+                  placeholder="Weight"
                 />
               </div>
             </div>
@@ -281,25 +289,27 @@ export default function CompanyPackageForm(props) {
                 </Marker>
               ))}
             </MapContainer>
-            <div className="row">
-              <div className="col-md-4">
-                <button
-                  type="button"
-                  onClick={() => calculateDistance()}
-                  className="btn_three"
-                  style={{ marginTop: 10 }}
-                >
-                  calculate distance
-                </button>
-              </div>
-              <div className="col-md-8">
-                {distance !== 0 && duration !== 0 ? (
-                  <>
-                    <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
-                      the trip is {(distance / 1000).toFixed(2)} Km long
-                    </p>
-                    <p className="f_p text_c f_400">
-                      the trip will take:
+          </div>
+          <div className="row">
+            <div className="col-md-4 ">
+              <button
+                style={{ marginTop: 0 }}
+                type="submit"
+                className="btn_three"
+              >
+                Send Package
+              </button>
+            </div>
+            <div className="col-md-5">
+              {distance !== 0 && duration !== 0 ? (
+                <>
+                  <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
+                    the trip is {"  "}
+                    <strong>{(distance / 1000).toFixed(2)} Km </strong>
+                  </p>
+                  <p className="f_p text_c f_400">
+                    the trip will take:{"  "}
+                    <strong>
                       {Math.round(duration / 3600) !== 0 ? (
                         <>
                           {Math.round(duration / 3600)}Hr
@@ -308,19 +318,21 @@ export default function CompanyPackageForm(props) {
                       ) : (
                         <>{Math.round(duration / 60)}min </>
                       )}
-                    </p>
-                  </>
-                ) : null}
-              </div>
+                    </strong>
+                  </p>
+                </>
+              ) : null}
             </div>
-          </div>
-          <div className="d-flex justify-content-between align-items-center">
-            <button type="submit" className="btn_three">
-              Send Package
-            </button>
-            <button type="button" onClick={() => clear()} className="btn_three">
-              Clear marks
-            </button>
+            <div className="col-md-3">
+              <button
+                style={{ marginTop: 0 }}
+                type="button"
+                onClick={() => clear()}
+                className="btn_three"
+              >
+                Clear marks
+              </button>
+            </div>
           </div>
         </form>
       </div>
