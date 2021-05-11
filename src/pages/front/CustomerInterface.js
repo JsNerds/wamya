@@ -4,7 +4,6 @@ import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../components/front/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
 import CustomerInterfaceBody from "../../components/front/CustomerInterfaceBody";
-import {useServerApi} from "../../hooks/useServerApi";
 import SignInFormWamya from "../../components/front/SignInFormWamya";
 import axios from "axios";
 

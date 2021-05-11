@@ -77,10 +77,10 @@ export default function CustomerStats(props) {
   };
 
   useEffect(async  ()=>{
-    if(props.customer.deliveries.length === 3){
+    if(props.customer.deliveries.length === 3 || props.customer.deliveries.length === 10){
       const [user, err] = await queryServerApi("customers/reduction/"+props.customer._id, null, "PUT", false);
     }
-    else if (props.customer.deliveries.length >= 4){
+    else if (props.customer.deliveries.length === 4 || props.customer.deliveries.length === 11){
       const [user, err] = await queryServerApi("customers/reductionDes/"+props.customer._id, null, "PUT", false);
     }
   })
@@ -216,7 +216,7 @@ export default function CustomerStats(props) {
                 }
 
 
-                { props.customer.deliveries.length >= 3 ? (
+                { props.customer.deliveries.length === 3 ? (
                     <Card className="card-box bg-happy-green border-0 text-light mb-4">
                       <CardContent className="p-3">
                         <div className="d-flex align-items-start">
@@ -225,7 +225,7 @@ export default function CustomerStats(props) {
                               Notification
                             </small>
                             <span className="font-size-xxl mt-1">Congrats!<br/>
-                            you achieve to pass more than 3 deliveries , you have a 40% of reduction for 4th delivery</span>
+                            you achieve to pass  3 deliveries , you have a 40% of reduction for 4th delivery</span>
                           </div>
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
@@ -246,7 +246,67 @@ export default function CustomerStats(props) {
                         </div>
                       </CardContent>
                     </Card>
-                ) : (
+                ) :props.customer.deliveries.length === 10 ? (
+                    <Card className="card-box bg-happy-itmeo border-0 text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              Notification
+                            </small>
+                            <span className="font-size-xxl mt-1">Congrats!<br/>
+                            you achieve to pass  10 deliveries , you have a 50% of reduction for 5th delivery</span>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                  icon={['fas', 'boxes']}
+                                  className="font-size-xl"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                              icon={['fas', 'arrow-up']}
+                              className="text-dark mr-1"
+                          />
+                          <span className="text-dark pr-1">{props.customer.deliveries.length}</span>
+                          <span className="text-dark">increase this month</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                ) :  props.customer.deliveries.length >= 3 &&  props.customer.deliveries.length <= 10  ?(
+                        <Card className="card-box bg-asteroid border-0 text-light mb-4">
+                          <CardContent className="p-3">
+                            <div className="d-flex align-items-start">
+                              <div className="font-weight-bold">
+                                <small className="text-white-50 d-block mb-1 text-uppercase">
+                                  Notification
+                                </small>
+                                <span className="font-size-xxl mt-1">You have to pass antoher {10 - (props.customer.deliveries.length)} deliveries to get a 50% for the 11th one</span>
+                              </div>
+                              <div className="ml-auto">
+                                <div className="bg-white text-center text-danger d-50 rounded-circle d-flex align-items-center justify-content-center">
+                                  <FontAwesomeIcon
+                                      icon={['fas', 'boxes']}
+                                      className="font-size-xl"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mt-3">
+                              <FontAwesomeIcon
+                                  icon={['fas', 'arrow-up']}
+                                  className="text-success mr-1"
+                              />
+                              <span className="text-success pr-1">{props.customer.deliveries.length}</span>
+                              <span className="text-white-50">increase this month</span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                )
+                   : (
                     <Card className="card-box bg-red-lights border-0 text-light mb-4">
                       <CardContent className="p-3">
                         <div className="d-flex align-items-start">
@@ -369,28 +429,19 @@ export default function CustomerStats(props) {
                         {Math.round(total(props.customer.payments).toFixed(2) * 100) / 100} TND
                       </div>
                     ) : (
-                      <div className="font-size-xl font-weight-bold text-danger">
-                        <small> - </small>
+                      <div className="font-size-xl font-weight-bold text-info">
                         {Math.round(total(props.customer.payments).toFixed(2) * 100) / 100} TND
                       </div>
                     )}
                   </div>
                 </div>
-                {total(props.customer.payments) === 0 ? (
+
                 <LinearProgress
                   variant="determinate"
                   color="primary"
                   value={total(props.customer.payments)}
                 />
-                    )
-                    :
-                    (
-                        <LinearProgress
-                            variant="determinate"
-                            color="secondary"
-                            value={total(props.customer.payments)}
-                        />
-                    )}
+
               </ListItem>
             </List>
             <div className="card-footer bg-light p-4 text-center">
