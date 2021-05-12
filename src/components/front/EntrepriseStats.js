@@ -9,6 +9,7 @@ import {useHistory} from "react-router-dom";
 export default function EntrepriseStats(props) {
 
     const history = useHistory();
+
     function total(payments) {
         return payments.reduce(function (total, item){
             console.log("amount",payments[0])
@@ -68,6 +69,8 @@ export default function EntrepriseStats(props) {
             data: [47, 38, 56, 24, 45, 54, 38, 47, 38, 56, 24, 56, 24, 65]
         }
     ];
+
+
 
     return (
         <Fragment>
@@ -203,15 +206,14 @@ export default function EntrepriseStats(props) {
                                         <div className="font-weight-bold">Total Payments </div>
                                     </div>
                                     <div className="ml-auto">
-                                        <div className="font-size-xl font-weight-bold text-danger">
-                                            <small> - </small>
+                                        <div className="font-size-xl font-weight-bold text-info">
                                             {total(props.company.payments)} TND
                                         </div>
                                     </div>
                                 </div>
                                 <LinearProgress
                                     variant="determinate"
-                                    color="secondary"
+                                    color="primary"
                                     value={total(props.company.payments)}
                                 />
                             </ListItem>
