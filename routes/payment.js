@@ -98,6 +98,7 @@ router.post('/addPaymentCust/:id', async function(req,res,next){
   let amount = obj.Amount;
   console.log(customer.reduction);
   console.log(obj.Amount);
+
   if(customer.reduction === true){
       amount = amount * 40 / 100;
       console.log(amount);
@@ -135,12 +136,12 @@ router.post('/addPaymentCust/:id', async function(req,res,next){
             } else {
               await Delivery.findByIdAndUpdate(delivId,{Paid:true});
               PaymentDetailsEmail(customer.Email,customer.UserName,amount,obj.NameOnCard,obj.creditCard)
-             /* clientSMS.messages.create({
+              clientSMS.messages.create({
                 body: `Congrats! ${customer.UserName} your package will reaches his destination after ${duration} `,
                 to: '+21620566666',  // Text this number
                 from: '+14079179267' // From a valid Twilio number
               })
-                  .then((message) => console.log(message.sid));*/
+                  .then((message) => console.log(message.sid));
               console.log("add");
             }
 
