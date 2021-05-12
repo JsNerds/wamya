@@ -4,17 +4,15 @@ var vehicule = require("../models/vehicule");
 
 /* GET contact DB. */
 router.get("/", function (req, res, next) {
-  vehicule.find(function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  });
-});
-
-router.get("/addvehicule", function (req, res, next) {
-  res.render("addVehicule");
+  vehicule
+    .find(function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(data);
+      }
+    })
+    .populate("driver");
 });
 
 /*Get*/
@@ -36,6 +34,9 @@ router.post("/add", function (req, res, next) {
     model: obj.model,
     weightCapacity: obj.weightCapacity,
     trunkVolume: obj.trunkVolume,
+    volumeLeft: obj.trunkVolume,
+    weightLeft: obj.weightCapacity,
+    driver: obj.driver,
   };
   vehicule.create(newVehicule, function (err) {
     if (err) {

@@ -6,6 +6,12 @@ var Vehicule = new Schema({
   model: String,
   weightCapacity: Number,
   trunkVolume: Number,
+  weightLeft: Number,
+  volumeLeft: Number,
+  driver: {
+    type: Schema.Types.ObjectId,
+    ref: "delivery_man",
+  },
 });
 
 module.exports = mongoose.model("vehicule", Vehicule);
