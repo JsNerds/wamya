@@ -21,6 +21,7 @@ export default function CompanyPackageForm(props) {
   const [locations, setLocations] = useState([]);
   const [duration, setDuration] = useState(0);
   const [distance, setDistance] = useState(0);
+  const [chosenDriver, setDriver] = useState("");
   const [source, setSource] = useState({
     Street: "",
     City: "",
@@ -52,17 +53,43 @@ export default function CompanyPackageForm(props) {
         let i = loc.waypoint_index - 1;
         organizedLocations.push(destination[i]);
       });
-      console.log(destination);
-      console.log(organizedLocations);
+
       setDestination([...organizedLocations]);
 
       let newDistance = doc.data.trips[0].distance;
       let newDuration = doc.data.trips[0].duration;
       setDuration(newDuration);
       setDistance(newDistance);
-      console.log(newDistance, distance, duration, doc.data.trips[0].distance);
     });
     console.log(distance, duration);
+  };
+  const addPackageToVehicle = async (vehicleId, pVolume, pWeight) => {
+    try {
+      await axios.put(
+        `http://localhost:3000/vehicle/addPackageVehicle/${vehicleId}/${pWeight}`
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  const assignDriver = async (pVolume, pWeight) => {
+    try {
+      await axios.get("http://localhost:3000/vehicle").then(function(doc) {
+        console.log(doc.data);
+        let availableVehicles = doc.data?.filter((vehicle) => {
+          console.log(vehicle.weightLeft, pWeight);
+          return vehicle.weightLeft >= pWeight;
+        });
+        console.log(availableVehicles);
+        console.log("driver:", availableVehicles[0].driver._id);
+        console.log("vehicle:", availableVehicles[0]._id);
+        setDriver(availableVehicles[0].driver._id);
+        addPackageToVehicle(availableVehicles[0]._id, pVolume, pWeight);
+      });
+      // set State
+    } catch (err) {
+      console.error(err.message);
+    }
   };
   const formik = useFormik({
     initialValues: {
@@ -114,11 +141,15 @@ export default function CompanyPackageForm(props) {
     },
     onSubmit: async (values) => {
       await calculateDistance();
+      let calculatedVolume = 40;
+      await assignDriver(calculatedVolume, values.package[0].weight);
+      console.log(chosenDriver);
       values.sourceAddress = source;
       values.destinationAddress = destination;
       values.duration = duration;
       values.distance = distance;
-      setShowLoader(false);
+      values.driver = chosenDriver;
+      //setShowLoader(false);
       console.log(values);
       const [, err] = await queryServerApi(
         "delivery/startDelivery",
@@ -192,9 +223,26 @@ export default function CompanyPackageForm(props) {
 
   const clear = () => {
     setDestination([]);
+    setSource({});
+    setLocations([]);
     setMarkers([]);
     setDuration(0);
     setDistance(0);
+  };
+  const TextInfo = () => {
+    if (locations.length < 1) {
+      return (
+        <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
+          Select the departure address
+        </h3>
+      );
+    } else {
+      return (
+        <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
+          Select destination address number {locations.length}
+        </h3>
+      );
+    }
   };
   return (
     <div className="sign_info_content">
@@ -267,10 +315,8 @@ export default function CompanyPackageForm(props) {
                 placeholder="Note to driver"
               />
             </div>
+            <TextInfo />
 
-            <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
-              Select source address first then the destinations :
-            </h3>
             <MapContainer
               center={{ lat: 36.8065, lng: 10.1815 }}
               zoom={10}
@@ -291,13 +337,14 @@ export default function CompanyPackageForm(props) {
             </MapContainer>
           </div>
           <div className="row">
-            <div className="col-md-4 ">
+            <div className="col-md-3">
               <button
                 style={{ marginTop: 0 }}
-                type="submit"
+                type="button"
+                onClick={() => clear()}
                 className="btn_three"
               >
-                Send Package
+                Clear marks
               </button>
             </div>
             <div className="col-md-5">
@@ -323,14 +370,13 @@ export default function CompanyPackageForm(props) {
                 </>
               ) : null}
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4 ">
               <button
                 style={{ marginTop: 0 }}
-                type="button"
-                onClick={() => clear()}
-                className="btn_three"
+                type="submit"
+                className="btn_three flex-end float-right"
               >
-                Clear marks
+                Send Package
               </button>
             </div>
           </div>
