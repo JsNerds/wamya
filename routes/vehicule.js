@@ -64,6 +64,23 @@ router.post("/edit/:id", function (req, res, next) {
     }
   });
 });
+/*----------------------add package to vehicle------------------------------*/
+router.put("/addPackageVehicle/:id/:weight", function (req, res) {
+  vehicule.findByIdAndUpdate(
+    req.params.id,
+    {
+      $inc: { weightLeft: -req.params.weight },
+    },
+    { new: true, useFindAndModify: false },
+    function (err, doc) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("PackageAddedToVehicle");
+      }
+    }
+  );
+});
 /* Delete contact*/
 router.delete("/delete/:id", function (req, res, next) {
   vehicule.findByIdAndRemove(req.params.id, function (err, docs) {
