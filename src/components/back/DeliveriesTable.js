@@ -139,7 +139,7 @@ export default function DeliveriesTable(props) {
                       </div>
                     </td>
                     <td className="text-center">
-                    {delivery?.driver.Username}
+                    {delivery?.driver?.FullName}
                     </td>
                     <td className="text-center">   
                                         <Button size="small" variant="contained" color="secondary" onClick={()=> {handleDelete(delivery._id)}}>
