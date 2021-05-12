@@ -77,10 +77,10 @@ export default function CustomerStats(props) {
   };
 
   useEffect(async  ()=>{
-    if(props.customer.deliveries.length === 3 || props.customer.deliveries.length === 10){
+    if(props.customer.deliveries.length === 4 || props.customer.deliveries.length === 11){
       const [user, err] = await queryServerApi("customers/reduction/"+props.customer._id, null, "PUT", false);
     }
-    else if (props.customer.deliveries.length === 4 || props.customer.deliveries.length === 11){
+    else if (props.customer.deliveries.length === 5  || props.customer.deliveries.length === 12){
       const [user, err] = await queryServerApi("customers/reductionDes/"+props.customer._id, null, "PUT", false);
     }
   })
@@ -255,7 +255,7 @@ export default function CustomerStats(props) {
                               Notification
                             </small>
                             <span className="font-size-xxl mt-1">Congrats!<br/>
-                            you achieve to pass  10 deliveries , you have a 50% of reduction for 5th delivery</span>
+                            you achieve to pass  10 deliveries , you have a 40% of reduction for 11th delivery</span>
                           </div>
                           <div className="ml-auto">
                             <div className="bg-white text-center text-success d-50 rounded-circle d-flex align-items-center justify-content-center">
@@ -284,7 +284,7 @@ export default function CustomerStats(props) {
                                 <small className="text-white-50 d-block mb-1 text-uppercase">
                                   Notification
                                 </small>
-                                <span className="font-size-xxl mt-1">You have to pass antoher {10 - (props.customer.deliveries.length)} deliveries to get a 50% for the 11th one</span>
+                                <span className="font-size-xxl mt-1">You have to pass antoher {10 - (props.customer.deliveries.length)} deliveries to get a 40% for the 11th one</span>
                               </div>
                               <div className="ml-auto">
                                 <div className="bg-white text-center text-danger d-50 rounded-circle d-flex align-items-center justify-content-center">
@@ -305,8 +305,7 @@ export default function CustomerStats(props) {
                             </div>
                           </CardContent>
                         </Card>
-                )
-                   : (
+                ) : props.customer.deliveries.length <= 3  ? (
                     <Card className="card-box bg-red-lights border-0 text-light mb-4">
                       <CardContent className="p-3">
                         <div className="d-flex align-items-start">
@@ -318,6 +317,36 @@ export default function CustomerStats(props) {
                           </div>
                           <div className="ml-auto">
                             <div className="bg-white text-center text-danger d-50 rounded-circle d-flex align-items-center justify-content-center">
+                              <FontAwesomeIcon
+                                  icon={['fas', 'boxes']}
+                                  className="font-size-xl"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <FontAwesomeIcon
+                              icon={['fas', 'arrow-up']}
+                              className="text-success mr-1"
+                          />
+                          <span className="text-success pr-1">{props.customer.deliveries.length}</span>
+                          <span className="text-white-50">increase this month</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                )
+                   : (
+                    <Card className="card-box bg-midnight-bloom border-0 text-light mb-4">
+                      <CardContent className="p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="font-weight-bold">
+                            <small className="text-white-50 d-block mb-1 text-uppercase">
+                              Notification
+                            </small>
+                            <span className="font-size-xxl mt-1">Congrats you finished your objectives</span>
+                          </div>
+                          <div className="ml-auto">
+                            <div className="bg-white text-center text-info d-50 rounded-circle d-flex align-items-center justify-content-center">
                               <FontAwesomeIcon
                                   icon={['fas', 'boxes']}
                                   className="font-size-xl"
