@@ -1,19 +1,17 @@
-import React from 'react'
-import {
-    Marker,
-    Popup,
-  } from "react-leaflet";
+import React, { useState } from "react";
+import { Marker, Popup,useMap, } from "react-leaflet";
 export default function RealTimeTrackingSimulation(props) {
-        const interval = setInterval(() => {
-          props.setCoordinates(props.coordinates+20);
-        }, 2000);
-    return (
-            <Marker
-            position={[0,0]}
-            >
-            <Popup>
-              <span>driver</span>
-            </Popup>
-          </Marker>
-    )
+  const map = useMap();
+  
+  const [coordinates, setCoordinates] = useState(0);
+  const interval = setInterval(() => {
+    setCoordinates(coordinates + 1);
+  }, 5000);
+  return (
+    <Marker position={[coordinates, coordinates]}>
+      <Popup>
+        <span>driver</span>
+      </Popup>
+    </Marker>
+  );
 }
