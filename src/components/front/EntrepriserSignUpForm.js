@@ -163,6 +163,11 @@ const EntrepriseSignUpForm =()=>{
         setShowTerms(!showTerms);
     }
 
+    const  nextPath = (path) => {
+        history.push(path);
+    }
+
+
     return(
         <section className="sign_in_area bg_color sec_pad">
             <div className="container">
@@ -173,11 +178,12 @@ const EntrepriseSignUpForm =()=>{
                                 <h3 className="f_p f_600 f_size_24 t_color3 mb_40">Allready have an account?</h3>
                                 <h2 className="f_p f_400 f_size_30 mb-30">Login now and<br/> starting using our <br/><span className="f_700">amazing</span> services</h2>
                                 <ul className="list-unstyled mb-0">
+                                    <li><i className="ti-check"></i> Subscribe and Send unlimit packages</li>
                                     <li><i className="ti-check"></i> Track your package</li>
                                     <li><i className="ti-check"></i> Notification of delivery time </li>
-                                    <li><i className="ti-check"></i> Checking for the most qualified driver for the job.</li>
+
                                 </ul>
-                                <button type="submit" className="btn_three sign_btn_transparent">Sign In</button>
+                                <button onClick={() => nextPath("/SignInWamya")} className="btn_three sign_btn_transparent">Sign In</button>
                             </div>
                         </div>
                         <div className="col-lg-7">
