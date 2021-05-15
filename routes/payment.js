@@ -5,8 +5,12 @@ var Customer = require('../models/customer')
 var Entreprise = require('../models/entreprise');
 var Delivery = require('../models/delivery');
 const stripe = require("stripe")("sk_test_51IfWBLCVTWqP5309JTjdorJKTRm2p4oXBBe746cv5gR9lVnMyAy4373gs2mcIm0ceEu35XuVoJbLOVg98asz0sgV00mQZFDbV4");
+require('dotenv').config();
 var twilio = require('twilio');
-var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", "4f4d8b0d7d9d23636b90d2d8e132f1f2");
+const authToken = process.env.TWILIO_ACCOUNT_SID;
+
+
+var clientSMS = new twilio("AC1c4a7e63a7c65e00cde37b7e422f4724", authToken);
 var {PaymentDetailsEmail } = require('../mailer');
 
 

@@ -32,7 +32,7 @@ exports.sendCustomerConfirmationEmail = function(Email,Username,id) {
         <h1>WAMYA</h1>
       <h3> Hello ${Username} </h3>
       <p>Thank you for registering into our Application. Much Appreciated! Just one last step is laying ahead of you...</p>
-      <p>To activate your account please follow this link: <a target="_" href="${process.env.DOMAIN}/customers/ActivateCustomer/${id}">${process.env.DOMAIN}/activate </a></p>
+      <p>To activate your account please follow this link: <a target="_" href="${process.env.DOMAIN}/customers/ActivateCustomer/${id}"> Activate </a></p>
       <p>Cheers</p>
       <p>Wamya Team</p>
     `
@@ -51,7 +51,7 @@ exports.sendCompanyConfirmationEmail = function(Email,Denomination,id) {
         <h1>WAMYA</h1>
       <h3> Hello ${Denomination} </h3>
       <p>Thank you for registering into our Application. Much Appreciated! Just one last step is laying ahead of you...</p>
-      <p>To activate your account please follow this link: <a target="_" href="${process.env.DOMAIN}/entreprises/ActivateCompany/${id}">${process.env.DOMAIN}/activate </a></p>
+      <p>To activate your account please follow this link: <a target="_" href="${process.env.DOMAIN}/entreprises/ActivateCompany/${id}"> Activate </a></p>
       <p>Cheers</p>
       <p>Wamya Team</p>
     `
@@ -68,7 +68,7 @@ exports.SendResetPasswordEmail = (Email ,Username, id,code) => {
         html: `
       <h3>Hello ${Username} </h3>
       <p>You reset Code : <strong>${code}</strong></p>
-      <p>To reset your password please follow this link: <a target="_" href="http://localhost:3022/ResetNewPassword/${id}">Reset Password Link</a></p>
+      <p>To reset your password please follow this link: <a target="_" href="${process.env.DOMAIN_REACT}/ResetNewPassword/${id}">Reset Password Link</a></p>
       <p>Cheers,</p>
       <p>Wamya Team</p>
     `

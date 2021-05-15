@@ -168,7 +168,7 @@ router.get('/ActivateCompany/:id',async function (req, res, next) {
           img:e.img
         }, function (err,user) {
           if(err) throw err;
-          res.redirect(`http://localhost:${process.env.DOMAIN_REACT}/ActivatedAccount`);
+          res.redirect(`${process.env.DOMAIN_REACT}/ActivatedAccount`);
           res.end();
         });
       }
