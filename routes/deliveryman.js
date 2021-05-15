@@ -477,6 +477,20 @@ router.get("/prize/:id/:priz", function (req, res, next) {
   });
 });
 
+router.get("/makewheel/:id", function (req, res, next) {
+  console.log("waa");
+  const mynewdelivery = {
+    badges: "1",
+  };
+  mile.findByIdAndUpdate(req.params.id, mynewdelivery, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/deliveryman");
+    }
+  });
+});
+
 router.get("/setrating/:id/:rate", function (req, res, next) {
   console.log("waa");
   const mynewdelivery = {
