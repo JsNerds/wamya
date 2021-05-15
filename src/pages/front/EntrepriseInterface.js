@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../componentsFront/Breadcrumb";
 import FooterTwo from "../../components/front/FooterTwo";
@@ -8,43 +8,48 @@ import SignInFormWamya from "../../components/front/SignInFormWamya";
 import axios from "axios";
 
 const EntrepriseInterface = () => {
-  const [company, setCompany] = useState();
+    const  [company,setCompany] = useState();
 
-  const renderId = () => {
-    let id = 0;
-    if (localStorage.getItem("id") != null) {
-      id = localStorage.getItem("id");
-    } else {
-      id = "60949f6ba158b41be4b96bf0";
+    const renderId = () => {
+        let id = 0
+        if(localStorage.getItem('id') != null)
+        {
+            id= localStorage.getItem('id');
+        }
+        else {
+            id="60949f6ba158b41be4b96bf0";
+        }
+        return id;
     }
-    return id;
-  };
-  const getCompany = async () => {
-    try {
-      const Customer = await axios
-        .get("http://localhost:3000/entreprises/" + renderId())
-        .then(function(doc) {
-          if (JSON.stringify(doc.data) === JSON.stringify(company)) {
-            console.log("same");
-          } else {
-            setCompany(doc.data);
-            console.log(doc.data);
-            console.log(company);
-          }
-        });
-      // set State
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+    const getCompany= async () => {
+        try {
+            const Customer = await axios.get(
+                "http://localhost:3000/entreprises/"+renderId()
+            ).then(function(doc){
+                if(JSON.stringify(doc.data) === JSON.stringify(company))
+                {
+                    console.log("same")
+                }
+                else{
+                    setCompany(doc.data)
+                    console.log(doc.data);
+                    console.log(company);
+                }
+            });
+            // set State
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
 
-  useEffect(() => {
-    getCompany();
-    const interval = setInterval(() => {
-      getCompany();
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+    useEffect(() => {
+        getCompany();
+        const interval = setInterval(() => {
+            getCompany();
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
 
   return (
     <div className="body_wrapper">
@@ -66,7 +71,7 @@ const EntrepriseInterface = () => {
           <EntrepriseInterfaceBody company={company} />
         </>
       ) : (
-        <SignInFormWamya />
+          <SignInFormWamya/>
       )}
       <FooterTwo fClass="pt_150" FooterData={FooterData} />
     </div>
