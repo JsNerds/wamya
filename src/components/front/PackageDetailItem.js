@@ -46,7 +46,7 @@ export default function PackageDetailItem() {
     }
   };
   const realtimeSimulator = (coordinates)=> {
-    const unitsToMovePerSecond = coordinates.length / deliv?.duration * 30;
+    const unitsToMovePerSecond = coordinates.length / deliv?.duration * 10;
     const percentage = unitsToMovePerSecond / coordinates.length;
     if(Math.round(i + (coordinates.length*percentage)-1)< coordinates.length)
     {
@@ -126,7 +126,7 @@ export default function PackageDetailItem() {
             }
           ).addTo(map);
           realtime.on("update", function() {
-            map.fitBounds(realtime.getBounds(), { maxZoom: 12 });
+            map.fitBounds(realtime.getBounds(), { maxZoom: 16 });
           });
           });
       
