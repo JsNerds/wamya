@@ -2,9 +2,8 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Grid, Card, CardContent, Button, Divider } from '@material-ui/core';
+import { Grid, Card, CardContent} from '@material-ui/core';
 
-import Chart from 'react-apexcharts';
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
 

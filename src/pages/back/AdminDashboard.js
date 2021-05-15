@@ -2,15 +2,11 @@ import React, {Fragment, useEffect, useState} from 'react';
 import PackageDashBoard from '../../components/back/PackageDashBoard';
 
 import { PageTitle } from '../../layout-componentsBack';
-import CompanyStats from "../../components/back/CompanyStats";
-import CustomersCharts from "../../components/back/CustomersCharts";
 import CustomerStat from "../../components/back/CustomerStat";
 import axios from "axios";
-import {useServerApi} from "../../hooks/useServerApi";
 export default function AdminDashborad() {
 
     const [customers,setCustomers] = useState([]);
-    const [companies] = useServerApi("entreprises");
 
 
     const getCustomers= async () => {

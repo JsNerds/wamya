@@ -1,7 +1,6 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {useFormik} from "formik";
 import {queryServerApi} from "../../utils/queryServerApi";
-import {useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import MuiAlert from "@material-ui/lab/Alert";
 

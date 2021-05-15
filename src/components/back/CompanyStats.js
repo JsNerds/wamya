@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { Grid, Card, CardContent, Divider } from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 import Chart from 'react-apexcharts';
 
 

@@ -4,17 +4,10 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/front/Home";
 import SendPackages from "./pages/front/SendPackages";
 import MyPackages from "./pages/front/MyPackages";
-import HRManagement from "./PagesFront/HR-Management";
-import Startup from "./PagesFront/Startup";
-import HomeCRM from "./PagesFront/Home-CRM";
 import About from "./PagesFront/About";
-import Service from "./PagesFront/Service";
+import Service from "../src/pages/front/Services";
 import Process from "./PagesFront/Process";
 import Team from "./PagesFront/Team";
-import Portfolio2col from "./PagesFront/Portfolio-2col";
-import Portfolio3col from "./PagesFront/Portfolio-3col";
-import Portfoliofull4col from "./PagesFront/Portfolio-fullwidth-4col";
-import PortfolioSingle from "./PagesFront/PortfolioSingle";
 import ScrollToTopRoute from "./ScrollToTopRoute";
 import NotFound from "./PagesFront/404";
 import CustomerServiceDetails from "./pages/front/CustomerServiceDetails";
@@ -316,33 +309,11 @@ class App extends Component {
           ) : (
             <Switch>
               <ScrollToTopRoute exact={true} path={"/"} component={Home} />
-              <ScrollToTopRoute
-                path="/HR-Management"
-                component={HRManagement}
-              />
-              <ScrollToTopRoute path="/Startup" component={Startup} />
-              <ScrollToTopRoute path="/Home-CRM" component={HomeCRM} />
               <ScrollToTopRoute path="/About" component={About} />
               <ScrollToTopRoute path="/Service" component={Service} />
               <ScrollToTopRoute path="/Process" component={Process} />
               <ScrollToTopRoute path="/Team" component={Team} />
-              {/** Portfolios ***/}
-              <ScrollToTopRoute
-                path="/Portfolio-2col"
-                component={Portfolio2col}
-              />
-              <ScrollToTopRoute
-                path="/Portfolio-3col"
-                component={Portfolio3col}
-              />
-              <ScrollToTopRoute
-                path="/Portfolio-fullwidth-4col"
-                component={Portfoliofull4col}
-              />
-              <ScrollToTopRoute
-                path="/PortfolioSingle"
-                component={PortfolioSingle}
-              />
+
               {/**Package Management*/}
               <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
               <ScrollToTopRoute path="/MyPackages" component={MyPackages} />

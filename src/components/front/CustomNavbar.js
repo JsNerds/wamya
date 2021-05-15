@@ -8,7 +8,6 @@ export default function CustomNavbar(props) {
   const history = useHistory();
   var { mClass, nClass, cClass, slogo, hbtnClass } = props;
   const username = localStorage.getItem("username");
-  const id = localStorage.getItem("id");
   const role = localStorage.getItem("role");
   const img = localStorage.getItem("img");
 
