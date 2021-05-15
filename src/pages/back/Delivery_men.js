@@ -15,7 +15,6 @@ export default function Delivery_men() {
       />
       <ExampleWrapperSeamless sectionHeading="Delivery men Table">
         <Deliverymendata dms={dms} />
-        <CustomerStat dms={dms} />
       </ExampleWrapperSeamless>
     </Fragment>
   );

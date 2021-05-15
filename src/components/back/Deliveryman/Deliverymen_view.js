@@ -89,7 +89,7 @@ export default function Deliverymen_view(props) {
               title="View details"
             >
               <FontAwesomeIcon
-                icon={["far", "keyboard"]}
+                icon={["far", "plus-square"]}
                 onClick={addnew}
                 className="font-size-lg"
               />
@@ -198,15 +198,17 @@ export default function Deliverymen_view(props) {
                       >
                         Update
                       </Button>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        className="mr-3"
-                        color="secondary"
-                        onClick={() => deletedriver(dm._id)}
-                      >
-                        Delete
-                      </Button>
+                      {dm.Status !== 5 && dm.Status !== 4 && (
+                        <Button
+                          size="small"
+                          variant="contained"
+                          className="mr-3"
+                          color="secondary"
+                          onClick={() => deletedriver(dm._id)}
+                        >
+                          Delete
+                        </Button>
+                      )}
 
                       <Tooltip arrow title="View Details">
                         <IconButton
