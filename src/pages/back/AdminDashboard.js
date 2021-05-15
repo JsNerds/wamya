@@ -1,8 +1,46 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import PackageDashBoard from '../../components/back/PackageDashBoard';
 
 import { PageTitle } from '../../layout-componentsBack';
+import CompanyStats from "../../components/back/CompanyStats";
+import CustomersCharts from "../../components/back/CustomersCharts";
+import CustomerStat from "../../components/back/CustomerStat";
+import axios from "axios";
+import {useServerApi} from "../../hooks/useServerApi";
 export default function AdminDashborad() {
+
+    const [customers,setCustomers] = useState([]);
+    const [companies] = useServerApi("entreprises");
+
+
+    const getCustomers= async () => {
+        try {
+            const Customers = await axios.get(
+                "http://localhost:3000/customers/"
+            ).then(function(doc){
+                if(JSON.stringify(doc.data) === JSON.stringify(customers))
+                {
+                    console.log("same")
+                }
+                else{
+                    setCustomers(doc.data)
+                    console.log(doc.data);
+                    console.log(customers);
+                }
+            });
+            // set State
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+    useEffect(() => {
+        getCustomers();
+        const interval = setInterval(() => {
+            getCustomers();
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <Fragment>
             <PageTitle
@@ -10,6 +48,7 @@ export default function AdminDashborad() {
                 titleDescription="Admin Template"
             />
             <PackageDashBoard/>
+            <CustomerStat customers={customers}/>
         </Fragment>
     );
 }

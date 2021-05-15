@@ -29,15 +29,15 @@ export default function CompanyStats(props) {
     const seriesMixedChart = [
         {
             name: 'Subscriptions',
-            data: [0,233]
+            data: [0,props.company?.length]
         },
         {
             name: 'Payments',
-            data: [0,111]
+            data: [0,totalPayments()]
         },
         {
             name: 'Packages',
-            data: [0, 122]
+            data: [0, totalDeliveries()]
         }
     ];
 

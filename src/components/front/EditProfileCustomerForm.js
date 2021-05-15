@@ -61,7 +61,7 @@ const EditProfileCustomerForm = (props) => {
                 setSuccess(true);
                 console.log(res.img);
                 localStorage.setItem('img', res.img);
-                localStorage.setItem('username', res.Username);
+                localStorage.setItem('username', res.UserName);
                 localStorage.setItem('email', res.Email);
             }
         }
