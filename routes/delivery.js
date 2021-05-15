@@ -5,6 +5,7 @@ var Customer = require("../models/customer");
 var Entreprise = require("../models/entreprise");
 var mongoose = require("mongoose");
 const Package = require("../models/Package");
+var Vehicule = require("../models/vehicule");
 /* ********** RESTFUL API ********** */
 
 /** get all deliverys or get by name*/
@@ -21,7 +22,6 @@ router.get("/", function (req, res, next) {
     .populate("customer package driver");
 });
 router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
-
   delivery.find({ customer: req.params.id }, function (err, doc) {
     if (err) {
       res.send(err);
@@ -33,17 +33,17 @@ router.get("/getLastDeliveryByCustomer/:id", function (req, res) {
   });
 });
 router.get("/getDeliveryByCustomer/:id", function (req, res) {
-  delivery.find(
-    { customer: req.params.id },
-    function (err, doc) {
+  delivery
+    .find({ customer: req.params.id }, function (err, doc) {
       if (err) {
         res.send(err);
       } else {
         res.send(doc);
       }
-    }
-  ).populate("package");
+    })
+    .populate("package");
 });
+
 /* start delivery */
 router.post("/startDelivery", function (req, res) {
   const package = new Package({
@@ -56,7 +56,38 @@ router.post("/startDelivery", function (req, res) {
     type: req.body.package[0].type,
     weight: Number(req.body.package[0].weight),
   });
-  console.log(package);
+  //console.log(package);
+  if (req.body.driver === "") {
+    Vehicule.find(function (err, data) {
+      if (err) {
+        console.log("vehicle problem");
+        console.log(err);
+      } else {
+        let myVehicles = data.filter((vehicle) => {
+          console.log("package weight:", Number(req.body.package[0].weight));
+          return vehicle.weightLeft >= Number(req.body.package[0].weight);
+        });
+        req.body.driver = myVehicles[0].driver;
+        console.log("driver id : ", myVehicles[0].driver);
+        console.log("vehicle id : ", myVehicles[0]._id);
+        Vehicule.findByIdAndUpdate(
+          myVehicles[0]._id,
+          {
+            $inc: { weightLeft: -req.body.package[0].weight },
+          },
+          { new: true, useFindAndModify: false },
+          function (err, doc) {
+            if (err) {
+              res.send(err);
+            } else {
+              console.log("weight removed");
+            }
+          }
+        );
+      }
+    });
+  }
+
   try {
     Package.create(package).then((p) => {
       var newDeliery = req.body;
