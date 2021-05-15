@@ -208,6 +208,9 @@ const CustomerSignUpForm =()=>{
         setShowTerms(!showTerms);
     }
 
+   const  nextPath = (path) => {
+        history.push(path);
+    }
 
 
     return(
@@ -224,7 +227,7 @@ const CustomerSignUpForm =()=>{
                                     <li><i className="ti-check"></i> Notification of delivery time </li>
                                     <li><i className="ti-check"></i> Checking for the most qualified driver for the job.</li>
                                 </ul>
-                                <button href="/#" className="btn_three sign_btn_transparent">Sign In</button>
+                                <button onClick={() => nextPath("/SignInWamya")} className="btn_three sign_btn_transparent">Sign In</button>
                             </div>
                         </div>
                         <div className="col-lg-7">

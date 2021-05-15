@@ -49,15 +49,10 @@ export default function CustomerOperationsPayments(props) {
                   <thead>
                   <tr>
                     <th className="text-center">Customer</th>
-                    <th className="text-center">Email</th>
-                    <th className="text-center">Address</th>
                     <th className="text-center">Credit Card</th>
                     <th className="text-center">Card Type</th>
                     <th className="text-center">Expiration Date</th>
                     <th className="text-center">Amount</th>
-                    <th className="text-right">Actions</th>
-                    <th className="text-right">Totals</th>
-
                   </tr>
                   </thead>
                   <tbody>
@@ -77,13 +72,6 @@ export default function CustomerOperationsPayments(props) {
                           </div>
 
                         </td>
-                        <td className="text-center">
-                          <span className="font-weight-bold">{payment.Email}</span>
-                        </td>
-                        <td className="text-center">
-                          <span className="font-weight-bold">{payment.Address.City}</span>
-                        </td>
-
                         <td className="text-center">
                           <span className="font-weight-bold"> **** **** **** {payment.creditCard}</span>
                         </td>
@@ -107,7 +95,7 @@ export default function CustomerOperationsPayments(props) {
                           <div className="d-flex align-items-center justify-content-end">
                             <div className="font-weight-bold font-size-lg pr-2">
                               {' '}
-                              {payment.Amount / 100}TND
+                              {(payment.Amount / 100).toFixed(3)}TND
                             </div>
                           </div>
                         </td>
