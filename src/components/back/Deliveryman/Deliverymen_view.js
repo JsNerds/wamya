@@ -13,14 +13,8 @@ import {
 } from "@material-ui/core";
 import { useServerApi } from "../../../hooks/useServerApi";
 
-import avatar2 from "../../../assets/images/avatars/avatar2.jpg";
 import { queryServerApi } from "../../../utils/queryServerApi";
 import { useHistory } from "react-router";
-import { useParams } from "react-router";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import EditIcon from "@material-ui/icons/Edit";
-import validate from "../../../validation/validation";
-import ReactStars from "react-rating-stars-component";
 
 export default function Deliverymen_view(props) {
   const history = useHistory();

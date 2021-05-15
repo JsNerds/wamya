@@ -152,6 +152,7 @@ const LivePreviewExample = () => {
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-volume"
+                    type="password"
                     name="password"
                     onChange={formik.handleChange}
                     labelWidth={90}
@@ -167,6 +168,9 @@ const LivePreviewExample = () => {
                   <OutlinedInput
                     id="outlined-adornment-volume"
                     name="date"
+                    startAdornment={
+                      <InputAdornment position="start"></InputAdornment>
+                    }
                     type="date"
                     onChange={formik.handleChange}
                     labelWidth={90}
@@ -229,7 +233,7 @@ const LivePreviewExample = () => {
                 color="primary"
                 type="submit"
               >
-                Add Vehicule
+                Add Deliveryman
               </Button>
             </Card>
           </form>

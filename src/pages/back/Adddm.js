@@ -7,8 +7,8 @@ export default function Vehicules() {
   return (
     <Fragment>
       <PageTitle
-        titleHeading="add a vehicule"
-        titleDescription="Specify Vehicule details"
+        titleHeading="add a deliveryman"
+        titleDescription="Specify delivery details"
       />
       <Form
         onSubmit={async (values) => {

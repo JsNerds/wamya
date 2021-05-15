@@ -45,6 +45,7 @@ const CustomerInterface = () => {
     getmile();
     const interval = setInterval(() => {
       getdriver();
+      getmile();
     }, 2000);
 
     return () => clearInterval(interval);

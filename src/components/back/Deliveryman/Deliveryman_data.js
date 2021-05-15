@@ -9,6 +9,7 @@ import {
   ListItem,
   LinearProgress,
 } from "@material-ui/core";
+import { queryServerApi } from "../../../utils/queryServerApi";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactStars from "react-rating-stars-component";
@@ -24,6 +25,16 @@ export default function Deliveryman_data(props) {
     edit: false,
   };
   console.log(firstExample);
+
+  const makewheel = async (id) => {
+    const [res2, err2] = await queryServerApi(
+      "deliveryman/makewheel/" + id,
+      null,
+      "GET",
+      false
+    );
+    history.go(0);
+  };
 
   const Updatemille = (id) => {
     history.push("/Updatemille/" + id);
@@ -99,7 +110,9 @@ export default function Deliveryman_data(props) {
                 <b>Milestones</b>
               </div>
               <div className="card-header--actions">
-                <div className="badge badge-warning">Pending</div>
+                <div className="badge badge-warning">
+                  Resently {props.mile["stage"]}{" "}
+                </div>
               </div>
             </div>
             <List>
@@ -157,12 +170,25 @@ export default function Deliveryman_data(props) {
               </ListItem>
             </List>
             <div className="card-footer bg-light text-center">
+              {props.mile.badges === "0" && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  className="mr-3"
+                  color="primary"
+                  onClick={() => makewheel(props.mile["_id"])}
+                >
+                  Release Wheel of prices
+                </Button>
+              )}
               <Button
+                size="small"
                 variant="contained"
-                color="primary"
+                className="mr-3"
+                color="secondary"
                 onClick={() => Updatemille(props.mile["_id"])}
               >
-                <span className="btn-wrapper--label">Update</span>
+                Update
               </Button>
             </div>
           </Card>

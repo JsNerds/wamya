@@ -31,7 +31,7 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         <center>
-          <h4>Centered Modal</h4>
+          <h4>Good job !</h4>
           <Wheels></Wheels>
         </center>
       </Modal.Body>
@@ -107,7 +107,7 @@ export default function Deliveryman_Body(props) {
                     aria-controls="purchas"
                     aria-selected="true"
                   >
-                    Analytics
+                    My milestones
                   </a>
                 </li>
 

@@ -4,6 +4,8 @@ import { queryServerApi } from "../../../utils/queryServerApi";
 import WheelComponent from "react-wheel-of-prizes";
 import { Button } from "@material-ui/core";
 import "react-wheel-of-prizes/dist/index.css";
+import { useHistory } from "react-router";
+
 import "./styles.css";
 const Wheels = () => {
   const segments = [
@@ -31,7 +33,7 @@ const Wheels = () => {
     console.log(winner);
     setsig(winner);
   };
-
+  const history = useHistory();
   const claim = async (prize) => {
     const [res2, err2] = await queryServerApi(
       "deliveryman/prize/" + localStorage.getItem("id") + "/" + prize,
@@ -39,10 +41,11 @@ const Wheels = () => {
       "GET",
       false
     );
+    history.go(0);
   };
   return (
     <div className="App">
-      <h1>Spinning Prize Wheel React</h1>
+      <h1>you've earned a Spinning Prize Wheel</h1>
       <WheelComponent
         segments={segments}
         segColors={segColors}
