@@ -3,8 +3,7 @@ import CustomNavbar from '../../components/front/CustomNavbar';
 import Breadcrumb from '../../componentsFront/Breadcrumb';
 import FooterTwo from '../../components/front/FooterTwo';
 import FooterData from '../../componentsFront/Footer/FooterData';
-import Featuresitems from "../../componentsFront/Features/Featuresitems";
-import FeaturesitemsFront from "../../components/front/FeaturesitemsCustomer";
+import FeaturesitemsFront from "../../components/front/Featuresitems";
 
 const CustomerServiceDetails = () => {
     return(
@@ -15,15 +14,16 @@ const CustomerServiceDetails = () => {
                 <div className="container">
                     <div className="features_info">
                         <img className="dot_img" src={require ('../../img/home4/divider.png')} alt=""/>
-                        <FeaturesitemsFront rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="CustomerRegister.jpg" iImg="icon01.png" ftitle="Sign Up as a Customer" descriptions="Create your own account , put your informations fields respect the conditions finally read and accept terms"/>
-                        <FeaturesitemsFront rowClass="row" aClass="pl_100" fimage="SingIn.png" iImg="icon02.png" ftitle="Sign In as a Customer" descriptions="There are different ways to sign in as customer the first one is with your username or email and password the second one with facebook or google  accounts the last one with face recognition"/>
-                        <FeaturesitemsFront rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="UserInterface.png" iImg="icon3.png" ftitle="Customer interface"
-                                       descriptions="Why I say old chap that is spiffing bodge, blag pardon me buggered mufty Oxford butty bubble and squeak wind up, brown bread the full monty bloke ruddy cras tickety-boo squiffy. Starkers dropped a clanger lurgy is cack excuse my French what a plonker blower.!"/>
-                        <FeaturesitemsFront rowClass="row" aClass="pl_100" fimage="SendPackage.jpg" iImg="icon_04.png" ftitle="Send Package"
-                                       descriptions="Why I say old chap that is spiffing bodge, blag pardon me buggered mufty Oxford butty bubble and squeak wind up, brown bread the full monty bloke ruddy cras tickety-boo squiffy. Starkers dropped a clanger lurgy is cack excuse my French what a plonker blower.!"/>
-                        <FeaturesitemsFront rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="CustomerSendPackage.jpg" iImg="icon_05.png" ftitle="With efficiency to unlock more opportunities"
-                                       descriptions="Why I say old chap that is spiffing bodge, blag pardon me buggered mufty Oxford butty bubble and squeak wind up, brown bread the full monty bloke ruddy cras tickety-boo squiffy. Starkers dropped a clanger lurgy is cack excuse my French what a plonker blower.!"/>
-                        <div className="dot middle_dot"><span className="dot1"></span><span className="dot2"></span></div>
+                        <FeaturesitemsFront role="Customer" rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="CustomerRegister.jpg" iImg="icon01.png" ftitle="Sign Up as a Customer"
+                                            descriptions="Create your own account , put your informations fields respect the conditions finally read and accept terms"/>
+                        <FeaturesitemsFront role="Customer" rowClass="row" aClass="pl_100" fimage="SingIn.png" iImg="icon02.png" ftitle="Sign In as a Customer"
+                                            descriptions="There are different ways to sign in as customer the first one is with your username or email and password the second one with facebook or google  accounts the last one with face recognition"/>
+                        <FeaturesitemsFront role="Customer" rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="UserInterface.png" iImg="icon3.png" ftitle="Customer interface"
+                                            descriptions="the customer interface is rich with advanced features and analytics , you can consult your payments your packages , edit your profile , change password , disable your account and finally send your package and track it in real time "/>
+                        <FeaturesitemsFront role="Customer" rowClass="row" aClass="pl_100" fimage="SendPackage.jpg" iImg="icon_04.png" ftitle="Send Package"
+                                            descriptions="You can send your package via your own interface or the button in home page  , next choose the driver and wait for him  to confirm the job , confirm that you give the package to the driver finish the payment process you'll receine and Email with detailed informations of payment and SMS notification with the estimated arrived time "/>
+                        <FeaturesitemsFront role="Customer" rowClass="row flex-row-reverse" aClass="pr_70 pl_70" fimage="CustomerSendPackage.jpg" iImg="icon_05.png" ftitle="Receive Package"
+                                            descriptions="you can track your package while his on the way and when the is arrived to his destination , the receiver will confirm that with his signature and you can verified is by consulting your finished deliveries"/>
                     </div>
                 </div>
             </section>

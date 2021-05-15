@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Reveal from 'react-reveal/Reveal';
 class Featuresitems extends Component{
     render(){
-        var {rowClass, fimage, iImg, ftitle, descriptions, aClass} = this.props;
+        var {rowClass, fimage, iImg, ftitle, descriptions, aClass,role} = this.props;
         const SingnUpCustomer = () => {
             this.props.history.push("/SignUpCustomer");
         }
@@ -22,7 +22,14 @@ class Featuresitems extends Component{
                         <img className="number" src={require ("../../img/home4/" + iImg)} alt=""/>
                         <h3>{ftitle}</h3>
                         <p>{descriptions}</p>
-                        <a href="/SignInWamya" className="icon mt_30"><i className="ti-arrow-right"></i></a>
+                        {role=== "Customer" ?(
+                                <a href="/SignUpCustomer" className="icon mt_30"><i className="ti-arrow-right"></i></a>
+
+                            ):
+                            (
+                                <a href="/SignUpEntreprise" className="icon mt_30"><i className="ti-arrow-right"></i></a>
+
+                            )}
                     </Reveal>
                     </div>
                 </div>
