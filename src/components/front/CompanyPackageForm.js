@@ -21,7 +21,7 @@ export default function CompanyPackageForm(props) {
   const [locations, setLocations] = useState([]);
   const [duration, setDuration] = useState(0);
   const [distance, setDistance] = useState(0);
-  const [chosenDriver, setDriver] = useState("");
+
   const [source, setSource] = useState({
     Street: "",
     City: "",
@@ -46,7 +46,7 @@ export default function CompanyPackageForm(props) {
     let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first`;
     console.log(url);
     await axios.get(url).then((doc) => {
-      doc.data.waypoints.forEach((loc) => console.log(loc.location));
+      //doc.data.waypoints.forEach((loc) => console.log(loc.location));
       let organizedLocations = [];
 
       doc.data.waypoints.slice(1).forEach((loc) => {
@@ -61,36 +61,8 @@ export default function CompanyPackageForm(props) {
       setDuration(newDuration);
       setDistance(newDistance);
     });
-    console.log(distance, duration);
   };
-  const addPackageToVehicle = async (vehicleId, pVolume, pWeight) => {
-    try {
-      await axios.put(
-        `http://localhost:3000/vehicle/addPackageVehicle/${vehicleId}/${pWeight}`
-      );
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-  const assignDriver = async (pVolume, pWeight) => {
-    try {
-      await axios.get("http://localhost:3000/vehicle").then(function(doc) {
-        console.log(doc.data);
-        let availableVehicles = doc.data?.filter((vehicle) => {
-          console.log(vehicle.weightLeft, pWeight);
-          return vehicle.weightLeft >= pWeight;
-        });
-        console.log(availableVehicles);
-        console.log("driver:", availableVehicles[0].driver._id);
-        console.log("vehicle:", availableVehicles[0]._id);
-        setDriver(availableVehicles[0].driver._id);
-        addPackageToVehicle(availableVehicles[0]._id, pVolume, pWeight);
-      });
-      // set State
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+
   const formik = useFormik({
     initialValues: {
       customer: id,
@@ -140,16 +112,10 @@ export default function CompanyPackageForm(props) {
       CustomerModel: "entreprise",
     },
     onSubmit: async (values) => {
-      await calculateDistance();
-      let calculatedVolume = 40;
-      await assignDriver(calculatedVolume, values.package[0].weight);
-      console.log(chosenDriver);
       values.sourceAddress = source;
       values.destinationAddress = destination;
       values.duration = duration;
       values.distance = distance;
-      values.driver = chosenDriver;
-      //setShowLoader(false);
       console.log(values);
       const [, err] = await queryServerApi(
         "delivery/startDelivery",
@@ -158,7 +124,7 @@ export default function CompanyPackageForm(props) {
         false
       );
       if (err) {
-        setShowLoader(false);
+        setShowLoader(true);
         setError({
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
@@ -180,8 +146,6 @@ export default function CompanyPackageForm(props) {
           let newmarkers = markers;
           newmarkers.push(loc.latlng);
           setMarkers([...newmarkers]);
-          console.log(markers.length);
-          console.log(markers);
           locations.push(markers[markers.length - 1]);
           if (markers.length === 1) {
             let newSource = { ...source };
