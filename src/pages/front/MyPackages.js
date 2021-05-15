@@ -28,7 +28,6 @@ export default function MyPackages(props) {
             getAllDeliveriesForCustomer();
             
         }, 1500);
-    
         return () => clearInterval(interval);
       }, []);
         

@@ -27,7 +27,7 @@ export default function WaitingForDriverToAccept(props) {
         const Delivery = await axios
         .get("http://localhost:3000/delivery/" + props.deliveryId)
         .then(function(doc) {
-          if (doc.data.state == 1) {
+          if (doc.data.state > 0) {
             props.changeStep(1);
           } else {
             console.log(doc.data);

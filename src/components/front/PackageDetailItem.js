@@ -6,6 +6,11 @@ import {
   Marker,
   Popup,
   // useMapEvents,
+  Circle,
+  Rectangle,
+  LayersControl,
+  LayerGroup,
+  FeatureGroup,
   useMap,
 } from "react-leaflet";
 import { useServerApi } from "../../hooks/useServerApi";
@@ -14,18 +19,20 @@ import WaitingForDriverToAccept from "./PackageForm/WaitingForDriverToAccept";
 import WaitingForDriverToConfirmPackage from "./PackageForm/WaitingForDriverToConfirmPackage";
 import ConfirmGivingPackage from "./PackageForm/ConfirmGivingPackage";
 import * as L from "leaflet";
+import "leaflet-realtime";
 import "leaflet-routing-machine";
+import RealTimeTrackingSimulation from "./RealTimeTrackingSimulation";
+import { duration } from "@material-ui/core";
 export default function PackageDetailItem() {
   let { id } = useParams();
-  console.log(id);
   const [delivery] = useServerApi("delivery/" + id);
   const [marker, setMarker] = useState();
   const [deliv, setDeliv] = useState();
   const [step, setStep] = useState(0);
-
+  const [realTimeReady,setRealTimeReady] = useState(false);
+  var i = 0;
   useEffect(() => {
     setDeliv(delivery);
-    console.log(delivery);
   });
   useEffect(() => {
     setStep(delivery?.state);
@@ -38,6 +45,21 @@ export default function PackageDetailItem() {
       setStep(step + i);
     }
   };
+  const realtimeSimulator = (coordinates)=> {
+    const unitsToMovePerSecond = coordinates.length / deliv?.duration * 30;
+    const percentage = unitsToMovePerSecond / coordinates.length;
+    if(Math.round(i + (coordinates.length*percentage)-1)< coordinates.length)
+    {
+      i= Math.round(i + coordinates.length*percentage);
+    }
+    else{
+      i = coordinates.length-1
+    }
+    return {
+      "type": "Point",
+      "coordinates": [coordinates[i].lng,coordinates[i].lat],
+  };
+  }
   const component = [
     <WaitingForDriverToAccept
       changeStep={changeStep}
@@ -45,12 +67,6 @@ export default function PackageDetailItem() {
       driver={deliv?.driver?._id}
     />,
     <ConfirmGivingPackage changeStep={changeStep} deliveryId={deliv?._id} />,
-    <WaitingForDriverToConfirmPackage
-      duration={deliv?.duration}
-      driver={deliv?.driver?._id}
-      amount={(deliv?.distance * 0.7) / 1000}
-      deliveryId={deliv?._id}
-    />,
     <WaitingForDriverToConfirmPackage
       duration={deliv?.duration}
       driver={deliv?.driver?._id}
@@ -93,7 +109,27 @@ export default function PackageDetailItem() {
         fitSelectedRoutes: true,
         showAlternatives: false,
       });
+      var mockship ={
+        "type": "Point",
+        "coordinates": [0,0],
+    };
       //L.Routing.Itinerary({ show: false });
+    
+    if(deliv.Paid)
+        control.on("routesfound", (e) => {
+          const realtime = L.realtime(
+            function(success, error) {
+              success(realtimeSimulator(e.routes[0].coordinates));
+            },
+            {
+              interval: 1 * 1000,
+            }
+          ).addTo(map);
+          realtime.on("update", function() {
+            map.fitBounds(realtime.getBounds(), { maxZoom: 12 });
+          });
+          });
+      
       control.addTo(map);
 
       map.panTo([
@@ -128,7 +164,7 @@ export default function PackageDetailItem() {
                 <div className="info_head">
                   <i className="ti-receipt"></i>
                   <h6 className="f_p f_600 f_size_18 t_color3">
-                    Voici votre Paquet
+                    Voici votre Paquet {deliv?.state}
                   </h6>
                 </div>
                 <div className="info_item">
@@ -172,11 +208,11 @@ export default function PackageDetailItem() {
             <div className="col-lg-7">
               <div className="details_content">
                 <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={true}>
-                  <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <MyMarkers />
+                      <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <MyMarkers />
                 </MapContainer>
                 {deliv?.state > -1 &&
                 deliv?.state < 4 &&
@@ -202,7 +238,7 @@ export default function PackageDetailItem() {
                       </div>
                     </div>
                   </section>
-                ) : null}
+                ) : null }
               </div>
             </div>
           </div>

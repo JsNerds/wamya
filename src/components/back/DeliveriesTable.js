@@ -115,56 +115,46 @@ export default function DeliveriesTable(props) {
               <tbody>
                 {deliveryList?.map((delivery) => {
                   return (
-                    <tr key={delivery?._id}>
-                      <td className="text-center">
-                        <div className="h-auto py-0 px-3">
-                          {delivery?.sourceAddress.City}
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="h-auto py-0 px-3">
-                          {delivery?.destinationAddress[0].City}
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <DeliveryState deliv={delivery} />
-                      </td>
-                      <td className="text-center">
-                        <div className="h-auto py-0 px-3">
-                          {delivery?.package[0].type}
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        {delivery?.driver?.Username}
-                      </td>
-                      <td className="text-center">
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="secondary"
-                          onClick={() => {
-                            handleDelete(delivery._id);
-                          }}
-                        >
-                          Cancel Delivery
-                        </Button>
-                      </td>
-                      <td className="text-center">
-                        <Tooltip arrow title="View Details">
-                          <IconButton
-                            size="small"
-                            variant="outlined"
-                            color="primary"
-                            onClick={() => {
-                              Details(delivery._id);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={["fas", "arrow-right"]} />
-                          </IconButton>
-                        </Tooltip>
-                      </td>
-                    </tr>
-                  );
+                  <tr key={delivery?._id}>
+                     <td className="text-center">
+                      <div className="h-auto py-0 px-3">
+                        {delivery?.sourceAddress.City}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className="h-auto py-0 px-3">
+                        {delivery?.destinationAddress[0].City}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                    <DeliveryState deliv={delivery}/>
+                    </td>
+                    <td className="text-center">
+                      <div className="h-auto py-0 px-3">
+                      {delivery?.package[0].type}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                    {delivery?.driver?.FullName}
+                    </td>
+                    <td className="text-center">   
+                                        <Button size="small" variant="contained" color="secondary" onClick={()=> {handleDelete(delivery._id)}}>
+                                            Cancel Delivery
+                                        </Button>
+                                    </td>
+                                    <td className="text-center">
+                                        <Tooltip arrow title="View Details">
+                                            <IconButton
+                                                size="small"
+                                                variant="outlined"
+                                                color="primary"
+                                                onClick={()=>{Details(delivery._id)}}
+                                            >
+                                                <FontAwesomeIcon icon={['fas', 'arrow-right']} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </td>
+                  </tr>)
                 })}
               </tbody>
             </table>

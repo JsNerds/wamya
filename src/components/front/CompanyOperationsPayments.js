@@ -60,14 +60,10 @@ export default function CompanyOperationsPayments(props) {
             <thead>
               <tr>
                 <th className="text-center">Customer</th>
-                <th className="text-center">Email</th>
-                <th className="text-center">Address</th>
                 <th className="text-center">Credit Card</th>
                 <th className="text-center">Card Type</th>
                 <th className="text-center">Expiration Date</th>
                 <th className="text-center">Amount</th>
-                <th className="text-right">Actions</th>
-                <th className="text-right">Totals</th>
               </tr>
             </thead>
             <tbody>
@@ -95,20 +91,9 @@ export default function CompanyOperationsPayments(props) {
                     </span>
                   </td>
 
-                  <td className="text-center">
-                    <span className="font-weight-bold">
-                      {" "}
-                      **** **** **** {payment.creditCard}
-                    </span>
-                  </td>
-
-                  <td className="text-center">
-                    <span>{CardTypeImage(payment.CardType)}</span>
-                  </td>
-
-                  {Date.parse(payment.ExpirationDate) > Date.now() ? (
+                    </td>
                     <td className="text-center">
-                      <div className="badge badge-success px-4">unexpired</div>
+                      <span className="font-weight-bold"> **** **** **** {payment.creditCard}</span>
                     </td>
                   ) : (
                     <td className="text-center">
@@ -116,11 +101,23 @@ export default function CompanyOperationsPayments(props) {
                     </td>
                   )}
 
-                  <td className="text-right">
-                    <div className="d-flex align-items-center justify-content-end">
-                      <div className="font-weight-bold font-size-lg pr-2">
-                        {" "}
-                        {payment.Amount / 100}TND
+                    {Date.parse(payment.ExpirationDate) > Date.now() ? (
+                            <td className="text-center">
+                              <div className="badge badge-success px-4">unexpired</div>
+                            </td>
+                        ):
+                        <td className="text-center">
+                          <div className="badge badge-danger px-4">Expired</div>
+                        </td>
+                    }
+
+
+                    <td className="text-right">
+                      <div className="d-flex align-items-center justify-content-end">
+                        <div className="font-weight-bold font-size-lg pr-2">
+                          {' '}
+                          {(payment.Amount / 100).toFixed(3)}TND
+                        </div>
                       </div>
                     </div>
                   </td>

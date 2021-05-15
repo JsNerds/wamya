@@ -37,6 +37,7 @@
     "isotope-layout": "^3.0.6",
     "jquery": "^3.4.1",
     "leaflet": "^1.7.1",
+    "leaflet-realtime": "^2.2.0",
     "leaflet-routing-machine": "^3.2.12",
     "multiselect-react-dropdown": "^1.6.11",
     "node-sass": "4.14.1",
