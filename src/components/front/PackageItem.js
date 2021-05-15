@@ -27,6 +27,180 @@ export default function PackageItem(props) {
       } else setPackDel(packDel + 1);
     }
   };
+  const DisplayBottomOfDelivery = () => {
+    if (props.pack.state === -1) {
+      return (
+        <div className="row">
+          <div className="col-md-4">
+            <Link
+              to={`/PackageDetail/${props.pack._id}`}
+              className="nav-link active"
+              id="purchas-tab"
+              data-toggle="tab"
+              href="#PackageDetail"
+              role="tab"
+              aria-controls="purchas"
+              aria-selected="true"
+            >
+              <span className="text-success px-1">More Details</span>
+            </Link>
+          </div>
+          <div className="col-md-6">
+                <ProgressBar
+                  animated
+                  variant="danger"
+                  now={1000}
+                  key={1}
+                  min={0}
+                  max={1000}
+                  label="This delivery has been canceled"
+                />
+          </div>
+        </div>
+      );
+    } else if (props.pack.state === 0) {
+      return (
+        <div className="row">
+          <div className="col-md-4">
+            <Link
+              to={`/PackageDetail/${props.pack._id}`}
+              className="nav-link active"
+              id="purchas-tab"
+              data-toggle="tab"
+              href="#PackageDetail"
+              role="tab"
+              aria-controls="purchas"
+              aria-selected="true"
+            >
+              <span className="text-success px-1">More Details</span>
+            </Link>
+          </div>
+          <div className="col-md-4">
+          <Link
+            to={`/PackageUpdate/${props.pack.package[0]._id}`}
+            className="nav-link active"
+            id="purchas-tab"
+            data-toggle="tab"
+            href="#PackageDetail"
+            role="tab"
+            aria-controls="purchas"
+            aria-selected="true"
+            aria-hidden="true"
+          >
+            <span className="text-warning px-1">Update Package</span>
+          </Link>
+        </div>
+        <div className="col-md-4">
+          <span
+            className="text-danger px-1 mb-5"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              CancelPackage(props.pack._id);
+            }}
+          >
+            Cancel Package
+          </span>
+        </div>
+        </div>
+      );
+    } else if (props.pack.state > 0 && props.pack.state < 4) {
+      return (
+      <div className="row">
+        <div className="col-md-4">
+          <Link
+            to={`/PackageDetail/${props.pack._id}`}
+            className="nav-link active"
+            id="purchas-tab"
+            data-toggle="tab"
+            href="#PackageDetail"
+            role="tab"
+            aria-controls="purchas"
+            aria-selected="true"
+          >
+            <span className="text-success px-1">More Details</span>
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <ProgressBar max={1000}>
+            {props.pack.state > -1 ? (
+              <ProgressBar
+                animated
+                variant="danger"
+                now={250}
+                key={1}
+                min={0}
+                max={1000}
+                label={props.pack.state === 3 ? "Delivery" : ""}
+              />
+            ) : null}
+            {props.pack.state > 0 ? (
+              <ProgressBar
+                animated
+                variant="warning"
+                now={250}
+                key={2}
+                min={0}
+                max={1000}
+                label={props.pack.state === 3 ? "On" : ""}
+              />
+            ) : null}
+            {props.pack.state > 1 ? (
+              <ProgressBar
+                animated
+                now={250}
+                key={3}
+                min={0}
+                max={1000}
+                label={props.pack.state === 3 ? "The" : ""}
+              />
+            ) : null}
+            {props.pack.state > 2 ? (
+              <ProgressBar
+                animated
+                variant="success"
+                now={250}
+                key={4}
+                min={0}
+                max={1000}
+                label={props.pack.state === 3 ? "Way" : ""}
+              />
+            ) : null}
+          </ProgressBar>
+        </div>
+      </div>)
+    }
+    else if(props.pack.state >3) {
+      return(<div className="row">
+      <div className="col-md-4">
+        <Link
+          to={`/PackageDetail/${props.pack._id}`}
+          className="nav-link active"
+          id="purchas-tab"
+          data-toggle="tab"
+          href="#PackageDetail"
+          role="tab"
+          aria-controls="purchas"
+          aria-selected="true"
+        >
+          <span className="text-success px-1">More Details</span>
+        </Link>
+      </div>
+      <div className="col-md-6">
+            <ProgressBar
+              animated
+              variant="success"
+              now={1000}
+              min={0}
+              max={1000}
+              label="This delivery has been completed"
+            />
+      </div>
+    </div>)
+    }
+    else{
+      return null;
+    }
+  };
   return (
     <Fragment>
       <Grid container spacing={4} justify={"center"}>
@@ -82,67 +256,7 @@ export default function PackageItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <Link
-                    to={`/PackageDetail/${props.pack._id}`}
-                    className="nav-link active"
-                    id="purchas-tab"
-                    data-toggle="tab"
-                    href="#PackageDetail"
-                    role="tab"
-                    aria-controls="purchas"
-                    aria-selected="true"
-                  >
-                    <span className="text-success px-1">More Details</span>
-                  </Link>
-                </div>
-
-                {props.pack.state < 1 ? (
-                  <>
-                    <div className="col-md-4">
-                      <Link
-                        to={`/PackageUpdate/${props.pack.package[0]._id}`}
-                        className="nav-link active"
-                        id="purchas-tab"
-                        data-toggle="tab"
-                        href="#PackageDetail"
-                        role="tab"
-                        aria-controls="purchas"
-                        aria-selected="true"
-                        aria-hidden="true"
-                      >
-                        <span className="text-warning px-1">
-                          Update Package
-                        </span>
-                      </Link>
-                    </div>
-                    <div className="col-md-4">
-                      <span
-                        className="text-danger px-1 mb-5"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          CancelPackage(props.pack._id);
-                        }}
-                      >
-                        Cancel Package
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <div className="col-md-6">
-                    <ProgressBar max={1000} >
-                      {props.pack.state > -1  ? <ProgressBar animated variant="danger" now={250} key={1} min={0} max={1000} label={props.pack.state === 3 ? "Delivery" : ""} /> : null }
-                      {props.pack.state > 0  ? <ProgressBar animated variant="warning" now={250} key={2} min={0} max={1000}
-                      label={props.pack.state === 3 ? "On" : ""} /> : null}
-                      {props.pack.state > 1  ? <ProgressBar animated  now={250} key={3} min={0} max={1000} 
-                      label={props.pack.state === 3 ? "The" : ""} /> : null}
-                      {props.pack.state > 2  ? <ProgressBar animated variant="success" now={250} key={4} min={0} max={1000} 
-                      label={props.pack.state === 3 ? "Way" : ""}/> : null} 
-                    </ProgressBar>
-                  </div>
-                )}
-              </div>
+              <DisplayBottomOfDelivery />
             </CardContent>
           </Card>
         </Grid>

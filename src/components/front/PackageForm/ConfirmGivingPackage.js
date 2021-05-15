@@ -30,7 +30,12 @@ export default function ConfirmGivingPackage(props) {
         const Delivery = await axios
         .get("http://localhost:3000/delivery/" + props.deliveryId)
         .then(function(doc) {
-          setDelivery(doc.data);
+          if (doc.data.state > 1) {
+            props.changeStep(1);
+          } else {
+            console.log(doc.data);
+            setDelivery(doc.data);
+          }
         });
       }
        // set State

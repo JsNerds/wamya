@@ -2,10 +2,17 @@ import React, { useState, Fragment, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useServerApi } from "../../hooks/useServerApi";
 import { Menu, MenuItem, Button } from "@material-ui/core";
-import { Avatar, IconButton, Box, Card, CardContent, Tooltip } from "@material-ui/core";
+import {
+  Avatar,
+  IconButton,
+  Box,
+  Card,
+  CardContent,
+  Tooltip,
+} from "@material-ui/core";
 import { queryServerApi } from "../../utils/queryServerApi";
-import { useHistory } from 'react-router-dom'
-import axios from 'axios'
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import avatar1 from "../../assets/images/avatars/avatar1.jpg";
 import avatar2 from "../../assets/images/avatars/avatar2.jpg";
@@ -13,30 +20,30 @@ import avatar3 from "../../assets/images/avatars/avatar3.jpg";
 export default function DeliveriesTable(props) {
   const history = useHistory();
   const [deliveries, setDeliveries] = useState();
-  const [deliveryList,setDeliveryList] = useState();
-  const Details= (id) =>{
-    history.replace("/DeliveryDetails/"+ id)
-}
-    const getAllDeliveriesForCustomer= async () => {
-        try {
-          const Delivery = await axios.get(
-            "http://localhost:3000/delivery/"
-          ).then(function(doc){
-                console.log(doc.data)
-                setDeliveryList(doc.data)
-          });
-           // set State
-        } catch (err) {
-          console.error(err.message);
-        }
-      };
-      useEffect(() => {
-        getAllDeliveriesForCustomer();
-        const interval = setInterval(() => {
-            getAllDeliveriesForCustomer();
-        }, 1000);
-        return () => clearInterval(interval);
-      }, []);
+  const [deliveryList, setDeliveryList] = useState();
+  const Details = (id) => {
+    history.replace("/DeliveryDetails/" + id);
+  };
+  const getAllDeliveriesForCustomer = async () => {
+    try {
+      const Delivery = await axios
+        .get("http://localhost:3000/delivery/")
+        .then(function(doc) {
+          console.log(doc.data);
+          setDeliveryList(doc.data);
+        });
+      // set State
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  useEffect(() => {
+    getAllDeliveriesForCustomer();
+    const interval = setInterval(() => {
+      getAllDeliveriesForCustomer();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDelete = async (id) => {
     const [, err] = await queryServerApi(
@@ -47,39 +54,28 @@ export default function DeliveriesTable(props) {
     );
     if (err) {
       //setShowLoader(false);
-    } else console.log("deleted")
+    } else console.log("deleted");
   };
-  const handleDetail = async (id) => {
-    
-  };
+  const handleDetail = async (id) => {};
   const DeliveryState = (props) => {
-    if ( props.deliv.state == 0) {
+    if (props.deliv.state == 0) {
       return (
-        <div className="h-auto py-0 px-3 badge badge-warning">
-                        pending
-                      </div> 
+        <div className="h-auto py-0 px-3 badge badge-warning">pending</div>
       );
-    } else if (props.deliv.state < 4 && props.deliv.state >0 ) {
+    } else if (props.deliv.state < 4 && props.deliv.state > 0) {
       return (
-        <div className="h-auto py-0 px-3 badge badge-warning">
-                        On going
-                      </div> 
+        <div className="h-auto py-0 px-3 badge badge-warning">On going</div>
       );
-    } else if(props.deliv.state == -1) {
+    } else if (props.deliv.state == -1) {
       return (
-        <div className="h-auto py-0 px-3 badge badge-danger">
-                      Canceled
-                    </div>
+        <div className="h-auto py-0 px-3 badge badge-danger">Canceled</div>
+      );
+    } else {
+      return (
+        <div className="h-auto py-0 px-3 badge badge-success">Finished</div>
       );
     }
-    else{
-      return (
-        <div className="h-auto py-0 px-3 badge badge-success">
-                      Finished
-                    </div>
-      );
-    }
-  }
+  };
   return (
     <Fragment>
       <Card className="card-box mb-4">
@@ -139,7 +135,7 @@ export default function DeliveriesTable(props) {
                       </div>
                     </td>
                     <td className="text-center">
-                    {delivery?.driver.Username}
+                    {delivery?.driver?.FullName}
                     </td>
                     <td className="text-center">   
                                         <Button size="small" variant="contained" color="secondary" onClick={()=> {handleDelete(delivery._id)}}>

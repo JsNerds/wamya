@@ -15,16 +15,7 @@ import Portfolio2col from "./PagesFront/Portfolio-2col";
 import Portfolio3col from "./PagesFront/Portfolio-3col";
 import Portfoliofull4col from "./PagesFront/Portfolio-fullwidth-4col";
 import PortfolioSingle from "./PagesFront/PortfolioSingle";
-import Bloglist from "./PagesFront/Bloglist";
-import BlogSingle from "./PagesFront/BlogSingle";
-import Contact from "./PagesFront/Contact";
 import ScrollToTopRoute from "./ScrollToTopRoute";
-import Landing from "./PagesFront/Landing";
-import Price from "./PagesFront/Price";
-import Faq from "./PagesFront/Faq";
-import ServiceDetails from "./PagesFront/ServiceDetails";
-import SignIn from "./PagesFront/SignIn";
-import BlogGridPage from "./PagesFront/BlogGridPage";
 import NotFound from "./PagesFront/404";
 import CustomerServiceDetails from "./pages/front/CustomerServiceDetails";
 import EntrepriseServiceDetails from "./pages/front/EntrepriseServiceDetails";
@@ -39,7 +30,6 @@ import P_deliveryform from "./pages/front/P_deliveryform";
 import Delivery_man_interface from "./pages/front/Delivery_man_interface";
 
 /***Dashbord Imports ********/
-import { BrowserRouter } from "react-router-dom";
 import configureStore from "./config/configureStore";
 import { Provider } from "react-redux";
 import Routes from "./Routes";
@@ -363,18 +353,6 @@ class App extends Component {
               <ScrollToTopRoute
                 path="/PackageDetail/:id"
                 component={PackageDetail}
-              />
-              {/** Blog ***/}
-              <ScrollToTopRoute path="/Bloglist" component={Bloglist} />
-              <ScrollToTopRoute path="/BlogSingle" component={BlogSingle} />
-              <ScrollToTopRoute path="/BlogGridPage" component={BlogGridPage} />
-              <ScrollToTopRoute path="/Contact" component={Contact} />
-              <ScrollToTopRoute path="/Landing" component={Landing} />
-              <ScrollToTopRoute path="/Price" component={Price} />
-              <ScrollToTopRoute path="/Faq" component={Faq} />
-              <ScrollToTopRoute
-                path="/ServiceDetails"
-                component={ServiceDetails}
               />
               <ScrollToTopRoute path="/SignInWamya" component={SignInWamya} />
               {/*** delivery_man  ***/}

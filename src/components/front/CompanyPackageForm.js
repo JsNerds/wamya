@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { queryServerApi } from "../../utils/queryServerApi";
@@ -10,7 +10,6 @@ import {
   Marker,
   Popup,
   useMapEvent,
-  useMap,
 } from "react-leaflet";
 
 export default function CompanyPackageForm(props) {
@@ -22,6 +21,7 @@ export default function CompanyPackageForm(props) {
   const [locations, setLocations] = useState([]);
   const [duration, setDuration] = useState(0);
   const [distance, setDistance] = useState(0);
+
   const [source, setSource] = useState({
     Street: "",
     City: "",
@@ -46,28 +46,27 @@ export default function CompanyPackageForm(props) {
     let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first`;
     console.log(url);
     await axios.get(url).then((doc) => {
-      doc.data.waypoints.forEach((loc) => console.log(loc.location));
+      //doc.data.waypoints.forEach((loc) => console.log(loc.location));
       let organizedLocations = [];
 
       doc.data.waypoints.slice(1).forEach((loc) => {
         let i = loc.waypoint_index - 1;
         organizedLocations.push(destination[i]);
       });
-      console.log(destination);
-      console.log(organizedLocations);
+
       setDestination([...organizedLocations]);
 
       let newDistance = doc.data.trips[0].distance;
       let newDuration = doc.data.trips[0].duration;
       setDuration(newDuration);
       setDistance(newDistance);
-      console.log(newDistance, distance, duration, doc.data.trips[0].distance);
     });
-    console.log(distance, duration);
   };
+
   const formik = useFormik({
     initialValues: {
       customer: id,
+      driver: "",
       package: [
         {
           note: "",
@@ -113,12 +112,10 @@ export default function CompanyPackageForm(props) {
       CustomerModel: "entreprise",
     },
     onSubmit: async (values) => {
-      await calculateDistance();
       values.sourceAddress = source;
       values.destinationAddress = destination;
       values.duration = duration;
       values.distance = distance;
-      setShowLoader(false);
       console.log(values);
       const [, err] = await queryServerApi(
         "delivery/startDelivery",
@@ -127,7 +124,7 @@ export default function CompanyPackageForm(props) {
         false
       );
       if (err) {
-        setShowLoader(false);
+        setShowLoader(true);
         setError({
           visible: true,
           message: JSON.stringify(err.errors, null, 2),
@@ -149,8 +146,6 @@ export default function CompanyPackageForm(props) {
           let newmarkers = markers;
           newmarkers.push(loc.latlng);
           setMarkers([...newmarkers]);
-          console.log(markers.length);
-          console.log(markers);
           locations.push(markers[markers.length - 1]);
           if (markers.length === 1) {
             let newSource = { ...source };
@@ -183,7 +178,7 @@ export default function CompanyPackageForm(props) {
             };
             newDestination.ZipCode = parseInt(doc.data.address.postcode);
             destination.push(newDestination);
-            //console.log(destination);
+            calculateDistance();
           }
         });
     });
@@ -192,9 +187,26 @@ export default function CompanyPackageForm(props) {
 
   const clear = () => {
     setDestination([]);
+    setSource({});
+    setLocations([]);
     setMarkers([]);
     setDuration(0);
     setDistance(0);
+  };
+  const TextInfo = () => {
+    if (locations.length < 1) {
+      return (
+        <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
+          Select the departure address
+        </h3>
+      );
+    } else {
+      return (
+        <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
+          Select destination address number {locations.length}
+        </h3>
+      );
+    }
   };
   return (
     <div className="sign_info_content">
@@ -212,7 +224,7 @@ export default function CompanyPackageForm(props) {
           <div className="form-group text_box">
             <label className="f_p text_c f_400">Dimensions :</label>
             <div className="row mr-2">
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Length"
@@ -220,7 +232,7 @@ export default function CompanyPackageForm(props) {
                   placeholder="Length"
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Height"
@@ -228,12 +240,20 @@ export default function CompanyPackageForm(props) {
                   placeholder="Height"
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <input
                   type="text"
                   name="package.0.dimension.Width"
                   onChange={formik.handleChange}
                   placeholder="Width"
+                />
+              </div>
+              <div className="col-md-3">
+                <input
+                  type="text"
+                  name="package.0.weight"
+                  onChange={formik.handleChange}
+                  placeholder="Weight"
                 />
               </div>
             </div>
@@ -259,10 +279,8 @@ export default function CompanyPackageForm(props) {
                 placeholder="Note to driver"
               />
             </div>
+            <TextInfo />
 
-            <h3 className=" mt-4 f_p f_600 f_size_24 t_color3 mb_40">
-              Select source address first then the destinations :
-            </h3>
             <MapContainer
               center={{ lat: 36.8065, lng: 10.1815 }}
               zoom={10}
@@ -281,25 +299,28 @@ export default function CompanyPackageForm(props) {
                 </Marker>
               ))}
             </MapContainer>
-            <div className="row">
-              <div className="col-md-4">
-                <button
-                  type="button"
-                  onClick={() => calculateDistance()}
-                  className="btn_three"
-                  style={{ marginTop: 10 }}
-                >
-                  calculate distance
-                </button>
-              </div>
-              <div className="col-md-8">
-                {distance !== 0 && duration !== 0 ? (
-                  <>
-                    <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
-                      the trip is {(distance / 1000).toFixed(2)} Km long
-                    </p>
-                    <p className="f_p text_c f_400">
-                      the trip will take:
+          </div>
+          <div className="row">
+            <div className="col-md-3">
+              <button
+                style={{ marginTop: 0 }}
+                type="button"
+                onClick={() => clear()}
+                className="btn_three"
+              >
+                Clear marks
+              </button>
+            </div>
+            <div className="col-md-5">
+              {distance !== 0 && duration !== 0 ? (
+                <>
+                  <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
+                    the trip is {"  "}
+                    <strong>{(distance / 1000).toFixed(2)} Km </strong>
+                  </p>
+                  <p className="f_p text_c f_400">
+                    the trip will take:{"  "}
+                    <strong>
                       {Math.round(duration / 3600) !== 0 ? (
                         <>
                           {Math.round(duration / 3600)}Hr
@@ -308,19 +329,20 @@ export default function CompanyPackageForm(props) {
                       ) : (
                         <>{Math.round(duration / 60)}min </>
                       )}
-                    </p>
-                  </>
-                ) : null}
-              </div>
+                    </strong>
+                  </p>
+                </>
+              ) : null}
             </div>
-          </div>
-          <div className="d-flex justify-content-between align-items-center">
-            <button type="submit" className="btn_three">
-              Send Package
-            </button>
-            <button type="button" onClick={() => clear()} className="btn_three">
-              Clear marks
-            </button>
+            <div className="col-md-4 ">
+              <button
+                style={{ marginTop: 0 }}
+                type="submit"
+                className="btn_three flex-end float-right"
+              >
+                Send Package
+              </button>
+            </div>
           </div>
         </form>
       </div>

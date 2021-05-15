@@ -163,11 +163,11 @@ const SignInFromWamya =()=>{
 
 
     const responseErrorGoogle = (response) => {
-        setError({
+    /*    setError({
             visible: true,
             message: "Something wrong",
             severity: "error"
-        });
+        });*/
     }
 
 

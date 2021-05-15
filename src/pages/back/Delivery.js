@@ -11,10 +11,10 @@ export default function Delivery() {
     return (
         <Fragment>
             <PageTitle
-                titleHeading="Packages"
-                titleDescription="Wonderful animated charts built with ApexCharts components."
+                titleHeading="Delivery Details"
+                titleDescription="this is the details of the delivery"
             />
-            <ExampleWrapperSeamless sectionHeading="Packages Table">
+            <ExampleWrapperSeamless sectionHeading="Delivery">
             {toRender ?
               (   <>
                     <DeliveryDetails deliv={toRender}/>

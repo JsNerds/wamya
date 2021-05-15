@@ -74,7 +74,7 @@ export default function WaitingForDriverToConfirmPackage(props) {
     getAcceptedDelivery();
     const interval = setInterval(() => {
       getAcceptedDelivery();
-    }, 2000);
+    }, 2000)
 
     return () => clearInterval(interval);
   }, []);

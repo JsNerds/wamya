@@ -126,7 +126,7 @@ export default function PackagesForm(props) {
     formik.submitForm();
       changeStep(1);
   };
-
+  
   const calculateDistance = async () => {
     let destinations = "";
     locations.forEach((value, i) => {
@@ -154,15 +154,6 @@ export default function PackagesForm(props) {
     } else {
       if (step + i == 2) {
         calculateDistance();
-        setRecommendedDriverList(
-          DriverApi?.filter((driver) => {
-            let regions = driver?.Region.map((reg) => {
-              return destination.State.includes(reg.value) && driver.Status === 3;
-            });
-            return regions.includes(true);
-          })
-        );
-        console.log(recommendedDriversList);
       }
       else if (step + i == 1){
         setDistance(0);
@@ -173,6 +164,7 @@ export default function PackagesForm(props) {
     }
 
   };
+  
   const component = [
     <PackageDetailForm formik={formik} />,
     <DestinationForm
@@ -187,6 +179,7 @@ export default function PackagesForm(props) {
     <RecommendedDriverForm
       chooseDriver={chooseDriver}
       driverList={recommendedDriversList}
+      destination={destination}
     />,
     <WaitingForDriverToAccept changeStep={changeStep} driver={chosenDriver} form={true}/>,
     <ConfirmGivingPackage changeStep={changeStep} form={true}/>,

@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import clsx from "clsx";
+import Select from "react-select";
 
 import {
   Grid,
@@ -20,6 +21,7 @@ import { useHistory } from "react-router-dom";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { useFormik } from "formik";
 import { queryServerApi } from "../../utils/queryServerApi";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -42,19 +44,48 @@ const LivePreviewExample = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState({ visible: false, message: "" });
   const [markers, setMarkers] = useState([]);
+  const [drivers, setDrivers] = useState([]);
 
   const [values, setValues] = React.useState({
     registrationNumber: "",
     model: "",
     weightCapacity: 0,
     trunkVolume: 0,
+    weightLeft: 0,
+    volumeLeft: 0,
+    driver: "",
   });
+  useEffect(() => {
+    getDrivers();
+  }, []);
+  const getDrivers = async () => {
+    try {
+      const Delivery = await axios
+        .get("http://localhost:3000/deliveryman/getdev")
+        .then(function(doc) {
+          console.log(doc.data);
+
+          let docs = doc.data?.filter((driver) => {
+            return driver.Type === "DeliveryManE";
+          });
+          docs.map((driver) =>
+            drivers.push({ label: driver.FullName, value: driver._id })
+          );
+        });
+      // set State
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   const formik = useFormik({
     initialValues: {
       registrationNumber: "",
       model: "",
+      driver: "",
       weightCapacity: 0,
       trunkVolume: 0,
+      weightLeft: 0,
+      volumeLeft: 0,
     },
     onSubmit: async (values) => {
       console.log(values);
@@ -87,6 +118,17 @@ const LivePreviewExample = () => {
               <div className="font-size-lg font-weight-bold">Add vehicle</div>
               <Divider className="my-4" />
               <div>
+                <div style={{ marginBottom: "20px" }} className="ml-2">
+                  <label className="f_p text_c f_400">Driver:</label>
+                  <Select
+                    label="Choose type"
+                    options={drivers}
+                    onChange={(driver) => {
+                      formik.setFieldValue("driver", driver.value);
+                      console.log(driver.value);
+                    }}
+                  />
+                </div>
                 <FormControl
                   fullWidth
                   className={classes.margin}
@@ -166,7 +208,7 @@ const LivePreviewExample = () => {
                 </FormControl>
               </div>
               <Button
-                className="m-2 flex-end"
+                className="m-2 flex-end float-right"
                 variant="contained"
                 color="primary"
                 type="submit"

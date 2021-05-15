@@ -50,11 +50,22 @@ export default function CustomersTable(props) {
             <table className="table table-striped table-hover text-nowrap mb-0">
               <thead className="thead-light">
                 <tr>
-                  <th style={{ width: "20%" }}>Model</th>
-                  <th style={{ width: "20%" }}>Registration Number</th>
-                  <th style={{ width: "20%" }}>Trunk Volume</th>
-                  <th style={{ width: "20%" }}>Weight Capacity</th>
-                  <th style={{ width: "10%" }}>edit/Delete</th>
+                  <th style={{ width: "20%", color: "#e65529" }}>Model</th>
+                  <th style={{ width: "20%", color: "#e65529" }}>
+                    Registration Number
+                  </th>
+                  <th style={{ width: "20%", color: "#e65529" }}>
+                    Assigned driver
+                  </th>
+                  <th style={{ width: "15%", color: "#e65529" }}>
+                    Trunk Volume
+                  </th>
+                  <th style={{ width: "15%", color: "#e65529" }}>
+                    Weight Capacity
+                  </th>
+                  <th style={{ width: "10%", color: "#e65529" }}>
+                    edit/Delete
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -71,12 +82,17 @@ export default function CustomersTable(props) {
                       </td>
                       <td>
                         <p className="font-weight-bold">
-                          {vehicule.trunkVolume} m²
+                          {vehicule.driver.FullName}
                         </p>
                       </td>
                       <td>
                         <p className="font-weight-bold">
-                          {vehicule.weightCapacity} Kg
+                          {vehicule.volumeLeft}/ {vehicule.trunkVolume} cm²
+                        </p>
+                      </td>
+                      <td>
+                        <p className="font-weight-bold">
+                          {vehicule.weightLeft} /{vehicule.weightCapacity} Kg
                         </p>
                       </td>
                       <td>
@@ -90,6 +106,7 @@ export default function CustomersTable(props) {
                           <FontAwesomeIcon
                             icon={["fa", "edit"]}
                             className="font-size-lg"
+                            style={{ color: "#e65529" }}
                           />
                         </IconButton>
                         <IconButton
@@ -104,6 +121,7 @@ export default function CustomersTable(props) {
                           <FontAwesomeIcon
                             icon={["fas", "minus-circle"]}
                             className="font-size-lg"
+                            style={{ color: "#e65529" }}
                           />
                         </IconButton>
                       </td>
