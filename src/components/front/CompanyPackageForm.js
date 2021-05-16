@@ -1,46 +1,46 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { queryServerApi } from "../../utils/queryServerApi";
-import { useFormik } from "formik";
-import Select from "react-select";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { queryServerApi } from '../../utils/queryServerApi';
+import { useFormik } from 'formik';
+import Select from 'react-select';
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
   useMapEvent,
-} from "react-leaflet";
+} from 'react-leaflet';
 
 export default function CompanyPackageForm(props) {
   const history = useHistory();
-  const id = localStorage.getItem("id");
+  const id = localStorage.getItem('id');
   const [showLoader, setShowLoader] = useState(false);
-  const [error, setError] = useState({ visible: false, message: "" });
+  const [error, setError] = useState({ visible: false, message: '' });
   const [markers, setMarkers] = useState([]);
   const [locations, setLocations] = useState([]);
   const [duration, setDuration] = useState(0);
   const [distance, setDistance] = useState(0);
 
   const [source, setSource] = useState({
-    Street: "",
-    City: "",
-    State: "",
+    Street: '',
+    City: '',
+    State: '',
     ZipCode: 0,
     Location: { Longitude: 0, Latitude: 0 },
   });
   const [destination, setDestination] = useState([]);
   const options = [
-    { value: "Dangerous", label: "Dangerous" },
-    { value: "Safe", label: "Safe" },
-    { value: "Brittle", label: "Brittle" },
+    { value: 'Dangerous', label: 'Dangerous' },
+    { value: 'Safe', label: 'Safe' },
+    { value: 'Brittle', label: 'Brittle' },
   ];
   const calculateDistance = async () => {
-    let destinations = "";
+    let destinations = '';
     locations.forEach((value, i) => {
-      destinations = destinations + value.lng + "," + value.lat;
+      destinations = destinations + value.lng + ',' + value.lat;
       if (i + 1 < locations.length) {
-        destinations = destinations + ";";
+        destinations = destinations + ';';
       }
     });
     let url = `https://eu1.locationiq.com/v1/optimize/driving/${destinations}?key=${process.env.REACT_APP_LOCATIONIQ_KEY_MALEK}&source=first`;
@@ -66,27 +66,27 @@ export default function CompanyPackageForm(props) {
   const formik = useFormik({
     initialValues: {
       customer: id,
-      driver: "",
+      driver: '',
       package: [
         {
-          note: "",
+          note: '',
           dimension: {
             Length: 0,
             Height: 0,
             Width: 0,
           },
-          type: "",
+          type: '',
           weight: 0,
         },
       ],
       date_Launch: new Date().getDate(),
       distance: 0,
       duration: 0,
-      state: 0,
+      state: 3,
       sourceAddress: {
-        Street: "",
-        City: "",
-        State: "",
+        Street: '',
+        City: '',
+        State: '',
         ZipCode: 0,
         Location: {
           Longitude: 0,
@@ -95,9 +95,9 @@ export default function CompanyPackageForm(props) {
       },
       destinationAddress: [
         {
-          Street: "",
-          City: "",
-          State: "",
+          Street: '',
+          City: '',
+          State: '',
           ZipCode: 0,
           Location: {
             Longitude: 0,
@@ -109,8 +109,8 @@ export default function CompanyPackageForm(props) {
         Longitude: 0,
         Latitude: 0,
       },
-      CustomerModel: "entreprise",
-      Paid:true,
+      CustomerModel: 'entreprise',
+      Paid: true,
     },
     onSubmit: async (values) => {
       values.sourceAddress = source;
@@ -119,9 +119,9 @@ export default function CompanyPackageForm(props) {
       values.distance = distance;
       console.log(values);
       const [, err] = await queryServerApi(
-        "delivery/startDelivery",
+        'delivery/startDelivery',
         values,
-        "POST",
+        'POST',
         false
       );
       if (err) {
@@ -134,7 +134,7 @@ export default function CompanyPackageForm(props) {
     },
   });
   const MyMarkers = () => {
-    const map = useMapEvent("click", (loc) => {
+    const map = useMapEvent('click', (loc) => {
       setTimeout(function() {
         map.invalidateSize();
       }, 500);
@@ -161,9 +161,9 @@ export default function CompanyPackageForm(props) {
             // console.log(newSource);
           } else {
             let newDestination = {
-              Street: "",
-              City: "",
-              State: "",
+              Street: '',
+              City: '',
+              State: '',
               ZipCode: 0,
               Location: {
                 Longitude: 0,
@@ -266,7 +266,7 @@ export default function CompanyPackageForm(props) {
                   label="Choose type"
                   options={options}
                   onChange={(value) => {
-                    formik.setFieldValue("package.0.type", value.value);
+                    formik.setFieldValue('package.0.type', value.value);
                   }}
                 />
               </div>
@@ -316,11 +316,11 @@ export default function CompanyPackageForm(props) {
               {distance !== 0 && duration !== 0 ? (
                 <>
                   <p className="f_p text_c f_400" style={{ marginBottom: 0 }}>
-                    the trip is {"  "}
+                    the trip is {'  '}
                     <strong>{(distance / 1000).toFixed(2)} Km </strong>
                   </p>
                   <p className="f_p text_c f_400">
-                    the trip will take:{"  "}
+                    the trip will take:{'  '}
                     <strong>
                       {Math.round(duration / 3600) !== 0 ? (
                         <>

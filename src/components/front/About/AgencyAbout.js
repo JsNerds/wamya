@@ -23,8 +23,11 @@ class AgencyAbout extends Component {
             <p className="f_size_15 f_400 mb_40">
               with the latest technologies we provide you the best delivery
               experince , with our trusted deliverymen you package at your
-              doorstep faster than you know{" "}
+              doorstep faster than you know it{" "}
             </p>
+            <a href=".#" className="about_btn">
+              Meet Our Team
+            </a>
           </div>
         </div>
         <div className="col-lg-6 about_img">
@@ -34,7 +37,7 @@ class AgencyAbout extends Component {
           <Slider className="about_img_slider" {...settings}>
             <div className="item">
               <div className="about_item w45">
-                <img src={require("../../img/home4/l0.png")} alt="" />
+                <img src={require("../../../img/home4/l0.png")} alt="" />
                 <div className="about_text">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">
@@ -44,7 +47,7 @@ class AgencyAbout extends Component {
                 </div>
               </div>
               <div className="about_item w55">
-                <img src={require("../../img/home4/l1.png")} alt="" />
+                <img src={require("../../../img/home4/l1.png")} alt="" />
                 <div className="about_text text_two">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">
@@ -53,7 +56,7 @@ class AgencyAbout extends Component {
                 </div>
               </div>
               <div className="about_item w55">
-                <img src={require("../../img/home4/l2.png")} alt="" />
+                <img src={require("../../../img/home4/l2.png")} alt="" />
                 <div className="about_text text_two">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">
@@ -64,7 +67,7 @@ class AgencyAbout extends Component {
             </div>
             <div className="item">
               <div className="about_item w45">
-                <img src={require("../../img/home4/team1.jpg")} alt="" />
+                <img src={require("../../../img/home4/team1.jpg")} alt="" />
                 <div className="about_text">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">
@@ -73,7 +76,7 @@ class AgencyAbout extends Component {
                 </div>
               </div>
               <div className="about_item w55">
-                <img src={require("../../img/home4/l3.jpg")} alt="" />
+                <img src={require("../../../img/home4/l3.jpg")} alt="" />
                 <div className="about_text text_two">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">
@@ -83,7 +86,7 @@ class AgencyAbout extends Component {
                 </div>
               </div>
               <div className="about_item w55">
-                <img src={require("../../img/home4/l4.png")} alt="" />
+                <img src={require("../../../img/home4/l4.png")} alt="" />
                 <div className="about_text text_two">
                   <span className="br"></span>
                   <h5 className="f_size_18 l_height28 mb-0">Begin now !</h5>
