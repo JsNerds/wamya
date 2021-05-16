@@ -31,12 +31,11 @@ router.post("/showCalendar/:id", cors(), async (req, res) => {
   delivery.findById(req.params.id, function (err, data) {
     const obj = JSON.parse(JSON.stringify(data));
     if (obj != null) {
+      const dates = new Date();
       const datee = new Date();
-      datee.setDate(datee.getDay() + 2);
 
       const dateeF = new Date();
 
-      dateeF.setDate(dateeF.getDay() + 2);
       dateeF.setMinutes(dateeF.getMinutes() + 45);
       const event = {
         summary: obj.FullName,
@@ -79,7 +78,9 @@ router.post("/showCalendar/:id", cors(), async (req, res) => {
               if (err)
                 return console.error("Error Creating Calender Event:", err);
               // Else log that the event was created.
-              return console.log("Calendar event successfully created.");
+              return console.log(
+                "Calendar event successfully created." + event.start.dateTime
+              );
             }
           );
         }
