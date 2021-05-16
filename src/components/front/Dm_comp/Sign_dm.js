@@ -1,10 +1,10 @@
 import React, { Component, useState, useEffect, setState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import Form from "../components/front/form_deliveryman/Form";
-import Test from "../components/front/form_deliveryman/Test";
-import Join_form from "./Join_form";
-import { queryServerApi } from "../utils/queryServerApi";
+import Form from "../form_deliveryman/Form";
+import Test from "../form_deliveryman/Test";
+import Join_form from "../../../componentsFront/Join_form";
+import { queryServerApi } from "../../../utils/queryServerApi";
 import axios from "axios";
 
 export default function Sign_dm(props) {
@@ -71,23 +71,23 @@ export default function Sign_dm(props) {
           <div className="row">
             <div className="col-lg-4">
               <div className="sign_info_content">
-                <h3 className="f_p f_600 f_size_24 t_color3 mb_40">
-                  Allready have an account?
-                </h3>
                 <h2 className="f_p f_400 f_size_30 mb-30">
-                  Login now and
-                  <br /> starting using our <br />
-                  <span className="f_700">amazing</span> products
+                  Follow the steps carefully
+                  <br /> try to upload <br />
+                  <span className="f_700">clear</span> image content
                 </h2>
                 <ul className="list-unstyled mb-0">
                   <li>
-                    <i className="ti-check"></i> Premium Access to all Products
+                    <i className="ti-check"></i> as soon as your're accepted
+                    your profile will be activated
                   </li>
                   <li>
-                    <i className="ti-check"></i> Free Testing Tools
+                    <i className="ti-check"></i> contact us on email for more
+                    information
                   </li>
                   <li>
-                    <i className="ti-check"></i> Unlimited User Accounts
+                    <i className="ti-check"></i> you're only allowed to have 1
+                    account
                   </li>
                 </ul>
                 <button

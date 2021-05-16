@@ -3,7 +3,7 @@ import CustomNavbar from "../../components/front/CustomNavbar";
 import Breadcrumb from "../../components/front/Breadcrumb";
 import FooterTwo from "../../components/front/FooterTwo";
 import FooterData from "../../components/front/FooterData";
-import Sign_dm from "../../componentsFront/Sign_dm";
+import Sign_dm from "../../components/front/Dm_comp/Sign_dm";
 import ScrollToTop from "../../componentsFront/ScrollToTop";
 import "@coreui/icons/css/all.min.css";
 import "./scss/style.css";
@@ -23,9 +23,9 @@ export default class P_deliveryform extends Component {
         />
         <Breadcrumb
           breadcrumbClass="breadcrumb_area"
-          imgName="breadcrumb/banner_bg.png"
+          imgName="breadcrumb/ban.jpg"
           Ptitle="Sign Up"
-          Pdescription="Why I say old chap that is spiffing off his nut arse pear shaped plastered Jeffrey bodge barney some dodgy.!!"
+          Pdescription="Follow the steps to complete the registration"
         />
         <Sign_dm />
         <FooterTwo FooterData={FooterData} />
