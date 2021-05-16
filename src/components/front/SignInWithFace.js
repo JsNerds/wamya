@@ -42,8 +42,15 @@ const SignInWithFace = () => {
         navigator.getUserMedia(
             { video: {} },
             stream => videoRef.current.srcObject = stream,
-            err => console.error(err)
+            err => {
+                setError({
+                    visible: true,
+                    message: "Please Make sure that your camera is activated and reload page",
+                    severity: "error"
+                });
+            }
         )
+
     }
 
     const loadImage = async () => {

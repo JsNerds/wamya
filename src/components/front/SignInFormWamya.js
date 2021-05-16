@@ -18,6 +18,7 @@ const SignInFromWamya =()=>{
     const [error,setError] = useState({visible: false,message: "",subscription:false,id:"",severity:""});
     const history = useHistory();
     const [loginWithFace,setloginWithFace] = useState(false);
+    const [singUp,setsingUp] = useState(false);
 
     const UpgradeSubscription = () => {
         history.push("/Pricing/"+error.id);
@@ -232,6 +233,19 @@ const SignInFromWamya =()=>{
         setloginWithFace(!loginWithFace);
     }
 
+    const SingUp = () => {
+        setsingUp(!singUp);
+    }
+
+    const singUpAsCustomer = () => {
+        history.push("SignUpCustomer")
+    }
+    const singUpAsDriver = () => {
+        history.push("P_deliveryform")
+    }
+    const singUpAsCompany = () => {
+        history.push("SignUpEntreprise")
+    }
     return(
         <section className="sign_in_area bg_color sec_pad">
             <div className="container">
@@ -241,8 +255,9 @@ const SignInFromWamya =()=>{
                         <div className="col-lg-5">
                             <div className="sign_info_content">
                                 <h3 className="f_p f_600 f_size_24 t_color3 mb_40">First time here? <br/>
-                                    <button className="btn_three">
-                                        Sign Up
+                                    <button className="btn_three" onClick={SingUp}>
+                                        {singUp ? <>Sing In</> : <>Sign Up</> }
+
                                     </button>
                                 </h3>
 
@@ -260,89 +275,108 @@ const SignInFromWamya =()=>{
                                 <h2 className="f_p f_600 f_size_24 t_color3 mb_40">Sign In</h2>
 
                                 {
-                                    !loginWithFace ? (
-                                        <>
+                                    loginWithFace ? (
+                                            <SignInWithFace/>
+                                    )
+                                        :
+                                        singUp ? (
+                                              <>
+                                                  <button className="btn_three" onClick={singUpAsCustomer}>
+                                                      Sing Up as Customer
+                                                  </button>
+                                                  <br/>
+                                                  <button className="btn_three" onClick={singUpAsDriver}>
+                                                      Sign Up as Parcticular Driver
+                                                  </button>
+                                                  <br/>
+                                                  <button className="btn_three" onClick={singUpAsCompany}>
+                                                      Sign Up as Company
+                                                  </button>
+                                                  <br/>
+                                              </>
+                                        )
+                                        :
+                                        (
+                                            <>
 
-                                        <form onSubmit={formik.handleSubmit}>
+                                                <form onSubmit={formik.handleSubmit}>
 
-                                                {error.visible &&
-                                                <MuiAlert className="mb-4" severity={error.severity}>
-                                                    <div className="d-flex align-items-center align-content-center">
+                                                    {error.visible &&
+                                                    <MuiAlert className="mb-4" severity={error.severity}>
+                                                        <div className="d-flex align-items-center align-content-center">
                                          <span>
                                          <strong className="d-block">Danger!</strong> {error.message}
                                          </span>
-                                                    </div>
-                                                </MuiAlert>}
-                                                {error.subscription && (
-                                                    <button  onClick={UpgradeSubscription} className="btn_three">Subscribe or Upgrade your subcsription</button>
-                                                )}
-
-
-                                                <div className="form-group text_box">
-                                                    <label className="f_p text_c f_400">Email or Username</label>
-                                                    <input  id="username" type="text" placeholder="saasland@gmail.com"
-                                                            value={formik.values.username}
-                                                            onChange={formik.handleChange}/>
-                                                    {formik.errors.username && formik.touched.username && (
-                                                        <FormHelperText error={formik.errors.username}>{formik.errors.username}</FormHelperText>
+                                                        </div>
+                                                    </MuiAlert>}
+                                                    {error.subscription && (
+                                                        <button  onClick={UpgradeSubscription} className="btn_three">Subscribe or Upgrade your subcsription</button>
                                                     )}
-                                                </div>
 
 
-                                                <div className="form-group text_box">
-                                                    <label className="f_p text_c f_400">Password</label>
-                                                    <input id="password" type="password" placeholder="******"
-                                                           value={formik.values.password}
-                                                           onChange={formik.handleChange}/>
-                                                    {formik.errors.password && formik.touched.password && (
-                                                        <FormHelperText error={formik.errors.password}>{formik.errors.password}</FormHelperText>
-                                                    )}
-                                                </div>
-
-                                                <div className="extra mb_20">
-                                                    <div className="checkbox remember">
-                                                        <label>
-                                                            <input type="checkbox"/> Keep me Signed in
-                                                        </label>
+                                                    <div className="form-group text_box">
+                                                        <label className="f_p text_c f_400">Email or Username</label>
+                                                        <input  id="username" type="text" placeholder="saasland@gmail.com"
+                                                                value={formik.values.username}
+                                                                onChange={formik.handleChange}/>
+                                                        {formik.errors.username && formik.touched.username && (
+                                                            <FormHelperText error={formik.errors.username}>{formik.errors.username}</FormHelperText>
+                                                        )}
                                                     </div>
 
-                                                    <div className="forgotten-password">
-                                                        <a href="/ResetPassword">Forgot Password?</a>
+
+                                                    <div className="form-group text_box">
+                                                        <label className="f_p text_c f_400">Password</label>
+                                                        <input id="password" type="password" placeholder="******"
+                                                               value={formik.values.password}
+                                                               onChange={formik.handleChange}/>
+                                                        {formik.errors.password && formik.touched.password && (
+                                                            <FormHelperText error={formik.errors.password}>{formik.errors.password}</FormHelperText>
+                                                        )}
                                                     </div>
-                                                </div>
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <button type="submit" className="btn_three">Sign in</button>
-                                                    <div className="social_text d-flex ">
-                                                        <div className="lead-text"> Sign in with </div>
-                                                        <ul className="list-unstyled social_tag mb-0">
-                                                            <li>
-                                                                <GoogleLogin
-                                                                    clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
-                                                                    buttonText="Google"
-                                                                    onSuccess={responseGoogle}
-                                                                    onFailure={responseErrorGoogle}
-                                                                    cookiePolicy={'single_host_origin'}
-                                                                /></li>
-                                                            <li>
-                                                                <FacebookLogin
-                                                                    size="Small"
-                                                                    appId="2762210330731766"
-                                                                    autoLoad={false}
-                                                                    fields="name,email,picture"
-                                                                    cssClass="btnFacebook"
-                                                                    icon="fa-facebook"
-                                                                    textButton="acebook"
-                                                                    callback={responseFacebook}
-                                                                />
-                                                            </li>
-                                                        </ul>
+
+                                                    <div className="extra mb_20">
+                                                        <div className="checkbox remember">
+                                                            <label>
+                                                                <input type="checkbox"/> Keep me Signed in
+                                                            </label>
+                                                        </div>
+
+                                                        <div className="forgotten-password">
+                                                            <a href="/ResetPassword">Forgot Password?</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </form>
-                                        </>
-                                    ):
-                                        (
-                                            <SignInWithFace/>                                        )
+                                                    <div className="d-flex justify-content-between align-items-center">
+                                                        <button type="submit" className="btn_three">Sign in</button>
+                                                        <div className="social_text d-flex ">
+                                                            <div className="lead-text"> Sign in with </div>
+                                                            <ul className="list-unstyled social_tag mb-0">
+                                                                <li>
+                                                                    <GoogleLogin
+                                                                        clientId="991500253592-o6bt8lpeuisqg2fseal9uqhfqvft68k5.apps.googleusercontent.com"
+                                                                        buttonText="Google"
+                                                                        onSuccess={responseGoogle}
+                                                                        onFailure={responseErrorGoogle}
+                                                                        cookiePolicy={'single_host_origin'}
+                                                                    /></li>
+                                                                <li>
+                                                                    <FacebookLogin
+                                                                        size="Small"
+                                                                        appId="2762210330731766"
+                                                                        autoLoad={false}
+                                                                        fields="name,email,picture"
+                                                                        cssClass="btnFacebook"
+                                                                        icon="fa-facebook"
+                                                                        textButton="acebook"
+                                                                        callback={responseFacebook}
+                                                                    />
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </>
+                                            )
                                 }
 
                             </div>

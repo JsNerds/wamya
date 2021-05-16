@@ -115,7 +115,7 @@ export default function PackageDetailItem() {
     };
       //L.Routing.Itinerary({ show: false });
     
-    if(deliv.Paid)
+    if(deliv.Paid && deliv.state == 3)
         control.on("routesfound", (e) => {
           const realtime = L.realtime(
             function(success, error) {

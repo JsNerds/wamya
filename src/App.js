@@ -21,8 +21,14 @@ import Flex_join from "./pages/front/Flex_join";
 import Join_form from "./componentsFront/Join_form";
 import P_deliveryform from "./pages/front/P_deliveryform";
 import Delivery_man_interface from "./pages/front/Delivery_man_interface";
-
-/***Dashbord Imports ********/
+import PackageDetail from "./pages/front/PackageDetail.js";
+import Pricing from "./pages/front/Pricing";
+import SignInWamya from "./pages/front/SignInWamya";
+import ActivatedAccount from "./pages/front/ActivatedAccount";
+import ResetPassword from "./pages/front/ResetPassword";
+import ResetNewPassword from "./pages/front/ResetNewPassword";
+import PackageUpdate from "./pages/front/PackageUpdate";
+/*------ Pages Dashboard-----*/
 import configureStore from "./config/configureStore";
 import { Provider } from "react-redux";
 import Routes from "./Routes";
@@ -153,13 +159,8 @@ import {
   faSignOutAlt,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import PackageDetail from "./pages/front/PackageDetail.js";
-import Pricing from "./pages/front/Pricing";
-import SignInWamya from "./pages/front/SignInWamya";
-import ActivatedAccount from "./pages/front/ActivatedAccount";
-import ResetPassword from "./pages/front/ResetPassword";
-import ResetNewPassword from "./pages/front/ResetNewPassword";
-import PackageUpdate from "./pages/front/PackageUpdate";
+import Contact from "./pages/front/Contact";
+
 
 library.add(
   far,
@@ -297,6 +298,7 @@ class App extends Component {
     return (
       <>
         <Router basename="/">
+
           {username != null && role === "Admin" ? (
             <switch>
               <Provider store={store}>
@@ -305,14 +307,16 @@ class App extends Component {
                   <Routes />
                 </ScrollToTop>
               </Provider>
-            </switch>
-          ) : (
+            </switch>)
+              :
+              (
             <Switch>
               <ScrollToTopRoute exact={true} path={"/"} component={Home} />
               <ScrollToTopRoute path="/About" component={About} />
               <ScrollToTopRoute path="/Service" component={Service} />
               <ScrollToTopRoute path="/Process" component={Process} />
               <ScrollToTopRoute path="/Team" component={Team} />
+              <ScrollToTopRoute path="/Contact" component={Contact} />
 
               {/**Package Management*/}
               <ScrollToTopRoute path="/SendPackage" component={SendPackages} />
