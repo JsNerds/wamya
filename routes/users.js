@@ -5,6 +5,7 @@ var Customer = require("../models/customer");
 var Entreprise = require("../models/entreprise");
 var ResetCode = require("../models/ResetCode");
 var {SendResetPasswordEmail} = require("../mailer");
+var {ContactUsEmail} = require("../mailer");
 var bcrypt = require("bcrypt");
 const {OAuth2Client} = require('google-auth-library');
 const fetch = require('node-fetch');
@@ -240,6 +241,15 @@ router.get('/EmailFace', function(req, res, next) {
             res.json(data);
         }
     });
+});
+
+
+/** Contact Us **/
+router.post('/contactUs', async function(req,res,next){
+            const {Email,Username,Subject,Message} = req.body;
+            ContactUsEmail(Email ,Username,Subject,Message);
+            res.send("EmailSended");
+
 });
 
 

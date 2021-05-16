@@ -95,3 +95,18 @@ exports.PaymentDetailsEmail = (Email ,Username, amount,nameoncard,cardNumber) =>
 
     return sendEmail(message);
 }
+
+
+exports.ContactUsEmail = (Email ,Username,Subject,Message) => {
+    const message = {
+        from: Email,
+        to: process.env.GOOGLE_USER,
+        subject: Subject,
+        html: `
+      <h3>From ${Username} </h3>
+      <p>${Message}</p>
+    `
+    }
+
+    return sendEmail(message);
+}
