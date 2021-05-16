@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Reveal from 'react-reveal/Reveal/';
+import React, { Component } from "react";
+import Reveal from "react-reveal/Reveal/";
 class Breadcrumb extends Component {
   render() {
     var { Ptitle, Pdescription, breadcrumbClass, imgName } = this.props;
@@ -7,7 +7,7 @@ class Breadcrumb extends Component {
       <section className={`${breadcrumbClass}`}>
         <img
           className="breadcrumb_shap"
-          src={require('../../img/' + imgName)}
+          src={require("../../img/" + imgName)}
           alt=""
         />
         <div className="container">
