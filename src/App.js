@@ -7,7 +7,7 @@ import MyPackages from "./pages/front/MyPackages";
 import About from "./PagesFront/About";
 import Service from "../src/pages/front/Services";
 import Process from "./PagesFront/Process";
-import Team from "./PagesFront/Team";
+import Team from "./pages/front/Team";
 import ScrollToTopRoute from "./ScrollToTopRoute";
 import NotFound from "./PagesFront/404";
 import CustomerServiceDetails from "./pages/front/CustomerServiceDetails";
@@ -315,7 +315,7 @@ class App extends Component {
               <ScrollToTopRoute path="/About" component={About} />
               <ScrollToTopRoute path="/Service" component={Service} />
               <ScrollToTopRoute path="/Process" component={Process} />
-              <ScrollToTopRoute path="/Team" component={Team} />
+              <ScrollToTopRoute path="/ourTeam" component={Team} />
               <ScrollToTopRoute path="/Contact" component={Contact} />
 
               {/**Package Management*/}

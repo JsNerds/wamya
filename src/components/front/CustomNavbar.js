@@ -113,7 +113,7 @@ export default function CustomNavbar(props) {
                   </a>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
-                      <NavLink to="/Bloglist" className="nav-link">
+                      <NavLink to="/ourTeam" className="nav-link">
                         Team
                       </NavLink>
                     </li>
