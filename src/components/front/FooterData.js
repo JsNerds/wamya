@@ -139,7 +139,7 @@ const FooterData = {
     socialIcon:[
       {
         id: 1,
-        url: 'https://www.facebook.com/',
+        url: 'https://www.facebook.com/WamyaFlex',
         icon: 'ti-facebook',
       },
       {
@@ -149,16 +149,11 @@ const FooterData = {
       },
       {
         id: 3,
-        url: '#',
-        icon: 'ti-vimeo-alt',
+        url: 'https://www.instagram.com/wamya_flex/',
+        icon: 'ti-instagram',
       },
-      {
-        id: 4,
-        url: '#',
-        icon: 'ti-pinterest',
-      }
     ],
-    copywrite:"© SaasLand Inc.. 2019 All rights reserved.",
+    copywrite:"© Wamya Inc.. 2021 All rights reserved.",
     TestimonialText: [
       {
         id: 1,

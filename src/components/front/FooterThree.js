@@ -13,7 +13,8 @@ class FooterThree extends Component{
                             <div className="col-lg-5 col-md-6">
                                 <div className="f_widget company_widget pr_100">
                                     <a href="index.html" className="f-logo"><img src={require ('../../assets/images/WaymyaLogoBlue.png')} alt=""/></a>
-                                    <p className="f_400 f_p f_size_16 mb-0 l_height28 mt_40">Tickety-boo victoria sponge only a quid I don't want no agro morish bum bag gutted mate up the duff, bloke blag cup of char super bugger all mate.!</p>
+                                    <p className="f_400 f_p f_size_16 mb-0 l_height28 mt_40">We've fast enough and we deliver your package with love
+                                    </p>
                                     <div className="f_social_icon_two mt_30">
                                         {
                                             FooterData.socialIcon.map(item =>{
@@ -74,15 +75,7 @@ class FooterThree extends Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-7 align-self-center">
-                                <p className="mb-0 f_400">Copyright © 2018 Desing by <a href="../../componentsFront/Footer#">DroitThemes</a></p>
-                            </div>
-                            <div className="col-sm-5">
-                                <select className="selectpicker flag_selector" data-width="fit">
-                                    <option data-content='<span className="flag-icon flag-icon-us"></span> English'>English</option>
-                                    <option data-content='<span className="flag-icon flag-icon-mx"></span> Español'>Español</option>
-                                    <option data-content='<span className="flag-icon flag-icon-us"></span> English'>Potogal</option>
-                                    <option data-content='<span className="flag-icon flag-icon-mx"></span> Español'>Brazil</option>
-                                </select>
+                                <p className="mb-0 f_400">Copyright © 2021 Desing by Wamya Team</p>
                             </div>
                         </div>
                     </div>
