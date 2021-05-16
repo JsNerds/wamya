@@ -9,7 +9,7 @@ import DeveloperTab from '../componentsFront/DeveloperTab';
 import Partner from '../componentsFront/Partner';
 import ServiceSubscribe from '../componentsFront/ServiceSubscribe';
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HomeCloud = () => {
     return(

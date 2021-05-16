@@ -1,12 +1,12 @@
 import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
-import Breadcrumb from '../componentsFront/Breadcrumb';
+import Breadcrumb from '../components/front/Breadcrumb';
 import Sservice from '../componentsFront/Service/Sservice/Sservice';
 import AgencyAbout from '../componentsFront/About/AgencyAbout';
 import Partner from '../componentsFront/Partner';
 import FooterTwo from '../components/front/FooterTwo';
 import ServiceData from '../componentsFront/Service/ServiceData';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const About = () => {
     return(

@@ -9,7 +9,7 @@ import Features from '../componentsFront/Features/Features';
 import MarketingTestimonial from '../componentsFront/Testimonial/MarketingTestimonial';
 import AgencyAction from '../componentsFront/AgencyAction';
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 
 const DigitalMarketing = () => {

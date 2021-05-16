@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import FooterData from '../Footer/FooterData';
+import FooterData from '../../components/front/FooterData';
 
 class Teamitem extends Component {
     render(){

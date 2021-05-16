@@ -4,7 +4,7 @@ import DesignBanner from '../componentsFront/Banner/DesignBanner';
 import Service from '../componentsFront/Service/Service';
 import Subscribe from '../componentsFront/Subscribe';
 import Footer from '../componentsFront/Footer/Footer';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 export const Home = () => (
     <div className="body_wrapper">

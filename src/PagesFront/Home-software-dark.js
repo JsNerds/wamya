@@ -9,7 +9,7 @@ import SecurityFact from '../componentsFront/SecurityFact';
 import SecurityTestimonial from '../componentsFront/Testimonial/SecurityTestimonial';
 import SecurityPartnerLogo from '../componentsFront/SecurityPartnerLogo';
 import PrototypeFooter from '../componentsFront/Footer/PrototypeFooter';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HomesoftwareDark = () => {
     return(

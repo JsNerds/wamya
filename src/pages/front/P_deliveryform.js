@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
-import Breadcrumb from "../../componentsFront/Breadcrumb";
+import Breadcrumb from "../../components/front/Breadcrumb";
 import FooterTwo from "../../components/front/FooterTwo";
-import FooterData from "../../componentsFront/Footer/FooterData";
+import FooterData from "../../components/front/FooterData";
 import Sign_dm from "../../componentsFront/Sign_dm";
 import ScrollToTop from "../../componentsFront/ScrollToTop";
 import "@coreui/icons/css/all.min.css";

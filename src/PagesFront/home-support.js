@@ -10,7 +10,7 @@ import Price from '../componentsFront/Price';
 import MarketingTestimonial from '../componentsFront/Testimonial/MarketingTestimonial';
 import SupportSubscribe from '../componentsFront/SupportSubscribe';
 import FooterSecurity from "../componentsFront/Footer/FooterSecurity";
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const homesupport = () => {
     return(

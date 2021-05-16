@@ -1,12 +1,12 @@
 import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
 import HRBanner from '../componentsFront/Banner/HRBanner';
-import HRService from '../componentsFront/Service/HRService';
+import HRService from '../components/front/HRService';
 import ServiceData from '../componentsFront/Service/ServiceData';
 import Video from '../componentsFront/Video';
 import MarketingGetstarted from '../componentsFront/MarketingGetstarted';
 import PrototypeFooter from '../componentsFront/Footer/PrototypeFooter';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HRManagement = () => {
     return(

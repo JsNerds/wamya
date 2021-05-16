@@ -6,7 +6,7 @@ import Stservice from '../componentsFront/Service/Sservice/StartupService';
 import Testimonial from '../componentsFront/Testimonial/Testimonial';
 import Cprogress from '../componentsFront/CircleProgressbar';
 import PrototypeFooter from '../componentsFront/Footer/PrototypeFooter';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HomeCRM = () => {
     return(

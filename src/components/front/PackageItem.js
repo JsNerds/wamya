@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import FooterData from "../../componentsFront/Footer/FooterData";
+import FooterData from "./FooterData";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useHistory } from "react-router-dom";
 import PopUp from "reactjs-popup";

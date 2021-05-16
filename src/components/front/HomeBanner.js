@@ -14,9 +14,9 @@ class PaymentBanner extends Component {
               className="payment_banner_content wow fadeInLeft"
               data-wow-delay="0.4s"
             >
-              <h1 className="f_p f_700 f_size_50 w_color">Welcome Wamya ! </h1>
+              <h1 className="f_p f_700 f_size_50 w_color">Welcome Wamya <br/> as quick as a click! </h1>
               <p className="w_color f_p f_size_18">
-                Do you need to send a package ?, Do you need to track the state
+                Do you need to send a package ? Do you need to track the state
                 of your package ? you are in the right place !{" "}
               </p>
               <div className="action_btn d-flex align-items-center mt_60">

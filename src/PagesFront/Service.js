@@ -1,13 +1,13 @@
 import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
-import Breadcrumb from '../componentsFront/Breadcrumb';
-import HRService from '../componentsFront/Service/HRService';
-import PrototypeService from '../componentsFront/Service/Sservice/PrototypeService';
+import Breadcrumb from '../components/front/Breadcrumb';
+import HRService from '../components/front/HRService';
+import PrototypeService from '../components/front/PrototypeService';
 import Partner from '../componentsFront/Partner';
 import ServiceSubscribe from '../componentsFront/ServiceSubscribe';
 import FooterTwo from '../components/front/FooterTwo';
 import ServiceData from '../componentsFront/Service/ServiceData';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Service = () => {
     return(

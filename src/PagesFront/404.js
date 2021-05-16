@@ -1,7 +1,7 @@
 import React from "react";
 import CustomNavbar from "../components/front/CustomNavbar";
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 const NotFound = () => (
   <div className="body_wrapper">
     <CustomNavbar hbtnClass="new_btn" />

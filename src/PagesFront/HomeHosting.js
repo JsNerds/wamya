@@ -11,7 +11,7 @@ import HostingMap from '../componentsFront/HostingMap';
 import HostingBlog from '../componentsFront/Blog/HostingBlog';
 import HostingActionTwo from '../componentsFront/HostingActionTwo';
 import FooterErp from '../componentsFront/Footer/FooterErp';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HomeHosting =()=> {
     return(

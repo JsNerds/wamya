@@ -9,7 +9,7 @@ import ErpCustomerlogo from '../componentsFront/ErpCustomerlogo';
 import ErpActionTwo from '../componentsFront/ErpActionTwo';
 import ErpTestimonial from '../componentsFront/Testimonial/ErpTestimonial';
 import FooterErp from '../componentsFront/Footer/FooterErp';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Homeerp = () => {
     return(

@@ -6,7 +6,7 @@ import ChatFeatures from "../componentsFront/Features/ChatFeatures";
 import ChatIntegration from "../componentsFront/ChatIntegration";
 import ChatClients from "../componentsFront/chatClients";
 import FooterErp from "../componentsFront/Footer/FooterErp";
-import FooterData from "../componentsFront/Footer/FooterData";
+import FooterData from "../components/front/FooterData";
 
 const homechat = () => {
   return (

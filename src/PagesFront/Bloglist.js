@@ -1,9 +1,9 @@
 import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
-import Breadcrumb from '../componentsFront/Breadcrumb';
+import Breadcrumb from '../components/front/Breadcrumb';
 import Bloglists from '../componentsFront/Blog/Bloglists'
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Bloglist = () => {
     return(

@@ -1,9 +1,9 @@
 import React from 'react';
 import CustomNavbar from '../components/front/CustomNavbar';
-import Breadcrumb from '../componentsFront/Breadcrumb';
+import Breadcrumb from '../components/front/Breadcrumb';
 import SequrityPrice from '../componentsFront/Features/SecurityPrice';
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Price = () => {
     return(

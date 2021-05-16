@@ -13,7 +13,7 @@ import Eventgallery from "../componentsFront/Portfolios/Eventgallery";
 import EventSponser from "../componentsFront/EventSponser";
 import EventLocation from "../componentsFront/EventLocation";
 import FooterErp from "../componentsFront/Footer/FooterErp";
-import FooterData from "../componentsFront/Footer/FooterData";
+import FooterData from "../components/front/FooterData";
 
 const homesupport = () => {
   return (

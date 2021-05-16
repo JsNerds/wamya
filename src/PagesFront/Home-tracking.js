@@ -6,7 +6,7 @@ import TrackingProduct from '../componentsFront/Features/TrackingProduct';
 import TrackingPrice from '../componentsFront/TrackingPrice';
 import TrackingGetstarted from '../componentsFront/TrackingGetstarted';
 import FooterSecurity from "../componentsFront/Footer/FooterSecurity";
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const homesupport = () => {
     return(

@@ -1,8 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
 import CustomNavbar from "../../components/front/CustomNavbar";
-import Breadcrumb from "../../componentsFront/Breadcrumb";
+import Breadcrumb from "../../components/front/Breadcrumb";
 import FooterTwo from "../../components/front/FooterTwo";
-import FooterData from "../../componentsFront/Footer/FooterData";
+import FooterData from "../../components/front/FooterData";
 import PackageList from "../../components/front/PackageList";
 import PackageSlider from "../../components/front/PackageSlider";
 import { useServerApi } from "../../hooks/useServerApi";

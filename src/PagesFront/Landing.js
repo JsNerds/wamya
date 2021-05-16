@@ -10,7 +10,7 @@ import AppGetstarted from '../componentsFront/AppGetstarted';
 import AppTeam from '../componentsFront/Team/AppTeam';
 import FooterTwo from '../components/front/FooterTwo';
 import ServiceData from '../componentsFront/Service/ServiceData';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Landing = () => {
     return(

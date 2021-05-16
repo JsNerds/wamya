@@ -10,7 +10,7 @@ import SecurityCustomerLogo from "../componentsFront/SecurityCustomersLogo";
 import SecurityIntegration from "../componentsFront/SecurityIntegration";
 import SecurityAction from "../componentsFront/SecurityAction";
 import FooterSecurity from "../componentsFront/Footer/FooterSecurity";
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const HomeSecurity =()=> {
     return(

@@ -48,52 +48,69 @@ class Pserviceslider extends Component{
             <Slider className="service_carousel" {...settings}>
                 <div className="service_item">
                     <div className="icon s_icon_one"><i className="ti-check"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Activation <br/> Account<br/> Mail Receive</h4>
+                    <p>you'll receive an email with activation link</p>
                     <img className="float-right" src={require('../../img/home2/undraw.png')} alt=""/>
                 </div>
                 <div className="service_item">
-                    <div className="icon s_icon_two"><i className="ti-location-arrow"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <div className="icon s_icon_two"><i className="ti-mobile"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">SMS <br/> Notifications</h4>
+                    <p>you'll receive an SMS notifications include estimated arrive time of your delivery</p>
                     <img className="float-right" src={require('../../img/home2/inbox.png')} alt=""/>
                 </div>
                 <div className="service_item">
-                    <div className="icon s_icon_three"><i className="ti-search"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <div className="icon s_icon_three"><i className="ti-money"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Payments <br/> Mails<br/> Receive</h4>
+                    <p>you'll receive an email with detailed informations of each payment</p>
                     <img className="float-right" src={require('../../img/home2/file.png')} alt=""/>
                 </div>
                 <div className="service_item">
                     <div className="icon s_icon_four"><i className="ti-stats-up"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">User<br/> Interface</h4>
+                    <p>you can find analytics and other informations here</p>
                     <img className="float-right" src={require('../../img/home2/report.png')} alt=""/>
                 </div>
+                <div className="service_item">
+                    <div className="icon s_icon_three"><i className="ti-face-smile"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">wheel of <br/> prizes</h4>
+                    <p>earn prizes as soon as you reach your milestones goals</p>
+                    <img className="float-right" src={require('../../img/home2/Roue.png')}  width={100} height={200} alt=""/>
+                </div>
+
+
+
+
                 <div className="service_item">
                     <div className="icon s_icon_one"><i className="ti-check"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Activation <br/> Account<br/> Mail Receive</h4>
+                    <p>you'll receive an email with activation link</p>
                     <img className="float-right" src={require('../../img/home2/undraw.png')} alt=""/>
                 </div>
                 <div className="service_item">
-                    <div className="icon s_icon_two"><i className="ti-location-arrow"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <div className="icon s_icon_two"><i className="ti-mobile"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">SMS <br/> Notifications</h4>
+                    <p>you'll receive an SMS notifications include estimated arrive time of your delivery</p>
                     <img className="float-right" src={require('../../img/home2/inbox.png')} alt=""/>
                 </div>
                 <div className="service_item">
-                    <div className="icon s_icon_three"><i className="ti-search"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <div className="icon s_icon_three"><i className="ti-money"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Payments <br/> Mails<br/> Receive</h4>
+                    <p>you'll receive an email with detailed informations of each payment</p>
                     <img className="float-right" src={require('../../img/home2/file.png')} alt=""/>
                 </div>
                 <div className="service_item">
                     <div className="icon s_icon_four"><i className="ti-stats-up"></i></div>
-                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">Mail Metrics<br/> Receive</h4>
-                    <p>Brolly off his nut A bit of how's your father chancer in my flat chinwag bog skive.</p>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">User<br/> Interface</h4>
+                    <p>you can find analytics and other informations here</p>
                     <img className="float-right" src={require('../../img/home2/report.png')} alt=""/>
                 </div>
+                <div className="service_item">
+                    <div className="icon f_social_icon_two"><i className="ti-face-smile"></i></div>
+                    <h4 className="f_600 f_size_20 l_height28 t_color2 mb_20">wheel of <br/> prizes</h4>
+                    <p>earn prizes as soon as you reach your milestones goals</p>
+                    <img className="float-right" src={require('../../img/home2/Roue.png')}  width={100} height={200} alt=""/>
+                </div>
+
             </Slider>
         )
     }

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import CustomNavbar from '../../components/front/CustomNavbar';
-import Breadcrumb from '../../componentsFront/Breadcrumb';
+import Breadcrumb from '../../components/front/Breadcrumb';
 import FooterTwo from '../../components/front/FooterTwo';
-import FooterData from '../../componentsFront/Footer/FooterData';
+import FooterData from '../../components/front/FooterData';
 import CustomerInterfaceBody from "../../components/front/CustomerInterfaceBody";
 import SignInFormWamya from "../../components/front/SignInFormWamya";
 import axios from "axios";

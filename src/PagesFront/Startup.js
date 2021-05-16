@@ -10,7 +10,7 @@ import MarketingTestimonial from '../componentsFront/Testimonial/MarketingTestim
 import ServiceData from '../componentsFront/Service/ServiceData';
 import BannerData from '../componentsFront/Banner/BannerData';
 import FooterTwo from '../components/front/FooterTwo';
-import FooterData from '../componentsFront/Footer/FooterData';
+import FooterData from '../components/front/FooterData';
 
 const Startup = () => (
     <div className="body_wrapper">
