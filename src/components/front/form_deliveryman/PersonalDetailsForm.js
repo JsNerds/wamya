@@ -166,7 +166,9 @@ const PersonalDetailsForm = (props) => {
               <Col xs="12" lg="6">
                 <FormGroup row>
                   <Col xs="12" lg="6">
-                    <Label htmlFor="file-input">Upload Visitor Image</Label>
+                    <Label htmlFor="file-input">
+                      Upload your Licence image
+                    </Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Field name="pdp" component={FileInput} type="file" />
