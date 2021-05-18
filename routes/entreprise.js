@@ -222,7 +222,7 @@ router.put('/update/:id',upload,function(req,res,next){
       img:newCompany.img
     });
     console.log('UPDATED');
-    res.send("UPDATED OK");
+    res.send(newCompany);
   });
 });
 
