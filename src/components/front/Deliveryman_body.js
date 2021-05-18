@@ -55,7 +55,7 @@ export default function Deliveryman_Body(props) {
   const getdelivs = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/delivery/delivsfordv/" +
+        "https://wamya-backend.herokuapp.com/delivery/delivsfordv/" +
           localStorage.getItem("id")
       );
       setdelivs(userPosts.data); // set State

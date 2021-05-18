@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 class FileUpload extends Component {
   // API Endpoints
-  custom_file_upload_url = `http://localhost:3000/deliveryman/add`;
+  custom_file_upload_url = `https://wamya-backend.herokuapp.com/deliveryman/add`;
 
   constructor(props) {
     super(props);

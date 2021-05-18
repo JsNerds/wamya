@@ -52,13 +52,13 @@ export default function WaitingForDriverToConfirmPackage(props) {
     try {
       if (props.form) {
         const Delivery = await axios
-          .get("http://localhost:3000/delivery/getLastDeliveryByCustomer/" + id)
+          .get("https://wamya-backend.herokuapp.com/delivery/getLastDeliveryByCustomer/" + id)
           .then(function(doc) {
             setDelivery(doc.data);
           });
       } else {
         const Delivery = await axios
-          .get("http://localhost:3000/delivery/" + props.deliveryId)
+          .get("https://wamya-backend.herokuapp.com/delivery/" + props.deliveryId)
           .then(function(doc) {
             setDelivery(doc.data);
           });

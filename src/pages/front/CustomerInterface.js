@@ -25,7 +25,7 @@ const CustomerInterface = () => {
     const getCustomer= async () => {
         try {
             const Customer = await axios.get(
-                "http://localhost:3000/customers/"+renderId()
+                "https://wamya-backend.herokuapp.com/customers/"+renderId()
             ).then(function(doc){
                 if(JSON.stringify(doc.data) === JSON.stringify(customer))
                 {

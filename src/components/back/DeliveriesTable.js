@@ -27,7 +27,7 @@ export default function DeliveriesTable(props) {
   const getAllDeliveriesForCustomer = async () => {
     try {
       const Delivery = await axios
-        .get("http://localhost:3000/delivery/")
+        .get("https://wamya-backend.herokuapp.com/delivery/")
         .then(function(doc) {
           console.log(doc.data);
           setDeliveryList(doc.data);

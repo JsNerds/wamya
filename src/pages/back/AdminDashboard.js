@@ -12,7 +12,7 @@ export default function AdminDashborad() {
     const getCustomers= async () => {
         try {
             const Customers = await axios.get(
-                "http://localhost:3000/customers/"
+                "https://wamya-backend.herokuapp.com/customers/"
             ).then(function(doc){
                 if(JSON.stringify(doc.data) === JSON.stringify(customers))
                 {

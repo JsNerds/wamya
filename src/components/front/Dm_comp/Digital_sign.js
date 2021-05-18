@@ -82,7 +82,7 @@ async function confirmsig(id) {
 }
 
 export default function Digital_sign(props) {
-  const custom_file_upload_url = `http://localhost:3000/deliveryman/addsign`;
+  const custom_file_upload_url = `https://wamya-backend.herokuapp.com/deliveryman/addsign`;
   const handleSubmitFile = (values) => {};
 
   const [imageURL, setImageURL] = useState(null);
@@ -91,7 +91,7 @@ export default function Digital_sign(props) {
   const getsign = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/deliveryman/checksign/" + props.idc
+        "https://wamya-backend.herokuapp.com/deliveryman/checksign/" + props.idc
       );
 
       setsig(userPosts.data);
