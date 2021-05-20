@@ -20,7 +20,7 @@ const CustomerInterface = () => {
   const getdriver = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/deliveryman/getdev/" + localStorage.getItem("id")
+        "https://wamya-backend.herokuapp.com/deliveryman/getdev/" + localStorage.getItem("id")
       );
       setdeli(userPosts.data); // set State
     } catch (err) {
@@ -31,7 +31,7 @@ const CustomerInterface = () => {
   const getmile = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/deliveryman/getmileid/" +
+        "https://wamya-backend.herokuapp.com/deliveryman/getmileid/" +
           localStorage.getItem("id")
       );
       setmile(userPosts.data); // set State

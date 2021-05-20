@@ -24,7 +24,7 @@ const EntrepriseInterface = () => {
     const getCompany= async () => {
         try {
             const Customer = await axios.get(
-                "http://localhost:3000/entreprises/"+renderId()
+                "https://wamya-backend.herokuapp.com/entreprises/"+renderId()
             ).then(function(doc){
                 if(JSON.stringify(doc.data) === JSON.stringify(company))
                 {

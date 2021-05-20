@@ -40,7 +40,7 @@ const PaymentForm = (props) => {
     try {
       const Delivery = await axios
         .get(
-          "http://localhost:3000/delivery/getLastDeliveryByCustomer/" +
+          "https://wamya-backend.herokuapp.com/delivery/getLastDeliveryByCustomer/" +
             localStorage.getItem("id")
         )
         .then(function(doc) {
@@ -61,7 +61,7 @@ const PaymentForm = (props) => {
     try {
       console.log("driver" + Deliv);
       const userPosts = await axios.get(
-        "http://localhost:3000/deliveryman/getmileid/" + Deliv.driver
+        "https://wamya-backend.herokuapp.com/deliveryman/getmileid/" + Deliv.driver
       );
       setmile(userPosts.data);
       console.log("hounizeda" + Deliv.driver);
@@ -123,7 +123,7 @@ const PaymentForm = (props) => {
       } else {
         const { id } = paymentMethod;
         const response = await axios.post(
-          "http://localhost:3000/payments/stripePayment",
+          "https://wamya-backend.herokuapp.com/payments/stripePayment",
           {
             amount,
             id,

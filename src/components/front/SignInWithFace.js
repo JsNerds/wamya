@@ -55,7 +55,7 @@ const SignInWithFace = () => {
 
     const loadImage = async () => {
 
-        const [users, err] = await queryServerApi("users/usersAll", null, "GET", false);
+        const [users, err] = await queryServerApi("customers/", null, "GET", false);
 
         return Promise.all(
         users?.map( async user => {

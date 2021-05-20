@@ -23,7 +23,7 @@ export default function Sign_dm(props) {
     });
   }
   let valeurs;
-  const custom_file_upload_url = `http://localhost:3000/deliveryman/add`;
+  const custom_file_upload_url = `https://wamya-backend.herokuapp.com/deliveryman/add`;
 
   async function handleSubmitFile(values) {
     console.log(valeurs);

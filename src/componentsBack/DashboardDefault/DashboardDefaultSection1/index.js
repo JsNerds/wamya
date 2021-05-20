@@ -43,7 +43,7 @@ export default function LivePreviewExample() {
     const getAllDeliveriesForCustomer= async () => {
         try {
           const Delivery = await axios.get(
-            "http://localhost:3000/delivery/"
+            "https://wamya-backend.herokuapp.com/delivery/"
           ).then(function(doc){
             if(JSON.stringify(doc.data) === JSON.stringify(deliveryList))
             {

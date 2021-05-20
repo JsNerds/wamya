@@ -54,14 +54,19 @@ const EditProfileCompanyForm = (props) => {
         },validationSchema:YupSchema,
         onSubmit: async (values) =>{
             console.log(values);
-            const [,err] = await queryServerApi("entreprises/update/" +props.id, values,"PUT",true);
+            const [res,err] = await queryServerApi("entreprises/update/" +props.id, values,"PUT",true);
             if(err){
                 setError({
                     visible: true,
                     message: JSON.stringify(err.errors, null, 2),
                 });
             }
-            else setSuccess(true);
+            else {
+                setSuccess(true);
+                localStorage.setItem('img', res.img);
+                localStorage.setItem('username', res.ResponsibleName);
+                localStorage.setItem('email', res.Email);
+            };
         }
     });
 

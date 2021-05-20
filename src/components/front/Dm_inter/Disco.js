@@ -33,7 +33,7 @@ const CustomerInterfaceBody = (props) => {
   const getthemall = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/delivery/delivsongo/" +
+        "https://wamya-backend.herokuapp.com/delivery/delivsongo/" +
           localStorage.getItem("id")
       );
       if (userPosts.data.length !== 0) {
@@ -48,7 +48,7 @@ const CustomerInterfaceBody = (props) => {
   const getstate2 = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/delivery/delivstatesecond/" +
+        "https://wamya-backend.herokuapp.com/delivery/delivstatesecond/" +
           localStorage.getItem("id")
       );
       if (userPosts.data.length !== 0) {
@@ -63,7 +63,7 @@ const CustomerInterfaceBody = (props) => {
   const getstate3 = async () => {
     try {
       const userPosts = await axios.get(
-        "http://localhost:3000/delivery/delivstatethird/" +
+        "https://wamya-backend.herokuapp.com/delivery/delivstatethird/" +
           localStorage.getItem("id")
       );
       if (userPosts.data.length !== 0) {

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-class AgencyAbout extends Component {
-  render() {
+import {useHistory} from "react-router";
+function AgencyAbout  () {
+  const history = useHistory();
+
+    const team = () => {
+        history.push("/ourTeam");
+    }
     const settings = {
       dots: true,
       infinite: true,
@@ -12,7 +17,6 @@ class AgencyAbout extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
-    let ServiceData = this.props.ServiceData;
     return (
       <section className="agency_about_area d-flex bg_color">
         <div className="col-lg-6 about_content_left ">
@@ -25,9 +29,9 @@ class AgencyAbout extends Component {
               experince , with our trusted deliverymen you package at your
               doorstep faster than you know it{" "}
             </p>
-            <a href=".#" className="about_btn">
+            <button className="btn_five" onClick={team}>
               Meet Our Team
-            </a>
+            </button>
           </div>
         </div>
         <div className="col-lg-6 about_img">
@@ -97,6 +101,5 @@ class AgencyAbout extends Component {
         </div>
       </section>
     );
-  }
 }
 export default AgencyAbout;

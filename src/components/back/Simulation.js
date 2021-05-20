@@ -7,7 +7,7 @@ export default function Simulation(props) {
       if(state <6)
       {
         axios
-        .post("http://localhost:3000/delivery/startDelivery", {
+        .post("https://wamya-backend.herokuapp.com/delivery/startDelivery", {
           customer: "608da92e31963732ccb29c21",
           driver: "609036b4116dba478453eea2",
           package: [

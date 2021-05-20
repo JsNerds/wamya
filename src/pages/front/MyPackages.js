@@ -12,7 +12,7 @@ export default function MyPackages(props) {
     const getAllDeliveriesForCustomer= async () => {
         try {
           const Delivery = await axios.get(
-            "http://localhost:3000/delivery/getDeliveryByCustomer/" + localStorage.getItem("id")
+            "https://wamya-backend.herokuapp.com/delivery/getDeliveryByCustomer/" + localStorage.getItem("id")
           ).then(function(doc){   
                 setDeliveryList(doc.data)
           });

@@ -61,7 +61,7 @@ const LivePreviewExample = () => {
   const getDrivers = async () => {
     try {
       const Delivery = await axios
-        .get("http://localhost:3000/deliveryman/getdev")
+        .get("https://wamya-backend.herokuapp.com/deliveryman/getdev")
         .then(function(doc) {
           console.log(doc.data);
 
